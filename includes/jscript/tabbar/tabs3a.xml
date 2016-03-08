@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<tabbar>
+    <row>   
+	    <tab id="perinfo" width='80px' selected="1">Personal Info</tab>
+        <tab id="b2" width='65px' >Education</tab>
+        <tab id="b3" width='100px'>Work Experience</tab>
+				<tab id="b4" width='120px'>Character Reference</tab>
+				<tab id="b5" width='90px'>Additional Info</tab>
+				<tab id="b6" width='150px'>Trainings / Certifications</tab>
+				<tab id="b7" width='60px'>Affiliations</tab>
+		</row>
+</tabbar>

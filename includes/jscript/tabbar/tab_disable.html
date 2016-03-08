@@ -1,0 +1,1308 @@
+	<link rel="STYLESHEET" type="text/css" href="./css/dhtmlXTabBar.css">
+	<script  src="./js/dhtmlXCommon.js"></script>
+	<script  src="./js/dhtmlXTabbar.js"></script>
+	<table >
+		<tr>
+			<td>
+				<div id="a_tabbar" style="width:700; height:1000;"/>
+			</td>
+    </tr>
+	</table>
+<div id="perinfo">
+<table width="100%" border="0">
+        <tr>
+          <td colspan="2">&nbsp;</td>
+    </tr>
+        <tr>
+          <td width="18%">Applicant name: <br />
+            &nbsp;</td>
+          <td width="82%"><table width="100%" border="0">
+            <tr>
+              <td><input name="needed" size="25" value="" type="text" />
+                <br />
+                Last</td>
+              <td><input name="needed2" size="25" value="" type="text" />
+                <br />
+                First </td>
+              <td><input name="needed3" size="15" value="" type="text" />
+                <br />
+                Middle </td>
+              <td><input name="needed4" size="15" type="text" />
+                <br />
+                Nickname</td>
+            </tr>
+          </table></td>
+    </tr>
+        <tr>
+          <td>State position's you considered in order of preference:</td>
+          <td><input name="needed5" size="25" value="" type="text" />
+            <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /> &nbsp;&nbsp;
+            <input name="needed6" size="25" value="" type="text" />
+            <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td><strong>Current Address</strong></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>Street Address:</td>
+          <td><textarea name="sec2_addrstreet" cols="50" rows="3" id="sec2_addrstreet"></textarea></td>
+        </tr>
+        <tr>
+          <td>City or Town:</td>
+          <td><input name="needed62" size="25" value="" type="text" />
+            <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td>State/Province:</td>
+          <td><input name="needed622" size="25" value="" type="text" />
+            <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td>Postal Zip Code</td>
+          <td><input name="needed6222" size="25" value="" type="text" />
+            <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td><span class="contents">Region:<br />
+          </span></td>
+          <td><input name="needed62222" size="25" value="" type="text" />
+            <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td>Country:</td>
+          <td><select name="sec2_addrcountry" size="1" id="sec2_addrcountry" class="dropdown_2">
+            <option value="">Select</option>
+            <option label="Afghanistan" value="1">Afghanistan</option>
+            <option label="Albania" value="2">Albania</option>
+            <option label="Algeria" value="3">Algeria</option>
+            <option label="American Samoa" value="4">American Samoa</option>
+            <option label="Andorra" value="5">Andorra</option>
+            <option label="Angola" value="6">Angola</option>
+            <option label="Anguilla" value="7">Anguilla</option>
+            <option label="Antarctica" value="8">Antarctica</option>
+            <option label="Antigua and Barbuda" value="9">Antigua and Barbuda</option>
+            <option label="Argentina" value="10">Argentina</option>
+            <option label="Armenia" value="11">Armenia</option>
+            <option label="Aruba" value="12">Aruba</option>
+            <option label="Australia" value="13">Australia</option>
+            <option label="Austria" value="14">Austria</option>
+            <option label="Azerbaijan" value="15">Azerbaijan</option>
+            <option label="Bahamas" value="16">Bahamas</option>
+            <option label="Bahrain" value="17">Bahrain</option>
+            <option label="Bangladesh" value="18">Bangladesh</option>
+            <option label="Barbados" value="19">Barbados</option>
+            <option label="Belarus" value="20">Belarus</option>
+            <option label="Belgium" value="21">Belgium</option>
+            <option label="Belize" value="22">Belize</option>
+            <option label="Benin" value="23">Benin</option>
+            <option label="Bermuda" value="24">Bermuda</option>
+            <option label="Bhutan" value="25">Bhutan</option>
+            <option label="Bolivia" value="26">Bolivia</option>
+            <option label="Bosnia and Herzegovina" value="27">Bosnia and Herzegovina</option>
+            <option label="Botswana" value="28">Botswana</option>
+            <option label="Bouvet Island" value="29">Bouvet Island</option>
+            <option label="Brazil" value="30">Brazil</option>
+            <option label="British Indian Ocean Territory" value="31">British Indian Ocean Territory</option>
+            <option label="Brunei" value="32">Brunei</option>
+            <option label="Bulgaria" value="33">Bulgaria</option>
+            <option label="Burkina Faso" value="34">Burkina Faso</option>
+            <option label="Burundi" value="35">Burundi</option>
+            <option label="Cambodia" value="36">Cambodia</option>
+            <option label="Cameroon" value="37">Cameroon</option>
+            <option label="Canada" value="38">Canada</option>
+            <option label="Cape Verde" value="39">Cape Verde</option>
+            <option label="Cayman Islands" value="40">Cayman Islands</option>
+            <option label="Central African Republic" value="41">Central African Republic</option>
+            <option label="Chad" value="42">Chad</option>
+            <option label="Chile" value="43">Chile</option>
+            <option label="China" value="44">China</option>
+            <option label="Christmas Island" value="45">Christmas Island</option>
+            <option label="Cocos (Keeling) Islands" value="46">Cocos (Keeling) Islands</option>
+            <option label="Colombia" value="47">Colombia</option>
+            <option label="Comoros" value="48">Comoros</option>
+            <option label="Congo" value="49">Congo</option>
+            <option label="Cook Islands" value="50">Cook Islands</option>
+            <option label="Costa Rica" value="51">Costa Rica</option>
+            <option label="C&ocirc;te d'Ivoire" value="52">C&ocirc;te d'Ivoire</option>
+            <option label="Croatia (Hrvatska)" value="53">Croatia (Hrvatska)</option>
+            <option label="Cuba" value="54">Cuba</option>
+            <option label="Cyprus" value="55">Cyprus</option>
+            <option label="Czech Republic" value="56">Czech Republic</option>
+            <option label="Congo (DRC)" value="57">Congo (DRC)</option>
+            <option label="Denmark" value="58">Denmark</option>
+            <option label="Djibouti" value="59">Djibouti</option>
+            <option label="Dominica" value="60">Dominica</option>
+            <option label="Dominican Republic" value="61">Dominican Republic</option>
+            <option label="East Timor" value="62">East Timor</option>
+            <option label="Ecuador" value="63">Ecuador</option>
+            <option label="Egypt" value="64">Egypt</option>
+            <option label="El Salvador" value="65">El Salvador</option>
+            <option label="Equatorial Guinea" value="66">Equatorial Guinea</option>
+            <option label="Eritrea" value="67">Eritrea</option>
+            <option label="Estonia" value="68">Estonia</option>
+            <option label="Ethiopia" value="69">Ethiopia</option>
+            <option label="Falkland Islands (Islas Malvinas)" value="70">Falkland Islands (Islas Malvinas)</option>
+            <option label="Faroe Islands" value="71">Faroe Islands</option>
+            <option label="Fiji Islands" value="72">Fiji Islands</option>
+            <option label="Finland" value="73">Finland</option>
+            <option label="France" value="74">France</option>
+            <option label="French Guiana" value="75">French Guiana</option>
+            <option label="French Polynesia" value="76">French Polynesia</option>
+            <option label="French Southern and Antarctic Lands" value="77">French Southern and Antarctic Lands</option>
+            <option label="Gabon" value="78">Gabon</option>
+            <option label="Gambia" value="79">Gambia</option>
+            <option label="Georgia" value="80">Georgia</option>
+            <option label="Germany" value="81">Germany</option>
+            <option label="Ghana" value="82">Ghana</option>
+            <option label="Gibraltar" value="83">Gibraltar</option>
+            <option label="Greece" value="84">Greece</option>
+            <option label="Greenland" value="85">Greenland</option>
+            <option label="Grenada" value="86">Grenada</option>
+            <option label="Guadeloupe" value="87">Guadeloupe</option>
+            <option label="Guam" value="88">Guam</option>
+            <option label="Guatemala" value="89">Guatemala</option>
+            <option label="Guinea" value="90">Guinea</option>
+            <option label="Guinea-Bissau" value="91">Guinea-Bissau</option>
+            <option label="Guyana" value="92">Guyana</option>
+            <option label="Haiti" value="93">Haiti</option>
+            <option label="Heard Island and McDonald Islands" value="94">Heard Island and McDonald Islands</option>
+            <option label="Honduras" value="95">Honduras</option>
+            <option label="Hong Kong SAR" value="96">Hong Kong SAR</option>
+            <option label="Hungary" value="97">Hungary</option>
+            <option label="Iceland" value="98">Iceland</option>
+            <option label="India" value="99">India</option>
+            <option label="Indonesia" value="100">Indonesia</option>
+            <option label="Iran" value="101">Iran</option>
+            <option label="Iraq" value="102">Iraq</option>
+            <option label="Ireland" value="103">Ireland</option>
+            <option label="Israel" value="104">Israel</option>
+            <option label="Italy" value="105">Italy</option>
+            <option label="Jamaica" value="106">Jamaica</option>
+            <option label="Japan" value="107">Japan</option>
+            <option label="Jordan" value="108">Jordan</option>
+            <option label="Kazakhstan" value="109">Kazakhstan</option>
+            <option label="Kenya" value="110">Kenya</option>
+            <option label="Kiribati" value="111">Kiribati</option>
+            <option label="Korea" value="112">Korea</option>
+            <option label="Kuwait" value="113">Kuwait</option>
+            <option label="Kyrgyzstan" value="114">Kyrgyzstan</option>
+            <option label="Laos" value="115">Laos</option>
+            <option label="Latvia" value="116">Latvia</option>
+            <option label="Lebanon" value="117">Lebanon</option>
+            <option label="Lesotho" value="118">Lesotho</option>
+            <option label="Liberia" value="119">Liberia</option>
+            <option label="Libya" value="120">Libya</option>
+            <option label="Liechtenstein" value="121">Liechtenstein</option>
+            <option label="Lithuania" value="122">Lithuania</option>
+            <option label="Luxembourg" value="123">Luxembourg</option>
+            <option label="Macao SAR" value="124">Macao SAR</option>
+            <option label="Macedonia" value="125">Macedonia</option>
+            <option label="Madagascar" value="126">Madagascar</option>
+            <option label="Malawi" value="127">Malawi</option>
+            <option label="Malaysia" value="128">Malaysia</option>
+            <option label="Maldives" value="129">Maldives</option>
+            <option label="Mali" value="130">Mali</option>
+            <option label="Malta" value="131">Malta</option>
+            <option label="Marshall Islands" value="132">Marshall Islands</option>
+            <option label="Martinique" value="133">Martinique</option>
+            <option label="Mauritania" value="134">Mauritania</option>
+            <option label="Mauritius" value="135">Mauritius</option>
+            <option label="Mayotte" value="136">Mayotte</option>
+            <option label="Mexico" value="137">Mexico</option>
+            <option label="Micronesia" value="138">Micronesia</option>
+            <option label="Moldova" value="139">Moldova</option>
+            <option label="Monaco" value="140">Monaco</option>
+            <option label="Mongolia" value="141">Mongolia</option>
+            <option label="Montserrat" value="142">Montserrat</option>
+            <option label="Morocco" value="143">Morocco</option>
+            <option label="Mozambique" value="144">Mozambique</option>
+            <option label="Myanmar" value="145">Myanmar</option>
+            <option label="Namibia" value="146">Namibia</option>
+            <option label="Nauru" value="147">Nauru</option>
+            <option label="Nepal" value="148">Nepal</option>
+            <option label="Netherlands" value="149">Netherlands</option>
+            <option label="Netherlands Antilles" value="150">Netherlands Antilles</option>
+            <option label="New Caledonia" value="151">New Caledonia</option>
+            <option label="New Zealand" value="152">New Zealand</option>
+            <option label="Nicaragua" value="153">Nicaragua</option>
+            <option label="Niger" value="154">Niger</option>
+            <option label="Nigeria" value="155">Nigeria</option>
+            <option label="Niue" value="156">Niue</option>
+            <option label="Norfolk Island" value="157">Norfolk Island</option>
+            <option label="North Korea" value="158">North Korea</option>
+            <option label="Northern Mariana Islands" value="159">Northern Mariana Islands</option>
+            <option label="Norway" value="160">Norway</option>
+            <option label="Oman" value="161">Oman</option>
+            <option label="Pakistan" value="162">Pakistan</option>
+            <option label="Palau" value="163">Palau</option>
+            <option label="Panama" value="164">Panama</option>
+            <option label="Papua New Guinea" value="165">Papua New Guinea</option>
+            <option label="Paraguay" value="166">Paraguay</option>
+            <option label="Peru" value="167">Peru</option>
+            <option label="Philippines" value="168" selected="selected">Philippines</option>
+            <option label="Pitcairn Islands" value="169">Pitcairn Islands</option>
+            <option label="Poland" value="170">Poland</option>
+            <option label="Portugal" value="171">Portugal</option>
+            <option label="Puerto Rico" value="172">Puerto Rico</option>
+            <option label="Qatar" value="173">Qatar</option>
+            <option label="Reunion" value="174">Reunion</option>
+            <option label="Romania" value="175">Romania</option>
+            <option label="Russia" value="176">Russia</option>
+            <option label="Rwanda" value="177">Rwanda</option>
+            <option label="Samoa" value="178">Samoa</option>
+            <option label="San Marino" value="179">San Marino</option>
+            <option label="S&atilde;o Tom&eacute; and Pr&iacute;ncipe" value="180">S&atilde;o Tom&eacute; and Pr&iacute;ncipe</option>
+            <option label="Saudi Arabia" value="181">Saudi Arabia</option>
+            <option label="Senegal" value="182">Senegal</option>
+            <option label="Serbia and Montenegro" value="183">Serbia and Montenegro</option>
+            <option label="Seychelles" value="184">Seychelles</option>
+            <option label="Sierra Leone" value="185">Sierra Leone</option>
+            <option label="Singapore" value="186">Singapore</option>
+            <option label="Slovakia" value="187">Slovakia</option>
+            <option label="Slovenia" value="188">Slovenia</option>
+            <option label="Solomon Islands" value="189">Solomon Islands</option>
+            <option label="Somalia" value="190">Somalia</option>
+            <option label="South Africa" value="191">South Africa</option>
+            <option label="Sth Georgia and Sth Sandwich Islds" value="192">Sth Georgia and Sth Sandwich Islds</option>
+            <option label="Spain" value="193">Spain</option>
+            <option label="Sri Lanka" value="194">Sri Lanka</option>
+            <option label="St. Helena" value="195">St. Helena</option>
+            <option label="St. Kitts and Nevis" value="196">St. Kitts and Nevis</option>
+            <option label="St. Lucia" value="197">St. Lucia</option>
+            <option label="St. Pierre and Miquelon" value="198">St. Pierre and Miquelon</option>
+            <option label="St. Vincent and the Grenadines" value="199">St. Vincent and the Grenadines</option>
+            <option label="Sudan" value="200">Sudan</option>
+            <option label="Suriname" value="201">Suriname</option>
+            <option label="Svalbard and Jan Mayen" value="202">Svalbard and Jan Mayen</option>
+            <option label="Swaziland" value="203">Swaziland</option>
+            <option label="Sweden" value="204">Sweden</option>
+            <option label="Switzerland" value="205">Switzerland</option>
+            <option label="Syria" value="206">Syria</option>
+            <option label="Taiwan" value="207">Taiwan</option>
+            <option label="Tajikistan" value="208">Tajikistan</option>
+            <option label="Tanzania" value="209">Tanzania</option>
+            <option label="Thailand" value="210">Thailand</option>
+            <option label="Togo" value="211">Togo</option>
+            <option label="Tokelau" value="212">Tokelau</option>
+            <option label="Tonga" value="213">Tonga</option>
+            <option label="Trinidad and Tobago" value="214">Trinidad and Tobago</option>
+            <option label="Tunisia" value="215">Tunisia</option>
+            <option label="Turkey" value="216">Turkey</option>
+            <option label="Turkmenistan" value="217">Turkmenistan</option>
+            <option label="Turks and Caicos Islands" value="218">Turks and Caicos Islands</option>
+            <option label="Tuvalu" value="219">Tuvalu</option>
+            <option label="Uganda" value="220">Uganda</option>
+            <option label="Ukraine" value="221">Ukraine</option>
+            <option label="United Arab Emirates" value="222">United Arab Emirates</option>
+            <option label="United Kingdom" value="223">United Kingdom</option>
+            <option label="United States" value="224">United States</option>
+            <option label="United States Minor Outlying Islands" value="225">United States Minor Outlying Islands</option>
+            <option label="Uruguay" value="226">Uruguay</option>
+            <option label="Uzbekistan" value="227">Uzbekistan</option>
+            <option label="Vanuatu" value="228">Vanuatu</option>
+            <option label="Vatican City" value="229">Vatican City</option>
+            <option label="Venezuela" value="230">Venezuela</option>
+            <option label="Vietnam" value="231">Vietnam</option>
+            <option label="Virgin Islands (British)" value="232">Virgin Islands (British)</option>
+            <option label="Virgin Islands" value="233">Virgin Islands</option>
+            <option label="Wallis and Futuna" value="234">Wallis and Futuna</option>
+            <option label="Yemen" value="235">Yemen</option>
+            <option label="Zambia" value="236">Zambia</option>
+            <option label="Zimbabwe" value="237">Zimbabwe</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td><strong>Permanent Address</strong></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>Street Address:</td>
+          <td><textarea name="sec2_addrstreet" cols="50" rows="3" id="sec2_addrstreet"></textarea></td>
+        </tr>
+        <tr>
+          <td>City or Town:</td>
+          <td><input name="needed62" size="25" value="" type="text" />
+              <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td>State/Province:</td>
+          <td><input name="needed622" size="25" value="" type="text" />
+              <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td>Postal Zip Code</td>
+          <td><input name="needed6222" size="25" value="" type="text" />
+              <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td><span class="contents">Region:</span></td>
+          <td><input name="needed62222" size="25" value="" type="text" />
+              <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+        </tr>
+        <tr>
+          <td>Country:</td>
+          <td><select name="sec2_addrcountry" size="1" id="sec2_addrcountry" class="dropdown_2">
+              <option value="">Select</option>
+              <option label="Afghanistan" value="1">Afghanistan</option>
+              <option label="Albania" value="2">Albania</option>
+              <option label="Algeria" value="3">Algeria</option>
+              <option label="American Samoa" value="4">American Samoa</option>
+              <option label="Andorra" value="5">Andorra</option>
+              <option label="Angola" value="6">Angola</option>
+              <option label="Anguilla" value="7">Anguilla</option>
+              <option label="Antarctica" value="8">Antarctica</option>
+              <option label="Antigua and Barbuda" value="9">Antigua and Barbuda</option>
+              <option label="Argentina" value="10">Argentina</option>
+              <option label="Armenia" value="11">Armenia</option>
+              <option label="Aruba" value="12">Aruba</option>
+              <option label="Australia" value="13">Australia</option>
+              <option label="Austria" value="14">Austria</option>
+              <option label="Azerbaijan" value="15">Azerbaijan</option>
+              <option label="Bahamas" value="16">Bahamas</option>
+              <option label="Bahrain" value="17">Bahrain</option>
+              <option label="Bangladesh" value="18">Bangladesh</option>
+              <option label="Barbados" value="19">Barbados</option>
+              <option label="Belarus" value="20">Belarus</option>
+              <option label="Belgium" value="21">Belgium</option>
+              <option label="Belize" value="22">Belize</option>
+              <option label="Benin" value="23">Benin</option>
+              <option label="Bermuda" value="24">Bermuda</option>
+              <option label="Bhutan" value="25">Bhutan</option>
+              <option label="Bolivia" value="26">Bolivia</option>
+              <option label="Bosnia and Herzegovina" value="27">Bosnia and Herzegovina</option>
+              <option label="Botswana" value="28">Botswana</option>
+              <option label="Bouvet Island" value="29">Bouvet Island</option>
+              <option label="Brazil" value="30">Brazil</option>
+              <option label="British Indian Ocean Territory" value="31">British Indian Ocean Territory</option>
+              <option label="Brunei" value="32">Brunei</option>
+              <option label="Bulgaria" value="33">Bulgaria</option>
+              <option label="Burkina Faso" value="34">Burkina Faso</option>
+              <option label="Burundi" value="35">Burundi</option>
+              <option label="Cambodia" value="36">Cambodia</option>
+              <option label="Cameroon" value="37">Cameroon</option>
+              <option label="Canada" value="38">Canada</option>
+              <option label="Cape Verde" value="39">Cape Verde</option>
+              <option label="Cayman Islands" value="40">Cayman Islands</option>
+              <option label="Central African Republic" value="41">Central African Republic</option>
+              <option label="Chad" value="42">Chad</option>
+              <option label="Chile" value="43">Chile</option>
+              <option label="China" value="44">China</option>
+              <option label="Christmas Island" value="45">Christmas Island</option>
+              <option label="Cocos (Keeling) Islands" value="46">Cocos (Keeling) Islands</option>
+              <option label="Colombia" value="47">Colombia</option>
+              <option label="Comoros" value="48">Comoros</option>
+              <option label="Congo" value="49">Congo</option>
+              <option label="Cook Islands" value="50">Cook Islands</option>
+              <option label="Costa Rica" value="51">Costa Rica</option>
+              <option label="C&ocirc;te d'Ivoire" value="52">C&ocirc;te d'Ivoire</option>
+              <option label="Croatia (Hrvatska)" value="53">Croatia (Hrvatska)</option>
+              <option label="Cuba" value="54">Cuba</option>
+              <option label="Cyprus" value="55">Cyprus</option>
+              <option label="Czech Republic" value="56">Czech Republic</option>
+              <option label="Congo (DRC)" value="57">Congo (DRC)</option>
+              <option label="Denmark" value="58">Denmark</option>
+              <option label="Djibouti" value="59">Djibouti</option>
+              <option label="Dominica" value="60">Dominica</option>
+              <option label="Dominican Republic" value="61">Dominican Republic</option>
+              <option label="East Timor" value="62">East Timor</option>
+              <option label="Ecuador" value="63">Ecuador</option>
+              <option label="Egypt" value="64">Egypt</option>
+              <option label="El Salvador" value="65">El Salvador</option>
+              <option label="Equatorial Guinea" value="66">Equatorial Guinea</option>
+              <option label="Eritrea" value="67">Eritrea</option>
+              <option label="Estonia" value="68">Estonia</option>
+              <option label="Ethiopia" value="69">Ethiopia</option>
+              <option label="Falkland Islands (Islas Malvinas)" value="70">Falkland Islands (Islas Malvinas)</option>
+              <option label="Faroe Islands" value="71">Faroe Islands</option>
+              <option label="Fiji Islands" value="72">Fiji Islands</option>
+              <option label="Finland" value="73">Finland</option>
+              <option label="France" value="74">France</option>
+              <option label="French Guiana" value="75">French Guiana</option>
+              <option label="French Polynesia" value="76">French Polynesia</option>
+              <option label="French Southern and Antarctic Lands" value="77">French Southern and Antarctic Lands</option>
+              <option label="Gabon" value="78">Gabon</option>
+              <option label="Gambia" value="79">Gambia</option>
+              <option label="Georgia" value="80">Georgia</option>
+              <option label="Germany" value="81">Germany</option>
+              <option label="Ghana" value="82">Ghana</option>
+              <option label="Gibraltar" value="83">Gibraltar</option>
+              <option label="Greece" value="84">Greece</option>
+              <option label="Greenland" value="85">Greenland</option>
+              <option label="Grenada" value="86">Grenada</option>
+              <option label="Guadeloupe" value="87">Guadeloupe</option>
+              <option label="Guam" value="88">Guam</option>
+              <option label="Guatemala" value="89">Guatemala</option>
+              <option label="Guinea" value="90">Guinea</option>
+              <option label="Guinea-Bissau" value="91">Guinea-Bissau</option>
+              <option label="Guyana" value="92">Guyana</option>
+              <option label="Haiti" value="93">Haiti</option>
+              <option label="Heard Island and McDonald Islands" value="94">Heard Island and McDonald Islands</option>
+              <option label="Honduras" value="95">Honduras</option>
+              <option label="Hong Kong SAR" value="96">Hong Kong SAR</option>
+              <option label="Hungary" value="97">Hungary</option>
+              <option label="Iceland" value="98">Iceland</option>
+              <option label="India" value="99">India</option>
+              <option label="Indonesia" value="100">Indonesia</option>
+              <option label="Iran" value="101">Iran</option>
+              <option label="Iraq" value="102">Iraq</option>
+              <option label="Ireland" value="103">Ireland</option>
+              <option label="Israel" value="104">Israel</option>
+              <option label="Italy" value="105">Italy</option>
+              <option label="Jamaica" value="106">Jamaica</option>
+              <option label="Japan" value="107">Japan</option>
+              <option label="Jordan" value="108">Jordan</option>
+              <option label="Kazakhstan" value="109">Kazakhstan</option>
+              <option label="Kenya" value="110">Kenya</option>
+              <option label="Kiribati" value="111">Kiribati</option>
+              <option label="Korea" value="112">Korea</option>
+              <option label="Kuwait" value="113">Kuwait</option>
+              <option label="Kyrgyzstan" value="114">Kyrgyzstan</option>
+              <option label="Laos" value="115">Laos</option>
+              <option label="Latvia" value="116">Latvia</option>
+              <option label="Lebanon" value="117">Lebanon</option>
+              <option label="Lesotho" value="118">Lesotho</option>
+              <option label="Liberia" value="119">Liberia</option>
+              <option label="Libya" value="120">Libya</option>
+              <option label="Liechtenstein" value="121">Liechtenstein</option>
+              <option label="Lithuania" value="122">Lithuania</option>
+              <option label="Luxembourg" value="123">Luxembourg</option>
+              <option label="Macao SAR" value="124">Macao SAR</option>
+              <option label="Macedonia" value="125">Macedonia</option>
+              <option label="Madagascar" value="126">Madagascar</option>
+              <option label="Malawi" value="127">Malawi</option>
+              <option label="Malaysia" value="128">Malaysia</option>
+              <option label="Maldives" value="129">Maldives</option>
+              <option label="Mali" value="130">Mali</option>
+              <option label="Malta" value="131">Malta</option>
+              <option label="Marshall Islands" value="132">Marshall Islands</option>
+              <option label="Martinique" value="133">Martinique</option>
+              <option label="Mauritania" value="134">Mauritania</option>
+              <option label="Mauritius" value="135">Mauritius</option>
+              <option label="Mayotte" value="136">Mayotte</option>
+              <option label="Mexico" value="137">Mexico</option>
+              <option label="Micronesia" value="138">Micronesia</option>
+              <option label="Moldova" value="139">Moldova</option>
+              <option label="Monaco" value="140">Monaco</option>
+              <option label="Mongolia" value="141">Mongolia</option>
+              <option label="Montserrat" value="142">Montserrat</option>
+              <option label="Morocco" value="143">Morocco</option>
+              <option label="Mozambique" value="144">Mozambique</option>
+              <option label="Myanmar" value="145">Myanmar</option>
+              <option label="Namibia" value="146">Namibia</option>
+              <option label="Nauru" value="147">Nauru</option>
+              <option label="Nepal" value="148">Nepal</option>
+              <option label="Netherlands" value="149">Netherlands</option>
+              <option label="Netherlands Antilles" value="150">Netherlands Antilles</option>
+              <option label="New Caledonia" value="151">New Caledonia</option>
+              <option label="New Zealand" value="152">New Zealand</option>
+              <option label="Nicaragua" value="153">Nicaragua</option>
+              <option label="Niger" value="154">Niger</option>
+              <option label="Nigeria" value="155">Nigeria</option>
+              <option label="Niue" value="156">Niue</option>
+              <option label="Norfolk Island" value="157">Norfolk Island</option>
+              <option label="North Korea" value="158">North Korea</option>
+              <option label="Northern Mariana Islands" value="159">Northern Mariana Islands</option>
+              <option label="Norway" value="160">Norway</option>
+              <option label="Oman" value="161">Oman</option>
+              <option label="Pakistan" value="162">Pakistan</option>
+              <option label="Palau" value="163">Palau</option>
+              <option label="Panama" value="164">Panama</option>
+              <option label="Papua New Guinea" value="165">Papua New Guinea</option>
+              <option label="Paraguay" value="166">Paraguay</option>
+              <option label="Peru" value="167">Peru</option>
+              <option label="Philippines" value="168" selected="selected">Philippines</option>
+              <option label="Pitcairn Islands" value="169">Pitcairn Islands</option>
+              <option label="Poland" value="170">Poland</option>
+              <option label="Portugal" value="171">Portugal</option>
+              <option label="Puerto Rico" value="172">Puerto Rico</option>
+              <option label="Qatar" value="173">Qatar</option>
+              <option label="Reunion" value="174">Reunion</option>
+              <option label="Romania" value="175">Romania</option>
+              <option label="Russia" value="176">Russia</option>
+              <option label="Rwanda" value="177">Rwanda</option>
+              <option label="Samoa" value="178">Samoa</option>
+              <option label="San Marino" value="179">San Marino</option>
+              <option label="S&atilde;o Tom&eacute; and Pr&iacute;ncipe" value="180">S&atilde;o Tom&eacute; and Pr&iacute;ncipe</option>
+              <option label="Saudi Arabia" value="181">Saudi Arabia</option>
+              <option label="Senegal" value="182">Senegal</option>
+              <option label="Serbia and Montenegro" value="183">Serbia and Montenegro</option>
+              <option label="Seychelles" value="184">Seychelles</option>
+              <option label="Sierra Leone" value="185">Sierra Leone</option>
+              <option label="Singapore" value="186">Singapore</option>
+              <option label="Slovakia" value="187">Slovakia</option>
+              <option label="Slovenia" value="188">Slovenia</option>
+              <option label="Solomon Islands" value="189">Solomon Islands</option>
+              <option label="Somalia" value="190">Somalia</option>
+              <option label="South Africa" value="191">South Africa</option>
+              <option label="Sth Georgia and Sth Sandwich Islds" value="192">Sth Georgia and Sth Sandwich Islds</option>
+              <option label="Spain" value="193">Spain</option>
+              <option label="Sri Lanka" value="194">Sri Lanka</option>
+              <option label="St. Helena" value="195">St. Helena</option>
+              <option label="St. Kitts and Nevis" value="196">St. Kitts and Nevis</option>
+              <option label="St. Lucia" value="197">St. Lucia</option>
+              <option label="St. Pierre and Miquelon" value="198">St. Pierre and Miquelon</option>
+              <option label="St. Vincent and the Grenadines" value="199">St. Vincent and the Grenadines</option>
+              <option label="Sudan" value="200">Sudan</option>
+              <option label="Suriname" value="201">Suriname</option>
+              <option label="Svalbard and Jan Mayen" value="202">Svalbard and Jan Mayen</option>
+              <option label="Swaziland" value="203">Swaziland</option>
+              <option label="Sweden" value="204">Sweden</option>
+              <option label="Switzerland" value="205">Switzerland</option>
+              <option label="Syria" value="206">Syria</option>
+              <option label="Taiwan" value="207">Taiwan</option>
+              <option label="Tajikistan" value="208">Tajikistan</option>
+              <option label="Tanzania" value="209">Tanzania</option>
+              <option label="Thailand" value="210">Thailand</option>
+              <option label="Togo" value="211">Togo</option>
+              <option label="Tokelau" value="212">Tokelau</option>
+              <option label="Tonga" value="213">Tonga</option>
+              <option label="Trinidad and Tobago" value="214">Trinidad and Tobago</option>
+              <option label="Tunisia" value="215">Tunisia</option>
+              <option label="Turkey" value="216">Turkey</option>
+              <option label="Turkmenistan" value="217">Turkmenistan</option>
+              <option label="Turks and Caicos Islands" value="218">Turks and Caicos Islands</option>
+              <option label="Tuvalu" value="219">Tuvalu</option>
+              <option label="Uganda" value="220">Uganda</option>
+              <option label="Ukraine" value="221">Ukraine</option>
+              <option label="United Arab Emirates" value="222">United Arab Emirates</option>
+              <option label="United Kingdom" value="223">United Kingdom</option>
+              <option label="United States" value="224">United States</option>
+              <option label="United States Minor Outlying Islands" value="225">United States Minor Outlying Islands</option>
+              <option label="Uruguay" value="226">Uruguay</option>
+              <option label="Uzbekistan" value="227">Uzbekistan</option>
+              <option label="Vanuatu" value="228">Vanuatu</option>
+              <option label="Vatican City" value="229">Vatican City</option>
+              <option label="Venezuela" value="230">Venezuela</option>
+              <option label="Vietnam" value="231">Vietnam</option>
+              <option label="Virgin Islands (British)" value="232">Virgin Islands (British)</option>
+              <option label="Virgin Islands" value="233">Virgin Islands</option>
+              <option label="Wallis and Futuna" value="234">Wallis and Futuna</option>
+              <option label="Yemen" value="235">Yemen</option>
+              <option label="Zambia" value="236">Zambia</option>
+              <option label="Zimbabwe" value="237">Zimbabwe</option>
+          </select></td>
+        </tr>
+        
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2"><table width="100%" border="0">
+            <tr>
+              <td width="18%">Email Adress:</td>
+              <td width="31%"><input name="needed622222" size="25" value="" type="text" /></td>
+              <td width="24%">Residence Number:</td>
+              <td width="27%"><input name="needed622223" size="25" type="text" /></td>
+            </tr>
+            <tr>
+              <td>Date of Birth:</td>
+              <td><input name="appform_dob" id="appform_dob" size="25" type="text" />
+                <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a></td>
+              <td>Mobile Number:</td>
+              <td><input name="needed6222232" size="25" type="text" /></td>
+            </tr>
+            <tr>
+              <td>Birthplace:</td>
+              <td><input name="needed6222222" size="25" value="" type="text" /></td>
+              <td>Religion:</td>
+              <td><input name="needed62222322" size="25" type="text" /></td>
+            </tr>
+            <tr>
+              <td>Height: (inches)</td>
+              <td><input name="needed62222222" size="25" value="" type="text" /></td>
+              <td>Weight: (kgs.)</td>
+              <td><input name="needed622223222" size="25" type="text" /></td>
+            </tr>
+            <tr>
+              <td>Civil Status:</td>
+              <td><select name="civilStat" size="1">
+                <option value="0"></option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Separated">Separated</option>
+              </select>              </td>
+              <td>Sex:</td>
+              <td><select name="sex" size="1">
+                <option value="0" selected="selected"></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>SSS No.</td>
+              <td><input name="sss_a" size="2" maxlength="2" value="" type="text" />
+                -
+                  <input name="sss_b" size="7" maxlength="7" value="" type="text" />
+                  -
+                  <input name="sss_c" size="1" maxlength="1" value="" type="text" /></td>
+              <td><span class="red">TIN:</span></td>
+              <td><input name="tin_a" size="3" maxlength="3" value="" type="text" />
+                -
+                  <input name="tin_b" size="3" maxlength="3" value="" type="text" />
+                  -
+                  <input name="tin_c" size="3" maxlength="3" value="" type="text" /></td>
+            </tr>
+            <tr>
+              <td>PAG-IBIG NO.</td>
+              <td><input name="needed622222222" size="25" value="" type="text" /></td>
+              <td>PHILHEALTH NO.:</td>
+              <td><input name="needed6222222222" size="25" value="" type="text" /></td>
+            </tr>
+            <tr>
+              <td>Citizenship:</td>
+              <td><input name="needed622222223" size="25" value="" type="text" /></td>
+              <td>PAG-IBIG NO.</td>
+              <td><input name="needed62222222222" size="25" value="" type="text" /></td>
+            </tr>
+            <tr>
+              <td>How did you know about our opening?</td>
+              <td><select name="howDid">
+                <option value="0"></option>
+                <option value="1">LOCALE RECRUITMENT</option>
+                <option value="2">OPEN RECRUITMENT</option>
+                <option value="3">REFERRALS</option>
+                <option value="4">WALK IN</option>
+                <option value="5">JOB FAIR</option>
+                <option value="6">NEWS PAPER</option>
+                <option value="7">RADIO</option>
+                <option value="8">TELEVISION</option>
+                            </select></td>
+              <td>Salary Desired:</td>
+              <td><input name="needed622222222222" size="25" value="" type="text" /></td>
+            </tr>
+            <tr>
+              <td>Hobbies/Interest:</td>
+              <td><input name="needed62222222322" size="25" value="" type="text" /></td>
+              <td>How soon can you start?</td>
+              <td><input name="appform_start" id="appform_start" size="25" type="text" />
+                <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_start');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a></td>
+            </tr>
+            <tr>
+              <td>Machines Operated:</td>
+              <td><input name="needed62222222323" size="25" value="" type="text" /></td>
+              <td>Who recommended you to this company?</td>
+              <td><input name="needed6222222222222" size="25" value="" type="text" /></td>
+            </tr>
+            <tr>
+              <td>Do you drive?</td>
+              <td><input name="driving" value="Yes" type="radio" />
+                Yes 
+                   <input name="driving" value="Yes" type="radio" />
+                  No</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>What type of driver's license do you have?</td>
+              <td colspan="3"><input name="driving" value="Yes" type="radio" />
+Student's License               
+  <input name="driving" value="Yes" type="radio" />
+  Non-Pro License 
+                 <input name="driving" value="Yes" type="radio" />
+                Professional License</td>
+            </tr>
+          </table></td>
+    </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><strong>FAMILY DATA</strong></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+			<table width="100%">
+			  <tr>
+				<td width="17%"><input name="father" type="text" value="" size="25">
+				<br>Father's Name</td>
+				<td width="17%"><input name="fAdd" type="text" value="" size="25">
+				<br>
+				  Address</td>
+				<td width="17%"><input name="fOcc" type="text" value="" size="25">
+				<br>
+				  Company/Occupation</td>
+				<td width="11%"><input name="fAge" size="10" value="" type="text"><br>
+				  Age</td>
+				<td width="38%"><select name="select">
+				  <option value="0" selected="selected"></option>
+				  <option value="1">Living</option>
+				  <option value="2">Deceased</option>
+				  </select>
+				  <br />
+				  Status</td>
+			  </tr>
+			  <tr>
+				<td width="17%"><input name="mother" type="text" value="" size="25">
+				<br>
+				  Mother's Name</td>
+				<td width="17%"><input name="mAdd" type="text" value="" size="25">
+				<br>
+				  Address</td>
+				<td width="17%"><input name="mOcc" type="text" value="" size="25">
+				<br>
+				  Company/Occupation</td>
+				<td width="11%"><input name="mAge" size="10" value="" type="text"><br>
+				  Age</td>
+				<td width="38%"><select name="select2">
+                  <option value="0" selected="selected"></option>
+                  <option value="1">Living</option>
+                  <option value="2">Deceased</option>
+                </select>
+                  <br />
+Status</td>
+			  </tr>
+			  <tr>
+				<td width="17%"><input name="spouse" type="text" value="" size="25">
+				<br>
+				  Name of Spouse</td>
+				<td width="17%"><input name="sAdd" type="text" size="25">
+				<br>
+				  Address</td>
+				<td width="17%"><input name="sOcc" type="text" value="" size="25">
+				<br>
+				  Company/Occupation</td>
+				<td width="11%"><input name="sAge" size="10" value="" type="text"><br>
+				  Age</td>
+				<td width="38%"><select name="select3">
+                  <option value="0" selected="selected"></option>
+                  <option value="1">Living</option>
+                  <option value="2">Deceased</option>
+                </select>
+                  <br />
+Status</td>
+			  </tr>
+			</table>		  </td>
+    </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2"><strong>Brothers, Sisters, children &amp; Other Dependents</strong></td>
+    </tr>
+        <tr>
+          <td colspan="2"><table width="100%" border="0">
+            <tr>
+              <td>Name</td>
+              <td>Age</td>
+              <td>Occupation</td>
+              <td>Company/School </td>
+              <td>Contact no. </td>
+              <td>Status</td>
+            </tr>
+            <tr>
+              <td><input name="father2" type="text" value="" size="25" /></td>
+              <td><input name="father3" type="text" value="" size="10" /></td>
+              <td><input name="father4" type="text" value="" size="20" /></td>
+              <td><input name="father5" type="text" value="" size="20" /></td>
+              <td><input name="father6" type="text" value="" size="10" /></td>
+              <td><select name="select4">
+                <option value="0" selected="selected"></option>
+                <option value="1">Single</option>
+                <option value="2">Married</option>
+                <option value="3">Divorce</option>
+                <option value="4">Widowed</option>
+                <option value="5">Separated</option>
+                            </select>                </td>
+            </tr>
+          </table></td>
+    </tr>
+  </table>
+</div>
+
+<div id="education">
+<table width="100%" cellpadding="0" cellspacing="0">
+			<tr><td><tr>
+      <td><table width="100%" border="0">
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="24%">Level of Education </td>
+          <td width="76%">
+				<script type="text/javascript" language="javascript">
+								function togglemethis(varx){
+										//@notes for others
+										if (document.getElementById(varx).value == 4) {
+												document.getElementById('others').style.display = '';										
+												document.getElementById('college').style.display = 'none';
+												document.getElementById('boardexam').style.display = '';
+										}
+										
+										//@notes for college
+										if (document.getElementById(varx).value == 3) {
+												document.getElementById('college').style.display = '';
+												document.getElementById('others').style.display = 'none';											
+												document.getElementById('boardexam').style.display = '';
+										}
+										
+										//@notes for elementary or highschool
+										if ((document.getElementById(varx).value == 1) || (document.getElementById(varx).value == 2)) {
+												document.getElementById('college').style.display = 'none';
+												document.getElementById('others').style.display = 'none';	
+												document.getElementById('boardexam').style.display = 'none';																						
+										}
+										
+								}
+				</script>	
+				<select name="level_of_education" id="level_of_education" onchange="togglemethis('level_of_education')">
+            <option value="0" selected="selected">Select Level of Education</option>
+            <option value="1">Elementary</option>
+            <option value="2">Secondary</option>
+            <option value="3">College</option>
+            <option value="4">Others</option>				
+				</select></td>
+        </tr>
+        
+
+				</table>
+				<div id="others" style="display:none;">
+				  <table width="100%" border="0">
+            <tr>
+              <td width="24%">Please select </td>
+              <td width="76%">
+							<select name="select_others" id="select_others" >
+									<option value="">Select others</option>
+                  <option value="1">Vocational</option>
+                  <option value="2">Masters Degree</option>
+                  <option value="3">Post Graduate Studies</option>
+              </select></td>
+            </tr>
+          </table>
+				</div>
+			
+				<div id="college" style="display:none;">
+				  <table width="100%" border="0">
+            <tr>
+              <td width="24%">Degree / Major </td>
+              <td width="76%"><select name="select6">
+                  <option value="">Select a degree / major</option>
+                  <OPTION value=ABCA>AB 
+                                COMMUNICATION ARTS</OPTION><OPTION 
+                                value=ABPHILO>AB PHILOSOPHY</OPTION><OPTION 
+                                value=ABPS>AB POLITICAL SCIENCE</OPTION><OPTION 
+                                value=ADVER>ADVERTISING AND PUBLIC 
+                                RELATIONS</OPTION><OPTION value=ABIP>AB 
+                                INDUSTRIAL PSYCHOLOGY</OPTION><OPTION 
+                                value=ABMAS>AB MASSCOMMUNICATION</OPTION><OPTION 
+                                value=ABMGT>AB MANAGEMENT</OPTION><OPTION 
+                                value=BSE>BS EDUCATION</OPTION><OPTION 
+                                value="BS IT">BS INDUSTRIAL 
+                                TECHNOLOGY</OPTION><OPTION value=BSA>BS 
+                                ACCOUNTANCY</OPTION><OPTION value=BSAMT>BS 
+                                AIRCRAFT MAINTENANCE TECHNOLOGY</OPTION><OPTION 
+                                value=BSARC>BS ARCHITECTURE</OPTION><OPTION 
+                                value=BSBA>BS BUSINESS 
+                                ADMINISTRATION</OPTION><OPTION value=BSBAA>BSBA 
+                                ACCOUNTANCY</OPTION><OPTION value=BSBA-ECO>BSBA 
+                                ECONOMICS</OPTION><OPTION value=BSBAMGT>BSBA 
+                                MANAGEMENT</OPTION><OPTION value=BSBF>BS BANKING 
+                                AND FINANCE</OPTION><OPTION value=BSBIO>BS 
+                                BIOLOGY</OPTION><OPTION value=BSCAD>BS CUSTOM 
+                                ADMINISTRATION</OPTION><OPTION value=BSCE>BS 
+                                CIVIL ENGINEERING</OPTION><OPTION 
+                                value=BSCHEM>BS CHEMICAL 
+                                ENGINEERING</OPTION><OPTION value=BS-ECO>BS 
+                                ECONOMICS</OPTION><OPTION value=BSCOM>BACHELOR 
+                                OF SCIENCE IN COMPUTER ENG.G</OPTION><OPTION 
+                                value=BSCOS>BACHELOR OF SCIENCE IN COMPUTER 
+                                SECRETARIAL</OPTION><OPTION value=BSCRI>BACHELOR 
+                                OF SCIENCE IN CRIMINOLOGY</OPTION><OPTION 
+                                value=BSCS>BACHELOR OF SCIENCE IN COMPUTER 
+                                SCIENCE</OPTION><OPTION value=BSCT>BACHELOR OF 
+                                SCIENCE IN COMPUTER TECHNICIAN</OPTION><OPTION 
+                                value=BSECE>BACHELOR OF SCIENCE IN ELECTRONICS 
+                                COMM. ENGR.</OPTION><OPTION value=BSED>BACHELOR 
+                                OF SCIENCE IN ELEMENTARY 
+                                EDUCATION</OPTION><OPTION value=BSEE>BACHELOR OF 
+                                SCIENCE IN ELECTRICAL ENG.G</OPTION><OPTION 
+                                value=BSFT>BACHELOR OF SCIENCE IN FOOD 
+                                TECHNOLOGY</OPTION><OPTION value=BSHE>B.S HUMAN 
+                                ECOLOGY</OPTION><OPTION value=BSHRM>BACHELOR OF 
+                                SCIENCE IN HRM</OPTION><OPTION 
+                                value=BSIE>BACHELOR IN INDUS. 
+                                ENG.G</OPTION><OPTION value=BSIMT>BS IN AIRCRAFT 
+                                MAINTENANCE TECHNOLOGY</OPTION><OPTION 
+                                value=BSIP>BACHELOROF SCIENCE IN INDUS. 
+                                PSYCHOLOGY</OPTION><OPTION value=BSM>BACHELOR OF 
+                                SCIENCE IN MARKETING</OPTION><OPTION 
+                                value=BSMAR>BACHELOR OF SCIENCE IN MARINE 
+                                ENG.G</OPTION><OPTION value=BSMAT>BACHELOR OF 
+                                SCIENCE MAJOR IN MATH</OPTION><OPTION 
+                                value=BSME>BACHELOR OF SCIENCE IN MECHANICAL 
+                                ENGINEERING</OPTION><OPTION value=BSMF>BACHELOR 
+                                OF SCIENCE IN MANUFACTURING</OPTION><OPTION 
+                                value=BSMGM>BACHELOR OF SCIENCE IN 
+                                MANAGEMENT</OPTION><OPTION value=BSMIE>BACHELOR 
+                                OF SCIENCE IN MGNT. AND INDUS. 
+                                ENGIN.</OPTION><OPTION value=BSMT>B.S MARINE 
+                                TRANSPORTATION</OPTION><OPTION 
+                                value=BSN>BACHELOR OF SCIENCE IN 
+                                NURSING</OPTION><OPTION value=BSOA>BS IN OFFICE 
+                                ADMIN</OPTION><OPTION value=BSP>BACHELOR OF 
+                                SCIENCE IN PSYCHOLOGY</OPTION><OPTION 
+                                value=BSPT>B.S PHYSICAL THERAPY</OPTION><OPTION 
+                                value=BSSOC>BACHELOR OF SCIENCE IN 
+                                SOCIOLOGY</OPTION><OPTION value=BST>BACHELOR OF 
+                                SCIENCEIN TOURISM</OPTION><OPTION 
+                                value=CA>COMMUNICATION ARTS</OPTION><OPTION 
+                                value=CHARC>CERTIFICATE HOTEL AND RESTAURANT 
+                                CATERING</OPTION><OPTION value=COLVL>COLLEGE 
+                                LEVEL</OPTION><OPTION 
+                                value=DIT>DIT-HRT</OPTION><OPTION 
+                                value=EET>ELECTIRICAL ENGINEERING 
+                                TECHNOLOGY</OPTION><OPTION value=ELEM>ELEMENTARY 
+                                SCHOOL</OPTION><OPTION value=ET>ELECTRONICS 
+                                TECHNICIAN</OPTION><OPTION value=FPST>FOOD 
+                                PREPARATION AND SERVICE 
+                                TECHNOLOGY</OPTION><OPTION value=HSCH>HIGH 
+                                SCHOOL</OPTION><OPTION value=ID>INTERIOR 
+                                DESIGNER</OPTION><OPTION 
+                                value=INTDI>INTERDISCIPLINARY 
+                                STUDIES</OPTION><OPTION value=LIB/E>LIBERAL ARTS 
+                                ECONOMICS</OPTION><OPTION value=MBA>MASTER 
+                                BACHELOR OF ARTS</OPTION><OPTION 
+                                value=MIE>MASTERS IN INDUSTRIAL 
+                                ENGINEER</OPTION><OPTION value=MPET>MECHANICAL 
+                                AND PROD. ENG. TECH</OPTION><OPTION 
+                                value=MT>MECHANICAL TECHNOLOGY</OPTION><OPTION 
+                                value=RAAET>REFRIGERATION &amp; AIRCONDITIONING 
+                                ENGINEERING TECH.</OPTION><OPTION 
+                                value=SS>SOCIAL SCIENCE</OPTION><OPTION 
+                                value=VOC>VOCATIONAL</OPTION><OPTION 
+                                value=123>123456</OPTION>
+              </select></td>
+            </tr>
+          </table>
+				</div>
+				  <table width="100%" border="0">
+            <tr>
+              <td class="red">Name of School:</td>
+              <td><input name="elem" />
+                <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+            </tr>
+            <tr>
+              <td width="24%" valign="top" class="red">Address:</td>
+              <td width="76%"><textarea name="elemAdd" cols="40" rows="6"></textarea></td>
+            </tr>
+            <tr>
+              <td class="red">Period Covered:</td>
+              <td class="red"><input name="elemFrom" />
+                  <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a> To
+                <input 
+                              name="elemTo" />
+                <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a></td>
+            </tr>
+            <tr>
+              <td valign="top" class="red">Awards/Honors Received:</td>
+              <td><textarea name="elemHonors" cols="40" rows="6"></textarea></td>
+            </tr>
+            <tr>
+              <td valign="top" class="red">Extra-curricular activities:</td>
+              <td><textarea name="elemHonors" cols="40" rows="6"></textarea>
+              &nbsp;[&nbsp;<a href="#">add education</a>&nbsp;]</td>
+            </tr>
+          </table>
+					<div id="boardexam" style="display:none">
+					<table width="100%" border="0">
+            <tr>
+              <td width="24%" align="left" valign="middle" class="red">Board Examinations Taken</td>
+              <td width="23%" align="center" valign="middle">Year</td>
+              <td width="16%" align="center" valign="middle">Rating</td>
+              <td width="37%" align="left" valign="middle">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" valign="middle" class="red"><input type="text" name="textfield" /></td>
+              <td align="left" valign="middle"><span class="red">
+                <input type="text" name="textfield2" />
+              </span></td>
+              <td align="left" valign="middle"><span class="red">
+                <input type="text" name="textfield3" />
+              </span></td>
+              <td align="left" valign="middle">[&nbsp;<a href="#">add</a>&nbsp;]</td>
+            </tr>
+          </table>					
+					
+					</div>
+        </td></tr>		
+	</table>
+</div>
+
+<div id="workexperience">
+<table width="100%" border="0">
+                <tbody>
+                  <tr>
+                    <td colspan="2" class="red">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td width="24%" class="red">Name of the Company:</td>
+                    <td width="76%"><input name="elem2" />
+                      <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+                  </tr>
+                  <tr>
+                    <td class="red">Reason/s for Leaving:</td>
+                    <td><textarea name="workAdd[0]" cols="30" rows="6"></textarea></td>
+                  </tr>
+                  <tr>
+                    <td class="red">Position:</td>
+                    <td><input name="workPos[0]" /></td>
+                  </tr>
+                  <tr>
+                    <td class="red">Period Covered:</td>
+                    <td class="red"><input name="elemFrom" />
+                        <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a> To
+                      <input 
+                              name="elemTo" />
+                      <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a></td>
+                  </tr>
+                  <tr>
+                    <td class="red">Latest Salary:</td>
+                    <td><input name="workSalary[0]" /></td>
+                  </tr>
+                  <tr>
+                    <td class="red">Supervisor's Name:</td>
+                    <td><input name="workSuper[0]" /></td>
+                  </tr>
+                  <tr>
+                    <td class="red">Contact Numbers:</td>
+                    <td><input name="workContact[0]" /></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="red">Summary of Job Description:</td>
+                    <td><textarea name="workDesc[0]" cols="40" rows="6"></textarea>
+                      <span class="red"> [&nbsp;<a href="#">add work experience</a>&nbsp;]</span></td>
+                  </tr>
+                  
+                  <tr>
+                    <td class="red">&nbsp;</td>
+                    <td class="red">&nbsp;</td>
+                  </tr>
+                </tbody>
+  </table>
+</div>
+
+<div id="characterref">
+  <table width="100%" border="0">
+    <tbody>
+      <tr>
+        <td class="red" colspan="2"><strong>CHARACTER REFERENCE </strong></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="red"><em>(References should not be a relative and should 
+          have known the applicant for at least 3 
+          years)</em></td>
+      </tr>
+      <tr>
+        <td class="red" width="24%">Name</td>
+        <td class="red"><input name="refPhone[0]" /></td>
+      </tr>
+      <tr>
+        <td valign="top" class="red">Business 
+          Address/Residential Address</td>
+        <td><textarea name="refPhone[1]" cols="30" rows="6"></textarea></td>
+        <input type="hidden" 
+                            name="ref_ID[0]" />
+      </tr>
+      <tr>
+        <td class="red">Phone No.</td>
+        <td><input name="refPhone[2]" /></td>
+        <input type="hidden" 
+                            name="ref_ID[1]" />
+      </tr>
+      <tr>
+        <td class="red">Occupation/Business</td>
+        <td><input name="refOcc[0]" />
+            <span class="red"> [&nbsp;<a href="#">add character reference</a>&nbsp;]</span></td>
+        <input type="hidden" 
+                            name="ref_ID[2]" />
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="addtlinfo">
+  <table width="100%" border="0">
+    <tbody>
+      <tr>
+        <td colspan="2" class="red"><strong>ADDITIONAL INFORMATION </strong></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="red">Friends or relatives 
+          Connected with this Company and/or Sister 
+          Companies</td>
+      </tr>
+      <tr>
+        <td class="red" width="24%">Name</td>
+        <td width="76%" class="red"><input size="30" name="associate1" /></td>
+      </tr>
+      <tr>
+        <td class="red">Relationship</td>
+        <td class="red"><input size="30" name="associate12" /></td>
+      </tr>
+      <tr>
+        <td class="red">Position</td>
+        <td class="red"><input size="30" name="associate13" /></td>
+      </tr>
+      <tr>
+        <td class="red">Company</td>
+        <td class="red"><input size="30" name="associate14" />
+          [&nbsp;<a href="#">add connection</a>&nbsp;]</td>
+      </tr>
+      <tr>
+        <td class="red">&nbsp;</td>
+        <td class="red">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="red">Person to Notify In Case 
+          of Emergency</td>
+      </tr>
+      <tr>
+        <td class="red">Name</td>
+        <td class="red"><input size="30" name="associate1" /></td>
+      </tr>
+      <tr>
+        <td class="red">Relationship</td>
+        <td class="red"><input size="30" name="associate12" /></td>
+      </tr>
+      <tr>
+        <td class="red">Address</td>
+        <td class="red"><input size="30" name="associate13" /></td>
+      </tr>
+      <tr>
+        <td class="red">Contact Numbers </td>
+        <td class="red"><input size="30" name="associate13" />
+          [&nbsp;<a href="#">add persons to notify</a>&nbsp;]</td>
+      </tr>
+      <tr>
+        <td class="red">&nbsp;</td>
+        <td class="red">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="red"><table width="100%" border="0">
+            <tbody>
+              <tr>
+                <td class="red">1. Please write a brief biography 
+                  describing your personality, strengths, 
+                  weaknesses, interests, ambitions, and plans for 
+                  the future including your three most substantial 
+                  accomplishments. (Isulat sa maikling salaysay ang 
+                  iyong pagkatao, galing at kahinaan; mga hilig, 
+                  ambisyon, at plano sa hinaharap, magbanggit ng 
+                  tatlong mahahalagang bagay na nagampanan mo sa 
+                  iyong buhay.)</td>
+              </tr>
+              <tr>
+                <td><textarea name="biography" rows="5" cols="50"></textarea></td>
+              </tr>
+              <tr>
+                <td class="red">2. Why do you think should the 
+                  company hire you for the position you are applying 
+                  for? (Sa iyong palagay, bakit karapat-dapat kang 
+                  tanggaping ng kumpanyang ito batay sa posisyon na 
+                  iyong pinapasukan?)</td>
+              </tr>
+              <tr>
+                <td><textarea name="hire" rows="5" cols="50"></textarea></td>
+              </tr>
+              <tr>
+                <td class="red">3. What are your career and personal 
+                  goals/plans? (Ano ang iyong planong pang-personal 
+                  o pang-career sa hinaharap?)</td>
+              </tr>
+              <tr>
+                <td><textarea name="goals" rows="5" cols="50"></textarea></td>
+              </tr>
+            </tbody>
+        </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="trainingscert">
+  <table width="100%" border="0">
+    <tbody>
+      <tr>
+        <td colspan="2" class="red">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="red" width="24%">Title</td>
+        <td width="76%" class="red"><input size="30" name="associate15" /></td>
+      </tr>
+      <tr>
+        <td class="red">Date</td>
+        <td class="red"><input name="period1" />
+            <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a> to
+          <input 
+                              name="elemTo2" />
+          <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a></td>
+      </tr>
+      <tr>
+        <td class="red">Venue</td>
+        <td class="red"><input name="pos1" />
+          [&nbsp;<a href="#">add trainings &amp; certifications</a>&nbsp;]</td>
+      </tr>
+      <tr>
+        <td class="red">&nbsp;</td>
+        <td class="red">&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="affiliations">
+  <table width="100%" border="0">
+    <tbody>
+      <tr>
+        <td colspan="2" class="red">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="red" width="52%">Memberships in 
+          Association/Socio-Civic/Community Groups</td>
+        <td width="48%" class="red"><input size="30" name="associate16" />
+            <img src="<?=SYSCONFIG_DEFAULT_IMAGES?>ico_find.gif" alt="Search" border="0" align="absmiddle" /></td>
+      </tr>
+      <tr>
+        <td class="red">Period Covered</td>
+        <td class="red"><input name="period12" />
+            <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a> to
+          <input 
+                              name="elemTo22" />
+          <a href="javascript:void(0);" class="option" onclick="return showCalendar('appform_dob');"><img src="<?=SYSCONFIG_DEFAULT_IMAGES?>calendar.png" alt="Date" border="0" align="absmiddle" /></a></td>
+      </tr>
+      <tr>
+        <td class="red">Position</td>
+        <td class="red"><input name="pos12" />
+          [&nbsp;<a href="#">add affiliation</a>&nbsp;]</td>
+      </tr>
+      <tr>
+        <td class="red">&nbsp;</td>
+        <td class="red">&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+	<script>
+
+			tabbar2=new dhtmlXTabBar("a_tabbar","top");
+            tabbar2.setImagePath("imgs/");
+            
+            tabbar2.loadXML("tabs3a.xml");
+						tabbar2.enableAutoReSize(true);
+						
+						tabbar2.setContent("b1","perinfo");
+						tabbar2.setContent("b2","education");
+						tabbar2.setContent("b3","workexperience");
+						tabbar2.setContent("b4","characterref");
+						tabbar2.setContent("b5","addtlinfo");
+						tabbar2.setContent("b6","trainingscert");
+						tabbar2.setContent("b7","affiliations");
+
+	</script>
