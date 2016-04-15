@@ -1,51 +1,34 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+if (isset($eMsg)) {
+	if (is_array($eMsg)) {
 ?>
-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
-nzd8g6tdjdOFctC=
+	<div class="tblListErrMsg">
+	<strong>Check the following error(s) below:</strong><br />
+	<?php
+	foreach ($eMsg as $key => $value) {
+	?>
+	&nbsp;&nbsp;&bull;&nbsp;<?=$value?><br />
+	<?php		
+	}
+	?>
+	</div>
+<?php		
+	} else {
+?>
+	<div class="tblListErrMsg">
+	<?=$eMsg?>
+	</div>
+<?
+	}
+}
+?>
+<div class="themeFieldsetDiv01">
+<fieldset class="themeFieldset01">
+<legend class="themeLegend01">Backup Database Form</legend>
+<form method="post" action="">
+
+Add forms here...
+
+</form>
+</fieldset>
+</div>

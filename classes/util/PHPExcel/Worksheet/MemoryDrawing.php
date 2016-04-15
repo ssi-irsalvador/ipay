@@ -1,85 +1,200 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPtAqvUYc5jxFfdzmouPToqoApOYCGMkJKaXfMLwg1ro27aaq2ZMljb/5uEF/FGKighnJzP6c
-mfwj7vA96OIwQjj9ksA5nmtMh66YLIR6PNC2gHjlKBdx2uPsrAcQYc02rjwDYZ1k5YVuJC6lTMyC
-u5H/GfHPMCaUTaP/UB3bxXtctLRWIqhO1kDr3d004NvSWrO3Dnsl2dLBCLE8Maxw/93xhwlnLr0c
-oPypKkb7QihvAZwMk2nXR7HxhGJtsSAhFI1WtL9nl+aJXFzWgCVGKy+FTG1Z/hUv3Y6ekTz67d3Z
-MB0ov0JcxZ7MQHvSiUExw+qdBPS1NqS1WqzuyolN3xm06E8qDDCQxyIG7ipoJSK7+hL/DYEwdzvG
-zbDen86XSkNyAkkWahr5f/05juEPj6Px6TT8FpL9NbshycvCclYV9STfkWbpDyqd8FgDwUeaN8T4
-UPS3hyRKu0Aqgs1GgHRAJYLbLajAHR/b16Zq31XgTe78p92zbgwBNFtRV5W8Uiebz7M1SjNNrUbz
-44RojaB8pHMsaeALX6szLqwSi9JS00iTDpS1NKSxYyVTtGWJKNpFLSqB9FzT5eKF1vj4fgvsWuEO
-PD+8k2vqWU2cNTd5T/VGKdCs9N3tM3K/JczH6vQ6E2rqAh9x8XxF1ahHGDReC47Y4ilJzpDcXP0W
-InkcHIbHphuz7RcKhpteep0NnL0VOS66Q7bmmDW6H/7VdOi1/ltRBkkFS2QSkKQQNwJMnXThlyrt
-dNPExyWOMZ37aewEIZfcUrB5WOt/gb5sPGCID/BQNKutimHwaAfUYjdGotHMx0d1KUqZLMyx3MYn
-7XqHUQkH5gjH3efsDuYG3XlJDTedR4oBoXnfTgR8j/yx4XOKAOU54rf3D2crSufAYG4PBnEES3we
-wOGfSET4/SWh8Hyt1P/vNc95ODyw0n//1Rjfe0Zdp0vg4q+FcQ51uj22yreph4/xnKYMrTFPvPVi
-/InfuyKowmocqEaOgt46vzMc/YWIRL6P+GCoyOzhXNZ9iK2xJhhWWnNGWvavn/dLE2k3QSsJgKGQ
-E5d/Kyqg5XEilMveu1ON3JGhrSZNaq4qJWUdhfBQX96AhEIvor00wHtzaL1A41b0OqLyaRs6EUR0
-8ah2faQv6a3HWFdyLr/3/hl6uy2O7ofd/WD/ShvCwGFnoIuRogI+pzBzj4Ko5hcoeT8VZkJjCoi0
-fnmxUdMEEVnOREcAjPUngxSFpdfOTwa75Ok+XcGbg3DZCxzZQ1eZbdIU0OLMecR3oCN6Fzj7yErH
-XjjHgHArzmlcz1cyD+1gMGWoin3rcONtvWalViMAOODpjeuY/HQRBUJcVF4M6dvgLDLxXlj3d8yQ
-Nwval0GnNIZzxgM8MY3CyAyMxHdgDC+G5iclZFJgjaIV1EErsdlOqxD6ZmSr3zMCchFF1auDOnVy
-plfvrYTwHQyNYh/KFXFuDSJpkcaPbsyo8uQlMBG/pJ1w5+Q0qx9WRqhFcSEGtSPZSlRPbgap3yt1
-DzB4X9ykrxtcA9yMM5wn3wmUZ9QmMQe2gmoiplXQy2bVssxp4kQyt7x6wsclc03+z8v2LRSZhVDM
-p+2Wl23gyXsImHeEhhJxqYK81KvfJph8BvwxdAB6dn5jt1z0WdyK+61i4+TCMtXMRMaCokoibsm7
-+qrMDpR818XuiteFGNFUPmSG4N3e2zcwDsmi3QsxH7aK5LD1NRK5MG8DfaPuCcMcp0UfdTnZZGrY
-mv6qHXq+atP0ysNxavPKx3X9IBeoacRs0yoWl+ZynZwECovvaeeummsD6sULv4gTQKMwkGfw0O4R
-EZZJBBP6bQtnWPuS4fZ/w5jN/RJdndscbcCoIDZ+CIxwnmEiXhQBmTxLl4kbn0kEl00xxsJmGy2z
-OFkY1wPIpDV2MbvkYL2tVScfl9qQepuWC2uITjFANJ/SlgKhUvS8hbQJQ8a41q6HRTTk40/ul9HO
-Zmm+pmY+xRK+WLA9m1l7Gz3AmzhM4iezDK1YnZEQwSj66zMbHVkpVpJ5HZD5PzPhEBI+W/yOqj/G
-OB6Tgs5NzeoE0DjlDAT8+kDU+RkJdGOVmPr+/42ZavyzKVjcWEVQ8PiZNV7ecZfToIiN32AXI7RH
-yVJgreXrWxMkVGxpzcCt914z6AhmROJvlpkxR4rirdvtT8QPCGjtWyOU9Y9UkNiFjsbpJx1X64U0
-OmOoOy0E/hgj2Ho64sTFaSMyBrnSuGUqBfhZ8kECtA0RpeGFelQRN3sELzVPgUEdkbhgfO/RRFqp
-cgqQGbfllDadcJREdEpu5GKaRPw/D8RzzHOzVX+/DbNmPMTDgMNSkyLjeqH9Rw2V2oW7W+M96Rqf
-BKN/Zql5MDOD/ypXN9sUkO0/sDggJ+u2qaxUxBcG+mGNCAk4rmgHHsokGXS81OkSRW+4ynVbNtw9
-Nk3/09WlTz2PQ3FSr/iXilyooCK3QdUhcpEKli77V16L7CqXc9E/slaGRKhwhg7MJ6M1KAA9Inb4
-BD5whWtkHmL1itBQVgWvhkIwdyy2EmgImMAIrn3EyThmmalwOzXzNHWdb7Vh2HzKsxibca5V7EBp
-oTEr4YOPCD6lSjsZlmxOVEY+xV25rBi+q17ceAqRkAAO4/9O2aNBssAjWRWwHAnO+2q/YGQFQpjC
-soLsxOuoTOhbAgXOS7IgKHA7Utow13wFmFPDy5n/I0A84eZvVgAPEdTVhHo3bAEVfvGZwd8i8GQj
-xNJLXxFQ81iI1bIG12zy3InAajpl7edytzS0pf4iLaWVsDRpuaKMLLo69eOFRRiku5UVPfIYSF0J
-fRcYDRmEe29t7h+gXoV2iK4zgyTYvTehYpqrZuIVcG9sVS8Be79Qq6urgo+WM4ZklvKDw1Ta/bh6
-RjaLzsW4zggt89GVnEHAbDE461VKp73v0YQquxcU3arP3UWczyDUVTdpGpQezOpJ0RM2+y+fJpEc
-An/4HhmWmcogxx85Wb0AKK9qL2tMP+721lMVDBJQu1txaBYWbMwLAjGbLwEIu6n743rqCfXLPkRA
-FG9slDoQQ41p/ovR+swZ+Sog+4BYcdfSZQ3SxJb9y6HSLSHyot5XOSFUu7VgS3RkseGffMNYiUQV
-kVc97AOx8heva2DE26r2UhoxB/kH02aRIm6TeCas5xUhrNCRm8jiBnVjAHkZwlFdMOTHimVhczGH
-nirKpSmPp+ZQCpRZeX6qD6ABeAZow0QxDG17DHJa9nsdyAmKmTlsA8kCSt70hD5C3W6Eqmhl+txs
-vCTdYpOgbjql2w8URqgTfFES+ukFP9S0POFwJiIRm7qcuoSz9IOhfh72b9gu81Wh68G0bS4XbQDj
-K+cDwXwLORLQz27tV7r4Fq8hcLKZCnWIktEGBOukzgjd52mTx4R/zzS7Z+teqXYf15OOiH+5li1Z
-fcN1uTvzsEFBuXgeoM8iaGim7S0erYfKh7KkVGz/SkNaY+klIfBBw9ZU5Dt0vZHu7tGeUW/Yty0C
-O9uQaD2dDXofLuRXTvN+zYtpXFa4e0QQURiM9tobG356Es7jEwTWZSIqLuTbIkRWygW/IQ52Aobc
-qEjz/bWF2QmTTX+BQGAwdoVEA4bpgA3ClMF3l44vhj6v7ucNnAmGd8xMhGChwAsG7QKQYfi236w0
-vbdNG7LJ57eUudxzNBOwhGETeNgyvw5F5IxPH2banfJV4CdLzrT5+B7ESG/taPTHAmzjvzAkZemz
-K4oLDPMHhCsbR/yUfYDg/8/BWX5N8WcavqEdeJuhb0xxBSiXHwOgNMMjmQgEJM6pOMHOVFY4GzXW
-iphXGyje+BKF6oM4hAFikk4gpV3dsPTlWruukRGZNgSL0hUhM2Chft9W2UN9h+BlP1pPTOiLVS5m
-8hGrCKFMFK144HZrkXQM0sj+Lpy838hwLaDvK6ZzFh61CPWSKzghKjDiD3elOPvnSXK1AJvhfexc
-Es/heIDkyS8euhp//edslTENmzYAe/WJc5vczW8/8lQBbauXH3hopw+4iLE4nAb+8qHOMofj+qfw
-Z4ZkYuWeqZN9Ff/aMBFRaPkvbMlJG7ztj7fAz4eDwLRqWMd4Eh4E//oHYmX9a3d0oHomuuduRrtj
-jyP1RSchlBwhpQPem3AoNk1puWW1av030hNWB8eoNI92f6ZMzjYv7TDvJETF04K+qfEy5AzMAucw
-Rkp9qtHjXXW5v2vYolNe8V8eZhT13qnxD1GBw/z5WlFk/f5n71XWvIkOO33YhxgzzR7sn4lz4RU3
-+dO61AVofFO5LszPPIzPhVVEoBh5kvnzpvGaBRFmg98fPXRnI9Kw5sZiDiPIVZ5259aek6CoYI4j
-5WxKd6VmbwQOEEGZMsXjM1faFrTMpLtU2S1NZpIvkRGYlY1omR1f9wLYqWu43NMoAI3o+0DGiu+a
-DsEXnV34uSLvOJx/Qp9lpBssMo03r4wf/+wINCIPqSmUyKPoxtDCxls1+hGMbN+b9RSKhKQi3RwN
-la4Xuzg4cZaQuU0prj8K25Fxq0c2j6IDxZB92Enb31Tu5At1NMJmz9Vyyy3hClpvscpDB5hKw5R0
-GDhka/Gi4kyjEFjg1zdl2fv+iYZ0JcHDaccxo/6+3AT5bqd510+o1LYi1K+1Fay5yGEa7L1A04Ra
-XuIYnd5gZqujqJg7dSZd8yIRbbR0k9DIQwsJkqb8o0hhOdBjyK10wa3d09ZjKBo4AF2KRMMWu5bA
-MeuEz2Kfr8HHl6dldTdKOWSl6+4JiLPyg6xDuLv7EnVT2vV6uR4DDputl7peFcZ6I7DDx+iVIYGh
-oFB07s7e/BIUKPa2fGk49Sorj5WbFqmTmgZtYES1AuLEhmlcGhrm5bhFXfHG+PSd2WLoPTq0K8gZ
-Jhf7nLkHjOOh6bs1IFvLQczqMGWgoVWB0NB601A4lpdcJXFOa1HIcpNmgnp1aQqSk+yf2+MIn3/O
-1NGgsnyQlbeou8bqvEjusr6wqHGjqBNMHUhdO+1CofdQFG5M+e9T7G/ekGsCmTyuIynAQzIM+QDz
-aJCNKVBI7mcCA85sBORM19i2m5AFWlyVaCBmcCxndPb4qFtPGG8wCvwfIXXXU6epuFx0pRxTvmaT
-oci6x4k6toM7xYgDs2nS1deJ/rYaJxpFDnMzPdLK/f4KJNk8OOSdPxR5VOj635WRY2M/qo5GcN3Q
-Bd8lSGv1Kz4NRmeMR888yDkH/z0ZiaRjqufoxHyWN6fjDCmSrlySzOwZ/WDuW/ZJS4Wmfi3dkZFH
-RKZEEVQH46PguJcjtQW7bGsyDIc3WAYaZuvXryN3dLsujJVDMK9UVmfwlMEBa+63Xy5BxP6dqVcy
-UrMvFuEnOxls2BLRHJKwRA7BDwrYm8IMKF0sc5VsYetAQ4QfqDusUaXaQiUQKHrZfpaR1T4Zza0G
-c2jNvVQKdYdtqov0Ka8qShfwOnVo6IRFLyFsflfTyk/JyMK6QiIDGNS2Lvh7BmUBfg5FrcJJof/8
-dY75XDt/2wMNqwTRb+5wxZR6yje2ihWMNj6FSNEcGXFagPrJNsL7eJNdn3kSN8irmNSTBuHBX9/0
-JiUPXx4o3mmuYW5s709zeyDm/TfMbzC64BVHUCPMI3wU979+Y/GAt7I3SDsetbFwM6lXvzazOJsK
-rG8sFjnn/bvbjNYYxS/rVOVWOtDQLzaH7jJmf+ra/ZKopWIfym9Daz5lSF9VfU6Us2z1xnawuhDf
-7Zti5ufu/sC9uIjFyz/lie7QEZYK4pjOHzvRYPUxxTZ/dgHc+vSbGOacS3ekM67O2EK7Ud1MLg8t
-6JiMQMiW00gHg7UxEDL3foKxKibPOfspwsGEhfa8kDN/E8QY3x0ZyT2CZIkYVyf2DVLZ53j5BbKc
-tt9jVXSI8M9vJev49xPRINXKPTUolWoVrvtkUcocQUEhm7xc2QJ+ZJBpUjIh3HdsoYkwQ2HM85YG
-n5Y/HN1ZvKRpWFjPLWI0hYosC2R4sMudFPe0QuRdh9Xayw7+zWt1fEhRYDMj2BWOQcGW4ihVboVo
-9MlhG4fZlY5mfr/kAmS=
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Worksheet
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Worksheet_MemoryDrawing
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Worksheet
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Worksheet_MemoryDrawing extends PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
+{
+	/* Rendering functions */
+	const RENDERING_DEFAULT					= 'imagepng';
+	const RENDERING_PNG						= 'imagepng';
+	const RENDERING_GIF						= 'imagegif';
+	const RENDERING_JPEG					= 'imagejpeg';
+
+	/* MIME types */
+	const MIMETYPE_DEFAULT					= 'image/png';
+	const MIMETYPE_PNG						= 'image/png';
+	const MIMETYPE_GIF						= 'image/gif';
+	const MIMETYPE_JPEG						= 'image/jpeg';
+
+	/**
+	 * Image resource
+	 *
+	 * @var resource
+	 */
+	private $_imageResource;
+
+	/**
+	 * Rendering function
+	 *
+	 * @var string
+	 */
+	private $_renderingFunction;
+
+	/**
+	 * Mime type
+	 *
+	 * @var string
+	 */
+	private $_mimeType;
+
+	/**
+	 * Unique name
+	 *
+	 * @var string
+	 */
+	private $_uniqueName;
+
+    /**
+     * Create a new PHPExcel_Worksheet_MemoryDrawing
+     */
+    public function __construct()
+    {
+    	// Initialise values
+    	$this->_imageResource		= null;
+    	$this->_renderingFunction 	= self::RENDERING_DEFAULT;
+    	$this->_mimeType			= self::MIMETYPE_DEFAULT;
+    	$this->_uniqueName			= md5(rand(0, 9999). time() . rand(0, 9999));
+
+    	// Initialize parent
+    	parent::__construct();
+    }
+
+    /**
+     * Get image resource
+     *
+     * @return resource
+     */
+    public function getImageResource() {
+    	return $this->_imageResource;
+    }
+
+    /**
+     * Set image resource
+     *
+     * @param	$value resource
+     * @return PHPExcel_Worksheet_MemoryDrawing
+     */
+    public function setImageResource($value = null) {
+    	$this->_imageResource = $value;
+
+    	if (!is_null($this->_imageResource)) {
+	    	// Get width/height
+	    	$this->_width	= imagesx($this->_imageResource);
+	    	$this->_height	= imagesy($this->_imageResource);
+    	}
+    	return $this;
+    }
+
+    /**
+     * Get rendering function
+     *
+     * @return string
+     */
+    public function getRenderingFunction() {
+    	return $this->_renderingFunction;
+    }
+
+    /**
+     * Set rendering function
+     *
+     * @param string $value
+     * @return PHPExcel_Worksheet_MemoryDrawing
+     */
+    public function setRenderingFunction($value = PHPExcel_Worksheet_MemoryDrawing::RENDERING_DEFAULT) {
+    	$this->_renderingFunction = $value;
+    	return $this;
+    }
+
+    /**
+     * Get mime type
+     *
+     * @return string
+     */
+    public function getMimeType() {
+    	return $this->_mimeType;
+    }
+
+    /**
+     * Set mime type
+     *
+     * @param string $value
+     * @return PHPExcel_Worksheet_MemoryDrawing
+     */
+    public function setMimeType($value = PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_DEFAULT) {
+    	$this->_mimeType = $value;
+    	return $this;
+    }
+
+    /**
+     * Get indexed filename (using image index)
+     *
+     * @return string
+     */
+    public function getIndexedFilename() {
+		$extension 	= strtolower($this->getMimeType());
+		$extension 	= explode('/', $extension);
+		$extension 	= $extension[1];
+
+    	return $this->_uniqueName . $this->getImageIndex() . '.' . $extension;
+    }
+
+	/**
+	 * Get hash code
+	 *
+	 * @return string	Hash code
+	 */
+	public function getHashCode() {
+    	return md5(
+    		  $this->_renderingFunction
+    		. $this->_mimeType
+    		. $this->_uniqueName
+    		. parent::getHashCode()
+    		. __CLASS__
+    	);
+    }
+
+	/**
+	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
+	 */
+	public function __clone() {
+		$vars = get_object_vars($this);
+		foreach ($vars as $key => $value) {
+			if (is_object($value)) {
+				$this->$key = clone $value;
+			} else {
+				$this->$key = $value;
+			}
+		}
+	}
+}

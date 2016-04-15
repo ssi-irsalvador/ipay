@@ -1,56 +1,108 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+/**
+ * Provides a means for Expectations to verify they are called in the correct order.
+ * This allows Invocations to be forced in a particular order.
+ * @author Chris Corbyn <chris@w3style.co.uk>
+ * @package Yay
+ */
+class Yay_SimpleSequence implements Yay_Sequence
+{
+
+  /**
+   * The name of this sequence.
+   * @var string
+   * @access private
+   */
+  private $_name;
+
+  /**
+   * The list of sequence IDs expected.
+   * @var array
+   * @access private
+   */
+  private $_sequenceIds = array();
+
+  /**
+   * An internal sequence counter.
+   * @var int
+   * @access private
+   */
+  private $_counter = 0;
+
+  /**
+   * The current position in the sequence.
+   * @var int
+   * @access private
+   */
+  private $_currentId = null;
+
+  /**
+   * Create a new Sequence with $name.
+   * @param string $name
+   */
+  public function __construct($name)
+  {
+    $this->_name = $name;
+  }
+
+  /**
+   * Ask for a new Sequence Id and register the new sequence.
+   * @return integer $id
+   */
+  public function requestSequenceId()
+  {
+    $id = $this->_counter++;
+    $this->_sequenceIds[] = $id;
+    return $id;
+  }
+
+  /**
+   * Check if the sequence has progressed far enough for this sequence ID to be used.
+   * @param integer $id
+   * @return boolean
+   */
+  public function isInSequence($sequenceId)
+  {
+    if ($this->_currentId === $sequenceId)
+    {
+      $inSequence = true;
+    }
+    elseif (current($this->_sequenceIds) === $sequenceId)
+    {
+      $this->_currentId = array_shift($this->_sequenceIds);
+      $inSequence = true;
+    }
+    else
+    {
+      $inSequence = false;
+    }
+    return $inSequence;
+  }
+
+  /**
+   * Write a description of this self describing object to Description.
+   * @param Yay_Description $description
+   */
+  public function describeTo(Yay_Description $description)
+  {
+    $description->appendText(sprintf(' sequence %s;', $this->_name));
+  }
+
+}

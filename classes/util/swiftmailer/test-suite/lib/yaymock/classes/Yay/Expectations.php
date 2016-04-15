@@ -1,105 +1,306 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+//require 'Yay/Expectation.php';
+//require 'Yay/InvocationRecorder.php';
+//require 'Yay/InvocationProxy.php';
+//require 'Yay/Invocation.php';
+//require 'Yay/State.php';
+//require 'Yay/StatePredicate.php';
+//require 'Yay/Sequence.php';
+//require 'Yay/Expectations/ExactlyExpectation.php';
+//require 'Yay/Expectations/AtLeastExpectation.php';
+//require 'Yay/Expectations/AtMostExpectation.php';
+//require 'Yay/Expectations/BetweenExpectation.php';
+//require 'Yay/Action.php';
+//require 'Yay/Actions/ReturnValueAction.php';
+//require 'Yay/Actions/ReturnReferenceAction.php';
+//require 'Yay/Actions/ThrowAction.php';
+//require 'Yay/Actions/CallbackAction.php';
+
+/**
+ * A group of expectations which can be specified in a fluid manner.
+ * Generally speaking this is where all expectations should be made for the sake
+ * of abstraction.
+ * @author Chris Corbyn <chris@w3style.co.uk>
+ * @package Yay
+ */
+class Yay_Expectations implements Yay_InvocationRecorder
+{
+
+  /**
+   * The Expectation stack.
+   * @var array
+   * @access private
+   */
+  private $_expectations = array();
+
+  /**
+   * The current Expectation to proxy any recording to.
+   * @var Yay_Expectation
+   * @access private
+   */
+  private $_currentEndpoint;
+
+  /**
+   * Create a new instance of Expectations.
+   * @return Yay_Expectations
+   */
+  final public static function create()
+  {
+    return new self();
+  }
+
+  /**
+   * Expect one Invocation on the $mock object.
+   * Returns the mock object in record mode.
+   * @param Yay_MockObject $mock
+   * @return Yay_Expectations
+   */
+  public function one(Yay_MockObject $mock)
+  {
+    return $this->exactly(1)->of($mock);
+  }
+
+  /**
+   * Expect exactly $n Invocations on a mock object specified with a following
+   * of() clause.
+   * Example: <code> Expectations::create()->exactly(2)->of($mock); </code>
+   * @param integer $n
+   * @return Yay_Expectations
+   */
+  public function exactly($n)
+  {
+    return $this->_setEndpoint(new Yay_Expectations_ExactlyExpectation($n));
+  }
+
+  /**
+   * Expect at least $n Invocations on a mock object specified with a following
+   * of() clause.
+   * Example: <code> Expectations::create()->atLeast(2)->of($mock); </code>
+   * @param integer $n
+   * @return Yay_Expectations
+   */
+  public function atLeast($n)
+  {
+    return $this->_setEndpoint(new Yay_Expectations_AtLeastExpectation($n));
+  }
+
+  /**
+   * Expect at most $n Invocations on a mock object specified with a following
+   * of() clause.
+   * Example: <code> Expectations::create()->atMost(2)->of($mock); </code>
+   * @param integer $n
+   * @return Yay_Expectations
+   */
+  public function atMost($n)
+  {
+    return $this->_setEndpoint(new Yay_Expectations_AtMostExpectation($n));
+  }
+
+  /**
+   * Expect at between $min and $max Invocations on a mock object specified
+   * with a following of() clause.
+   * Example: <code> Expectations::create()->atLeast(2)->of($mock); </code>
+   * @param integer $n
+   * @return Yay_Expectations
+   */
+  public function between($min, $max)
+  {
+    return $this->_setEndpoint(new Yay_Expectations_BetweenExpectation($min, $max));
+  }
+
+  /**
+   * Ignore Invocations on the $mock object specified.
+   * @param Yay_MockObject $mock
+   * @return Yay_Expectations
+   */
+  public function ignoring(Yay_MockObject $mock)
+  {
+    return $this->atLeast(0)->of($mock);
+  }
+
+  /**
+   * Allow Invocations on the $mock object specified.
+   * This does exactly the same thing as ignoring() but it allows a semantically
+   * different meaning in the test case.
+   * @param Yay_MockObject $mock
+   * @return Yay_Expectations
+   */
+  public function allowing(Yay_MockObject $mock)
+  {
+    return $this->ignoring($mock);
+  }
+
+  /**
+   * Deny Invocations on the $mock object specified.
+   * @param Yay_MockObject $mock
+   * @return Yay_Expectations
+   */
+  public function never(Yay_MockObject $mock)
+  {
+    return $this->exactly(0)->of($mock);
+  }
+
+  /**
+   * Specify the MockObject which the Invocation will occur.
+   * This method returns the mock object in record mode.
+   * @param Yay_MockObject $mock
+   * @return Yay_InvocationProxy
+   */
+  public function of(Yay_MockObject $mock)
+  {
+    $this->_getEndpoint()->of($mock);
+    return new Yay_InvocationProxy($this, $mock);
+  }
+
+  /**
+   * Specify the Action to run if a match occurs.
+   * @param Yay_Action $action
+   */
+  public function will(Yay_Action $action)
+  {
+    $this->_getEndpoint()->will($action);
+    return $this;
+  }
+
+  /**
+   * Only be expected when in the given State predicate.
+   * @param Yay_StatePredicate $predicate
+   */
+  public function when(Yay_StatePredicate $predicate)
+  {
+    $this->_getEndpoint()->when($predicate);
+    return $this;
+  }
+
+  /**
+   * Activate the given $state if a match occurs.
+   * @param Yay_State $state
+   */
+  public function then(Yay_State $state)
+  {
+    $this->_getEndpoint()->then($state);
+    return $this;
+  }
+
+  /**
+   * Constrain the current expectation to occur in the given sequence.
+   * @param Yay_Sequence $seq
+   */
+  public function inSequence(Yay_Sequence $seq)
+  {
+    $this->_getEndpoint()->inSequence($seq);
+    return $this;
+  }
+
+  /**
+   * A wrapper for will(Yay::returnValue($value)).
+   * @param mixed $value
+   */
+  public function returns($value)
+  {
+    $this->_getEndpoint()->will(new Yay_Actions_ReturnValueAction($value));
+    return $this;
+  }
+
+  /**
+   * A wrapper for will(Yay::returnReference($ref)).
+   * @param mixed $ref
+   */
+  public function returnsReference(&$ref)
+  {
+    $this->_getEndpoint()->will(new Yay_Actions_ReturnReferenceAction($ref));
+    return $this;
+  }
+
+  /**
+   * A wrapper for will(Yay::throwException($e)).
+   * @param Exception $e
+   */
+  public function throws(Exception $e)
+  {
+    $this->_getEndpoint()->will(new Yay_Actions_ThrowAction($e));
+    return $this;
+  }
+
+  /**
+   * A wrapper for will(Yay::call($callback)).
+   * @param callback $callback
+   */
+  public function calls($callback)
+  {
+    $this->_getEndpoint()->will(new Yay_Actions_CallbackAction($callback));
+    return $this;
+  }
+
+  /**
+   * Record any Invocations on the MockObject whilst it's in record mode.
+   * @param Yay_Invocation $invocation
+   */
+  public function recordInvocation(Yay_Invocation $invocation)
+  {
+    $this->_getEndpoint()->recordInvocation($invocation);
+  }
+
+  /**
+   * Returns the Expectation stack.
+   * @return Yay_Expectation
+   */
+  public function getExpectations()
+  {
+    return $this->_expectations;
+  }
+
+  // -- Private methods
+
+  /**
+   * Apply a new Expectation to the stack and tag it as the endpoint for recording.
+   * @param Yay_Expectation $expectation
+   * @return Yay_Expectations
+   * @access private
+   */
+  private function _setEndpoint(Yay_Expectation $expectation)
+  {
+    $this->_expectations[] = $expectation;
+    $this->_currentEndpoint = $expectation;
+    return $this;
+  }
+
+  /**
+   * Gets the current endpoint (current expectation).
+   * @return Yay_Expectation
+   * @access private
+   */
+  private function _getEndpoint()
+  {
+    if (!isset($this->_currentEndpoint))
+    {
+      throw new BadMethodCallException(
+        'No cardinality clause has yet been made.  First call one(), atLeast(), ' .
+        'atMost(), exactly(), between(), ignoring(), allowing() or never() ' .
+        'before performing this operation.'
+        );
+    }
+    else
+    {
+      return $this->_currentEndpoint;
+    }
+  }
+
+}

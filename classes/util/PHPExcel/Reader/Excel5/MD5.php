@@ -1,157 +1,221 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Reader_Excel5
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt        LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Reader_Excel5_MD5
+ *
+ * @category        PHPExcel
+ * @package                PHPExcel_Reader_Excel5
+ * @copyright        Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Reader_Excel5_MD5
+{
+    // Context
+    private $a;
+    private $b;
+    private $c;
+    private $d;
+
+
+    /**
+     * MD5 stream constructor
+     */
+    public function __construct()
+    {
+        $this->reset();
+    }
+
+
+    /**
+     * Reset the MD5 stream context
+     */
+    public function reset()
+    {
+        $this->a = 0x67452301;
+        $this->b = 0xEFCDAB89;
+        $this->c = 0x98BADCFE;
+        $this->d = 0x10325476;
+    }
+
+
+    /**
+     * Get MD5 stream context
+     * 
+     * @return string
+     */
+    public function getContext()
+    {
+        $s = '';
+        foreach (array('a', 'b', 'c', 'd') as $i) {
+            $v = $this->{$i};
+            $s .= chr($v & 0xff);
+            $s .= chr(($v >> 8) & 0xff);
+            $s .= chr(($v >> 16) & 0xff);
+            $s .= chr(($v >> 24) & 0xff);
+        }
+
+        return $s;
+    }
+
+
+    /**
+     * Add data to context
+     * 
+     * @param string $data Data to add
+     */
+    public function add($data)
+    {
+        $words = array_values(unpack('V16', $data));
+
+        $A = $this->a;
+        $B = $this->b;
+        $C = $this->c;
+        $D = $this->d;
+
+        $F = array('PHPExcel_Reader_Excel5_MD5','F');
+        $G = array('PHPExcel_Reader_Excel5_MD5','G');
+        $H = array('PHPExcel_Reader_Excel5_MD5','H');
+        $I = array('PHPExcel_Reader_Excel5_MD5','I');
+
+        /* ROUND 1 */
+        self::step($F, $A, $B, $C, $D, $words[0], 7, 0xd76aa478);
+        self::step($F, $D, $A, $B, $C, $words[1], 12, 0xe8c7b756);
+        self::step($F, $C, $D, $A, $B, $words[2], 17, 0x242070db);
+        self::step($F, $B, $C, $D, $A, $words[3], 22, 0xc1bdceee);
+        self::step($F, $A, $B, $C, $D, $words[4], 7, 0xf57c0faf);
+        self::step($F, $D, $A, $B, $C, $words[5], 12, 0x4787c62a);
+        self::step($F, $C, $D, $A, $B, $words[6], 17, 0xa8304613);
+        self::step($F, $B, $C, $D, $A, $words[7], 22, 0xfd469501);
+        self::step($F, $A, $B, $C, $D, $words[8], 7, 0x698098d8);
+        self::step($F, $D, $A, $B, $C, $words[9], 12, 0x8b44f7af);
+        self::step($F, $C, $D, $A, $B, $words[10], 17, 0xffff5bb1);
+        self::step($F, $B, $C, $D, $A, $words[11], 22, 0x895cd7be);
+        self::step($F, $A, $B, $C, $D, $words[12], 7, 0x6b901122);
+        self::step($F, $D, $A, $B, $C, $words[13], 12, 0xfd987193);
+        self::step($F, $C, $D, $A, $B, $words[14], 17, 0xa679438e);
+        self::step($F, $B, $C, $D, $A, $words[15], 22, 0x49b40821);
+
+        /* ROUND 2 */
+        self::step($G, $A, $B, $C, $D, $words[1], 5, 0xf61e2562);
+        self::step($G, $D, $A, $B, $C, $words[6], 9, 0xc040b340);
+        self::step($G, $C, $D, $A, $B, $words[11], 14, 0x265e5a51);
+        self::step($G, $B, $C, $D, $A, $words[0], 20, 0xe9b6c7aa);
+        self::step($G, $A, $B, $C, $D, $words[5], 5, 0xd62f105d);
+        self::step($G, $D, $A, $B, $C, $words[10], 9, 0x02441453);
+        self::step($G, $C, $D, $A, $B, $words[15], 14, 0xd8a1e681);
+        self::step($G, $B, $C, $D, $A, $words[4], 20, 0xe7d3fbc8);
+        self::step($G, $A, $B, $C, $D, $words[9], 5, 0x21e1cde6);
+        self::step($G, $D, $A, $B, $C, $words[14], 9, 0xc33707d6);
+        self::step($G, $C, $D, $A, $B, $words[3], 14, 0xf4d50d87);
+        self::step($G, $B, $C, $D, $A, $words[8], 20, 0x455a14ed);
+        self::step($G, $A, $B, $C, $D, $words[13], 5, 0xa9e3e905);
+        self::step($G, $D, $A, $B, $C, $words[2], 9, 0xfcefa3f8);
+        self::step($G, $C, $D, $A, $B, $words[7], 14, 0x676f02d9);
+        self::step($G, $B, $C, $D, $A, $words[12], 20, 0x8d2a4c8a);
+
+        /* ROUND 3 */
+        self::step($H, $A, $B, $C, $D, $words[5], 4, 0xfffa3942);
+        self::step($H, $D, $A, $B, $C, $words[8], 11, 0x8771f681);
+        self::step($H, $C, $D, $A, $B, $words[11], 16, 0x6d9d6122);
+        self::step($H, $B, $C, $D, $A, $words[14], 23, 0xfde5380c);
+        self::step($H, $A, $B, $C, $D, $words[1], 4, 0xa4beea44);
+        self::step($H, $D, $A, $B, $C, $words[4], 11, 0x4bdecfa9);
+        self::step($H, $C, $D, $A, $B, $words[7], 16, 0xf6bb4b60);
+        self::step($H, $B, $C, $D, $A, $words[10], 23, 0xbebfbc70);
+        self::step($H, $A, $B, $C, $D, $words[13], 4, 0x289b7ec6);
+        self::step($H, $D, $A, $B, $C, $words[0], 11, 0xeaa127fa);
+        self::step($H, $C, $D, $A, $B, $words[3], 16, 0xd4ef3085);
+        self::step($H, $B, $C, $D, $A, $words[6], 23, 0x04881d05);
+        self::step($H, $A, $B, $C, $D, $words[9], 4, 0xd9d4d039);
+        self::step($H, $D, $A, $B, $C, $words[12], 11, 0xe6db99e5);
+        self::step($H, $C, $D, $A, $B, $words[15], 16, 0x1fa27cf8);
+        self::step($H, $B, $C, $D, $A, $words[2], 23, 0xc4ac5665);
+
+        /* ROUND 4 */
+        self::step($I, $A, $B, $C, $D, $words[0], 6, 0xf4292244);
+        self::step($I, $D, $A, $B, $C, $words[7], 10, 0x432aff97);
+        self::step($I, $C, $D, $A, $B, $words[14], 15, 0xab9423a7);
+        self::step($I, $B, $C, $D, $A, $words[5], 21, 0xfc93a039);
+        self::step($I, $A, $B, $C, $D, $words[12], 6, 0x655b59c3);
+        self::step($I, $D, $A, $B, $C, $words[3], 10, 0x8f0ccc92);
+        self::step($I, $C, $D, $A, $B, $words[10], 15, 0xffeff47d);
+        self::step($I, $B, $C, $D, $A, $words[1], 21, 0x85845dd1);
+        self::step($I, $A, $B, $C, $D, $words[8], 6, 0x6fa87e4f);
+        self::step($I, $D, $A, $B, $C, $words[15], 10, 0xfe2ce6e0);
+        self::step($I, $C, $D, $A, $B, $words[6], 15, 0xa3014314);
+        self::step($I, $B, $C, $D, $A, $words[13], 21, 0x4e0811a1);
+        self::step($I, $A, $B, $C, $D, $words[4], 6, 0xf7537e82);
+        self::step($I, $D, $A, $B, $C, $words[11], 10, 0xbd3af235);
+        self::step($I, $C, $D, $A, $B, $words[2], 15, 0x2ad7d2bb);
+        self::step($I, $B, $C, $D, $A, $words[9], 21, 0xeb86d391);
+
+        $this->a = ($this->a + $A) & 0xffffffff;
+        $this->b = ($this->b + $B) & 0xffffffff;
+        $this->c = ($this->c + $C) & 0xffffffff;
+        $this->d = ($this->d + $D) & 0xffffffff;
+    }
+
+
+    private static function F($X, $Y, $Z)
+    {
+        return (($X & $Y) | ((~ $X) & $Z)); // X AND Y OR NOT X AND Z
+    }
+
+
+    private static function G($X, $Y, $Z)
+    {
+        return (($X & $Z) | ($Y & (~ $Z))); // X AND Z OR Y AND NOT Z
+    }
+
+
+    private static function H($X, $Y, $Z)
+    {
+        return ($X ^ $Y ^ $Z); // X XOR Y XOR Z
+    }
+
+
+    private static function I($X, $Y, $Z)
+    {
+        return ($Y ^ ($X | (~ $Z))) ; // Y XOR (X OR NOT Z)
+    }
+
+
+    private static function step($func, &$A, $B, $C, $D, $M, $s, $t)
+    {
+        $A = ($A + call_user_func($func, $B, $C, $D) + $M + $t) & 0xffffffff;
+        $A = self::rotate($A, $s);
+        $A = ($B + $A) & 0xffffffff;
+    }
+
+
+    private static function rotate($decimal, $bits)
+    {
+        $binary = str_pad(decbin($decimal), 32, "0", STR_PAD_LEFT);
+        return bindec(substr($binary, $bits).substr($binary, 0, $bits));
+    }
+}

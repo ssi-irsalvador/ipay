@@ -1,201 +1,655 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * The default email message class.
+ *
+ * @package    Swift
+ * @subpackage Mime
+ * @author     Chris Corbyn
+ */
+class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime_Message
+{
+    /**
+     * Create a new SimpleMessage with $headers, $encoder and $cache.
+     *
+     * @param Swift_Mime_HeaderSet      $headers
+     * @param Swift_Mime_ContentEncoder $encoder
+     * @param Swift_KeyCache            $cache
+     * @param Swift_Mime_Grammar        $grammar
+     * @param string                    $charset
+     */
+    public function __construct(Swift_Mime_HeaderSet $headers, Swift_Mime_ContentEncoder $encoder, Swift_KeyCache $cache, Swift_Mime_Grammar $grammar, $charset = null)
+    {
+        parent::__construct($headers, $encoder, $cache, $grammar, $charset);
+        $this->getHeaders()->defineOrdering(array(
+            'Return-Path',
+            'Received',
+            'DKIM-Signature',
+            'DomainKey-Signature',
+            'Sender',
+            'Message-ID',
+            'Date',
+            'Subject',
+            'From',
+            'Reply-To',
+            'To',
+            'Cc',
+            'Bcc',
+            'MIME-Version',
+            'Content-Type',
+            'Content-Transfer-Encoding'
+            ));
+        $this->getHeaders()->setAlwaysDisplayed(array('Date', 'Message-ID', 'From'));
+        $this->getHeaders()->addTextHeader('MIME-Version', '1.0');
+        $this->setDate(time());
+        $this->setId($this->getId());
+        $this->getHeaders()->addMailboxHeader('From');
+    }
+
+    /**
+     * Always returns {@link LEVEL_TOP} for a message instance.
+     *
+     * @return int
+     */
+    public function getNestingLevel()
+    {
+        return self::LEVEL_TOP;
+    }
+
+    /**
+     * Set the subject of this message.
+     *
+     * @param string $subject
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setSubject($subject)
+    {
+        if (!$this->_setHeaderFieldModel('Subject', $subject)) {
+            $this->getHeaders()->addTextHeader('Subject', $subject);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the subject of this message.
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->_getHeaderFieldModel('Subject');
+    }
+
+    /**
+     * Set the date at which this message was created.
+     *
+     * @param integer $date
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setDate($date)
+    {
+        if (!$this->_setHeaderFieldModel('Date', $date)) {
+            $this->getHeaders()->addDateHeader('Date', $date);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the date at which this message was created.
+     *
+     * @return integer
+     */
+    public function getDate()
+    {
+        return $this->_getHeaderFieldModel('Date');
+    }
+
+    /**
+     * Set the return-path (the bounce address) of this message.
+     *
+     * @param string $address
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setReturnPath($address)
+    {
+        if (!$this->_setHeaderFieldModel('Return-Path', $address)) {
+            $this->getHeaders()->addPathHeader('Return-Path', $address);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the return-path (bounce address) of this message.
+     *
+     * @return string
+     */
+    public function getReturnPath()
+    {
+        return $this->_getHeaderFieldModel('Return-Path');
+    }
+
+    /**
+     * Set the sender of this message.
+     *
+     * This does not override the From field, but it has a higher significance.
+     *
+     * @param string $address
+     * @param string $name    optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setSender($address, $name = null)
+    {
+        if (!is_array($address) && isset($name)) {
+            $address = array($address => $name);
+        }
+
+        if (!$this->_setHeaderFieldModel('Sender', (array) $address)) {
+            $this->getHeaders()->addMailboxHeader('Sender', (array) $address);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the sender of this message.
+     *
+     * @return string
+     */
+    public function getSender()
+    {
+        return $this->_getHeaderFieldModel('Sender');
+    }
+
+    /**
+     * Add a From: address to this message.
+     *
+     * If $name is passed this name will be associated with the address.
+     *
+     * @param string $address
+     * @param string $name    optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function addFrom($address, $name = null)
+    {
+        $current = $this->getFrom();
+        $current[$address] = $name;
+
+        return $this->setFrom($current);
+    }
+
+    /**
+     * Set the from address of this message.
+     *
+     * You may pass an array of addresses if this message is from multiple people.
+     *
+     * If $name is passed and the first parameter is a string, this name will be
+     * associated with the address.
+     *
+     * @param string $addresses
+     * @param string $name      optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setFrom($addresses, $name = null)
+    {
+        if (!is_array($addresses) && isset($name)) {
+            $addresses = array($addresses => $name);
+        }
+
+        if (!$this->_setHeaderFieldModel('From', (array) $addresses)) {
+            $this->getHeaders()->addMailboxHeader('From', (array) $addresses);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the from address of this message.
+     *
+     * @return string
+     */
+    public function getFrom()
+    {
+        return $this->_getHeaderFieldModel('From');
+    }
+
+    /**
+     * Add a Reply-To: address to this message.
+     *
+     * If $name is passed this name will be associated with the address.
+     *
+     * @param string $address
+     * @param string $name    optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function addReplyTo($address, $name = null)
+    {
+        $current = $this->getReplyTo();
+        $current[$address] = $name;
+
+        return $this->setReplyTo($current);
+    }
+
+    /**
+     * Set the reply-to address of this message.
+     *
+     * You may pass an array of addresses if replies will go to multiple people.
+     *
+     * If $name is passed and the first parameter is a string, this name will be
+     * associated with the address.
+     *
+     * @param string $addresses
+     * @param string $name      optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setReplyTo($addresses, $name = null)
+    {
+        if (!is_array($addresses) && isset($name)) {
+            $addresses = array($addresses => $name);
+        }
+
+        if (!$this->_setHeaderFieldModel('Reply-To', (array) $addresses)) {
+            $this->getHeaders()->addMailboxHeader('Reply-To', (array) $addresses);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the reply-to address of this message.
+     *
+     * @return string
+     */
+    public function getReplyTo()
+    {
+        return $this->_getHeaderFieldModel('Reply-To');
+    }
+
+    /**
+     * Add a To: address to this message.
+     *
+     * If $name is passed this name will be associated with the address.
+     *
+     * @param string $address
+     * @param string $name    optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function addTo($address, $name = null)
+    {
+        $current = $this->getTo();
+        $current[$address] = $name;
+
+        return $this->setTo($current);
+    }
+
+    /**
+     * Set the to addresses of this message.
+     *
+     * If multiple recipients will receive the message and array should be used.
+     *
+     * If $name is passed and the first parameter is a string, this name will be
+     * associated with the address.
+     *
+     * @param mixed  $addresses
+     * @param string $name      optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setTo($addresses, $name = null)
+    {
+        if (!is_array($addresses) && isset($name)) {
+            $addresses = array($addresses => $name);
+        }
+
+        if (!$this->_setHeaderFieldModel('To', (array) $addresses)) {
+            $this->getHeaders()->addMailboxHeader('To', (array) $addresses);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the To addresses of this message.
+     *
+     * @return array
+     */
+    public function getTo()
+    {
+        return $this->_getHeaderFieldModel('To');
+    }
+
+    /**
+     * Add a Cc: address to this message.
+     *
+     * If $name is passed this name will be associated with the address.
+     *
+     * @param string $address
+     * @param string $name    optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function addCc($address, $name = null)
+    {
+        $current = $this->getCc();
+        $current[$address] = $name;
+
+        return $this->setCc($current);
+    }
+
+    /**
+     * Set the Cc addresses of this message.
+     *
+     * If $name is passed and the first parameter is a string, this name will be
+     * associated with the address.
+     *
+     * @param mixed  $addresses
+     * @param string $name      optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setCc($addresses, $name = null)
+    {
+        if (!is_array($addresses) && isset($name)) {
+            $addresses = array($addresses => $name);
+        }
+
+        if (!$this->_setHeaderFieldModel('Cc', (array) $addresses)) {
+            $this->getHeaders()->addMailboxHeader('Cc', (array) $addresses);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the Cc address of this message.
+     *
+     * @return array
+     */
+    public function getCc()
+    {
+        return $this->_getHeaderFieldModel('Cc');
+    }
+
+    /**
+     * Add a Bcc: address to this message.
+     *
+     * If $name is passed this name will be associated with the address.
+     *
+     * @param string $address
+     * @param string $name    optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function addBcc($address, $name = null)
+    {
+        $current = $this->getBcc();
+        $current[$address] = $name;
+
+        return $this->setBcc($current);
+    }
+
+    /**
+     * Set the Bcc addresses of this message.
+     *
+     * If $name is passed and the first parameter is a string, this name will be
+     * associated with the address.
+     *
+     * @param mixed  $addresses
+     * @param string $name      optional
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setBcc($addresses, $name = null)
+    {
+        if (!is_array($addresses) && isset($name)) {
+            $addresses = array($addresses => $name);
+        }
+
+        if (!$this->_setHeaderFieldModel('Bcc', (array) $addresses)) {
+            $this->getHeaders()->addMailboxHeader('Bcc', (array) $addresses);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the Bcc addresses of this message.
+     *
+     * @return array
+     */
+    public function getBcc()
+    {
+        return $this->_getHeaderFieldModel('Bcc');
+    }
+
+    /**
+     * Set the priority of this message.
+     *
+     * The value is an integer where 1 is the highest priority and 5 is the lowest.
+     *
+     * @param integer $priority
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setPriority($priority)
+    {
+        $priorityMap = array(
+            1 => 'Highest',
+            2 => 'High',
+            3 => 'Normal',
+            4 => 'Low',
+            5 => 'Lowest'
+            );
+        $pMapKeys = array_keys($priorityMap);
+        if ($priority > max($pMapKeys)) {
+            $priority = max($pMapKeys);
+        } elseif ($priority < min($pMapKeys)) {
+            $priority = min($pMapKeys);
+        }
+        if (!$this->_setHeaderFieldModel('X-Priority',
+            sprintf('%d (%s)', $priority, $priorityMap[$priority])))
+        {
+            $this->getHeaders()->addTextHeader('X-Priority',
+                sprintf('%d (%s)', $priority, $priorityMap[$priority]));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the priority of this message.
+     *
+     * The returned value is an integer where 1 is the highest priority and 5
+     * is the lowest.
+     *
+     * @return integer
+     */
+    public function getPriority()
+    {
+        list($priority) = sscanf($this->_getHeaderFieldModel('X-Priority'),
+            '%[1-5]'
+            );
+
+        return isset($priority) ? $priority : 3;
+    }
+
+    /**
+     * Ask for a delivery receipt from the recipient to be sent to $addresses
+     *
+     * @param array $addresses
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function setReadReceiptTo($addresses)
+    {
+        if (!$this->_setHeaderFieldModel('Disposition-Notification-To', $addresses)) {
+            $this->getHeaders()
+                ->addMailboxHeader('Disposition-Notification-To', $addresses);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the addresses to which a read-receipt will be sent.
+     *
+     * @return string
+     */
+    public function getReadReceiptTo()
+    {
+        return $this->_getHeaderFieldModel('Disposition-Notification-To');
+    }
+
+    /**
+     * Attach a {@link Swift_Mime_MimeEntity} such as an Attachment or MimePart.
+     *
+     * @param Swift_Mime_MimeEntity $entity
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function attach(Swift_Mime_MimeEntity $entity)
+    {
+        $this->setChildren(array_merge($this->getChildren(), array($entity)));
+
+        return $this;
+    }
+
+    /**
+     * Remove an already attached entity.
+     *
+     * @param Swift_Mime_MimeEntity $entity
+     *
+     * @return Swift_Mime_SimpleMessage
+     */
+    public function detach(Swift_Mime_MimeEntity $entity)
+    {
+        $newChildren = array();
+        foreach ($this->getChildren() as $child) {
+            if ($entity !== $child) {
+                $newChildren[] = $child;
+            }
+        }
+        $this->setChildren($newChildren);
+
+        return $this;
+    }
+
+    /**
+     * Attach a {@link Swift_Mime_MimeEntity} and return it's CID source.
+     * This method should be used when embedding images or other data in a message.
+     *
+     * @param Swift_Mime_MimeEntity $entity
+     *
+     * @return string
+     */
+    public function embed(Swift_Mime_MimeEntity $entity)
+    {
+        $this->attach($entity);
+
+        return 'cid:' . $entity->getId();
+    }
+
+    /**
+     * Get this message as a complete string.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        if (count($children = $this->getChildren()) > 0 && $this->getBody() != '') {
+            $this->setChildren(array_merge(array($this->_becomeMimePart()), $children));
+            $string = parent::toString();
+            $this->setChildren($children);
+        } else {
+            $string = parent::toString();
+        }
+
+        return $string;
+    }
+
+    /**
+     * Returns a string representation of this object.
+     *
+     * @see toString()
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * Write this message to a {@link Swift_InputByteStream}.
+     *
+     * @param Swift_InputByteStream $is
+     */
+    public function toByteStream(Swift_InputByteStream $is)
+    {
+        if (count($children = $this->getChildren()) > 0 && $this->getBody() != '') {
+            $this->setChildren(array_merge(array($this->_becomeMimePart()), $children));
+            parent::toByteStream($is);
+            $this->setChildren($children);
+        } else {
+            parent::toByteStream($is);
+        }
+    }
+
+    // -- Protected methods
+
+    /** @see Swift_Mime_SimpleMimeEntity::_getIdField() */
+    protected function _getIdField()
+    {
+        return 'Message-ID';
+    }
+
+    /** Turn the body of this message into a child of itself if needed */
+    protected function _becomeMimePart()
+    {
+        $part = new parent($this->getHeaders()->newInstance(), $this->getEncoder(),
+            $this->_getCache(), $this->_getGrammar(), $this->_userCharset
+            );
+        $part->setContentType($this->_userContentType);
+        $part->setBody($this->getBody());
+        $part->setFormat($this->_userFormat);
+        $part->setDelSp($this->_userDelSp);
+        $part->_setNestingLevel($this->_getTopNestingLevel());
+
+        return $part;
+    }
+
+    // -- Private methods
+    
+    /** Get the highest nesting level nested inside this message */
+    private function _getTopNestingLevel()
+    {
+        $highestLevel = $this->getNestingLevel();
+        foreach ($this->getChildren() as $child) {
+            $childLevel = $child->getNestingLevel();
+            if ($highestLevel < $childLevel) {
+                $highestLevel = $childLevel;
+            }
+        }
+
+        return $highestLevel;
+    }
+}

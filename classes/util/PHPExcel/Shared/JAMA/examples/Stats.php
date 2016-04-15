@@ -1,491 +1,1605 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+//
+// +----------------------------------------------------------------------+
+// | PHP Version 4                                                        |
+// +----------------------------------------------------------------------+
+// | Copyright (c) 1997-2003 The PHP Group                                |
+// +----------------------------------------------------------------------+
+// | This source file is subject to version 2.0 of the PHP license,       |
+// | that is bundled with this package in the file LICENSE, and is        |
+// | available at through the world-wide-web at                           |
+// | http://www.php.net/license/2_02.txt.                                 |
+// | If you did not receive a copy of the PHP license and are unable to   |
+// | obtain it through the world-wide-web, please send a note to          |
+// | license@php.net so we can mail you a copy immediately.               |
+// +----------------------------------------------------------------------+
+// | Authors: Jesus M. Castagnetto <jmcastagnetto@php.net>                |
+// +----------------------------------------------------------------------+
+//
+// $Id: Stats.php,v 1.15 2003/06/01 11:40:30 jmcastagnetto Exp $
+//
+
+include_once 'PEAR.php';
+
+/**
+* @package Math_Stats
+*/
+
+// Constants for defining the statistics to calculate /*{{{*/
+/**
+* STATS_BASIC to generate the basic descriptive statistics
+*/
+define('STATS_BASIC', 1);
+/**
+* STATS_FULL to generate also higher moments, mode, median, etc.
+*/
+define('STATS_FULL', 2);
+/*}}}*/
+
+// Constants describing the data set format /*{{{*/
+/**
+* STATS_DATA_SIMPLE for an array of numeric values. This is the default.
+* e.g. $data = array(2,3,4,5,1,1,6);
+*/
+define('STATS_DATA_SIMPLE', 0);
+/**
+* STATS_DATA_CUMMULATIVE for an associative array of frequency values,
+* where in each array entry, the index is the data point and the
+* value the count (frequency):
+* e.g. $data = array(3=>4, 2.3=>5, 1.25=>6, 0.5=>3)
+*/
+define('STATS_DATA_CUMMULATIVE', 1);
+/*}}}*/
+
+// Constants defining how to handle nulls /*{{{*/
+/**
+* STATS_REJECT_NULL, reject data sets with null values. This is the default.
+* Any non-numeric value is considered a null in this context.
+*/
+define('STATS_REJECT_NULL', -1);
+/**
+* STATS_IGNORE_NULL, ignore null values and prune them from the data.
+* Any non-numeric value is considered a null in this context.
+*/
+define('STATS_IGNORE_NULL', -2);
+/**
+* STATS_USE_NULL_AS_ZERO, assign the value of 0 (zero) to null values.
+* Any non-numeric value is considered a null in this context.
+*/
+define('STATS_USE_NULL_AS_ZERO', -3);
+/*}}}*/
+
+/**
+* A class to calculate descriptive statistics from a data set.
+* Data sets can be simple arrays of data, or a cummulative hash.
+* The second form is useful when passing large data set,
+* for example the data set:
+*
+* <pre>
+* $data1 = array (1,2,1,1,1,1,3,3,4.1,3,2,2,4.1,1,1,2,3,3,2,2,1,1,2,2);
+* </pre>
+*
+* can be epxressed more compactly as:
+*
+* <pre>
+* $data2 = array('1'=>9, '2'=>8, '3'=>5, '4.1'=>2);
+* </pre>
+*
+* Example of use:
+*
+* <pre>
+* include_once 'Math/Stats.php';
+* $s = new Math_Stats();
+* $s->setData($data1);
+* // or
+* // $s->setData($data2, STATS_DATA_CUMMULATIVE);
+* $stats = $s->calcBasic();
+* echo 'Mean: '.$stats['mean'].' StDev: '.$stats['stdev'].' <br />\n';
+*
+* // using data with nulls
+* // first ignoring them:
+* $data3 = array(1.2, 'foo', 2.4, 3.1, 4.2, 3.2, null, 5.1, 6.2);
+* $s->setNullOption(STATS_IGNORE_NULL);
+* $s->setData($data3);
+* $stats3 = $s->calcFull();
+*
+* // and then assuming nulls == 0
+* $s->setNullOption(STATS_USE_NULL_AS_ZERO);
+* $s->setData($data3);
+* $stats3 = $s->calcFull();
+* </pre>
+*
+* Originally this class was part of NumPHP (Numeric PHP package)
+*
+* @author  Jesus M. Castagnetto <jmcastagnetto@php.net>
+* @version 0.8
+* @access  public
+* @package Math_Stats
+*/
+class Base {/*{{{*/
+    // properties /*{{{*/
+
+    /**
+     * The simple or cummulative data set.
+     * Null by default.
+     *
+     * @access  private
+     * @var array
+     */
+    public $_data = null;
+
+    /**
+     * Expanded data set. Only set when cummulative data
+     * is being used. Null by default.
+     *
+     * @access  private
+     * @var array
+     */
+    public $_dataExpanded = null;
+
+    /**
+     * Flag for data type, one of STATS_DATA_SIMPLE or
+     * STATS_DATA_CUMMULATIVE. Null by default.
+     *
+     * @access  private
+     * @var int
+     */
+    public $_dataOption = null;
+
+    /**
+     * Flag for null handling options. One of STATS_REJECT_NULL,
+     * STATS_IGNORE_NULL or STATS_USE_NULL_AS_ZERO
+     *
+     * @access  private
+     * @var int
+     */
+    public $_nullOption;
+
+    /**
+     * Array for caching result values, should be reset
+     * when using setData()
+     *
+     * @access private
+     * @var array
+     */
+    public $_calculatedValues = array();
+
+    /*}}}*/
+
+    /**
+     * Constructor for the class
+     *
+     * @access  public
+     * @param   optional    int $nullOption how to handle null values
+     * @return  object  Math_Stats
+     */
+    function Math_Stats($nullOption=STATS_REJECT_NULL) {/*{{{*/
+        $this->_nullOption = $nullOption;
+    }/*}}}*/
+
+    /**
+     * Sets and verifies the data, checking for nulls and using
+     * the current null handling option
+     *
+     * @access public
+     * @param   array   $arr    the data set
+     * @param   optional    int $opt    data format: STATS_DATA_CUMMULATIVE or STATS_DATA_SIMPLE (default)
+     * @return  mixed   true on success, a PEAR_Error object otherwise
+     */
+    function setData($arr, $opt=STATS_DATA_SIMPLE) {/*{{{*/
+        if (!is_array($arr)) {
+            return PEAR::raiseError('invalid data, an array of numeric data was expected');
+        }
+        $this->_data = null;
+        $this->_dataExpanded = null;
+        $this->_dataOption = null;
+        $this->_calculatedValues = array();
+        if ($opt == STATS_DATA_SIMPLE) {
+            $this->_dataOption = $opt;
+            $this->_data = array_values($arr);
+        } else if ($opt == STATS_DATA_CUMMULATIVE) {
+            $this->_dataOption = $opt;
+            $this->_data = $arr;
+            $this->_dataExpanded = array();
+        }
+        return $this->_validate();
+    }/*}}}*/
+
+    /**
+     * Returns the data which might have been modified
+     * according to the current null handling options.
+     *
+     * @access  public
+     * @param boolean $expanded whether to return a expanded list, default is false
+     * @return  mixed   array of data on success, a PEAR_Error object otherwise
+     * @see _validate()
+     */
+    function getData($expanded=false) {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if ($this->_dataOption == STATS_DATA_CUMMULATIVE && $expanded) {
+            return $this->_dataExpanded;
+        } else {
+            return $this->_data;
+        }
+    }/*}}}*/
+
+    /**
+     * Sets the null handling option.
+     * Must be called before assigning a new data set containing null values
+     *
+     * @access  public
+     * @return  mixed   true on success, a PEAR_Error object otherwise
+     * @see _validate()
+     */
+    function setNullOption($nullOption) {/*{{{*/
+        if ($nullOption == STATS_REJECT_NULL
+            || $nullOption == STATS_IGNORE_NULL
+            || $nullOption == STATS_USE_NULL_AS_ZERO) {
+            $this->_nullOption = $nullOption;
+            return true;
+        } else {
+            return PEAR::raiseError('invalid null handling option expecting: '.
+                        'STATS_REJECT_NULL, STATS_IGNORE_NULL or STATS_USE_NULL_AS_ZERO');
+        }
+    }/*}}}*/
+
+    /**
+     * Transforms the data by substracting each entry from the mean and
+     * dividing by its standard deviation. This will reset all pre-calculated
+     * values to their original (unset) defaults.
+     *
+     * @access public
+     * @return mixed true on success, a PEAR_Error object otherwise
+     * @see mean()
+     * @see stDev()
+     * @see setData()
+     */
+    function studentize() {/*{{{*/
+        $mean = $this->mean();
+        if (PEAR::isError($mean)) {
+            return $mean;
+        }
+        $std = $this->stDev();
+        if (PEAR::isError($std)) {
+            return $std;
+        }
+        if ($std == 0) {
+            return PEAR::raiseError('cannot studentize data, standard deviation is zero.');
+        }
+        $arr  = array();
+        if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+            foreach ($this->_data as $val=>$freq) {
+                $newval = ($val - $mean) / $std;
+                $arr["$newval"] = $freq;
+            }
+        } else {
+            foreach ($this->_data as $val) {
+                $newval = ($val - $mean) / $std;
+                $arr[] = $newval;
+            }
+        }
+        return $this->setData($arr, $this->_dataOption);
+    }/*}}}*/
+
+    /**
+     * Transforms the data by substracting each entry from the mean.
+     * This will reset all pre-calculated values to their original (unset) defaults.
+     *
+     * @access public
+     * @return mixed true on success, a PEAR_Error object otherwise
+     * @see mean()
+     * @see setData()
+     */
+    function center() {/*{{{*/
+        $mean = $this->mean();
+        if (PEAR::isError($mean)) {
+            return $mean;
+        }
+        $arr  = array();
+        if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+            foreach ($this->_data as $val=>$freq) {
+                $newval = $val - $mean;
+                $arr["$newval"] = $freq;
+            }
+        } else {
+            foreach ($this->_data as $val) {
+                $newval = $val - $mean;
+                $arr[] = $newval;
+            }
+        }
+        return $this->setData($arr, $this->_dataOption);
+    }/*}}}*/
+
+    /**
+     * Calculates the basic or full statistics for the data set
+     *
+     * @access  public
+     * @param   int $mode   one of STATS_BASIC or STATS_FULL
+     * @param boolean $returnErrorObject whether the raw PEAR_Error (when true, default),
+     *                  or only the error message will be returned (when false), if an error happens.
+     * @return  mixed   an associative array of statistics on success, a PEAR_Error object otherwise
+     * @see calcBasic()
+     * @see calcFull()
+     */
+    function calc($mode, $returnErrorObject=true) {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if ($mode == STATS_BASIC) {
+            return $this->calcBasic($returnErrorObject);
+        } elseif ($mode == STATS_FULL) {
+            return $this->calcFull($returnErrorObject);
+        } else {
+            return PEAR::raiseError('incorrect mode, expected STATS_BASIC or STATS_FULL');
+        }
+    }/*}}}*/
+
+    /**
+     * Calculates a basic set of statistics
+     *
+     * @access  public
+     * @param boolean $returnErrorObject whether the raw PEAR_Error (when true, default),
+     *                  or only the error message will be returned (when false), if an error happens.
+     * @return  mixed   an associative array of statistics on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see calcFull()
+     */
+    function calcBasic($returnErrorObject=true) {/*{{{*/
+            return array (
+                'min' => $this->__format($this->min(), $returnErrorObject),
+                'max' => $this->__format($this->max(), $returnErrorObject),
+                'sum' => $this->__format($this->sum(), $returnErrorObject),
+                'sum2' => $this->__format($this->sum2(), $returnErrorObject),
+                'count' => $this->__format($this->count(), $returnErrorObject),
+                'mean' => $this->__format($this->mean(), $returnErrorObject),
+                'stdev' => $this->__format($this->stDev(), $returnErrorObject),
+                'variance' => $this->__format($this->variance(), $returnErrorObject),
+                'range' => $this->__format($this->range(), $returnErrorObject)
+            );
+    }/*}}}*/
+
+    /**
+     * Calculates a full set of statistics
+     *
+     * @access  public
+     * @param boolean $returnErrorObject whether the raw PEAR_Error (when true, default),
+     *                  or only the error message will be returned (when false), if an error happens.
+     * @return  mixed   an associative array of statistics on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see calcBasic()
+     */
+    function calcFull($returnErrorObject=true) {/*{{{*/
+            return array (
+                'min' => $this->__format($this->min(), $returnErrorObject),
+                'max' => $this->__format($this->max(), $returnErrorObject),
+                'sum' => $this->__format($this->sum(), $returnErrorObject),
+                'sum2' => $this->__format($this->sum2(), $returnErrorObject),
+                'count' => $this->__format($this->count(), $returnErrorObject),
+                'mean' => $this->__format($this->mean(), $returnErrorObject),
+                'median' => $this->__format($this->median(), $returnErrorObject),
+                'mode' => $this->__format($this->mode(), $returnErrorObject),
+                'midrange' => $this->__format($this->midrange(), $returnErrorObject),
+                'geometric_mean' => $this->__format($this->geometricMean(), $returnErrorObject),
+                'harmonic_mean' => $this->__format($this->harmonicMean(), $returnErrorObject),
+                'stdev' => $this->__format($this->stDev(), $returnErrorObject),
+                'absdev' => $this->__format($this->absDev(), $returnErrorObject),
+                'variance' => $this->__format($this->variance(), $returnErrorObject),
+                'range' => $this->__format($this->range(), $returnErrorObject),
+                'std_error_of_mean' => $this->__format($this->stdErrorOfMean(), $returnErrorObject),
+                'skewness' => $this->__format($this->skewness(), $returnErrorObject),
+                'kurtosis' => $this->__format($this->kurtosis(), $returnErrorObject),
+                'coeff_of_variation' => $this->__format($this->coeffOfVariation(), $returnErrorObject),
+                'sample_central_moments' => array (
+                            1 => $this->__format($this->sampleCentralMoment(1), $returnErrorObject),
+                            2 => $this->__format($this->sampleCentralMoment(2), $returnErrorObject),
+                            3 => $this->__format($this->sampleCentralMoment(3), $returnErrorObject),
+                            4 => $this->__format($this->sampleCentralMoment(4), $returnErrorObject),
+                            5 => $this->__format($this->sampleCentralMoment(5), $returnErrorObject)
+                            ),
+                'sample_raw_moments' => array (
+                            1 => $this->__format($this->sampleRawMoment(1), $returnErrorObject),
+                            2 => $this->__format($this->sampleRawMoment(2), $returnErrorObject),
+                            3 => $this->__format($this->sampleRawMoment(3), $returnErrorObject),
+                            4 => $this->__format($this->sampleRawMoment(4), $returnErrorObject),
+                            5 => $this->__format($this->sampleRawMoment(5), $returnErrorObject)
+                            ),
+                'frequency' => $this->__format($this->frequency(), $returnErrorObject),
+                'quartiles' => $this->__format($this->quartiles(), $returnErrorObject),
+                'interquartile_range' => $this->__format($this->interquartileRange(), $returnErrorObject),
+                'interquartile_mean' => $this->__format($this->interquartileMean(), $returnErrorObject),
+                'quartile_deviation' => $this->__format($this->quartileDeviation(), $returnErrorObject),
+                'quartile_variation_coefficient' => $this->__format($this->quartileVariationCoefficient(), $returnErrorObject),
+                'quartile_skewness_coefficient' => $this->__format($this->quartileSkewnessCoefficient(), $returnErrorObject)
+            );
+    }/*}}}*/
+
+    /**
+     * Calculates the minimum of a data set.
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the minimum value on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see max()
+     */
+    function min() {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (!array_key_exists('min', $this->_calculatedValues)) {
+            if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+                $min = min(array_keys($this->_data));
+            } else {
+                $min = min($this->_data);
+            }
+            $this->_calculatedValues['min'] = $min;
+        }
+        return $this->_calculatedValues['min'];
+    }/*}}}*/
+
+    /**
+     * Calculates the maximum of a data set.
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the maximum value on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see min()
+     */
+    function max() {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (!array_key_exists('max', $this->_calculatedValues)) {
+            if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+                $max = max(array_keys($this->_data));
+            } else {
+                $max = max($this->_data);
+            }
+            $this->_calculatedValues['max'] = $max;
+        }
+        return $this->_calculatedValues['max'];
+    }/*}}}*/
+
+    /**
+     * Calculates SUM { xi }
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the sum on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see sum2()
+     * @see sumN()
+     */
+    function sum() {/*{{{*/
+        if (!array_key_exists('sum', $this->_calculatedValues)) {
+            $sum = $this->sumN(1);
+            if (PEAR::isError($sum)) {
+                return $sum;
+            } else {
+                $this->_calculatedValues['sum'] = $sum;
+            }
+        }
+        return $this->_calculatedValues['sum'];
+    }/*}}}*/
+
+    /**
+     * Calculates SUM { (xi)^2 }
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the sum on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see sum()
+     * @see sumN()
+     */
+    function sum2() {/*{{{*/
+        if (!array_key_exists('sum2', $this->_calculatedValues)) {
+            $sum2 = $this->sumN(2);
+            if (PEAR::isError($sum2)) {
+                return $sum2;
+            } else {
+                $this->_calculatedValues['sum2'] = $sum2;
+            }
+        }
+        return $this->_calculatedValues['sum2'];
+    }/*}}}*/
+
+    /**
+     * Calculates SUM { (xi)^n }
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @param   numeric $n  the exponent
+     * @return  mixed   the sum on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see sum()
+     * @see sum2()
+     */
+    function sumN($n) {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        $sumN = 0;
+        if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+            foreach($this->_data as $val=>$freq) {
+                $sumN += $freq * pow((double)$val, (double)$n);
+            }
+        } else {
+            foreach($this->_data as $val) {
+                $sumN += pow((double)$val, (double)$n);
+            }
+        }
+        return $sumN;
+    }/*}}}*/
+
+    /**
+     * Calculates PROD { (xi) }, (the product of all observations)
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the product on success, a PEAR_Error object otherwise
+     * @see productN()
+     */
+    function product() {/*{{{*/
+        if (!array_key_exists('product', $this->_calculatedValues)) {
+            $product = $this->productN(1);
+            if (PEAR::isError($product)) {
+                return $product;
+            } else {
+                $this->_calculatedValues['product'] = $product;
+            }
+        }
+        return $this->_calculatedValues['product'];
+    }/*}}}*/
+
+    /**
+     * Calculates PROD { (xi)^n }, which is the product of all observations
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @param   numeric $n  the exponent
+     * @return  mixed   the product on success, a PEAR_Error object otherwise
+     * @see product()
+     */
+    function productN($n) {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        $prodN = 1.0;
+        if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+            foreach($this->_data as $val=>$freq) {
+                if ($val == 0) {
+                    return 0.0;
+                }
+                $prodN *= $freq * pow((double)$val, (double)$n);
+            }
+        } else {
+            foreach($this->_data as $val) {
+                if ($val == 0) {
+                    return 0.0;
+                }
+                $prodN *= pow((double)$val, (double)$n);
+            }
+        }
+        return $prodN;
+
+    }/*}}}*/
+
+    /**
+     * Calculates the number of data points in the set
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the count on success, a PEAR_Error object otherwise
+     * @see calc()
+     */
+    function count() {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (!array_key_exists('count', $this->_calculatedValues)) {
+            if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+                $count = count($this->_dataExpanded);
+            } else {
+                $count = count($this->_data);
+            }
+            $this->_calculatedValues['count'] = $count;
+        }
+        return $this->_calculatedValues['count'];
+    }/*}}}*/
+
+    /**
+     * Calculates the mean (average) of the data points in the set
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the mean value on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see sum()
+     * @see count()
+     */
+    function mean() {/*{{{*/
+        if (!array_key_exists('mean', $this->_calculatedValues)) {
+            $sum = $this->sum();
+            if (PEAR::isError($sum)) {
+                return $sum;
+            }
+            $count = $this->count();
+            if (PEAR::isError($count)) {
+                return $count;
+            }
+            $this->_calculatedValues['mean'] = $sum / $count;
+        }
+        return $this->_calculatedValues['mean'];
+    }/*}}}*/
+
+    /**
+     * Calculates the range of the data set = max - min
+     *
+     * @access public
+     * @return mixed the value of the range on success, a PEAR_Error object otherwise.
+     */
+    function range() {/*{{{*/
+        if (!array_key_exists('range', $this->_calculatedValues)) {
+            $min = $this->min();
+            if (PEAR::isError($min)) {
+                return $min;
+            }
+            $max = $this->max();
+            if (PEAR::isError($max)) {
+                return $max;
+            }
+            $this->_calculatedValues['range'] = $max - $min;
+        }
+        return $this->_calculatedValues['range'];
+
+    }/*}}}*/
+
+    /**
+     * Calculates the variance (unbiased) of the data points in the set
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the variance value on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see __sumdiff()
+     * @see count()
+     */
+    function variance() {/*{{{*/
+        if (!array_key_exists('variance', $this->_calculatedValues)) {
+            $variance = $this->__calcVariance();
+            if (PEAR::isError($variance)) {
+                return $variance;
+            }
+            $this->_calculatedValues['variance'] = $variance;
+        }
+        return $this->_calculatedValues['variance'];
+    }/*}}}*/
+
+    /**
+     * Calculates the standard deviation (unbiased) of the data points in the set
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the standard deviation on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see variance()
+     */
+    function stDev() {/*{{{*/
+        if (!array_key_exists('stDev', $this->_calculatedValues)) {
+            $variance = $this->variance();
+            if (PEAR::isError($variance)) {
+                return $variance;
+            }
+            $this->_calculatedValues['stDev'] = sqrt($variance);
+        }
+        return $this->_calculatedValues['stDev'];
+    }/*}}}*/
+
+    /**
+     * Calculates the variance (unbiased) of the data points in the set
+     * given a fixed mean (average) value. Not used in calcBasic(), calcFull()
+     * or calc().
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @param   numeric $mean   the fixed mean value
+     * @return  mixed   the variance on success, a PEAR_Error object otherwise
+     * @see __sumdiff()
+     * @see count()
+     * @see variance()
+     */
+    function varianceWithMean($mean) {/*{{{*/
+        return $this->__calcVariance($mean);
+    }/*}}}*/
+
+    /**
+     * Calculates the standard deviation (unbiased) of the data points in the set
+     * given a fixed mean (average) value. Not used in calcBasic(), calcFull()
+     * or calc().
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @param   numeric $mean   the fixed mean value
+     * @return  mixed   the standard deviation on success, a PEAR_Error object otherwise
+     * @see varianceWithMean()
+     * @see stDev()
+     */
+    function stDevWithMean($mean) {/*{{{*/
+        $varianceWM = $this->varianceWithMean($mean);
+        if (PEAR::isError($varianceWM)) {
+            return $varianceWM;
+        }
+        return sqrt($varianceWM);
+    }/*}}}*/
+
+    /**
+     * Calculates the absolute deviation of the data points in the set
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the absolute deviation on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see __sumabsdev()
+     * @see count()
+     * @see absDevWithMean()
+     */
+    function absDev() {/*{{{*/
+        if (!array_key_exists('absDev', $this->_calculatedValues)) {
+            $absDev = $this->__calcAbsoluteDeviation();
+            if (PEAR::isError($absdev)) {
+                return $absdev;
+            }
+            $this->_calculatedValues['absDev'] = $absDev;
+        }
+        return $this->_calculatedValues['absDev'];
+    }/*}}}*/
+
+    /**
+     * Calculates the absolute deviation of the data points in the set
+     * given a fixed mean (average) value. Not used in calcBasic(), calcFull()
+     * or calc().
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @param   numeric $mean   the fixed mean value
+     * @return  mixed   the absolute deviation on success, a PEAR_Error object otherwise
+     * @see __sumabsdev()
+     * @see absDev()
+     */
+    function absDevWithMean($mean) {/*{{{*/
+        return $this->__calcAbsoluteDeviation($mean);
+    }/*}}}*/
+
+    /**
+     * Calculates the skewness of the data distribution in the set
+     * The skewness measures the degree of asymmetry of a distribution,
+     * and is related to the third central moment of a distribution.
+     * A normal distribution has a skewness = 0
+     * A distribution with a tail off towards the high end of the scale
+     * (positive skew) has a skewness > 0
+     * A distribution with a tail off towards the low end of the scale
+     * (negative skew) has a skewness < 0
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the skewness value on success, a PEAR_Error object otherwise
+     * @see __sumdiff()
+     * @see count()
+     * @see stDev()
+     * @see calc()
+     */
+    function skewness() {/*{{{*/
+        if (!array_key_exists('skewness', $this->_calculatedValues)) {
+            $count = $this->count();
+            if (PEAR::isError($count)) {
+                return $count;
+            }
+            $stDev = $this->stDev();
+            if (PEAR::isError($stDev)) {
+                return $stDev;
+            }
+            $sumdiff3 = $this->__sumdiff(3);
+            if (PEAR::isError($sumdiff3)) {
+                return $sumdiff3;
+            }
+            $this->_calculatedValues['skewness'] = ($sumdiff3 / ($count * pow($stDev, 3)));
+        }
+        return $this->_calculatedValues['skewness'];
+    }/*}}}*/
+
+    /**
+     * Calculates the kurtosis of the data distribution in the set
+     * The kurtosis measures the degrees of peakedness of a distribution.
+     * It is also called the "excess" or "excess coefficient", and is
+     * a normalized form of the fourth central moment of a distribution.
+     * A normal distributions has kurtosis = 0
+     * A narrow and peaked (leptokurtic) distribution has a
+     * kurtosis > 0
+     * A flat and wide (platykurtic) distribution has a kurtosis < 0
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the kurtosis value on success, a PEAR_Error object otherwise
+     * @see __sumdiff()
+     * @see count()
+     * @see stDev()
+     * @see calc()
+     */
+    function kurtosis() {/*{{{*/
+        if (!array_key_exists('kurtosis', $this->_calculatedValues)) {
+            $count = $this->count();
+            if (PEAR::isError($count)) {
+                return $count;
+            }
+            $stDev = $this->stDev();
+            if (PEAR::isError($stDev)) {
+                return $stDev;
+            }
+            $sumdiff4 = $this->__sumdiff(4);
+            if (PEAR::isError($sumdiff4)) {
+                return $sumdiff4;
+            }
+            $this->_calculatedValues['kurtosis'] = ($sumdiff4 / ($count * pow($stDev, 4))) - 3;
+        }
+        return $this->_calculatedValues['kurtosis'];
+    }/*}}}*/
+
+    /**
+     * Calculates the median of a data set.
+     * The median is the value such that half of the points are below it
+     * in a sorted data set.
+     * If the number of values is odd, it is the middle item.
+     * If the number of values is even, is the average of the two middle items.
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the median value on success, a PEAR_Error object otherwise
+     * @see count()
+     * @see calc()
+     */
+    function median() {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (!array_key_exists('median', $this->_calculatedValues)) {
+            if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+                $arr =& $this->_dataExpanded;
+            } else {
+                $arr =& $this->_data;
+            }
+            $n = $this->count();
+            if (PEAR::isError($n)) {
+                return $n;
+            }
+            $h = intval($n / 2);
+            if ($n % 2 == 0) {
+                $median = ($arr[$h] + $arr[$h - 1]) / 2;
+            } else {
+                $median = $arr[$h + 1];
+            }
+            $this->_calculatedValues['median'] = $median;
+        }
+        return $this->_calculatedValues['median'];
+    }/*}}}*/
+
+    /**
+     * Calculates the mode of a data set.
+     * The mode is the value with the highest frequency in the data set.
+     * There can be more than one mode.
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   an array of mode value on success, a PEAR_Error object otherwise
+     * @see frequency()
+     * @see calc()
+     */
+    function mode() {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (!array_key_exists('mode', $this->_calculatedValues)) {
+            if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+                $arr = $this->_data;
+            } else {
+                $arr = $this->frequency();
+            }
+            arsort($arr);
+            $mcount = 1;
+            foreach ($arr as $val=>$freq) {
+                if ($mcount == 1) {
+                    $mode = array($val);
+                    $mfreq = $freq;
+                    ++$mcount;
+                    continue;
+                }
+                if ($mfreq == $freq)
+                    $mode[] = $val;
+                if ($mfreq > $freq)
+                    break;
+            }
+            $this->_calculatedValues['mode'] = $mode;
+        }
+        return $this->_calculatedValues['mode'];
+    }/*}}}*/
+
+    /**
+     * Calculates the midrange of a data set.
+     * The midrange is the average of the minimum and maximum of the data set.
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the midrange value on success, a PEAR_Error object otherwise
+     * @see min()
+     * @see max()
+     * @see calc()
+     */
+    function midrange() {/*{{{*/
+        if (!array_key_exists('midrange', $this->_calculatedValues)) {
+            $min = $this->min();
+            if (PEAR::isError($min)) {
+                return $min;
+            }
+            $max = $this->max();
+            if (PEAR::isError($max)) {
+                return $max;
+            }
+            $this->_calculatedValues['midrange'] = (($max + $min) / 2);
+        }
+        return $this->_calculatedValues['midrange'];
+    }/*}}}*/
+
+    /**
+     * Calculates the geometrical mean of the data points in the set
+     * Handles cummulative data sets correctly
+     *
+     * @access public
+     * @return mixed the geometrical mean value on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see product()
+     * @see count()
+     */
+    function geometricMean() {/*{{{*/
+        if (!array_key_exists('geometricMean', $this->_calculatedValues)) {
+            $count = $this->count();
+            if (PEAR::isError($count)) {
+                return $count;
+            }
+            $prod = $this->product();
+            if (PEAR::isError($prod)) {
+                return $prod;
+            }
+            if ($prod == 0.0) {
+                return 0.0;
+            }
+            if ($prod < 0) {
+                return PEAR::raiseError('The product of the data set is negative, geometric mean undefined.');
+            }
+            $this->_calculatedValues['geometricMean'] = pow($prod , 1 / $count);
+        }
+        return $this->_calculatedValues['geometricMean'];
+    }/*}}}*/
+
+    /**
+     * Calculates the harmonic mean of the data points in the set
+     * Handles cummulative data sets correctly
+     *
+     * @access public
+     * @return mixed the harmonic mean value on success, a PEAR_Error object otherwise
+     * @see calc()
+     * @see count()
+     */
+    function harmonicMean() {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (!array_key_exists('harmonicMean', $this->_calculatedValues)) {
+            $count = $this->count();
+            if (PEAR::isError($count)) {
+                return $count;
+            }
+            $invsum = 0.0;
+            if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+                foreach($this->_data as $val=>$freq) {
+                    if ($val == 0) {
+                        return PEAR::raiseError('cannot calculate a '.
+                                'harmonic mean with data values of zero.');
+                    }
+                    $invsum += $freq / $val;
+                }
+            } else {
+                foreach($this->_data as $val) {
+                    if ($val == 0) {
+                        return PEAR::raiseError('cannot calculate a '.
+                                'harmonic mean with data values of zero.');
+                    }
+                    $invsum += 1 / $val;
+                }
+            }
+            $this->_calculatedValues['harmonicMean'] = $count / $invsum;
+        }
+        return $this->_calculatedValues['harmonicMean'];
+    }/*}}}*/
+
+    /**
+     * Calculates the nth central moment (m{n}) of a data set.
+     *
+     * The definition of a sample central moment is:
+     *
+     *     m{n} = 1/N * SUM { (xi - avg)^n }
+     *
+     * where: N = sample size, avg = sample mean.
+     *
+     * @access public
+     * @param integer $n moment to calculate
+     * @return mixed the numeric value of the moment on success, PEAR_Error otherwise
+     */
+    function sampleCentralMoment($n) {/*{{{*/
+        if (!is_int($n) || $n < 1) {
+            return PEAR::isError('moment must be a positive integer >= 1.');
+        }
+
+        if ($n == 1) {
+            return 0;
+        }
+        $count = $this->count();
+        if (PEAR::isError($count)) {
+            return $count;
+        }
+        if ($count == 0) {
+            return PEAR::raiseError("Cannot calculate {$n}th sample moment, ".
+                    'there are zero data entries');
+        }
+        $sum = $this->__sumdiff($n);
+        if (PEAR::isError($sum)) {
+            return $sum;
+        }
+        return ($sum / $count);
+    }/*}}}*/
+
+    /**
+     * Calculates the nth raw moment (m{n}) of a data set.
+     *
+     * The definition of a sample central moment is:
+     *
+     *     m{n} = 1/N * SUM { xi^n }
+     *
+     * where: N = sample size, avg = sample mean.
+     *
+     * @access public
+     * @param integer $n moment to calculate
+     * @return mixed the numeric value of the moment on success, PEAR_Error otherwise
+     */
+    function sampleRawMoment($n) {/*{{{*/
+        if (!is_int($n) || $n < 1) {
+            return PEAR::isError('moment must be a positive integer >= 1.');
+        }
+
+        $count = $this->count();
+        if (PEAR::isError($count)) {
+            return $count;
+        }
+        if ($count == 0) {
+            return PEAR::raiseError("Cannot calculate {$n}th raw moment, ".
+                    'there are zero data entries.');
+        }
+        $sum = $this->sumN($n);
+        if (PEAR::isError($sum)) {
+            return $sum;
+        }
+        return ($sum / $count);
+    }/*}}}*/
+
+
+    /**
+     * Calculates the coefficient of variation of a data set.
+     * The coefficient of variation measures the spread of a set of data
+     * as a proportion of its mean. It is often expressed as a percentage.
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   the coefficient of variation on success, a PEAR_Error object otherwise
+     * @see stDev()
+     * @see mean()
+     * @see calc()
+     */
+    function coeffOfVariation() {/*{{{*/
+        if (!array_key_exists('coeffOfVariation', $this->_calculatedValues)) {
+            $mean = $this->mean();
+            if (PEAR::isError($mean)) {
+                return $mean;
+            }
+            if ($mean == 0.0) {
+                return PEAR::raiseError('cannot calculate the coefficient '.
+                        'of variation, mean of sample is zero');
+            }
+            $stDev = $this->stDev();
+            if (PEAR::isError($stDev)) {
+                return $stDev;
+            }
+
+            $this->_calculatedValues['coeffOfVariation'] = $stDev / $mean;
+        }
+        return $this->_calculatedValues['coeffOfVariation'];
+    }/*}}}*/
+
+    /**
+     * Calculates the standard error of the mean.
+     * It is the standard deviation of the sampling distribution of
+     * the mean. The formula is:
+     *
+     * S.E. Mean = SD / (N)^(1/2)
+     *
+     * This formula does not assume a normal distribution, and shows
+     * that the size of the standard error of the mean is inversely
+     * proportional to the square root of the sample size.
+     *
+     * @access  public
+     * @return  mixed   the standard error of the mean on success, a PEAR_Error object otherwise
+     * @see stDev()
+     * @see count()
+     * @see calc()
+     */
+    function stdErrorOfMean() {/*{{{*/
+        if (!array_key_exists('stdErrorOfMean', $this->_calculatedValues)) {
+            $count = $this->count();
+            if (PEAR::isError($count)) {
+                return $count;
+            }
+            $stDev = $this->stDev();
+            if (PEAR::isError($stDev)) {
+                return $stDev;
+            }
+            $this->_calculatedValues['stdErrorOfMean'] = $stDev / sqrt($count);
+        }
+        return $this->_calculatedValues['stdErrorOfMean'];
+    }/*}}}*/
+
+    /**
+     * Calculates the value frequency table of a data set.
+     * Handles cummulative data sets correctly
+     *
+     * @access  public
+     * @return  mixed   an associative array of value=>frequency items on success, a PEAR_Error object otherwise
+     * @see min()
+     * @see max()
+     * @see calc()
+     */
+    function frequency() {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (!array_key_exists('frequency', $this->_calculatedValues)) {
+            if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+                $freq = $this->_data;
+            } else {
+                $freq = array();
+                foreach ($this->_data as $val) {
+                    $freq["$val"]++;
+                }
+                ksort($freq);
+            }
+            $this->_calculatedValues['frequency'] = $freq;
+        }
+        return $this->_calculatedValues['frequency'];
+    }/*}}}*/
+
+    /**
+     * The quartiles are defined as the values that divide a sorted
+     * data set into four equal-sized subsets, and correspond to the
+     * 25th, 50th, and 75th percentiles.
+     *
+     * @access public
+     * @return mixed an associative array of quartiles on success, a PEAR_Error otherwise
+     * @see percentile()
+     */
+    function quartiles() {/*{{{*/
+        if (!array_key_exists('quartiles', $this->_calculatedValues)) {
+            $q1 = $this->percentile(25);
+            if (PEAR::isError($q1)) {
+                return $q1;
+            }
+            $q2 = $this->percentile(50);
+            if (PEAR::isError($q2)) {
+                return $q2;
+            }
+            $q3 = $this->percentile(75);
+            if (PEAR::isError($q3)) {
+                return $q3;
+            }
+            $this->_calculatedValues['quartiles'] = array (
+                                        '25' => $q1,
+                                        '50' => $q2,
+                                        '75' => $q3
+                                        );
+        }
+        return $this->_calculatedValues['quartiles'];
+    }/*}}}*/
+
+    /**
+     * The interquartile mean is defined as the mean of the values left
+     * after discarding the lower 25% and top 25% ranked values, i.e.:
+     *
+     *  interquart mean = mean(<P(25),P(75)>)
+     *
+     *  where: P = percentile
+     *
+     * @todo need to double check the equation
+     * @access public
+     * @return mixed a numeric value on success, a PEAR_Error otherwise
+     * @see quartiles()
+     */
+    function interquartileMean() {/*{{{*/
+        if (!array_key_exists('interquartileMean', $this->_calculatedValues)) {
+            $quart = $this->quartiles();
+            if (PEAR::isError($quart)) {
+                return $quart;
+            }
+            $q3 = $quart['75'];
+            $q1 = $quart['25'];
+            $sum = 0;
+            $n = 0;
+            foreach ($this->getData(true) as $val) {
+                if ($val >= $q1 && $val <= $q3) {
+                    $sum += $val;
+                    ++$n;
+                }
+            }
+            if ($n == 0) {
+                return PEAR::raiseError('error calculating interquartile mean, '.
+                                        'empty interquartile range of values.');
+            }
+            $this->_calculatedValues['interquartileMean'] = $sum / $n;
+        }
+        return $this->_calculatedValues['interquartileMean'];
+    }/*}}}*/
+
+    /**
+     * The interquartile range is the distance between the 75th and 25th
+     * percentiles. Basically the range of the middle 50% of the data set,
+     * and thus is not affected by outliers or extreme values.
+     *
+     *  interquart range = P(75) - P(25)
+     *
+     *  where: P = percentile
+     *
+     * @access public
+     * @return mixed a numeric value on success, a PEAR_Error otherwise
+     * @see quartiles()
+     */
+    function interquartileRange() {/*{{{*/
+        if (!array_key_exists('interquartileRange', $this->_calculatedValues)) {
+            $quart = $this->quartiles();
+            if (PEAR::isError($quart)) {
+                return $quart;
+            }
+            $q3 = $quart['75'];
+            $q1 = $quart['25'];
+            $this->_calculatedValues['interquartileRange'] = $q3 - $q1;
+        }
+        return $this->_calculatedValues['interquartileRange'];
+    }/*}}}*/
+
+    /**
+     * The quartile deviation is half of the interquartile range value
+     *
+     *  quart dev = (P(75) - P(25)) / 2
+     *
+     *  where: P = percentile
+     *
+     * @access public
+     * @return mixed a numeric value on success, a PEAR_Error otherwise
+     * @see quartiles()
+     * @see interquartileRange()
+     */
+    function quartileDeviation() {/*{{{*/
+        if (!array_key_exists('quartileDeviation', $this->_calculatedValues)) {
+            $iqr = $this->interquartileRange();
+            if (PEAR::isError($iqr)) {
+                return $iqr;
+            }
+            $this->_calculatedValues['quartileDeviation'] = $iqr / 2;
+        }
+        return $this->_calculatedValues['quartileDeviation'];
+    }/*}}}*/
+
+    /**
+     * The quartile variation coefficient is defines as follows:
+     *
+     *  quart var coeff = 100 * (P(75) - P(25)) / (P(75) + P(25))
+     *
+     *  where: P = percentile
+     *
+     * @todo need to double check the equation
+     * @access public
+     * @return mixed a numeric value on success, a PEAR_Error otherwise
+     * @see quartiles()
+     */
+    function quartileVariationCoefficient() {/*{{{*/
+        if (!array_key_exists('quartileVariationCoefficient', $this->_calculatedValues)) {
+            $quart = $this->quartiles();
+            if (PEAR::isError($quart)) {
+                return $quart;
+            }
+            $q3 = $quart['75'];
+            $q1 = $quart['25'];
+            $d = $q3 - $q1;
+            $s = $q3 + $q1;
+            $this->_calculatedValues['quartileVariationCoefficient'] = 100 * $d / $s;
+        }
+        return $this->_calculatedValues['quartileVariationCoefficient'];
+    }/*}}}*/
+
+    /**
+     * The quartile skewness coefficient (also known as Bowley Skewness),
+     * is defined as follows:
+     *
+     *  quart skewness coeff = (P(25) - 2*P(50) + P(75)) / (P(75) - P(25))
+     *
+     *  where: P = percentile
+     *
+     * @todo need to double check the equation
+     * @access public
+     * @return mixed a numeric value on success, a PEAR_Error otherwise
+     * @see quartiles()
+     */
+    function quartileSkewnessCoefficient() {/*{{{*/
+        if (!array_key_exists('quartileSkewnessCoefficient', $this->_calculatedValues)) {
+            $quart = $this->quartiles();
+            if (PEAR::isError($quart)) {
+                return $quart;
+            }
+            $q3 = $quart['75'];
+            $q2 = $quart['50'];
+            $q1 = $quart['25'];
+            $d = $q3 - 2*$q2 + $q1;
+            $s = $q3 - $q1;
+            $this->_calculatedValues['quartileSkewnessCoefficient'] = $d / $s;
+        }
+        return $this->_calculatedValues['quartileSkewnessCoefficient'];
+    }/*}}}*/
+
+    /**
+     * The pth percentile is the value such that p% of the a sorted data set
+     * is smaller than it, and (100 - p)% of the data is larger.
+     *
+     * A quick algorithm to pick the appropriate value from a sorted data
+     * set is as follows:
+     *
+     * - Count the number of values: n
+     * - Calculate the position of the value in the data list: i = p * (n + 1)
+     * - if i is an integer, return the data at that position
+     * - if i < 1, return the minimum of the data set
+     * - if i > n, return the maximum of the data set
+     * - otherwise, average the entries at adjacent positions to i
+     *
+     * The median is the 50th percentile value.
+     *
+     * @todo need to double check generality of the algorithm
+     *
+     * @access public
+     * @param numeric $p the percentile to estimate, e.g. 25 for 25th percentile
+     * @return mixed a numeric value on success, a PEAR_Error otherwise
+     * @see quartiles()
+     * @see median()
+     */
+    function percentile($p) {/*{{{*/
+        $count = $this->count();
+        if (PEAR::isError($count)) {
+            return $count;
+        }
+        if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+            $data =& $this->_dataExpanded;
+        } else {
+            $data =& $this->_data;
+        }
+        $obsidx = $p * ($count + 1) / 100;
+        if (intval($obsidx) == $obsidx) {
+            return $data[($obsidx - 1)];
+        } elseif ($obsidx < 1) {
+            return $data[0];
+        } elseif ($obsidx > $count) {
+            return $data[($count - 1)];
+        } else {
+            $left = floor($obsidx - 1);
+            $right = ceil($obsidx - 1);
+            return ($data[$left] + $data[$right]) / 2;
+        }
+    }/*}}}*/
+
+    // private methods
+
+    /**
+     * Utility function to calculate: SUM { (xi - mean)^n }
+     *
+     * @access private
+     * @param   numeric $power  the exponent
+     * @param   optional    double   $mean   the data set mean value
+     * @return  mixed   the sum on success, a PEAR_Error object otherwise
+     *
+     * @see stDev()
+     * @see variaceWithMean();
+     * @see skewness();
+     * @see kurtosis();
+     */
+    function __sumdiff($power, $mean=null) {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (is_null($mean)) {
+            $mean = $this->mean();
+            if (PEAR::isError($mean)) {
+                return $mean;
+            }
+        }
+        $sdiff = 0;
+        if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+            foreach ($this->_data as $val=>$freq) {
+                $sdiff += $freq * pow((double)($val - $mean), (double)$power);
+            }
+        } else {
+            foreach ($this->_data as $val)
+                $sdiff += pow((double)($val - $mean), (double)$power);
+        }
+        return $sdiff;
+    }/*}}}*/
+
+    /**
+     * Utility function to calculate the variance with or without
+     * a fixed mean
+     *
+     * @access private
+     * @param $mean the fixed mean to use, null as default
+     * @return mixed a numeric value on success, a PEAR_Error otherwise
+     * @see variance()
+     * @see varianceWithMean()
+     */
+    function __calcVariance($mean = null) {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        $sumdiff2 = $this->__sumdiff(2, $mean);
+        if (PEAR::isError($sumdiff2)) {
+            return $sumdiff2;
+        }
+        $count = $this->count();
+        if (PEAR::isError($count)) {
+            return $count;
+        }
+        if ($count == 1) {
+            return PEAR::raiseError('cannot calculate variance of a singe data point');
+        }
+        return  ($sumdiff2 / ($count - 1));
+    }/*}}}*/
+
+    /**
+     * Utility function to calculate the absolute deviation with or without
+     * a fixed mean
+     *
+     * @access private
+     * @param $mean the fixed mean to use, null as default
+     * @return mixed a numeric value on success, a PEAR_Error otherwise
+     * @see absDev()
+     * @see absDevWithMean()
+     */
+    function __calcAbsoluteDeviation($mean = null) {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        $count = $this->count();
+        if (PEAR::isError($count)) {
+            return $count;
+        }
+        $sumabsdev = $this->__sumabsdev($mean);
+        if (PEAR::isError($sumabsdev)) {
+            return $sumabsdev;
+        }
+        return $sumabsdev / $count;
+    }/*}}}*/
+
+    /**
+     * Utility function to calculate: SUM { | xi - mean | }
+     *
+     * @access  private
+     * @param   optional    double   $mean   the mean value for the set or population
+     * @return  mixed   the sum on success, a PEAR_Error object otherwise
+     *
+     * @see absDev()
+     * @see absDevWithMean()
+     */
+    function __sumabsdev($mean=null) {/*{{{*/
+        if ($this->_data == null) {
+            return PEAR::raiseError('data has not been set');
+        }
+        if (is_null($mean)) {
+            $mean = $this->mean();
+        }
+        $sdev = 0;
+        if ($this->_dataOption == STATS_DATA_CUMMULATIVE) {
+            foreach ($this->_data as $val=>$freq) {
+                $sdev += $freq * abs($val - $mean);
+            }
+        } else {
+            foreach ($this->_data as $val) {
+                $sdev += abs($val - $mean);
+            }
+        }
+        return $sdev;
+    }/*}}}*/
+
+    /**
+     * Utility function to format a PEAR_Error to be used by calc(),
+     * calcBasic() and calcFull()
+     *
+     * @access private
+     * @param mixed $v value to be formatted
+     * @param boolean $returnErrorObject whether the raw PEAR_Error (when true, default),
+     *                  or only the error message will be returned (when false)
+     * @return mixed if the value is a PEAR_Error object, and $useErrorObject
+     *              is false, then a string with the error message will be returned,
+     *              otherwise the value will not be modified and returned as passed.
+     */
+    function __format($v, $useErrorObject=true) {/*{{{*/
+        if (PEAR::isError($v) && $useErrorObject == false) {
+            return $v->getMessage();
+        } else {
+            return $v;
+        }
+    }/*}}}*/
+
+    /**
+     * Utility function to validate the data and modify it
+     * according to the current null handling option
+     *
+     * @access  private
+     * @return  mixed true on success, a PEAR_Error object otherwise
+     *
+     * @see setData()
+     */
+    function _validate() {/*{{{*/
+        $flag = ($this->_dataOption == STATS_DATA_CUMMULATIVE);
+        foreach ($this->_data as $key=>$value) {
+            $d = ($flag) ? $key : $value;
+            $v = ($flag) ? $value : $key;
+            if (!is_numeric($d)) {
+                switch ($this->_nullOption) {
+                    case STATS_IGNORE_NULL :
+                        unset($this->_data["$key"]);
+                        break;
+                    case STATS_USE_NULL_AS_ZERO:
+                        if ($flag) {
+                            unset($this->_data["$key"]);
+                            $this->_data[0] += $v;
+                        } else {
+                            $this->_data[$key] = 0;
+                        }
+                        break;
+                    case STATS_REJECT_NULL :
+                    default:
+                        return PEAR::raiseError('data rejected, contains NULL values');
+                        break;
+                }
+            }
+        }
+        if ($flag) {
+            ksort($this->_data);
+            $this->_dataExpanded = array();
+            foreach ($this->_data as $val=>$freq) {
+                $this->_dataExpanded = array_pad($this->_dataExpanded, count($this->_dataExpanded) + $freq, $val);
+            }
+            sort($this->_dataExpanded);
+        } else {
+            sort($this->_data);
+        }
+        return true;
+    }/*}}}*/
+
+}/*}}}*/
+
+// vim: ts=4:sw=4:et:
+// vim6: fdl=1: fdm=marker:
+
 ?>
-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

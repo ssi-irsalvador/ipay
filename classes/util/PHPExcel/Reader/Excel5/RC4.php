@@ -1,56 +1,88 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-pm==
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Reader_Excel5
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+/**
+ * PHPExcel_Reader_Excel5_RC4
+ *
+ * @category	PHPExcel
+ * @package		PHPExcel_Reader_Excel5
+ * @copyright	Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Reader_Excel5_RC4
+{
+	// Context
+	var $s = array();
+	var $i = 0;
+	var $j = 0;
+
+	/**
+	 * RC4 stream decryption/encryption constrcutor
+	 * 
+	 * @param string $key Encryption key/passphrase
+	 */
+	public function __construct($key)
+	{
+		$len = strlen($key);
+
+		for ($this->i = 0; $this->i < 256; $this->i++) {
+			$this->s[$this->i] = $this->i;
+		}
+
+		$this->j = 0;
+		for ($this->i = 0; $this->i < 256; $this->i++) {
+			$this->j = ($this->j + $this->s[$this->i] + ord($key[$this->i % $len])) % 256;
+			$t = $this->s[$this->i];
+			$this->s[$this->i] = $this->s[$this->j];
+			$this->s[$this->j] = $t;
+		}
+		$this->i = $this->j = 0;
+	}
+
+	/**
+	 * Symmetric decryption/encryption function
+	 * 
+	 * @param string $data Data to encrypt/decrypt
+	 * 
+	 * @return string
+	 */
+	public function RC4($data)
+	{
+		$len = strlen($data);
+		for ($c = 0; $c < $len; $c++) {
+			$this->i = ($this->i + 1) % 256;
+			$this->j = ($this->j + $this->s[$this->i]) % 256;
+			$t = $this->s[$this->i];
+			$this->s[$this->i] = $this->s[$this->j];
+			$this->s[$this->j] = $t;
+
+			$t = ($this->s[$this->i] + $this->s[$this->j]) % 256;
+
+			$data[$c] = chr(ord($data[$c]) ^ $this->s[$t]);
+		}
+		return $data;
+	}
+}

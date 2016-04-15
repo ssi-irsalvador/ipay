@@ -1,226 +1,550 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for SimpleTest
+ *  @package    SimpleTest
+ *  @subpackage WebTester
+ *  @version    $Id: url.php 1789 2008-04-27 11:24:52Z pp11 $
+ */
+
+/**#@+
+ *  include other SimpleTest class files
+ */
+require_once(dirname(__FILE__) . '/encoding.php');
+/**#@-*/
+
+/**
+ *    URL parser to replace parse_url() PHP function which
+ *    got broken in PHP 4.3.0. Adds some browser specific
+ *    functionality such as expandomatics.
+ *    Guesses a bit trying to separate the host from
+ *    the path and tries to keep a raw, possibly unparsable,
+ *    request string as long as possible.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleUrl {
+    private $scheme;
+    private $username;
+    private $password;
+    private $host;
+    private $port;
+    public $path;
+    private $request;
+    private $fragment;
+    private $x;
+    private $y;
+    private $target;
+    private $raw = false;
+    
+    /**
+     *    Constructor. Parses URL into sections.
+     *    @param string $url        Incoming URL.
+     *    @access public
+     */
+    function __construct($url = '') {
+        list($x, $y) = $this->chompCoordinates($url);
+        $this->setCoordinates($x, $y);
+        $this->scheme = $this->chompScheme($url);
+        if ($this->scheme === 'file') {
+            // Unescaped backslashes not used in directory separator context
+            // will get caught by this, but they should have been urlencoded
+            // anyway so we don't care. If this ends up being a problem, the
+            // host regexp must be modified to match for backslashes when
+            // the scheme is file.
+            $url = str_replace('\\', '/', $url);
+        }
+        list($this->username, $this->password) = $this->chompLogin($url);
+        $this->host = $this->chompHost($url);
+        $this->port = false;
+        if (preg_match('/(.*?):(.*)/', $this->host, $host_parts)) {
+            if ($this->scheme === 'file' && strlen($this->host) === 2) {
+                // DOS drive was placed in authority; promote it to path.
+                $url = '/' . $this->host . $url;
+                $this->host = false;
+            } else {
+                $this->host = $host_parts[1];
+                $this->port = (integer)$host_parts[2];
+            }
+        }
+        $this->path = $this->chompPath($url);
+        $this->request = $this->parseRequest($this->chompRequest($url));
+        $this->fragment = (strncmp($url, "#", 1) == 0 ? substr($url, 1) : false);
+        $this->target = false;
+    }
+    
+    /**
+     *    Extracts the X, Y coordinate pair from an image map.
+     *    @param string $url   URL so far. The coordinates will be
+     *                         removed.
+     *    @return array        X, Y as a pair of integers.
+     *    @access private
+     */
+    protected function chompCoordinates(&$url) {
+        if (preg_match('/(.*)\?(\d+),(\d+)$/', $url, $matches)) {
+            $url = $matches[1];
+            return array((integer)$matches[2], (integer)$matches[3]);
+        }
+        return array(false, false);
+    }
+    
+    /**
+     *    Extracts the scheme part of an incoming URL.
+     *    @param string $url   URL so far. The scheme will be
+     *                         removed.
+     *    @return string       Scheme part or false.
+     *    @access private
+     */
+    protected function chompScheme(&$url) {
+        if (preg_match('#^([^/:]*):(//)(.*)#', $url, $matches)) {
+            $url = $matches[2] . $matches[3];
+            return $matches[1];
+        }
+        return false;
+    }
+    
+    /**
+     *    Extracts the username and password from the
+     *    incoming URL. The // prefix will be reattached
+     *    to the URL after the doublet is extracted.
+     *    @param string $url    URL so far. The username and
+     *                          password are removed.
+     *    @return array         Two item list of username and
+     *                          password. Will urldecode() them.
+     *    @access private
+     */
+    protected function chompLogin(&$url) {
+        $prefix = '';
+        if (preg_match('#^(//)(.*)#', $url, $matches)) {
+            $prefix = $matches[1];
+            $url = $matches[2];
+        }
+        if (preg_match('#^([^/]*)@(.*)#', $url, $matches)) {
+            $url = $prefix . $matches[2];
+            $parts = split(":", $matches[1]);
+            return array(
+                    urldecode($parts[0]),
+                    isset($parts[1]) ? urldecode($parts[1]) : false);
+        }
+        $url = $prefix . $url;
+        return array(false, false);
+    }
+    
+    /**
+     *    Extracts the host part of an incoming URL.
+     *    Includes the port number part. Will extract
+     *    the host if it starts with // or it has
+     *    a top level domain or it has at least two
+     *    dots.
+     *    @param string $url    URL so far. The host will be
+     *                          removed.
+     *    @return string        Host part guess or false.
+     *    @access private
+     */
+    protected function chompHost(&$url) {
+        if (preg_match('!^(//)(.*?)(/.*|\?.*|#.*|$)!', $url, $matches)) {
+            $url = $matches[3];
+            return $matches[2];
+        }
+        if (preg_match('!(.*?)(\.\./|\./|/|\?|#|$)(.*)!', $url, $matches)) {
+            $tlds = SimpleUrl::getAllTopLevelDomains();
+            if (preg_match('/[a-z0-9\-]+\.(' . $tlds . ')/i', $matches[1])) {
+                $url = $matches[2] . $matches[3];
+                return $matches[1];
+            } elseif (preg_match('/[a-z0-9\-]+\.[a-z0-9\-]+\.[a-z0-9\-]+/i', $matches[1])) {
+                $url = $matches[2] . $matches[3];
+                return $matches[1];
+            }
+        }
+        return false;
+    }
+    
+    /**
+     *    Extracts the path information from the incoming
+     *    URL. Strips this path from the URL.
+     *    @param string $url     URL so far. The host will be
+     *                           removed.
+     *    @return string         Path part or '/'.
+     *    @access private
+     */
+    protected function chompPath(&$url) {
+        if (preg_match('/(.*?)(\?|#|$)(.*)/', $url, $matches)) {
+            $url = $matches[2] . $matches[3];
+            return ($matches[1] ? $matches[1] : '');
+        }
+        return '';
+    }
+    
+    /**
+     *    Strips off the request data.
+     *    @param string $url  URL so far. The request will be
+     *                        removed.
+     *    @return string      Raw request part.
+     *    @access private
+     */
+    protected function chompRequest(&$url) {
+        if (preg_match('/\?(.*?)(#|$)(.*)/', $url, $matches)) {
+            $url = $matches[2] . $matches[3];
+            return $matches[1];
+        }
+        return '';
+    }
+        
+    /**
+     *    Breaks the request down into an object.
+     *    @param string $raw           Raw request.
+     *    @return SimpleFormEncoding    Parsed data.
+     *    @access private
+     */
+    protected function parseRequest($raw) {
+        $this->raw = $raw;
+        $request = new SimpleGetEncoding();
+        foreach (split("&", $raw) as $pair) {
+            if (preg_match('/(.*?)=(.*)/', $pair, $matches)) {
+                $request->add($matches[1], urldecode($matches[2]));
+            } elseif ($pair) {
+                $request->add($pair, '');
+            }
+        }
+        return $request;
+    }
+    
+    /**
+     *    Accessor for protocol part.
+     *    @param string $default    Value to use if not present.
+     *    @return string            Scheme name, e.g "http".
+     *    @access public
+     */
+    function getScheme($default = false) {
+        return $this->scheme ? $this->scheme : $default;
+    }
+    
+    /**
+     *    Accessor for user name.
+     *    @return string    Username preceding host.
+     *    @access public
+     */
+    function getUsername() {
+        return $this->username;
+    }
+    
+    /**
+     *    Accessor for password.
+     *    @return string    Password preceding host.
+     *    @access public
+     */
+    function getPassword() {
+        return $this->password;
+    }
+    
+    /**
+     *    Accessor for hostname and port.
+     *    @param string $default    Value to use if not present.
+     *    @return string            Hostname only.
+     *    @access public
+     */
+    function getHost($default = false) {
+        return $this->host ? $this->host : $default;
+    }
+    
+    /**
+     *    Accessor for top level domain.
+     *    @return string       Last part of host.
+     *    @access public
+     */
+    function getTld() {
+        $path_parts = pathinfo($this->getHost());
+        return (isset($path_parts['extension']) ? $path_parts['extension'] : false);
+    }
+    
+    /**
+     *    Accessor for port number.
+     *    @return integer    TCP/IP port number.
+     *    @access public
+     */
+    function getPort() {
+        return $this->port;
+    }        
+            
+    /**
+     *    Accessor for path.
+     *    @return string    Full path including leading slash if implied.
+     *    @access public
+     */
+    function getPath() {
+        if (! $this->path && $this->host) {
+            return '/';
+        }
+        return $this->path;
+    }
+    
+    /**
+     *    Accessor for page if any. This may be a
+     *    directory name if ambiguious.
+     *    @return            Page name.
+     *    @access public
+     */
+    function getPage() {
+        if (! preg_match('/([^\/]*?)$/', $this->getPath(), $matches)) {
+            return false;
+        }
+        return $matches[1];
+    }
+    
+    /**
+     *    Gets the path to the page.
+     *    @return string       Path less the page.
+     *    @access public
+     */
+    function getBasePath() {
+        if (! preg_match('/(.*\/)[^\/]*?$/', $this->getPath(), $matches)) {
+            return false;
+        }
+        return $matches[1];
+    }
+    
+    /**
+     *    Accessor for fragment at end of URL after the "#".
+     *    @return string    Part after "#".
+     *    @access public
+     */
+    function getFragment() {
+        return $this->fragment;
+    }
+    
+    /**
+     *    Sets image coordinates. Set to false to clear
+     *    them.
+     *    @param integer $x    Horizontal position.
+     *    @param integer $y    Vertical position.
+     *    @access public
+     */
+    function setCoordinates($x = false, $y = false) {
+        if (($x === false) || ($y === false)) {
+            $this->x = $this->y = false;
+            return;
+        }
+        $this->x = (integer)$x;
+        $this->y = (integer)$y;
+    }
+    
+    /**
+     *    Accessor for horizontal image coordinate.
+     *    @return integer        X value.
+     *    @access public
+     */
+    function getX() {
+        return $this->x;
+    }
+        
+    /**
+     *    Accessor for vertical image coordinate.
+     *    @return integer        Y value.
+     *    @access public
+     */
+    function getY() {
+        return $this->y;
+    }
+    
+    /**
+     *    Accessor for current request parameters
+     *    in URL string form. Will return teh original request
+     *    if at all possible even if it doesn't make much
+     *    sense.
+     *    @return string   Form is string "?a=1&b=2", etc.
+     *    @access public
+     */
+    function getEncodedRequest() {
+        if ($this->raw) {
+            $encoded = $this->raw;
+        } else {
+            $encoded = $this->request->asUrlRequest();
+        }
+        if ($encoded) {
+            return '?' . preg_replace('/^\?/', '', $encoded);
+        }
+        return '';
+    }
+    
+    /**
+     *    Adds an additional parameter to the request.
+     *    @param string $key            Name of parameter.
+     *    @param string $value          Value as string.
+     *    @access public
+     */
+    function addRequestParameter($key, $value) {
+        $this->raw = false;
+        $this->request->add($key, $value);
+    }
+    
+    /**
+     *    Adds additional parameters to the request.
+     *    @param hash/SimpleFormEncoding $parameters   Additional
+     *                                                parameters.
+     *    @access public
+     */
+    function addRequestParameters($parameters) {
+        $this->raw = false;
+        $this->request->merge($parameters);
+    }
+    
+    /**
+     *    Clears down all parameters.
+     *    @access public
+     */
+    function clearRequest() {
+        $this->raw = false;
+        $this->request = new SimpleGetEncoding();
+    }
+    
+    /**
+     *    Gets the frame target if present. Although
+     *    not strictly part of the URL specification it
+     *    acts as similarily to the browser.
+     *    @return boolean/string    Frame name or false if none.
+     *    @access public
+     */
+    function getTarget() {
+        return $this->target;
+    }
+    
+    /**
+     *    Attaches a frame target.
+     *    @param string $frame        Name of frame.
+     *    @access public
+     */
+    function setTarget($frame) {
+        $this->raw = false;
+        $this->target = $frame;
+    }
+    
+    /**
+     *    Renders the URL back into a string.
+     *    @return string        URL in canonical form.
+     *    @access public
+     */
+    function asString() {
+        $path = $this->path;
+        $scheme = $identity = $host = $port = $encoded = $fragment = '';
+        if ($this->username && $this->password) {
+            $identity = $this->username . ':' . $this->password . '@';
+        }
+        if ($this->getHost()) {
+            $scheme = $this->getScheme() ? $this->getScheme() : 'http';
+            $scheme .= '://';
+            $host = $this->getHost();
+        } elseif ($this->getScheme() === 'file') {
+            // Safest way; otherwise, file URLs on Windows have an extra
+            // leading slash. It might be possible to convert file://
+            // URIs to local file paths, but that requires more research.
+            $scheme = 'file://';
+        }
+        if ($this->getPort() && $this->getPort() != 80 ) {
+            $port = ':'.$this->getPort();
+        }
+
+        if (substr($this->path, 0, 1) == '/') {
+            $path = $this->normalisePath($this->path);
+        }
+        $encoded = $this->getEncodedRequest();
+        $fragment = $this->getFragment() ? '#'. $this->getFragment() : '';
+        $coords = $this->getX() === false ? '' : '?' . $this->getX() . ',' . $this->getY();
+        return "$scheme$identity$host$port$path$encoded$fragment$coords";
+    }
+    
+    /**
+     *    Replaces unknown sections to turn a relative
+     *    URL into an absolute one. The base URL can
+     *    be either a string or a SimpleUrl object.
+     *    @param string/SimpleUrl $base       Base URL.
+     *    @access public
+     */
+    function makeAbsolute($base) {
+        if (! is_object($base)) {
+            $base = new SimpleUrl($base);
+        }
+        if ($this->getHost()) {
+            $scheme = $this->getScheme();
+            $host = $this->getHost();
+            $port = $this->getPort() ? ':' . $this->getPort() : '';
+            $identity = $this->getIdentity() ? $this->getIdentity() . '@' : '';
+            if (! $identity) {
+                $identity = $base->getIdentity() ? $base->getIdentity() . '@' : '';
+            }
+        } else {
+            $scheme = $base->getScheme();
+            $host = $base->getHost();
+            $port = $base->getPort() ? ':' . $base->getPort() : '';
+            $identity = $base->getIdentity() ? $base->getIdentity() . '@' : '';
+        }
+        $path = $this->normalisePath($this->extractAbsolutePath($base));
+        $encoded = $this->getEncodedRequest();
+        $fragment = $this->getFragment() ? '#'. $this->getFragment() : '';
+        $coords = $this->getX() === false ? '' : '?' . $this->getX() . ',' . $this->getY();
+        return new SimpleUrl("$scheme://$identity$host$port$path$encoded$fragment$coords");
+    }
+    
+    /**
+     *    Replaces unknown sections of the path with base parts
+     *    to return a complete absolute one.
+     *    @param string/SimpleUrl $base       Base URL.
+     *    @param string                       Absolute path.
+     *    @access private
+     */
+    protected function extractAbsolutePath($base) {
+        if ($this->getHost()) {
+            return $this->path;
+        }
+        if (! $this->isRelativePath($this->path)) {
+            return $this->path;
+        }
+        if ($this->path) {
+            return $base->getBasePath() . $this->path;
+        }
+        return $base->getPath();
+    }
+    
+    /**
+     *    Simple test to see if a path part is relative.
+     *    @param string $path        Path to test.
+     *    @return boolean            True if starts with a "/".
+     *    @access private
+     */
+    protected function isRelativePath($path) {
+        return (substr($path, 0, 1) != '/');
+    }
+    
+    /**
+     *    Extracts the username and password for use in rendering
+     *    a URL.
+     *    @return string/boolean    Form of username:password or false.
+     *    @access public
+     */
+    function getIdentity() {
+        if ($this->username && $this->password) {
+            return $this->username . ':' . $this->password;
+        }
+        return false;
+    }
+    
+    /**
+     *    Replaces . and .. sections of the path.
+     *    @param string $path    Unoptimised path.
+     *    @return string         Path with dots removed if possible.
+     *    @access public
+     */
+    function normalisePath($path) {
+        $path = preg_replace('|/\./|', '/', $path);
+        return preg_replace('|/[^/]+/\.\./|', '/', $path);
+    }
+    
+    /**
+     *    A pipe seperated list of all TLDs that result in two part
+     *    domain names.
+     *    @return string        Pipe separated list.
+     *    @access public
+     */
+    static function getAllTopLevelDomains() {
+        return 'com|edu|net|org|gov|mil|int|biz|info|name|pro|aero|coop|museum';
+    }
+}
 ?>
-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
-hj+cavgeVqVzIyMoD9MiHrh31o58q+t/e3zdxyW=

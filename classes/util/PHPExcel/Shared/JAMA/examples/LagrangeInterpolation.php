@@ -1,70 +1,59 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+require_once "../Matrix.php";
+
+/**
+ * Given n points (x0,y0)...(xn-1,yn-1), the following methid computes
+ * the polynomial factors of the n-1't degree polynomial passing through
+ * the n points.
+ *
+ * Example: Passing in three points (2,3) (1,4) and (3,7) will produce
+ * the results [2.5, -8.5, 10] which means that the points are on the
+ * curve y = 2.5x² - 8.5x + 10.
+ *
+ * @see http://geosoft.no/software/lagrange/LagrangeInterpolation.java.html
+ * @author Jacob Dreyer
+ * @author Paul Meagher (port to PHP and minor changes)
+ *
+ * @param x[] float
+ * @param y[] float
+ */
+class LagrangeInterpolation {
+
+	public function findPolynomialFactors($x, $y) {
+		$n = count($x);
+
+		$data = array();  // double[n][n];
+		$rhs  = array();  // double[n];
+
+		for ($i = 0; $i < $n; ++$i) {
+			$v = 1;
+			for ($j = 0; $j < $n; ++$j) {
+				$data[$i][$n-$j-1] = $v;
+				$v *= $x[$i];
+			}
+			$rhs[$i] = $y[$i];
+		}
+
+		// Solve m * s = b
+		$m = new Matrix($data);
+		$b = new Matrix($rhs, $n);
+
+		$s = $m->solve($b);
+
+		return $s->getRowPackedCopy();
+	}	//	function findPolynomialFactors()
+
+}	//	class LagrangeInterpolation
+
+
+$x = array(2.0, 1.0, 3.0);
+$y = array(3.0, 4.0, 7.0);
+
+$li = new LagrangeInterpolation;
+$f = $li->findPolynomialFactors($x, $y);
+
+
+for ($i = 0; $i < 3; ++$i) {
+	echo $f[$i]."<br />";
+}

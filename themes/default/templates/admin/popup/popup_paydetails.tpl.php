@@ -1,59 +1,30 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<!--<div style="padding-top:5px;">-->
+<!--&nbsp;&nbsp;<img src="<?=SYSCONFIG_DEFAULT_IMAGES_INCTEMP.'module.png'?>" border="0" align="absbottom">&nbsp;<a href="popup.php?statpos=popup_paydetails&action=add">Add New</a><br />-->
+<!--</div>-->
+<fieldset class="themeFieldset01" style="background: #FAD163; border-radius: 4px 4px 0 0;"><h2 style="margin: 0 0 -5px 0;">Pay Period List</h2></fieldset>
+<?php
+if (isset($eMsg)) {
+	if (is_array($eMsg)) {
 ?>
-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
-xgg5MsuB4HF4gRb4/mF72W==
+	<div class="tblListErrMsg">
+	<strong>Check the following error(s) below:</strong><br />
+	<?php
+	foreach ($eMsg as $key => $value) {
+	?>
+	&nbsp;&nbsp;&bull;&nbsp;<?=$value?><br />
+	<?php
+	}
+	?>
+	</div>
+<?php
+	} else {
+?>
+	<div class="tblListErrMsg">
+	<?=$eMsg?>
+	</div>
+<?
+	}
+}
+?>
+
+<?=$tblDataList?>

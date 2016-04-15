@@ -1,68 +1,143 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPqQAkCWsM07lraKjwsbB4GvavkYLemusd+xMo67+9Sl3YhPTaGvkpQMBojM5AD1RVE1wYrH3
-s+T4waXtZU+j3SOqUh5iSvyUtyluDFWjSoAcrGg/Pmd4My3kdSWTGUIs4BXo3XqNG9cN45pRl7Rs
-ra2/2KZhd8XiXmlWk7mU0DdCySR/f84MoWIEJLRqGETNGPIzGaGB5Oorv3N+RCGLG5dUuxozKIqd
-KPDl1qkXw2A517CBe12niUuzovUnU6H3d4xWFbydbIAAyxcEHCBfk4343gOLDQJUXLmTdQEL7fhj
-ywlzp9wcEcdrZnNm0z8sa5S87AEOdGZ/zqEKUP7DE2O8IY6/bY6ivLqCU+435UQf+cqlUzKzh9ap
-6epq8eK2lNgEBRSB5HBK1ATvR9AsolY1AsmzqdjSq+/JkZzpvKheqiSON7hzrb8OlAMovYzfT4pc
-aAkDu2na/bKFPA1TB7BYLSgvYaGVdLWL5GrJYJglLj2mMOob2nri3Iy3gL/+MNjQsAF/1ENR6xTC
-hdqYpPhaDyO1IcjtW9ghxILgFHjIz/Qg82qt7NpKSU9vJymKMKtmEvJwjp3JwUq/ZkOezSbG+qZN
-Yo7xKIF5BWIgJfcjGaAfu4lU4aacqOQ0i9gXaxaa184Sddd6LVytRakNVLCdjShsljMhzksBP+6X
-tiPD63S/Pc3lerwmbwX6CvsMjeEj7U04DLNuPqjblsdUrv9Bx+H0oTwHgFvZUfT4J9HnpPV49wSw
-Me+gSwD24jXmLdgj54IDaULfeBO/XHJKe5FmyiEuNrcW+9VR75PcDJ+8jtHepJxw0Wvdq4mHRuPN
-bTJ/ruGC4zsRQHGS3P95GCGZ+32OzFcsAddbIlhmHt1/R9PJ12YAG5GwowalhhNNJ9MxfdV8tNpu
-UJX/+KsbQBuvsbL8+6TyhWnxuUhUm6SVp1U6DFv2zupgKFr4/gEXAw8zYCStRMh1lso3fTNL3XN0
-dP5CxKe60cZPf8kwE8Ms/R60Axv/Lm2tCL8grgf8iCNqWXWALAlPOe6TZZIpeR1dIHwSrW6GE40l
-78rR1GVrYfXle5dnXM+Re2Guks1pk4xDvFJSSte/JsCQ65IEoMQGBwlVTV2vnLo8U59KZI5Wxtrf
-vGp6rOiQjmXqkrvKxYMugygbVcL7QhIpnLKtEDXQrhBy1bwlxWam2bXxtXIJgc+FYDjbVswWFnA2
-fW4ZBSFkoW64UfNvibv903lzgQkrGj4sR3BL4hkp5yLldmH/hhUidW65Lg9cmyZ5nZ/RH/3jKNde
-iFIHfRKPPtJOFdSI/efc/pdjMBC5UvIaGf9fvtcEdkW8aKMxVPD9pZO/AybjPdNdJeOKURWbkKMc
-kBZrGH6CMdVQ/59ymugJ/Rh8KdnImfWucommwGyLhRwBdEuuG3HJ3WbVQvjrKs5j/ayj0liwXFHP
-XFkmk5aZmlmCh2FitbVXnc26EXaKCW09kC8B/qGXlzJvlS+QBO7qUusoWO1PWqsHEN3oTLPAxwTr
-hHKxUu5q9WSJ2UR9UMUWWJUbipe3aQYsYJQJ+/h4RNLQgqoi/UlT5Uv7RA1bUmjdotvj+zpNpg0U
-oM9u37RKwR8Py9f6rXkttoTiZaqixEV85mTSdqjYwNdciNxJOtOC72lIt5F/h/qj2RFkpqT5kWAQ
-44F4NPySfvydqYYHtnTFV+Ct2rQfOW4tJU3I73IGeb6+uX4LsdhOrpciXnko/Yam5MtUlF7mEtA1
-YiNByq5p3UpgHCQVr0fowq1sq/+TsRrJeLVs1M762scrk5JyShCIYf2E78ek0vPeonPkl8G7Jz6g
-wZsnzYPK4iqA/7XJ8fQ63YVi5KalOrT0Qm1BQFP2lzLTLpLyE02q2org7exPoqsu1mX0nJMpQt9g
-xYhaNYr1OKHYpfQ7ykMdz7ZRGFMk0oi+O+VTcATe9FR1ailylDn1ODWOS0F1oUb+MWUapRp76rDr
-QUNw8rAzslylB4TtiEk8PL4M9dfYR9ZHwXj7h3Hn/bj5tJehGa0DCjfJRuFe6Y4ag3VY53CZ3+th
-zCfpzOlf1yGDPMGfJt9SvwiZeP8SP+YDygt14A/bduXreedeuKTlWN+5oYYjutimrG3yVNg3JxpP
-7OrAPN8VIrGouCJdACmjAUeUayTPG03KAmMfa+NVAwivzkJjImY4Spr8HKF+xPH8XkGcHebaX0i0
-kcytXkZ8wH8Hl7QGTHT3evdfe0eouMxcfkSghGYQickkH/Vdca4n2e4s7INHnqFalU2nrHrtEWSr
-0xKkA7/RWExat2DWxgsMbxdWUolr2mlhgCRx2UImbmPb20QqKR+E+EhHny40ya5pt3QPkGzyCpOO
-TmOPjoyYr9Y3/W6YhZgxldk4QcIeDqH/wxQSUAqInfzsPN4D78fy1Nk/w8iWOtwGgrFkUa+x8Cpa
-SLxmVl/7nbSxMWdOCrebmQdgxkPS2xwAx7W859IrlV7iYQAOzKxKAt5ABnxTZJlW9mQqSUO0A7Og
-XeTAeocpK+l9uOXgXl8r2ktVXcN1xa/ztRAPdhaYse78h3I+dWpYNWHXJpAiXiqkUbPKphx9CYsN
-S+xgSeP4/SGU/SEu61q2pArsbbggUII+zm8F9gsd9Tc4oEX4AhpCyxgJsmCY/pgqmzysK2w49RsU
-8iqqLJBHQ5w2J+kdQN+YLLDPGm9R9Nb9k2VbERdiYR97jauuznfktwwXNGV+XyfqPW3Q231VDdhb
-9Bl6szVuAje5junKRVdTyzd6+aRVRFhOZiRitR9V4BvuR3LHIyRkrPb5EBNlds020pi7shywrvCQ
-c9bgJbMGkZtwioTpD4Ta213ty9s0UeFYNA0zfcDV0ec0A17coARGLGTj3rBHOFZdKrFEi0k7IYuc
-qPJKH1sufRh6fMG9VU7euau+V9Xkh+K79bfXJzTKlNk6day4tYofSvkN3skGoWs5L55DSb3u8+w7
-hkKYDKQ9/hg9ivU5HtZY7LpZgdtoYrMT2pZzVishW4Bq6DXAxODqv47KX4ROkz6HC2PkgHF2Hipt
-UoYkehUmFs8b6bV12Tj3fqw+T4aCnKzyQ3ye4P5BqmV9+7I8ofmhbRBl3zdjheOWPgd9QCO0UcQi
-9dhGWZ8/8sQNwgDaE6ddpegTrnuzHWsexC4dITo7IEjhifxqSGLZOh0t9Y52GOnip7l6aBytOB2C
-kJFgVp6Ij2ohzO+zJLWDI2t6UFZi3nuxfQfz857rZoDcg+OZ7DQXdksLffwZmJ1jnqT8V5SwZ/F1
-hFzNFg8QoAgMaxksHx84VqKEO/tETeQWK/4EQMSTdSE6CsyoWBo5f2F7j8YDRpKhtQVAcix2uWor
-maIo8Ex/33UEdgR983UtodC6b3Yp3t6fU0/GDGfW/xUPsjHzkYiEHfyZcRgVKdB5VRdTmDwWZNWl
-vtGY6VAkZ55n3DiKK2p0jbVy5cpw1mmkH6HKD6dg/h+nEa4HQcPqua4upv8fCSeGOgo8D7sTGGm0
-og5t57AK2kGIqRcAa6spx5DT+hew/75+Co+bzuocr1qG2P7q5EnxnRp4Pdam+iGq9nad4S9xUPi/
-Yh7LajnzxGbw0Hxtn0qbygmSV0qBMOQwzoiEJcCrtCCp/M35mqsOtOE2tjogXkAcgJ3HfK7ApaHf
-smSSVKdF1nHulv6ho86pAYHnugkSunohXEql7F7b89RJX4Gg48Wju6FAN3zoWR3wuq7huuJJeP7c
-zbJ/aj9rmQVkdxBh7+DZornamimBXBj+7AklfBeorOsFHrHSV6FTwgqxvW3cTwNOoWatj3ctuI32
-CIjE5aWzG6k4PfGx3oR3Uvb35dMIc1ClalOuO0WKInITLM5Z4t4OrpNtvarmnArG+TO8Q8bFZEXz
-UBR9aVObxvchsbBwZ22WOR9dMTSR5zyIcVjMMupKjzfnxTlXXkwXsHvVP2nPmjor9zRpoTmOgIBa
-6zM2CPDeMlCewmb3iUsCSmF2MHMVgJvneZ9CDF0haoBmYYT0zCvo9xWsNNV1L6Qf5UTm6DHyRx1I
-a2fXK4qAdPnGd8OR3a5Gy+kopQfPvMhiPpSQ3AdXG0K1FzbHl83Q5+EWaIyxI8Fmd7fIc0qaNBW8
-UEUFLFysreBK+A55+jyGiiJppUdlx6zVGwVFY/MR5HRipY0bOHgH5HGSnswm294IgXE2Db4XbEec
-kVq1SbZyzcXmtimfw8RK73yzXRLDY5veCH41TYJ/tX1Gs0J4dAvJmib4yXWJEPk9vf94/szklIhQ
-2WX4y+qYOS6ls5lhPwEHLyTFY1VUKpPfmTxVQZGoQ7AXhk8eU/sYUVwp5MVUFcOx0/ifaD93SLaF
-uZS5BSiYrpa0mBX5YxrS7t/oD2sZ7Ol4m2nuALQzj32dSYApsznebPVeNnLxAYN9KRgwmny8vrIU
-RLer3fKudSyiy3thIDH2oQG6Wb1XscKVRtXcIphQmhlZEIBob3OKnkSOVH0k+QqtLmFOXxUYar7P
-w4MjwOkyGLi81fdKWz9FnTNdIXFWfxkKArC2S/zQ5u4Wg0x/7pD9qbV6t5iFtpMdFVyhvDZcWJSl
-pslOFaTlSuAeSXQuMuXm/G9/HXcmL1pGY/tDAmZdsYNPYS2tJrvo9uZYdA1uyiwNiLq8PC6pm6Y4
-nxi2cd+oektdUgkgcN1NbxJQtLx18dnkhxK/HI4kAT9ol4KS0Oq2+Zx80NLw4Da4GXTTXXA5RgVn
-j6A6pVRs7ch+gPCFGNmiq68gBX3goRql2a51
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Reduces network flooding when sending large amounts of mail.
+ *
+ * @package    Swift
+ * @subpackage Plugins
+ * @author     Chris Corbyn
+ */
+class Swift_Plugins_AntiFloodPlugin implements Swift_Events_SendListener, Swift_Plugins_Sleeper
+{
+    /**
+     * The number of emails to send before restarting Transport.
+     *
+     * @var int
+     */
+    private $_threshold;
+
+    /**
+     * The number of seconds to sleep for during a restart.
+     *
+     * @var int
+     */
+    private $_sleep;
+
+    /**
+     * The internal counter.
+     *
+     * @var int
+     */
+    private $_counter = 0;
+
+    /**
+     * The Sleeper instance for sleeping.
+     *
+     * @var Swift_Plugins_Sleeper
+     */
+    private $_sleeper;
+
+    /**
+     * Create a new AntiFloodPlugin with $threshold and $sleep time.
+     *
+     * @param integer               $threshold
+     * @param integer               $sleep     time
+     * @param Swift_Plugins_Sleeper $sleeper   (not needed really)
+     */
+    public function __construct($threshold = 99, $sleep = 0, Swift_Plugins_Sleeper $sleeper = null)
+    {
+        $this->setThreshold($threshold);
+        $this->setSleepTime($sleep);
+        $this->_sleeper = $sleeper;
+    }
+
+    /**
+     * Set the number of emails to send before restarting.
+     *
+     * @param integer $threshold
+     */
+    public function setThreshold($threshold)
+    {
+        $this->_threshold = $threshold;
+    }
+
+    /**
+     * Get the number of emails to send before restarting.
+     *
+     * @return int
+     */
+    public function getThreshold()
+    {
+        return $this->_threshold;
+    }
+
+    /**
+     * Set the number of seconds to sleep for during a restart.
+     *
+     * @param integer $sleep time
+     */
+    public function setSleepTime($sleep)
+    {
+        $this->_sleep = $sleep;
+    }
+
+    /**
+     * Get the number of seconds to sleep for during a restart.
+     *
+     * @return int
+     */
+    public function getSleepTime()
+    {
+        return $this->_sleep;
+    }
+
+    /**
+     * Invoked immediately before the Message is sent.
+     *
+     * @param Swift_Events_SendEvent $evt
+     */
+    public function beforeSendPerformed(Swift_Events_SendEvent $evt)
+    {
+    }
+
+    /**
+     * Invoked immediately after the Message is sent.
+     *
+     * @param Swift_Events_SendEvent $evt
+     */
+    public function sendPerformed(Swift_Events_SendEvent $evt)
+    {
+        ++$this->_counter;
+        if ($this->_counter >= $this->_threshold) {
+            $transport = $evt->getTransport();
+            $transport->stop();
+            if ($this->_sleep) {
+                $this->sleep($this->_sleep);
+            }
+            $transport->start();
+            $this->_counter = 0;
+        }
+    }
+
+    /**
+     * Sleep for $seconds.
+     *
+     * @param integer $seconds
+     */
+    public function sleep($seconds)
+    {
+        if (isset($this->_sleeper)) {
+            $this->_sleeper->sleep($seconds);
+        } else {
+            sleep($seconds);
+        }
+    }
+}

@@ -1,112 +1,287 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * DOMPDF - PHP5 HTML to PDF renderer
+ *
+ * File: $RCSfile$
+ * Created on: 2010-03-03
+ *
+ * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library in the file LICENSE.LGPL; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * Alternatively, you may distribute this software under the terms of the
+ * PHP License, version 3.0 or later.  A copy of this license should have
+ * been distributed with this file in the file LICENSE.PHP .  If this is not
+ * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
+ *
+ * The latest version of DOMPDF might be available at:
+ * http://www.dompdf.com/
+ *
+ * @link http://www.dompdf.com/
+ * @copyright 2004 Benj Carson
+ * @author Fabien M�nager
+ * @package dompdf
+ */
+
+/* $Id: css_color.cls.php 300 2010-08-11 22:01:09Z fabien.menager $ */
+
+class CSS_Color {
+  static $cssColorNames = array(
+    "aliceblue" => "F0F8FF",
+    "antiquewhite" => "FAEBD7",
+    "aqua" => "00FFFF",
+    "aquamarine" => "7FFFD4",
+    "azure" => "F0FFFF",
+    "beige" => "F5F5DC",
+    "bisque" => "FFE4C4",
+    "black" => "000000",
+    "blanchedalmond" => "FFEBCD",
+    "blue" => "0000FF",
+    "blueviolet" => "8A2BE2",
+    "brown" => "A52A2A",
+    "burlywood" => "DEB887",
+    "cadetblue" => "5F9EA0",
+    "chartreuse" => "7FFF00",
+    "chocolate" => "D2691E",
+    "coral" => "FF7F50",
+    "cornflowerblue" => "6495ED",
+    "cornsilk" => "FFF8DC",
+    "crimson" => "DC143C",
+    "cyan" => "00FFFF",
+    "darkblue" => "00008B",
+    "darkcyan" => "008B8B",
+    "darkgoldenrod" => "B8860B",
+    "darkgray" => "A9A9A9",
+    "darkgreen" => "006400",
+    "darkgrey" => "A9A9A9",
+    "darkkhaki" => "BDB76B",
+    "darkmagenta" => "8B008B",
+    "darkolivegreen" => "556B2F",
+    "darkorange" => "FF8C00",
+    "darkorchid" => "9932CC",
+    "darkred" => "8B0000",
+    "darksalmon" => "E9967A",
+    "darkseagreen" => "8FBC8F",
+    "darkslateblue" => "483D8B",
+    "darkslategray" => "2F4F4F",
+    "darkslategrey" => "2F4F4F",
+    "darkturquoise" => "00CED1",
+    "darkviolet" => "9400D3",
+    "deeppink" => "FF1493",
+    "deepskyblue" => "00BFFF",
+    "dimgray" => "696969",
+    "dimgrey" => "696969",
+    "dodgerblue" => "1E90FF",
+    "firebrick" => "B22222",
+    "floralwhite" => "FFFAF0",
+    "forestgreen" => "228B22",
+    "fuchsia" => "FF00FF",
+    "gainsboro" => "DCDCDC",
+    "ghostwhite" => "F8F8FF",
+    "gold" => "FFD700",
+    "goldenrod" => "DAA520",
+    "gray" => "808080",
+    "green" => "008000",
+    "greenyellow" => "ADFF2F",
+    "grey" => "808080",
+    "honeydew" => "F0FFF0",
+    "hotpink" => "FF69B4",
+    "indianred" => "CD5C5C",
+    "indigo" => "4B0082",
+    "ivory" => "FFFFF0",
+    "khaki" => "F0E68C",
+    "lavender" => "E6E6FA",
+    "lavenderblush" => "FFF0F5",
+    "lawngreen" => "7CFC00",
+    "lemonchiffon" => "FFFACD",
+    "lightblue" => "ADD8E6",
+    "lightcoral" => "F08080",
+    "lightcyan" => "E0FFFF",
+    "lightgoldenrodyellow" => "FAFAD2",
+    "lightgray" => "D3D3D3",
+    "lightgreen" => "90EE90",
+    "lightgrey" => "D3D3D3",
+    "lightpink" => "FFB6C1",
+    "lightsalmon" => "FFA07A",
+    "lightseagreen" => "20B2AA",
+    "lightskyblue" => "87CEFA",
+    "lightslategray" => "778899",
+    "lightslategrey" => "778899",
+    "lightsteelblue" => "B0C4DE",
+    "lightyellow" => "FFFFE0",
+    "lime" => "00FF00",
+    "limegreen" => "32CD32",
+    "linen" => "FAF0E6",
+    "magenta" => "FF00FF",
+    "maroon" => "800000",
+    "mediumaquamarine" => "66CDAA",
+    "mediumblue" => "0000CD",
+    "mediumorchid" => "BA55D3",
+    "mediumpurple" => "9370DB",
+    "mediumseagreen" => "3CB371",
+    "mediumslateblue" => "7B68EE",
+    "mediumspringgreen" => "00FA9A",
+    "mediumturquoise" => "48D1CC",
+    "mediumvioletred" => "C71585",
+    "midnightblue" => "191970",
+    "mintcream" => "F5FFFA",
+    "mistyrose" => "FFE4E1",
+    "moccasin" => "FFE4B5",
+    "navajowhite" => "FFDEAD",
+    "navy" => "000080",
+    "oldlace" => "FDF5E6",
+    "olive" => "808000",
+    "olivedrab" => "6B8E23",
+    "orange" => "FFA500",
+    "orangered" => "FF4500",
+    "orchid" => "DA70D6",
+    "palegoldenrod" => "EEE8AA",
+    "palegreen" => "98FB98",
+    "paleturquoise" => "AFEEEE",
+    "palevioletred" => "DB7093",
+    "papayawhip" => "FFEFD5",
+    "peachpuff" => "FFDAB9",
+    "peru" => "CD853F",
+    "pink" => "FFC0CB",
+    "plum" => "DDA0DD",
+    "powderblue" => "B0E0E6",
+    "purple" => "800080",
+    "red" => "FF0000",
+    "rosybrown" => "BC8F8F",
+    "royalblue" => "4169E1",
+    "saddlebrown" => "8B4513",
+    "salmon" => "FA8072",
+    "sandybrown" => "F4A460",
+    "seagreen" => "2E8B57",
+    "seashell" => "FFF5EE",
+    "sienna" => "A0522D",
+    "silver" => "C0C0C0",
+    "skyblue" => "87CEEB",
+    "slateblue" => "6A5ACD",
+    "slategray" => "708090",
+    "slategrey" => "708090",
+    "snow" => "FFFAFA",
+    "springgreen" => "00FF7F",
+    "steelblue" => "4682B4",
+    "tan" => "D2B48C",
+    "teal" => "008080",
+    "thistle" => "D8BFD8",
+    "tomato" => "FF6347",
+    "turquoise" => "40E0D0",
+    "violet" => "EE82EE",
+    "wheat" => "F5DEB3",
+    "white" => "FFFFFF",
+    "whitesmoke" => "F5F5F5",
+    "yellow" => "FFFF00",
+    "yellowgreen" => "9ACD32",
+  );
+
+  static function parse($colour) {
+    if ( is_array($colour) )
+      // Assume the array has the right format...
+      // FIXME: should/could verify this.
+      return $colour;
+    
+    $colour = strtolower($colour);
+    
+    if (isset(self::$cssColorNames[$colour])) 
+      return self::getArray(self::$cssColorNames[$colour]);
+      
+    if ($colour === "transparent")
+      return "transparent";
+      
+    $length = mb_strlen($colour);
+    
+    // #rgb format
+    if ( $length == 4 && $colour[0] === "#" ) {
+      return self::getArray($colour[1].$colour[1].$colour[2].$colour[2].$colour[3].$colour[3]);
+
+    // #rrggbb format
+    } else if ( $length == 7 && $colour[0] === "#" ) {
+      return self::getArray(mb_substr($colour, 1, 6));
+
+    // rgb( r,g,b ) format
+    } else if ( mb_strpos($colour, "rgb") !== false ) {
+      $i = mb_strpos($colour, "(");
+      $j = mb_strpos($colour, ")");
+      
+      // Bad colour value
+      if ($i === false || $j === false)
+        return null;
+
+      $triplet = explode(",", mb_substr($colour, $i+1, $j-$i-1));
+
+      if (count($triplet) != 3)
+        return null;
+      
+      foreach (array_keys($triplet) as $c) {
+        $triplet[$c] = trim($triplet[$c]);
+        
+        if ( $triplet[$c][mb_strlen($triplet[$c]) - 1] === "%" ) 
+          $triplet[$c] = round($triplet[$c] * 2.55);
+      }
+      
+      return self::getArray(vsprintf("%02X%02X%02X", $triplet));
+    
+    // cmyk( c,m,y,k ) format
+    // http://www.w3.org/TR/css3-gcpm/#cmyk-colors
+    } else if ( mb_strpos($colour, "cmyk") !== false ) {
+      $i = mb_strpos($colour, "(");
+      $j = mb_strpos($colour, ")");
+      
+      // Bad colour value
+      if ($i === false || $j === false)
+        return null;
+
+      $values = explode(",", mb_substr($colour, $i+1, $j-$i-1));
+
+      if (count($values) != 4)
+        return null;
+      
+      foreach ($values as &$c) {
+        $c = floatval(trim($c));
+        if ($c > 1.0) $c = 1.0;
+        if ($c < 0.0) $c = 0.0;
+      }
+      
+      return self::getArray($values);
+    }
+  }
+  
+  static function getArray($colour) {
+    $c = array(null, null, null, null, "hex" => null);
+    
+    if (is_array($colour)) {
+      $c = $colour;
+      $c["c"] = $c[0];
+      $c["m"] = $c[1];
+      $c["y"] = $c[2];
+      $c["k"] = $c[3];
+      $c["hex"] = "cmyk($c[0],$c[1],$c[2],$c[3])";
+    }
+    else {
+      $c[0] = hexdec(mb_substr($colour, 0, 2)) / 0xff;
+      $c[1] = hexdec(mb_substr($colour, 2, 2)) / 0xff;
+      $c[2] = hexdec(mb_substr($colour, 4, 2)) / 0xff;
+      $c["r"] = $c[0];
+      $c["g"] = $c[1];
+      $c["b"] = $c[2];
+      $c["hex"] = "#$colour";
+    }
+    
+    return $c;
+  }
+}

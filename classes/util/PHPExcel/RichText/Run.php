@@ -1,57 +1,102 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_RichText
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_RichText_Run
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_RichText
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_RichText_Run extends PHPExcel_RichText_TextElement implements PHPExcel_RichText_ITextElement
+{
+	/**
+	 * Font
+	 *
+	 * @var PHPExcel_Style_Font
+	 */
+	private $_font;
+
+    /**
+     * Create a new PHPExcel_RichText_Run instance
+     *
+     * @param 	string		$pText		Text
+     */
+    public function __construct($pText = '')
+    {
+    	// Initialise variables
+    	$this->setText($pText);
+    	$this->_font = new PHPExcel_Style_Font();
+    }
+
+	/**
+	 * Get font
+	 *
+	 * @return PHPExcel_Style_Font
+	 */
+	public function getFont() {
+		return $this->_font;
+	}
+
+	/**
+	 * Set font
+	 *
+	 * @param	PHPExcel_Style_Font		$pFont		Font
+	 * @throws 	PHPExcel_Exception
+	 * @return PHPExcel_RichText_ITextElement
+	 */
+	public function setFont(PHPExcel_Style_Font $pFont = null) {
+		$this->_font = $pFont;
+		return $this;
+	}
+
+	/**
+	 * Get hash code
+	 *
+	 * @return string	Hash code
+	 */
+	public function getHashCode() {
+    	return md5(
+    		  $this->getText()
+    		. $this->_font->getHashCode()
+    		. __CLASS__
+    	);
+    }
+
+	/**
+	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
+	 */
+	public function __clone() {
+		$vars = get_object_vars($this);
+		foreach ($vars as $key => $value) {
+			if (is_object($value)) {
+				$this->$key = clone $value;
+			} else {
+				$this->$key = $value;
+			}
+		}
+	}
+}

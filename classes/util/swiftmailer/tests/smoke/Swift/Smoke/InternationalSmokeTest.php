@@ -1,66 +1,37 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-AemSH5rbSwMmvRRWsm==
+<?php
+
+require_once 'Swift/Tests/SwiftSmokeTestCase.php';
+
+class Swift_Smoke_InternationalSmokeTest extends Swift_Tests_SwiftSmokeTestCase
+{
+    public function setUp()
+    {
+        $this->_attFile = dirname(__FILE__) . '/../../../_samples/files/textfile.zip';
+    }
+
+    public function testAttachmentSending()
+    {
+        $mailer = $this->_getMailer();
+        $message = Swift_Message::newInstance()
+            ->setCharset('utf-8')
+            ->setSubject('[Swift Mailer] InternationalSmokeTest (διεθνής)')
+            ->setFrom(array(SWIFT_SMOKE_EMAIL_ADDRESS => 'Χριστοφορου (Swift Mailer)'))
+            ->setTo(SWIFT_SMOKE_EMAIL_ADDRESS)
+            ->setBody('This message should contain an attached ZIP file (named "κείμενο, εδάφιο, θέμα.zip").' . PHP_EOL .
+                'When unzipped, the archive should produce a text file which reads:' . PHP_EOL .
+                '"This is part of a Swift Mailer v4 smoke test."' . PHP_EOL .
+                PHP_EOL .
+                'Following is some arbitrary Greek text:' . PHP_EOL .
+                'Δεν βρέθηκαν λέξεις.'
+                )
+            ->attach(Swift_Attachment::fromPath($this->_attFile)
+                ->setContentType('application/zip')
+                ->setFilename('κείμενο, εδάφιο, θέμα.zip')
+                )
+            ;
+        $this->assertEqual(1, $mailer->send($message),
+            '%s: The smoke test should send a single message'
+            );
+        $this->_visualCheck('http://swiftmailer.org/smoke/4.0.0/international.jpg');
+    }
+}

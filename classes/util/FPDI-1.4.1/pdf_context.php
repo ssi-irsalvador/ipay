@@ -1,72 +1,104 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+//
+//  FPDI - Version 1.4.1
+//
+//    Copyright 2004-2011 Setasign - Jan Slabon
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
+
+if (!class_exists('pdf_context', false)) {
+    
+    class pdf_context {
+    
+        /**
+         * Modi
+         *
+         * @var integer 0 = file | 1 = string
+         */
+        var $_mode = 0;
+        
+    	var $file;
+    	var $buffer;
+    	var $offset;
+    	var $length;
+    
+    	var $stack;
+    
+    	// Constructor
+    
+    	function pdf_context(&$f) {
+    		$this->file =& $f;
+    		if (is_string($this->file))
+    		    $this->_mode = 1;
+    		$this->reset();
+    	}
+    
+    	// Optionally move the file
+    	// pointer to a new location
+    	// and reset the buffered data
+    
+    	function reset($pos = null, $l = 100) {
+    	    if ($this->_mode == 0) {
+            	if (!is_null ($pos)) {
+        			fseek ($this->file, $pos);
+        		}
+        
+        		$this->buffer = $l > 0 ? fread($this->file, $l) : '';
+        		$this->length = strlen($this->buffer);
+        		if ($this->length < $l)
+                    $this->increase_length($l - $this->length);
+    	    } else {
+    	        $this->buffer = $this->file;
+    	        $this->length = strlen($this->buffer);
+    	    }
+    		$this->offset = 0;
+    		$this->stack = array();
+    	}
+    
+    	// Make sure that there is at least one
+    	// character beyond the current offset in
+    	// the buffer to prevent the tokenizer
+    	// from attempting to access data that does
+    	// not exist
+    
+    	function ensure_content() {
+    		if ($this->offset >= $this->length - 1) {
+    			return $this->increase_length();
+    		} else {
+    			return true;
+    		}
+    	}
+    
+    	// Forcefully read more data into the buffer
+    
+    	function increase_length($l = 100) {
+			if ($this->_mode == 0 && feof($this->file)) {
+				return false;
+			} else if ($this->_mode == 0) {
+			    $totalLength = $this->length + $l;
+			    do {
+			    	$toRead = $totalLength - $this->length;
+			    	if ($toRead < 1)
+			    		break;
+			    
+			    	$this->buffer .= fread($this->file, $toRead);
+	            } while ((($this->length = strlen($this->buffer)) != $totalLength) && !feof($this->file));
+				
+				return true;
+			} else {
+		        return false;
+			}
+		}
+    }
+}

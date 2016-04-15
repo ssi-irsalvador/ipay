@@ -1,58 +1,85 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-GsB2ZFzjeWM3VQJ5+flUdTzNyCJPiNFqZJ4=
+<?php
+/**
+ * DOMPDF - PHP5 HTML to PDF renderer
+ *
+ * File: $RCSfile: absolute_positioner.cls.php,v $
+ * Created on: 2004-06-08
+ *
+ * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library in the file LICENSE.LGPL; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * Alternatively, you may distribute this software under the terms of the
+ * PHP License, version 3.0 or later.  A copy of this license should have
+ * been distributed with this file in the file LICENSE.PHP .  If this is not
+ * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
+ *
+ * The latest version of DOMPDF might be available at:
+ * http://www.dompdf.com/
+ *
+ * @link http://www.dompdf.com/
+ * @copyright 2004 Benj Carson
+ * @author Benj Carson <benjcarson@digitaljunkies.ca>
+ * @package dompdf
+
+ */
+
+/* $Id */
+
+/**
+ * Positions absolutly positioned frames
+ */
+class Absolute_Positioner extends Positioner {
+
+  function __construct(Frame_Decorator $frame) { parent::__construct($frame); }
+
+  function position() {
+
+    $frame = $this->_frame;
+    $style = $frame->get_style();
+    $cb = $frame->get_containing_block();
+
+    $top =    $style->length_in_pt($style->top,    $cb["h"]);
+    $right =  $style->length_in_pt($style->right,  $cb["w"]);
+    $bottom = $style->length_in_pt($style->bottom, $cb["h"]);
+    $left =   $style->length_in_pt($style->left,   $cb["w"]);
+    
+    $p = $frame->find_positionned_parent();
+
+    if ( $p ) {
+      // Get the parent's padding box (see http://www.w3.org/TR/CSS21/visuren.html#propdef-top)
+      list($x, $y, $w, $h) = $p->get_padding_box();
+    } else {
+      $x = $cb["x"];
+      $y = $cb["y"];
+    }
+
+    if ( $top !== "auto" ) {
+      $y += $top;
+    } else if ( $bottom !== "auto" ) {
+      // FIXME: need to know this frame's height before we can do this correctly
+    }
+
+    if ( $left !== "auto" ) {
+      $x += $left;
+    } else if ( $right !== "auto" ) {
+      // FIXME: need to know this frame's width before we can do this correctly
+    }
+
+    $frame->set_position($x, $y);
+
+  }
+}

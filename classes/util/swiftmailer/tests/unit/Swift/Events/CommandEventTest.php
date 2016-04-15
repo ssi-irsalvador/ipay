@@ -1,66 +1,41 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-TwPkZHUO0hFBep709Lq=
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Events/CommandEvent.php';
+require_once 'Swift/Transport.php';
+
+class Swift_Events_CommandEventTest extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testCommandCanBeFetchedByGetter()
+    {
+        $evt = $this->_createEvent($this->_createTransport(), "FOO\r\n");
+        $this->assertEqual("FOO\r\n", $evt->getCommand());
+    }
+
+    public function testSuccessCodesCanBeFetchedViaGetter()
+    {
+        $evt = $this->_createEvent($this->_createTransport(), "FOO\r\n", array(250));
+        $this->assertEqual(array(250), $evt->getSuccessCodes());
+    }
+
+    public function testSourceIsBuffer()
+    {
+        $transport = $this->_createTransport();
+        $evt = $this->_createEvent($transport, "FOO\r\n");
+        $ref = $evt->getSource();
+        $this->assertReference($transport, $ref);
+    }
+
+    // -- Creation Methods
+
+    private function _createEvent(Swift_Transport $source, $command,
+        $successCodes = array())
+    {
+        return new Swift_Events_CommandEvent($source, $command, $successCodes);
+    }
+
+    private function _createTransport()
+    {
+        return $this->_stub('Swift_Transport');
+    }
+}

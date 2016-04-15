@@ -1,311 +1,542 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+//
+//  FPDI - Version 1.4.1
+//
+//    Copyright 2004-2011 Setasign - Jan Slabon
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
+
+define('FPDI_VERSION', '1.4.1');
+
+// Check for TCPDF and remap TCPDF to FPDF
+if (class_exists('TCPDF', false)) {
+    require_once('fpdi2tcpdf_bridge.php');
+}
+
+require_once('fpdf_tpl.php');
+require_once('fpdi_pdf_parser.php');
+
+
+class FPDI extends FPDF_TPL {
+    /**
+     * Actual filename
+     * @var string
+     */
+    var $current_filename;
+
+    /**
+     * Parser-Objects
+     * @var array
+     */
+    var $parsers;
+    
+    /**
+     * Current parser
+     * @var object
+     */
+    var $current_parser;
+    
+    /**
+     * object stack
+     * @var array
+     */
+    var $_obj_stack;
+    
+    /**
+     * done object stack
+     * @var array
+     */
+    var $_don_obj_stack;
+
+    /**
+     * Current Object Id.
+     * @var integer
+     */
+    var $_current_obj_id;
+    
+    /**
+     * The name of the last imported page box
+     * @var string
+     */
+    var $lastUsedPageBox;
+    
+    /**
+     * Cache for imported pages/template ids
+     * @var array
+     */
+    var $_importedPages = array();
+    
+    /**
+     * Set a source-file
+     *
+     * @param string $filename a valid filename
+     * @return int number of available pages
+     */
+    function setSourceFile($filename) {
+        $this->current_filename = $filename;
+        
+        if (!isset($this->parsers[$filename]))
+            $this->parsers[$filename] = $this->_getPdfParser($filename);
+        $this->current_parser =& $this->parsers[$filename];
+        
+        return $this->parsers[$filename]->getPageCount();
+    }
+    
+    /**
+     * Returns a PDF parser object
+     *
+     * @param string $filename
+     * @return fpdi_pdf_parser
+     */
+    function _getPdfParser($filename) {
+    	return new fpdi_pdf_parser($filename, $this);
+    }
+    
+    /**
+     * Get the current PDF version
+     *
+     * @return string
+     */
+    function getPDFVersion() {
+		return $this->PDFVersion;
+	}
+    
+	/**
+     * Set the PDF version
+     *
+     * @return string
+     */
+	function setPDFVersion($version = '1.3') {
+		$this->PDFVersion = $version;
+	}
+	
+    /**
+     * Import a page
+     *
+     * @param int $pageno pagenumber
+     * @return int Index of imported page - to use with fpdf_tpl::useTemplate()
+     */
+    function importPage($pageno, $boxName = '/CropBox') {
+        if ($this->_intpl) {
+            return $this->error('Please import the desired pages before creating a new template.');
+        }
+        
+        $fn = $this->current_filename;
+        
+        // check if page already imported
+        $pageKey = $fn . '-' . ((int)$pageno) . $boxName;
+        if (isset($this->_importedPages[$pageKey]))
+            return $this->_importedPages[$pageKey];
+        
+        $parser =& $this->parsers[$fn];
+        $parser->setPageno($pageno);
+
+        if (!in_array($boxName, $parser->availableBoxes))
+            return $this->Error(sprintf('Unknown box: %s', $boxName));
+        $pageboxes = $parser->getPageBoxes($pageno, $this->k);
+        
+        /**
+         * MediaBox
+         * CropBox: Default -> MediaBox
+         * BleedBox: Default -> CropBox
+         * TrimBox: Default -> CropBox
+         * ArtBox: Default -> CropBox
+         */
+        if (!isset($pageboxes[$boxName]) && ($boxName == '/BleedBox' || $boxName == '/TrimBox' || $boxName == '/ArtBox'))
+            $boxName = '/CropBox';
+        if (!isset($pageboxes[$boxName]) && $boxName == '/CropBox')
+            $boxName = '/MediaBox';
+        
+        if (!isset($pageboxes[$boxName]))
+            return false;
+        $this->lastUsedPageBox = $boxName;
+        
+        $box = $pageboxes[$boxName];
+        
+        $this->tpl++;
+        $this->tpls[$this->tpl] = array();
+        $tpl =& $this->tpls[$this->tpl];
+        $tpl['parser'] =& $parser;
+        $tpl['resources'] = $parser->getPageResources();
+        $tpl['buffer'] = $parser->getContent();
+        $tpl['box'] = $box;
+        
+        // To build an array that can be used by PDF_TPL::useTemplate()
+        $this->tpls[$this->tpl] = array_merge($this->tpls[$this->tpl], $box);
+        
+        // An imported page will start at 0,0 everytime. Translation will be set in _putformxobjects()
+        $tpl['x'] = 0;
+        $tpl['y'] = 0;
+        
+        // handle rotated pages
+        $rotation = $parser->getPageRotation($pageno);
+        $tpl['_rotationAngle'] = 0;
+        if (isset($rotation[1]) && ($angle = $rotation[1] % 360) != 0) {
+        	$steps = $angle / 90;
+                
+            $_w = $tpl['w'];
+            $_h = $tpl['h'];
+            $tpl['w'] = $steps % 2 == 0 ? $_w : $_h;
+            $tpl['h'] = $steps % 2 == 0 ? $_h : $_w;
+            
+            if ($angle < 0)
+            	$angle += 360;
+            
+        	$tpl['_rotationAngle'] = $angle * -1;
+        }
+        
+        $this->_importedPages[$pageKey] = $this->tpl;
+        
+        return $this->tpl;
+    }
+    
+    function getLastUsedPageBox() {
+        return $this->lastUsedPageBox;
+    }
+    
+    function useTemplate($tplidx, $_x = null, $_y = null, $_w = 0, $_h = 0, $adjustPageSize = false) {
+        if ($adjustPageSize == true && is_null($_x) && is_null($_y)) {
+            $size = $this->getTemplateSize($tplidx, $_w, $_h);
+            $format = array($size['w'], $size['h']);
+            if (is_subclass_of($this, 'TCPDF')) {
+            	$this->setPageFormat($format, $format[0] > $format[1] ? 'L' : 'P');
+            } else {
+            	if ($format[0] != $this->CurPageFormat[0] || $format[1] != $this->CurPageFormat[1]) {
+	                $this->w = $format[0];
+	                $this->h = $format[1];
+	                $this->wPt = $this->w * $this->k;
+	        		$this->hPt = $this->h * $this->k;
+	        		$this->PageBreakTrigger = $this->h - $this->bMargin;
+	        		$this->CurPageFormat = $format;
+	        		$this->PageSizes[$this->page] = array($this->wPt, $this->hPt);
+	            }
+            } 
+        }
+        
+        $this->_out('q 0 J 1 w 0 j 0 G 0 g'); // reset standard values
+        $s = parent::useTemplate($tplidx, $_x, $_y, $_w, $_h);
+        $this->_out('Q');
+        
+        return $s;
+    }
+    
+    /**
+     * Private method, that rebuilds all needed objects of source files
+     */
+    function _putimportedobjects() {
+        if (is_array($this->parsers) && count($this->parsers) > 0) {
+            foreach($this->parsers AS $filename => $p) {
+                $this->current_parser =& $this->parsers[$filename];
+                if (isset($this->_obj_stack[$filename]) && is_array($this->_obj_stack[$filename])) {
+                    while(($n = key($this->_obj_stack[$filename])) !== null) {
+                        $nObj = $this->current_parser->pdf_resolve_object($this->current_parser->c, $this->_obj_stack[$filename][$n][1]);
+						
+                        $this->_newobj($this->_obj_stack[$filename][$n][0]);
+                        
+                        if ($nObj[0] == PDF_TYPE_STREAM) {
+							$this->pdf_write_value($nObj);
+                        } else {
+                            $this->pdf_write_value($nObj[1]);
+                        }
+                        
+                        $this->_out('endobj');
+                        $this->_obj_stack[$filename][$n] = null; // free memory
+                        unset($this->_obj_stack[$filename][$n]);
+                        reset($this->_obj_stack[$filename]);
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    /**
+     * Private Method that writes the form xobjects
+     */
+    function _putformxobjects() {
+        $filter=($this->compress) ? '/Filter /FlateDecode ' : '';
+	    reset($this->tpls);
+        foreach($this->tpls AS $tplidx => $tpl) {
+            $p=($this->compress) ? gzcompress($tpl['buffer']) : $tpl['buffer'];
+    		$this->_newobj();
+    		$cN = $this->n; // TCPDF/Protection: rem current "n"
+    		
+    		$this->tpls[$tplidx]['n'] = $this->n;
+    		$this->_out('<<' . $filter . '/Type /XObject');
+            $this->_out('/Subtype /Form');
+            $this->_out('/FormType 1');
+            
+            $this->_out(sprintf('/BBox [%.2F %.2F %.2F %.2F]', 
+                (isset($tpl['box']['llx']) ? $tpl['box']['llx'] : $tpl['x']) * $this->k,
+                (isset($tpl['box']['lly']) ? $tpl['box']['lly'] : -$tpl['y']) * $this->k,
+                (isset($tpl['box']['urx']) ? $tpl['box']['urx'] : $tpl['w'] + $tpl['x']) * $this->k,
+                (isset($tpl['box']['ury']) ? $tpl['box']['ury'] : $tpl['h'] - $tpl['y']) * $this->k
+            ));
+            
+            $c = 1;
+            $s = 0;
+            $tx = 0;
+            $ty = 0;
+            
+            if (isset($tpl['box'])) {
+                $tx = -$tpl['box']['llx'];
+                $ty = -$tpl['box']['lly']; 
+                
+                if ($tpl['_rotationAngle'] <> 0) {
+                    $angle = $tpl['_rotationAngle'] * M_PI/180;
+                    $c=cos($angle);
+                    $s=sin($angle);
+                    
+                    switch($tpl['_rotationAngle']) {
+                        case -90:
+                           $tx = -$tpl['box']['lly'];
+                           $ty = $tpl['box']['urx'];
+                           break;
+                        case -180:
+                            $tx = $tpl['box']['urx'];
+                            $ty = $tpl['box']['ury'];
+                            break;
+                        case -270:
+                        	$tx = $tpl['box']['ury'];
+                            $ty = -$tpl['box']['llx'];
+                            break;
+                    }
+                }
+            } else if ($tpl['x'] != 0 || $tpl['y'] != 0) {
+                $tx = -$tpl['x']*2;
+                $ty = $tpl['y']*2;
+            }
+            
+            $tx *= $this->k;
+            $ty *= $this->k;
+            
+            if ($c != 1 || $s != 0 || $tx != 0 || $ty != 0) {
+                $this->_out(sprintf('/Matrix [%.5F %.5F %.5F %.5F %.5F %.5F]',
+                    $c, $s, -$s, $c, $tx, $ty
+                ));
+            }
+            
+            $this->_out('/Resources ');
+
+            if (isset($tpl['resources'])) {
+                $this->current_parser =& $tpl['parser'];
+                $this->pdf_write_value($tpl['resources']); // "n" will be changed
+            } else {
+                $this->_out('<</ProcSet [/PDF /Text /ImageB /ImageC /ImageI]');
+            	if (isset($this->_res['tpl'][$tplidx]['fonts']) && count($this->_res['tpl'][$tplidx]['fonts'])) {
+                	$this->_out('/Font <<');
+                    foreach($this->_res['tpl'][$tplidx]['fonts'] as $font)
+                		$this->_out('/F' . $font['i'] . ' ' . $font['n'] . ' 0 R');
+                	$this->_out('>>');
+                }
+            	if(isset($this->_res['tpl'][$tplidx]['images']) && count($this->_res['tpl'][$tplidx]['images']) || 
+            	   isset($this->_res['tpl'][$tplidx]['tpls']) && count($this->_res['tpl'][$tplidx]['tpls']))
+            	{
+                    $this->_out('/XObject <<');
+                    if (isset($this->_res['tpl'][$tplidx]['images']) && count($this->_res['tpl'][$tplidx]['images'])) {
+                        foreach($this->_res['tpl'][$tplidx]['images'] as $image)
+                  			$this->_out('/I' . $image['i'] . ' ' . $image['n'] . ' 0 R');
+                    }
+                    if (isset($this->_res['tpl'][$tplidx]['tpls']) && count($this->_res['tpl'][$tplidx]['tpls'])) {
+                        foreach($this->_res['tpl'][$tplidx]['tpls'] as $i => $tpl)
+                            $this->_out($this->tplprefix . $i . ' ' . $tpl['n'] . ' 0 R');
+                    }
+                    $this->_out('>>');
+            	}
+            	$this->_out('>>');
+            }
+
+            $nN = $this->n; // TCPDF: rem new "n"
+            $this->n = $cN; // TCPDF: reset to current "n"
+            $this->_out('/Length ' . strlen($p) . ' >>');
+    		$this->_putstream($p);
+    		$this->_out('endobj');
+    		$this->n = $nN; // TCPDF: reset to new "n"
+        }
+        
+        $this->_putimportedobjects();
+    }
+
+    /**
+     * Rewritten to handle existing own defined objects
+     */
+    function _newobj($obj_id = false, $onlynewobj = false) {
+        if (!$obj_id) {
+            $obj_id = ++$this->n;
+        }
+
+        //Begin a new object
+        if (!$onlynewobj) {
+            $this->offsets[$obj_id] = is_subclass_of($this, 'TCPDF') ? $this->bufferlen : strlen($this->buffer);
+            $this->_out($obj_id . ' 0 obj');
+            $this->_current_obj_id = $obj_id; // for later use with encryption
+        }
+        
+        return $obj_id;
+    }
+
+    /**
+     * Writes a value
+     * Needed to rebuild the source document
+     *
+     * @param mixed $value A PDF-Value. Structure of values see cases in this method
+     */
+    function pdf_write_value(&$value)
+    {
+        if (is_subclass_of($this, 'TCPDF')) {
+            parent::pdf_write_value($value);
+        }
+        
+        switch ($value[0]) {
+
+    		case PDF_TYPE_TOKEN:
+                $this->_straightOut($value[1] . ' ');
+    			break;
+		    case PDF_TYPE_NUMERIC:
+    		case PDF_TYPE_REAL:
+                if (is_float($value[1]) && $value[1] != 0) {
+    			    $this->_straightOut(rtrim(rtrim(sprintf('%F', $value[1]), '0'), '.') . ' ');
+    			} else {
+        			$this->_straightOut($value[1] . ' ');
+    			}
+    			break;
+    			
+    		case PDF_TYPE_ARRAY:
+
+    			// An array. Output the proper
+    			// structure and move on.
+
+    			$this->_straightOut('[');
+                for ($i = 0; $i < count($value[1]); $i++) {
+    				$this->pdf_write_value($value[1][$i]);
+    			}
+
+    			$this->_out(']');
+    			break;
+
+    		case PDF_TYPE_DICTIONARY:
+
+    			// A dictionary.
+    			$this->_straightOut('<<');
+
+    			reset ($value[1]);
+
+    			while (list($k, $v) = each($value[1])) {
+    				$this->_straightOut($k . ' ');
+    				$this->pdf_write_value($v);
+    			}
+
+    			$this->_straightOut('>>');
+    			break;
+
+    		case PDF_TYPE_OBJREF:
+
+    			// An indirect object reference
+    			// Fill the object stack if needed
+    			$cpfn =& $this->current_parser->filename;
+    			
+    			if (!isset($this->_don_obj_stack[$cpfn][$value[1]])) {
+    			    $this->_newobj(false, true);
+    			    $this->_obj_stack[$cpfn][$value[1]] = array($this->n, $value);
+                    $this->_don_obj_stack[$cpfn][$value[1]] = array($this->n, $value); // Value is maybee obsolete!!!
+                }
+                $objid = $this->_don_obj_stack[$cpfn][$value[1]][0];
+
+    			$this->_out($objid . ' 0 R');
+    			break;
+
+    		case PDF_TYPE_STRING:
+
+    			// A string.
+                $this->_straightOut('(' . $value[1] . ')');
+
+    			break;
+
+    		case PDF_TYPE_STREAM:
+
+    			// A stream. First, output the
+    			// stream dictionary, then the
+    			// stream data itself.
+                $this->pdf_write_value($value[1]);
+    			$this->_out('stream');
+    			$this->_out($value[2][1]);
+    			$this->_out('endstream');
+    			break;
+    			
+            case PDF_TYPE_HEX:
+                $this->_straightOut('<' . $value[1] . '>');
+                break;
+
+            case PDF_TYPE_BOOLEAN:
+    		    $this->_straightOut($value[1] ? 'true ' : 'false ');
+    		    break;
+            
+    		case PDF_TYPE_NULL:
+                // The null object.
+
+    			$this->_straightOut('null ');
+    			break;
+    	}
+    }
+    
+    
+    /**
+     * Modified so not each call will add a newline to the output.
+     */
+    function _straightOut($s) {
+        if (!is_subclass_of($this, 'TCPDF')) {
+            if($this->state==2)
+        		$this->pages[$this->page] .= $s;
+        	else
+        		$this->buffer .= $s;
+        } else {
+            if ($this->state == 2) {
+				if (isset($this->footerlen[$this->page]) AND ($this->footerlen[$this->page] > 0)) {
+					// puts data before page footer
+					$page = substr($this->getPageBuffer($this->page), 0, -$this->footerlen[$this->page]);
+					$footer = substr($this->getPageBuffer($this->page), -$this->footerlen[$this->page]);
+					$this->setPageBuffer($this->page, $page . ' ' . $s . "\n" . $footer);
+				} else {
+					$this->setPageBuffer($this->page, $s, true);
+				}
+			} else {
+				$this->setBuffer($s);
+			}
+        }
+    }
+
+    /**
+     * rewritten to close opened parsers
+     *
+     */
+    function _enddoc() {
+        parent::_enddoc();
+        $this->_closeParsers();
+    }
+    
+    /**
+     * close all files opened by parsers
+     */
+    function _closeParsers() {
+        if ($this->state > 2 && count($this->parsers) > 0) {
+          	foreach ($this->parsers as $k => $_){
+            	$this->parsers[$k]->closeFile();
+            	$this->parsers[$k] = null;
+            	unset($this->parsers[$k]);
+            }
+            return true;
+        }
+        return false;
+    }
+}

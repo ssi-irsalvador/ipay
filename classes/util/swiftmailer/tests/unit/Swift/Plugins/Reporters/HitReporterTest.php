@@ -1,75 +1,69 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-2H9NHefJ3JO0896lwxPMb0==
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Plugins/Reporters/HitReporter.php';
+require_once 'Swift/Mime/Message.php';
+
+class Swift_Plugins_Reporters_HitReporterTest
+    extends Swift_Tests_SwiftUnitTestCase
+{
+    private $_hitReporter;
+    private $_message;
+
+    public function setUp()
+    {
+        $this->_hitReporter = new Swift_Plugins_Reporters_HitReporter();
+        $this->_message = $this->_mock('Swift_Mime_Message');
+    }
+
+    public function testReportingFail()
+    {
+        $this->_hitReporter->notify($this->_message, 'foo@bar.tld',
+            Swift_Plugins_Reporter::RESULT_FAIL
+            );
+        $this->assertEqual(array('foo@bar.tld'),
+            $this->_hitReporter->getFailedRecipients()
+            );
+    }
+
+    public function testMultipleReports()
+    {
+        $this->_hitReporter->notify($this->_message, 'foo@bar.tld',
+            Swift_Plugins_Reporter::RESULT_FAIL
+            );
+        $this->_hitReporter->notify($this->_message, 'zip@button',
+            Swift_Plugins_Reporter::RESULT_FAIL
+            );
+        $this->assertEqual(array('foo@bar.tld', 'zip@button'),
+            $this->_hitReporter->getFailedRecipients()
+            );
+    }
+
+    public function testReportingPassIsIgnored()
+    {
+        $this->_hitReporter->notify($this->_message, 'foo@bar.tld',
+            Swift_Plugins_Reporter::RESULT_FAIL
+            );
+        $this->_hitReporter->notify($this->_message, 'zip@button',
+            Swift_Plugins_Reporter::RESULT_PASS
+            );
+        $this->assertEqual(array('foo@bar.tld'),
+            $this->_hitReporter->getFailedRecipients()
+            );
+    }
+
+    public function testBufferCanBeCleared()
+    {
+        $this->_hitReporter->notify($this->_message, 'foo@bar.tld',
+            Swift_Plugins_Reporter::RESULT_FAIL
+            );
+        $this->_hitReporter->notify($this->_message, 'zip@button',
+            Swift_Plugins_Reporter::RESULT_FAIL
+            );
+        $this->assertEqual(array('foo@bar.tld', 'zip@button'),
+            $this->_hitReporter->getFailedRecipients()
+            );
+        $this->_hitReporter->clear();
+        $this->assertEqual(array(), $this->_hitReporter->getFailedRecipients());
+    }
+}

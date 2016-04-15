@@ -1,387 +1,653 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-ip3rH9MPt6OhHYyYyy6mop0/i0==
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Mime/SimpleHeaderSet.php';
+require_once 'Swift/Mime/HeaderFactory.php';
+require_once 'Swift/Mime/Header.php';
+
+class Swift_Mime_SimpleHeaderSetTest extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testAddMailboxHeaderDelegatesToFactory()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createMailboxHeader('From', array('person@domain'=>'Person'))
+                -> returns($this->_createHeader('From'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addMailboxHeader('From', array('person@domain'=>'Person'));
+    }
+
+    public function testAddDateHeaderDelegatesToFactory()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createDateHeader('Date', 1234)
+                -> returns($this->_createHeader('Date'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addDateHeader('Date', 1234);
+    }
+
+    public function testAddTextHeaderDelegatesToFactory()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createTextHeader('Subject', 'some text')
+                -> returns($this->_createHeader('Subject'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Subject', 'some text');
+    }
+
+    public function testAddParameterizedHeaderDelegatesToFactory()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createParameterizedHeader(
+                'Content-Type', 'text/plain', array('charset'=>'utf-8')
+                ) -> returns($this->_createHeader('Content-Type'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addParameterizedHeader('Content-Type', 'text/plain',
+            array('charset'=>'utf-8')
+            );
+    }
+
+    public function testAddIdHeaderDelegatesToFactory()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($this->_createHeader('Message-ID'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+    }
+
+    public function testAddPathHeaderDelegatesToFactory()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createPathHeader('Return-Path', 'some@path')
+                -> returns($this->_createHeader('Return-Path'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addPathHeader('Return-Path', 'some@path');
+    }
+
+    public function testHasReturnsFalseWhenNoHeaders()
+    {
+        $set = $this->_createSet($this->_createFactory());
+        $this->assertFalse($set->has('Some-Header'));
+    }
+
+    public function testAddedMailboxHeaderIsSeenByHas()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createMailboxHeader('From', array('person@domain'=>'Person'))
+                -> returns($this->_createHeader('From'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addMailboxHeader('From', array('person@domain'=>'Person'));
+        $this->assertTrue($set->has('From'));
+    }
+
+    public function testAddedDateHeaderIsSeenByHas()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createDateHeader('Date', 1234)
+                -> returns($this->_createHeader('Date'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addDateHeader('Date', 1234);
+        $this->assertTrue($set->has('Date'));
+    }
+
+    public function testAddedTextHeaderIsSeenByHas()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createTextHeader('Subject', 'some text')
+                -> returns($this->_createHeader('Subject'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Subject', 'some text');
+        $this->assertTrue($set->has('Subject'));
+    }
+
+    public function testAddedParameterizedHeaderIsSeenByHas()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createParameterizedHeader(
+                'Content-Type', 'text/plain', array('charset'=>'utf-8')
+                ) -> returns($this->_createHeader('Content-Type'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addParameterizedHeader('Content-Type', 'text/plain',
+            array('charset'=>'utf-8')
+            );
+        $this->assertTrue($set->has('Content-Type'));
+    }
+
+    public function testAddedIdHeaderIsSeenByHas()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($this->_createHeader('Message-ID'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $this->assertTrue($set->has('Message-ID'));
+    }
+
+    public function testAddedPathHeaderIsSeenByHas()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createPathHeader('Return-Path', 'some@path')
+                -> returns($this->_createHeader('Return-Path'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addPathHeader('Return-Path', 'some@path');
+        $this->assertTrue($set->has('Return-Path'));
+    }
+
+    public function testNewlySetHeaderIsSeenByHas()
+    {
+        $factory = $this->_createFactory();
+        $header = $this->_createHeader('X-Foo', 'bar');
+        $set = $this->_createSet($factory);
+        $set->set($header);
+        $this->assertTrue($set->has('X-Foo'));
+    }
+
+    public function testHasCanAcceptOffset()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($this->_createHeader('Message-ID'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $this->assertTrue($set->has('Message-ID', 0));
+    }
+
+    public function testHasWithIllegalOffsetReturnsFalse()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($this->_createHeader('Message-ID'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $this->assertFalse($set->has('Message-ID', 1));
+    }
+
+    public function testHasCanDistinguishMultipleHeaders()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($this->_createHeader('Message-ID'))
+            -> ignoring($factory)->createIdHeader('Message-ID', 'other@id')
+                -> returns($this->_createHeader('Message-ID'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->addIdHeader('Message-ID', 'other@id');
+        $this->assertTrue($set->has('Message-ID', 1));
+    }
+
+    public function testGetWithUnspecifiedOffset()
+    {
+        $header = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $this->assertSame($header, $set->get('Message-ID'));
+    }
+
+    public function testGetWithSpeiciedOffset()
+    {
+        $header0 = $this->_createHeader('Message-ID');
+        $header1 = $this->_createHeader('Message-ID');
+        $header2 = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header0)
+            -> ignoring($factory)->createIdHeader('Message-ID', 'other@id')
+                -> returns($header1)
+            -> ignoring($factory)->createIdHeader('Message-ID', 'more@id')
+                -> returns($header2)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->addIdHeader('Message-ID', 'other@id');
+        $set->addIdHeader('Message-ID', 'more@id');
+        $this->assertSame($header1, $set->get('Message-ID', 1));
+    }
+
+    public function testGetReturnsNullIfHeaderNotSet()
+    {
+        $set = $this->_createSet($this->_createFactory());
+        $this->assertNull($set->get('Message-ID', 99));
+    }
+
+    public function testGetAllReturnsAllHeadersMatchingName()
+    {
+        $header0 = $this->_createHeader('Message-ID');
+        $header1 = $this->_createHeader('Message-ID');
+        $header2 = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header0)
+            -> ignoring($factory)->createIdHeader('Message-ID', 'other@id')
+                -> returns($header1)
+            -> ignoring($factory)->createIdHeader('Message-ID', 'more@id')
+                -> returns($header2)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->addIdHeader('Message-ID', 'other@id');
+        $set->addIdHeader('Message-ID', 'more@id');
+
+        $this->assertEqual(array($header0, $header1, $header2),
+            $set->getAll('Message-ID')
+            );
+    }
+
+    public function testGetAllReturnsAllHeadersIfNoArguments()
+    {
+        $header0 = $this->_createHeader('Message-ID');
+        $header1 = $this->_createHeader('Subject');
+        $header2 = $this->_createHeader('To');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header0)
+            -> ignoring($factory)->createIdHeader('Subject', 'thing')
+                -> returns($header1)
+            -> ignoring($factory)->createIdHeader('To', 'person@example.org')
+                -> returns($header2)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->addIdHeader('Subject', 'thing');
+        $set->addIdHeader('To', 'person@example.org');
+
+        $this->assertEqual(array($header0, $header1, $header2),
+            $set->getAll()
+            );
+    }
+
+    public function testGetAllReturnsEmptyArrayIfNoneSet()
+    {
+        $set = $this->_createSet($this->_createFactory());
+        $this->assertEqual(array(), $set->getAll('Received'));
+    }
+
+    public function testRemoveWithUnspecifiedOffset()
+    {
+        $header = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->remove('Message-ID');
+        $this->assertFalse($set->has('Message-ID'));
+    }
+
+    public function testRemoveWithSpecifiedIndexRemovesHeader()
+    {
+        $header0 = $this->_createHeader('Message-ID');
+        $header1 = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header0)
+            -> ignoring($factory)->createIdHeader('Message-ID', 'other@id')
+                -> returns($header1)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->addIdHeader('Message-ID', 'other@id');
+        $set->remove('Message-ID', 1);
+        $this->assertFalse($set->has('Message-ID', 1));
+    }
+
+    public function testRemoveWithSpecifiedIndexLeavesOtherHeaders()
+    {
+        $header0 = $this->_createHeader('Message-ID');
+        $header1 = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header0)
+            -> ignoring($factory)->createIdHeader('Message-ID', 'other@id')
+                -> returns($header1)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->addIdHeader('Message-ID', 'other@id');
+        $set->remove('Message-ID', 1);
+        $this->assertTrue($set->has('Message-ID', 0));
+    }
+
+    public function testRemoveWithInvalidOffsetDoesNothing()
+    {
+        $header = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->remove('Message-ID', 50);
+        $this->assertTrue($set->has('Message-ID'));
+    }
+
+    public function testRemoveAllRemovesAllHeadersWithName()
+    {
+        $header0 = $this->_createHeader('Message-ID');
+        $header1 = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header0)
+            -> ignoring($factory)->createIdHeader('Message-ID', 'other@id')
+                -> returns($header1)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->addIdHeader('Message-ID', 'other@id');
+        $set->removeAll('Message-ID');
+        $this->assertFalse($set->has('Message-ID', 0));
+        $this->assertFalse($set->has('Message-ID', 1));
+    }
+
+    public function testHasIsNotCaseSensitive()
+    {
+        $header = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $this->assertTrue($set->has('message-id'));
+    }
+
+    public function testGetIsNotCaseSensitive()
+    {
+        $header = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $this->assertSame($header, $set->get('message-id'));
+    }
+
+    public function testGetAllIsNotCaseSensitive()
+    {
+        $header = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $this->assertEqual(array($header), $set->getAll('message-id'));
+    }
+
+    public function testRemoveIsNotCaseSensitive()
+    {
+        $header = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->remove('message-id');
+        $this->assertFalse($set->has('Message-ID'));
+    }
+
+    public function testRemoveAllIsNotCaseSensitive()
+    {
+        $header = $this->_createHeader('Message-ID');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createIdHeader('Message-ID', 'some@id')
+                -> returns($header)
+            );
+        $set = $this->_createSet($factory);
+        $set->addIdHeader('Message-ID', 'some@id');
+        $set->removeAll('message-id');
+        $this->assertFalse($set->has('Message-ID'));
+    }
+
+    public function testNewInstance()
+    {
+        $set = $this->_createSet($this->_createFactory());
+        $instance = $set->newInstance();
+        $this->assertIsA($instance, 'Swift_Mime_HeaderSet');
+    }
+
+    public function testToStringJoinsHeadersTogether()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createTextHeader('Foo', 'bar')
+                -> returns($this->_createHeader('Foo', 'bar'))
+            -> one($factory)->createTextHeader('Zip', 'buttons')
+                -> returns($this->_createHeader('Zip', 'buttons'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Foo', 'bar');
+        $set->addTextHeader('Zip', 'buttons');
+        $this->assertEqual(
+            "Foo: bar\r\n" .
+            "Zip: buttons\r\n",
+            $set->toString()
+            );
+    }
+
+    public function testHeadersWithoutBodiesAreNotDisplayed()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createTextHeader('Foo', 'bar')
+                -> returns($this->_createHeader('Foo', 'bar'))
+            -> one($factory)->createTextHeader('Zip', '')
+                -> returns($this->_createHeader('Zip', ''))
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Foo', 'bar');
+        $set->addTextHeader('Zip', '');
+        $this->assertEqual(
+            "Foo: bar\r\n",
+            $set->toString()
+            );
+    }
+
+    public function testHeadersWithoutBodiesCanBeForcedToDisplay()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createTextHeader('Foo', '')
+                -> returns($this->_createHeader('Foo', ''))
+            -> one($factory)->createTextHeader('Zip', '')
+                -> returns($this->_createHeader('Zip', ''))
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Foo', '');
+        $set->addTextHeader('Zip', '');
+        $set->setAlwaysDisplayed(array('Foo', 'Zip'));
+        $this->assertEqual(
+            "Foo: \r\n" .
+            "Zip: \r\n",
+            $set->toString()
+            );
+    }
+
+    public function testHeaderSequencesCanBeSpecified()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createTextHeader('First', 'one')
+                -> returns($this->_createHeader('First', 'one'))
+            -> one($factory)->createTextHeader('Second', 'two')
+                -> returns($this->_createHeader('Second', 'two'))
+            -> one($factory)->createTextHeader('Third', 'three')
+                -> returns($this->_createHeader('Third', 'three'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Third', 'three');
+        $set->addTextHeader('First', 'one');
+        $set->addTextHeader('Second', 'two');
+
+        $set->defineOrdering(array('First', 'Second', 'Third'));
+
+        $this->assertEqual(
+            "First: one\r\n" .
+            "Second: two\r\n" .
+            "Third: three\r\n",
+            $set->toString()
+            );
+    }
+
+    public function testUnsortedHeadersAppearAtEnd()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->createTextHeader('First', 'one')
+                -> returns($this->_createHeader('First', 'one'))
+            -> one($factory)->createTextHeader('Second', 'two')
+                -> returns($this->_createHeader('Second', 'two'))
+            -> one($factory)->createTextHeader('Third', 'three')
+                -> returns($this->_createHeader('Third', 'three'))
+            -> one($factory)->createTextHeader('Fourth', 'four')
+                -> returns($this->_createHeader('Fourth', 'four'))
+            -> one($factory)->createTextHeader('Fifth', 'five')
+                -> returns($this->_createHeader('Fifth', 'five'))
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Fourth', 'four');
+        $set->addTextHeader('Fifth', 'five');
+        $set->addTextHeader('Third', 'three');
+        $set->addTextHeader('First', 'one');
+        $set->addTextHeader('Second', 'two');
+
+        $set->defineOrdering(array('First', 'Second', 'Third'));
+
+        $this->assertEqual(
+            "First: one\r\n" .
+            "Second: two\r\n" .
+            "Third: three\r\n" .
+            "Fourth: four\r\n" .
+            "Fifth: five\r\n",
+            $set->toString()
+            );
+    }
+
+    public function testSettingCharsetNotifiesAlreadyExistingHeaders()
+    {
+        $subject = $this->_createHeader('Subject', 'some text');
+        $xHeader = $this->_createHeader('X-Header', 'some text');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createTextHeader('Subject', 'some text')
+                -> returns($subject)
+            -> ignoring($factory)->createTextHeader('X-Header', 'some text')
+                -> returns($xHeader)
+            -> ignoring($factory)
+            -> one($subject)->setCharset('utf-8')
+            -> one($xHeader)->setCharset('utf-8')
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Subject', 'some text');
+        $set->addTextHeader('X-Header', 'some text');
+
+        $set->setCharset('utf-8');
+    }
+
+    public function testCharsetChangeNotifiesAlreadyExistingHeaders()
+    {
+        $subject = $this->_createHeader('Subject', 'some text');
+        $xHeader = $this->_createHeader('X-Header', 'some text');
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> ignoring($factory)->createTextHeader('Subject', 'some text')
+                -> returns($subject)
+            -> ignoring($factory)->createTextHeader('X-Header', 'some text')
+                -> returns($xHeader)
+            -> ignoring($factory)
+            -> one($subject)->setCharset('utf-8')
+            -> one($xHeader)->setCharset('utf-8')
+            );
+        $set = $this->_createSet($factory);
+        $set->addTextHeader('Subject', 'some text');
+        $set->addTextHeader('X-Header', 'some text');
+
+        $set->charsetChanged('utf-8');
+    }
+
+    public function testCharsetChangeNotifiesFactory()
+    {
+        $factory = $this->_createFactory();
+        $this->_checking(Expectations::create()
+            -> one($factory)->charsetChanged('utf-8')
+            -> ignoring($factory)
+            );
+        $set = $this->_createSet($factory);
+
+        $set->setCharset('utf-8');
+    }
+
+    // -- Creation methods
+
+    private function _createSet($factory)
+    {
+        return new Swift_Mime_SimpleHeaderSet($factory);
+    }
+
+    private function _createFactory()
+    {
+        return $this->_mock('Swift_Mime_HeaderFactory');
+    }
+
+    private function _createHeader($name, $body = '')
+    {
+        $header = $this->_mock('Swift_Mime_Header');
+        $this->_checking(Expectations::create()
+            -> ignoring($header)->getFieldName() -> returns($name)
+            -> ignoring($header)->toString() -> returns(sprintf("%s: %s\r\n", $name, $body))
+            -> ignoring($header)->getFieldBody() -> returns($body)
+            );
+
+        return $header;
+    }
+}

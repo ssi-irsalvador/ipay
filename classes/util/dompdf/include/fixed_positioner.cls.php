@@ -1,76 +1,117 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-AQZfdJK6V+rQbkOXdlsxiUZnYW==
+<?php
+/**
+ * DOMPDF - PHP5 HTML to PDF renderer
+ *
+ * File: $RCSfile: absolute_positioner.cls.php,v $
+ * Created on: 2004-06-08
+ *
+ * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library in the file LICENSE.LGPL; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * Alternatively, you may distribute this software under the terms of the
+ * PHP License, version 3.0 or later.  A copy of this license should have
+ * been distributed with this file in the file LICENSE.PHP .  If this is not
+ * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
+ *
+ * The latest version of DOMPDF might be available at:
+ * http://www.dompdf.com/
+ *
+ * @link http://www.dompdf.com/
+ * @copyright 2004 Benj Carson
+ * @author Benj Carson <benjcarson@digitaljunkies.ca>
+ * @package dompdf
+ */
+
+/* $Id */
+
+/**
+ * Positions fixely positioned frames
+ */
+class Fixed_Positioner extends Positioner {
+
+  function __construct(Frame_Decorator $frame) { parent::__construct($frame); }
+
+  function position() {
+
+    $frame = $this->_frame;
+    $style = $frame->get_original_style();
+    $root = $frame->get_root();
+    $initialcb = $root->get_containing_block();
+    $initialcb_style = $root->get_style();
+
+    $p = $frame->find_block_parent();
+    if ( $p ) {
+      $p->add_line();
+    }
+
+    // Compute the margins of the @page style
+    $margin_top    = $initialcb_style->length_in_pt($initialcb_style->margin_top,    $initialcb["h"]);
+    $margin_right  = $initialcb_style->length_in_pt($initialcb_style->margin_right,  $initialcb["w"]);
+    $margin_bottom = $initialcb_style->length_in_pt($initialcb_style->margin_bottom, $initialcb["h"]);
+    $margin_left   = $initialcb_style->length_in_pt($initialcb_style->margin_left,   $initialcb["w"]);
+    
+    // The needed computed style of the element
+    $height = $style->length_in_pt($style->height, $initialcb["h"]);
+    $width  = $style->length_in_pt($style->width,  $initialcb["w"]);
+    
+    $top    = $style->length_in_pt($style->top,    $initialcb["h"]);
+    $right  = $style->length_in_pt($style->right,  $initialcb["w"]);
+    $bottom = $style->length_in_pt($style->bottom, $initialcb["h"]);
+    $left   = $style->length_in_pt($style->left,   $initialcb["w"]);
+
+    $y = $margin_top;
+    if ( isset($top) ) {
+      $y = $top + $margin_top;
+      if ( $top === "auto" ) {
+        $y = $margin_top;
+        if ( isset($bottom) && $bottom !== "auto" ) {
+          $y = $initialcb["h"] - $bottom - $margin_bottom;
+          $margin_height = $this->_frame->get_margin_height();
+          if ( $margin_height !== "auto" ) {
+            $y -= $margin_height;
+          } else {
+            $y -= $height;
+          }
+        }
+      }
+    }
+
+    $x = $margin_left;
+    if ( isset($left) ) {
+      $x = $left + $margin_left;
+      if ( $left === "auto" ) {
+        $x = $margin_left;
+        if ( isset($right) && $right !== "auto" ) {
+          $x = $initialcb["w"] - $right - $margin_right;
+          $margin_width = $this->_frame->get_margin_width();
+          if ( $margin_width !== "auto" ) {
+            $x -= $margin_width;
+          } else {
+            $x -= $width;
+          }
+        }
+      }
+    }
+    
+    $frame->set_position($x, $y);
+
+    $children = $frame->get_children();
+    foreach($children as $child) {
+      $child->set_position($x, $y);
+    }
+  }
+}

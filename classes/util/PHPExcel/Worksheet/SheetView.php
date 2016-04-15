@@ -1,64 +1,188 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-6zEhas3rWG==
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Worksheet
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Worksheet_SheetView
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Worksheet
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Worksheet_SheetView
+{
+
+	/* Sheet View types */
+	const SHEETVIEW_NORMAL				= 'normal';
+	const SHEETVIEW_PAGE_LAYOUT			= 'pageLayout';
+	const SHEETVIEW_PAGE_BREAK_PREVIEW	= 'pageBreakPreview';
+
+	private static $_sheetViewTypes = array(
+		self::SHEETVIEW_NORMAL,
+		self::SHEETVIEW_PAGE_LAYOUT,
+		self::SHEETVIEW_PAGE_BREAK_PREVIEW,
+	);
+
+	/**
+	 * ZoomScale
+	 *
+	 * Valid values range from 10 to 400.
+	 *
+	 * @var int
+	 */
+	private $_zoomScale			= 100;
+
+	/**
+	 * ZoomScaleNormal
+	 *
+	 * Valid values range from 10 to 400.
+	 *
+	 * @var int
+	 */
+	private $_zoomScaleNormal	= 100;
+
+	/**
+	 * View
+	 *
+	 * Valid values range from 10 to 400.
+	 *
+	 * @var string
+	 */
+	private $_sheetviewType		= self::SHEETVIEW_NORMAL;
+
+    /**
+     * Create a new PHPExcel_Worksheet_SheetView
+     */
+    public function __construct()
+    {
+    }
+
+	/**
+	 * Get ZoomScale
+	 *
+	 * @return int
+	 */
+	public function getZoomScale() {
+		return $this->_zoomScale;
+	}
+
+	/**
+	 * Set ZoomScale
+	 *
+	 * Valid values range from 10 to 400.
+	 *
+	 * @param 	int 	$pValue
+	 * @throws 	PHPExcel_Exception
+	 * @return PHPExcel_Worksheet_SheetView
+	 */
+	public function setZoomScale($pValue = 100) {
+		// Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
+		// but it is apparently still able to handle any scale >= 1
+		if (($pValue >= 1) || is_null($pValue)) {
+			$this->_zoomScale = $pValue;
+		} else {
+			throw new PHPExcel_Exception("Scale must be greater than or equal to 1.");
+		}
+		return $this;
+	}
+
+	/**
+	 * Get ZoomScaleNormal
+	 *
+	 * @return int
+	 */
+	public function getZoomScaleNormal() {
+		return $this->_zoomScaleNormal;
+	}
+
+	/**
+	 * Set ZoomScale
+	 *
+	 * Valid values range from 10 to 400.
+	 *
+	 * @param 	int 	$pValue
+	 * @throws 	PHPExcel_Exception
+	 * @return PHPExcel_Worksheet_SheetView
+	 */
+	public function setZoomScaleNormal($pValue = 100) {
+		if (($pValue >= 1) || is_null($pValue)) {
+			$this->_zoomScaleNormal = $pValue;
+		} else {
+			throw new PHPExcel_Exception("Scale must be greater than or equal to 1.");
+		}
+		return $this;
+	}
+
+	/**
+	 * Get View
+	 *
+	 * @return string
+	 */
+	public function getView() {
+		return $this->_sheetviewType;
+	}
+
+	/**
+	 * Set View
+	 *
+	 * Valid values are
+	 *		'normal'			self::SHEETVIEW_NORMAL
+	 *		'pageLayout'		self::SHEETVIEW_PAGE_LAYOUT
+	 *		'pageBreakPreview'	self::SHEETVIEW_PAGE_BREAK_PREVIEW
+	 *
+	 * @param 	string 	$pValue
+	 * @throws 	PHPExcel_Exception
+	 * @return PHPExcel_Worksheet_SheetView
+	 */
+	public function setView($pValue = NULL) {
+		//	MS Excel 2007 allows setting the view to 'normal', 'pageLayout' or 'pageBreakPreview'
+		//		via the user interface
+		if ($pValue === NULL)
+			$pValue = self::SHEETVIEW_NORMAL;
+		if (in_array($pValue, self::$_sheetViewTypes)) {
+			$this->_sheetviewType = $pValue;
+		} else {
+			throw new PHPExcel_Exception("Invalid sheetview layout type.");
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
+	 */
+	public function __clone() {
+		$vars = get_object_vars($this);
+		foreach ($vars as $key => $value) {
+			if (is_object($value)) {
+				$this->$key = clone $value;
+			} else {
+				$this->$key = $value;
+			}
+		}
+	}
+}

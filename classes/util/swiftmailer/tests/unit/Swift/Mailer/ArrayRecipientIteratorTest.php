@@ -1,67 +1,46 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-5WSskdc9CXqvBvCgrlsf2Zv5lxxCTDm=
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Mailer/ArrayRecipientIterator.php';
+
+class Swift_Mailer_ArrayRecipientIteratorTest
+    extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testHasNextReturnsFalseForEmptyArray()
+    {
+        $it = new Swift_Mailer_ArrayRecipientIterator(array());
+        $this->assertFalse($it->hasNext());
+    }
+
+    public function testHasNextReturnsTrueIfItemsLeft()
+    {
+        $it = new Swift_Mailer_ArrayRecipientIterator(array('foo@bar' => 'Foo'));
+        $this->assertTrue($it->hasNext());
+    }
+
+    public function testReadingToEndOfListCausesHasNextToReturnFalse()
+    {
+        $it = new Swift_Mailer_ArrayRecipientIterator(array('foo@bar' => 'Foo'));
+        $this->assertTrue($it->hasNext());
+        $it->nextRecipient();
+        $this->assertFalse($it->hasNext());
+    }
+
+    public function testReturnedValueHasPreservedKeyValuePair()
+    {
+        $it = new Swift_Mailer_ArrayRecipientIterator(array('foo@bar' => 'Foo'));
+        $this->assertEqual(array('foo@bar' => 'Foo'), $it->nextRecipient());
+    }
+
+    public function testIteratorMovesNextAfterEachIteration()
+    {
+        $it = new Swift_Mailer_ArrayRecipientIterator(array(
+            'foo@bar' => 'Foo',
+            'zip@button' => 'Zip thing',
+            'test@test' => null
+            ));
+        $this->assertEqual(array('foo@bar' => 'Foo'), $it->nextRecipient());
+        $this->assertEqual(array('zip@button' => 'Zip thing'), $it->nextRecipient());
+        $this->assertEqual(array('test@test' => null), $it->nextRecipient());
+    }
+}

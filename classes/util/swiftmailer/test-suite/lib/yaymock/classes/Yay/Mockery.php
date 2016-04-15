@@ -1,83 +1,183 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-vdkU/lklI6sDwTG8NhWXuQ/WbRqE
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ */
+ 
+//require 'Yay/MockGenerator.php';
+//require 'Yay/SimpleInvocation.php';
+//require 'Yay/SimpleDescription.php';
+//require 'Yay/InvocationHandler.php';
+//require 'Yay/MockObject.php';
+//require 'Yay/ExpectationProvider.php';
+//require 'Yay/NotSatisfiedException.php';
+//require 'Yay/StateMachine.php';
+//require 'Yay/SimpleSequence.php';
+
+/**
+ * The main Yay context.
+ * Handles the generation of MockObjects and the Invocation of methods.
+ * @author Chris Corbyn <chris@w3style.co.uk>
+ * @package Yay
+ */
+class Yay_Mockery implements Yay_InvocationHandler
+{
+  
+  /**
+   * The Expectation stack which is being checked.
+   * @var array
+   * @access private
+   */
+  private $_expectations = array();
+  
+  /**
+   * Invocations which are not expected by any Expectations get caught here.
+   * @var array
+   * @access private
+   */
+  private $_unexpectedInvocations = array();
+  
+  /**
+   * A mock class generator.
+   * @var Yay_MockGenerator
+   * @access private
+   */
+  private $_generator;
+  
+  /**
+   * Create a new Mockery.
+   */
+  public function __construct()
+  {
+    $this->_generator = Yay_MockGenerator::getInstance();
+  }
+  
+  /**
+   * Create a MockObject matching $typeHint.
+   * If the $typeHint is an interface the Mock will implement the interface
+   * and maintain the method signatures from that interface.
+   * If the $typeHint is a class name the Mock will extend the class overriding
+   * all public methods (HOWEVER, if the class contains final methods it is not
+   * possible to override all methods and hence, the mock will have no specific
+   * type.
+   * @param string $typeHint
+   * @return Yay_MockObject
+   */
+  public function mock($typeHint)
+  {
+    $className = $this->_generator->generateMock($typeHint);
+    $reflector = new ReflectionClass($className);
+    return $reflector->newInstance($this);
+  }
+  
+  /**
+   * Specify an Expectation (or Expectations) to check.
+   * @param Yay_ExpectationProvider $provider
+   */
+  public function checking(Yay_ExpectationProvider $provider)
+  {
+    foreach ($provider->getExpectations() as $expectation)
+    {
+      $this->_expectations[] = $expectation;
+    }
+  }
+  
+  /**
+   * Get a state machine named $name.
+   * @param string $name
+   * @return Yay_States
+   */
+  public function states($name)
+  {
+    return new Yay_StateMachine($name);
+  }
+  
+  /**
+   * Create a new Sequence named $name.
+   * @param string $name
+   * @return Yay_Sequence
+   */
+  public function sequence($name)
+  {
+    return new Yay_SimpleSequence($name);
+  }
+  
+  /**
+   * Used by YayMock internally (ignore this method!).
+   */
+  public function &handleInvocation(Yay_Invocation $invocation)
+  {
+    $ret = null;
+    $expected = false;
+    foreach ($this->_expectations as $expectation)
+    {
+      if ($expectation->isExpected($invocation))
+      {
+        $expected = true;
+        if ($action = $expectation->getAction($invocation))
+        {
+          $ret =& $action->invoke($invocation);
+        }
+        break;
+      }
+    }
+    if (!$expected)
+    {
+      $this->_unexpectedInvocations[] = $invocation;
+    }
+    return $ret;
+  }
+  
+  /**
+   * Assert that all Expectations are satisfied.
+   * Throws an Exception of type Yay_NotSatisfiedException if any Expecations
+   * are not satisfied.
+   * @throws Yay_NotSatisfiedException
+   */
+  public function assertIsSatisfied()
+  {
+    $description = new Yay_SimpleDescription();
+    $satisfied = true;
+    foreach ($this->_unexpectedInvocations as $invocation)
+    {
+      $description->appendText('Unexpected invocation');
+      $invocation->describeTo($description);
+      $description->appendText(PHP_EOL);
+      $satisfied = false;
+    }
+    if (!$satisfied)
+    {
+      $description->appendText(PHP_EOL);
+    }
+    foreach ($this->_expectations as $expectation)
+    {
+      if (!$expectation->isSatisfied())
+      {
+        $description->appendText('* ');
+        $satisfied = false;
+      }
+      $expectation->describeTo($description);
+      $description->appendText(PHP_EOL);
+    }
+    if (!$satisfied)
+    {
+      throw new Yay_NotSatisfiedException(
+        'Not all expectations were satisfied or a method was invoked unexpectedly.' .
+        PHP_EOL . PHP_EOL . $description->toString() . PHP_EOL
+        );
+    }
+  }
+  
+}

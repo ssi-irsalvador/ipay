@@ -1,456 +1,1014 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+
+// security - hide paths
+if (!defined('ADODB_DIR')) die();
+
+global $ADODB_INCLUDED_LIB;
+$ADODB_INCLUDED_LIB = 1;
+
+/* 
+ @version V4.70 06 Jan 2006 (c) 2000-2006 John Lim (jlim\@natsoft.com.my). All rights reserved.
+  Released under both BSD license and Lesser GPL library license. 
+  Whenever there is any discrepancy between the two licenses, 
+  the BSD license will take precedence. See License.txt. 
+  Set tabs to 4 for best viewing.
+  
+  Less commonly used functions are placed here to reduce size of adodb.inc.php. 
+*/ 
+
+
+// Force key to upper. 
+// See also http://www.php.net/manual/en/function.array-change-key-case.php
+function _array_change_key_case($an_array)
+{
+	if (is_array($an_array)) {
+		$new_array = array();
+		foreach($an_array as $key=>$value)
+			$new_array[strtoupper($key)] = $value;
+
+	   	return $new_array;
+   }
+
+	return $an_array;
+}
+
+function _adodb_replace(&$zthis, $table, $fieldArray, $keyCol, $autoQuote, $has_autoinc)
+{
+		if (count($fieldArray) == 0) return 0;
+		$first = true;
+		$uSet = '';
+		
+		if (!is_array($keyCol)) {
+			$keyCol = array($keyCol);
+		}
+		foreach($fieldArray as $k => $v) {
+			if ($autoQuote && !is_numeric($v) and strncmp($v,"'",1) !== 0 and strcasecmp($v,'null')!=0) {
+				$v = $zthis->qstr($v);
+				$fieldArray[$k] = $v;
+			}
+			if (in_array($k,$keyCol)) continue; // skip UPDATE if is key
+			
+			if ($first) {
+				$first = false;			
+				$uSet = "$k=$v";
+			} else
+				$uSet .= ",$k=$v";
+		}
+		 
+		$where = false;
+		foreach ($keyCol as $v) {
+			if (isset($fieldArray[$v])) {
+				if ($where) $where .= ' and '.$v.'='.$fieldArray[$v];
+				else $where = $v.'='.$fieldArray[$v];
+			}
+		}
+		
+		if ($uSet && $where) {
+			$update = "UPDATE $table SET $uSet WHERE $where";
+
+			$rs = $zthis->Execute($update);
+			
+			
+			if ($rs) {
+				if ($zthis->poorAffectedRows) {
+				/*
+				 The Select count(*) wipes out any errors that the update would have returned. 
+				http://phplens.com/lens/lensforum/msgs.php?id=5696
+				*/
+					if ($zthis->ErrorNo()<>0) return 0;
+					
+				# affected_rows == 0 if update field values identical to old values
+				# for mysql - which is silly. 
+			
+					$cnt = $zthis->GetOne("select count(*) from $table where $where");
+					if ($cnt > 0) return 1; // record already exists
+				} else {
+					if (($zthis->Affected_Rows()>0)) return 1;
+				}
+			} else
+				return 0;
+		}
+		
+	//	print "<p>Error=".$this->ErrorNo().'<p>';
+		$first = true;
+		foreach($fieldArray as $k => $v) {
+			if ($has_autoinc && in_array($k,$keyCol)) continue; // skip autoinc col
+			
+			if ($first) {
+				$first = false;			
+				$iCols = "$k";
+				$iVals = "$v";
+			} else {
+				$iCols .= ",$k";
+				$iVals .= ",$v";
+			}				
+		}
+		$insert = "INSERT INTO $table ($iCols) VALUES ($iVals)"; 
+		$rs = $zthis->Execute($insert);
+		return ($rs) ? 2 : 0;
+}
+
+// Requires $ADODB_FETCH_MODE = ADODB_FETCH_NUM
+function _adodb_getmenu(&$zthis, $name,$defstr='',$blank1stItem=true,$multiple=false,
+			$size=0, $selectAttr='',$compareFields0=true)
+{
+	$hasvalue = false;
+
+	if ($multiple or is_array($defstr)) {
+		if ($size==0) $size=5;
+		$attr = ' multiple size="'.$size.'"';
+		if (!strpos($name,'[]')) $name .= '[]';
+	} else if ($size) $attr = ' size="'.$size.'"';
+	else $attr ='';
+	
+	$s = '<select name="'.$name.'"'.$attr.' '.$selectAttr.'>';
+	if ($blank1stItem) 
+		if (is_string($blank1stItem))  {
+			$barr = explode(':',$blank1stItem);
+			if (sizeof($barr) == 1) $barr[] = '';
+			$s .= "\n<option value=\"".$barr[0]."\">".$barr[1]."</option>";
+		} else $s .= "\n<option></option>";
+
+	if ($zthis->FieldCount() > 1) $hasvalue=true;
+	else $compareFields0 = true;
+	
+	$value = '';
+    $optgroup = null;
+    $firstgroup = true;
+    $fieldsize = $zthis->FieldCount();
+	while(!$zthis->EOF) {
+		$zval = rtrim(reset($zthis->fields));
+
+		if ($blank1stItem && $zval=="") {
+			$zthis->MoveNext();
+			continue;
+		}
+
+        if ($fieldsize > 1) {
+			if (isset($zthis->fields[1]))
+				$zval2 = rtrim($zthis->fields[1]);
+			else
+				$zval2 = rtrim(next($zthis->fields));
+		}
+		$selected = ($compareFields0) ? $zval : $zval2;
+		
+        $group = '';
+		if ($fieldsize > 2) {
+            $group = rtrim($zthis->fields[2]);
+        }
+ 
+        if ($optgroup != $group) {
+            $optgroup = $group;
+            if ($firstgroup) {
+                $firstgroup = false;
+                $s .="\n<optgroup label='". htmlspecialchars($group) ."'>";
+            } else {
+                $s .="\n</optgroup>";
+                $s .="\n<optgroup label='". htmlspecialchars($group) ."'>";
+            }
+		}
+	
+		if ($hasvalue) 
+			$value = " value='".htmlspecialchars($zval2)."'";
+		
+		if (is_array($defstr))  {
+			
+			if (in_array($selected,$defstr)) 
+				$s .= "\n<option selected='selected'$value>".htmlspecialchars($zval).'</option>';
+			else 
+				$s .= "\n<option".$value.'>'.htmlspecialchars($zval).'</option>';
+		}
+		else {
+			if (strcasecmp($selected,$defstr)==0) 
+				$s .= "\n<option selected='selected'$value>".htmlspecialchars($zval).'</option>';
+			else
+				$s .= "\n<option".$value.'>'.htmlspecialchars($zval).'</option>';
+		}
+		$zthis->MoveNext();
+	} // while
+	
+    // closing last optgroup
+    if($optgroup != null) {
+        $s .= "\n</optgroup>";
+	}
+	return $s ."\n</select>\n";
+}
+
+// Requires $ADODB_FETCH_MODE = ADODB_FETCH_NUM
+function _adodb_getmenu_gp(&$zthis, $name,$defstr='',$blank1stItem=true,$multiple=false,
+			$size=0, $selectAttr='',$compareFields0=true)
+{
+	$hasvalue = false;
+
+	if ($multiple or is_array($defstr)) {
+		if ($size==0) $size=5;
+		$attr = ' multiple size="'.$size.'"';
+		if (!strpos($name,'[]')) $name .= '[]';
+	} else if ($size) $attr = ' size="'.$size.'"';
+	else $attr ='';
+	
+	$s = '<select name="'.$name.'"'.$attr.' '.$selectAttr.'>';
+	if ($blank1stItem) 
+		if (is_string($blank1stItem))  {
+			$barr = explode(':',$blank1stItem);
+			if (sizeof($barr) == 1) $barr[] = '';
+			$s .= "\n<option value=\"".$barr[0]."\">".$barr[1]."</option>";
+		} else $s .= "\n<option></option>";
+
+	if ($zthis->FieldCount() > 1) $hasvalue=true;
+	else $compareFields0 = true;
+	
+	$value = '';
+    $optgroup = null;
+    $firstgroup = true;
+    $fieldsize = sizeof($zthis->fields);
+	while(!$zthis->EOF) {
+		$zval = rtrim(reset($zthis->fields));
+
+		if ($blank1stItem && $zval=="") {
+			$zthis->MoveNext();
+			continue;
+		}
+
+        if ($fieldsize > 1) {
+			if (isset($zthis->fields[1]))
+				$zval2 = rtrim($zthis->fields[1]);
+			else
+				$zval2 = rtrim(next($zthis->fields));
+		}
+		$selected = ($compareFields0) ? $zval : $zval2;
+		
+        $group = '';
+		if (isset($zthis->fields[2])) {
+            $group = rtrim($zthis->fields[2]);
+        }
+ 
+        if ($optgroup != $group) {
+            $optgroup = $group;
+            if ($firstgroup) {
+                $firstgroup = false;
+                $s .="\n<optgroup label='". htmlspecialchars($group) ."'>";
+            } else {
+                $s .="\n</optgroup>";
+                $s .="\n<optgroup label='". htmlspecialchars($group) ."'>";
+            }
+		}
+	
+		if ($hasvalue) 
+			$value = " value='".htmlspecialchars($zval2)."'";
+		
+		if (is_array($defstr))  {
+			
+			if (in_array($selected,$defstr)) 
+				$s .= "\n<option selected='selected'$value>".htmlspecialchars($zval).'</option>';
+			else 
+				$s .= "\n<option".$value.'>'.htmlspecialchars($zval).'</option>';
+		}
+		else {
+			if (strcasecmp($selected,$defstr)==0) 
+				$s .= "\n<option selected='selected'$value>".htmlspecialchars($zval).'</option>';
+			else
+				$s .= "\n<option".$value.'>'.htmlspecialchars($zval).'</option>';
+		}
+		$zthis->MoveNext();
+	} // while
+	
+    // closing last optgroup
+    if($optgroup != null) {
+        $s .= "\n</optgroup>";
+	}
+	return $s ."\n</select>\n";
+}
+
+
+/*
+	Count the number of records this sql statement will return by using
+	query rewriting techniques...
+	
+	Does not work with UNIONs, except with postgresql and oracle.
+	
+	Usage:
+	
+	$conn->Connect(...);
+	$cnt = _adodb_getcount($conn, $sql);
+	
+*/
+function _adodb_getcount(&$zthis, $sql,$inputarr=false,$secs2cache=0) 
+{
+	$qryRecs = 0;
+	
+	 if (preg_match("/^\s*SELECT\s+DISTINCT/is", $sql) || 
+	 	preg_match('/\s+GROUP\s+BY\s+/is',$sql) || 
+		preg_match('/\s+UNION\s+/is',$sql)) {
+		// ok, has SELECT DISTINCT or GROUP BY so see if we can use a table alias
+		// but this is only supported by oracle and postgresql...
+		if ($zthis->dataProvider == 'oci8') {
+			
+			$rewritesql = preg_replace('/(\sORDER\s+BY\s.*)/is','',$sql);
+			
+			// Allow Oracle hints to be used for query optimization, Chris Wrye
+			if (preg_match('#/\\*+.*?\\*\\/#', $sql, $hint)) {
+				$rewritesql = "SELECT ".$hint[0]." COUNT(*) FROM (".$rewritesql.")"; 
+			} else
+				$rewritesql = "SELECT COUNT(*) FROM (".$rewritesql.")"; 
+			
+		} else if (strncmp($zthis->databaseType,'postgres',8) == 0)  {
+			
+			$info = $zthis->ServerInfo();
+			if (substr($info['version'],0,3) >= 7.1) { // good till version 999
+				$rewritesql = preg_replace('/(\sORDER\s+BY\s[^)]*)/is','',$sql);
+				$rewritesql = "SELECT COUNT(*) FROM ($rewritesql) _ADODB_ALIAS_";
+			}
+		}
+	} else {
+		// now replace SELECT ... FROM with SELECT COUNT(*) FROM
+		$rewritesql = preg_replace(
+					'/^\s*SELECT\s.*\s+FROM\s/Uis','SELECT COUNT(*) FROM ',$sql);
+
+		// fix by alexander zhukov, alex#unipack.ru, because count(*) and 'order by' fails 
+		// with mssql, access and postgresql. Also a good speedup optimization - skips sorting!
+		$rewritesql = preg_replace('/(\sORDER\s+BY\s[^)]*)/is','',$rewritesql);
+	}
+	
+	if (isset($rewritesql) && $rewritesql != $sql) {
+		if ($secs2cache) {
+			// we only use half the time of secs2cache because the count can quickly
+			// become inaccurate if new records are added
+			$qryRecs = $zthis->CacheGetOne($secs2cache/2,$rewritesql,$inputarr);
+			
+		} else {
+			$qryRecs = $zthis->GetOne($rewritesql,$inputarr);
+	  	}
+		if ($qryRecs !== false) return $qryRecs;
+	}
+	//--------------------------------------------
+	// query rewrite failed - so try slower way...
+	
+	
+	// strip off unneeded ORDER BY if no UNION
+	if (preg_match('/\s*UNION\s*/is', $sql)) $rewritesql = $sql;
+	else $rewritesql = preg_replace('/(\sORDER\s+BY\s.*)/is','',$sql); 
+	
+	$rstest = &$zthis->Execute($rewritesql,$inputarr);
+	if (!$rstest) $rstest = $zthis->Execute($sql,$inputarr);
+	
+	if ($rstest) {
+	  		$qryRecs = $rstest->RecordCount();
+		if ($qryRecs == -1) { 
+		global $ADODB_EXTENSION;
+		// some databases will return -1 on MoveLast() - change to MoveNext()
+			if ($ADODB_EXTENSION) {
+				while(!$rstest->EOF) {
+					adodb_movenext($rstest);
+				}
+			} else {
+				while(!$rstest->EOF) {
+					$rstest->MoveNext();
+				}
+			}
+			$qryRecs = $rstest->_currentRow;
+		}
+		$rstest->Close();
+		if ($qryRecs == -1) return 0;
+	}
+	
+	return $qryRecs;
+}
+
+/*
+ 	Code originally from "Cornel G" <conyg@fx.ro>
+
+	This code might not work with SQL that has UNION in it	
+	
+	Also if you are using CachePageExecute(), there is a strong possibility that
+	data will get out of synch. use CachePageExecute() only with tables that
+	rarely change.
+*/
+function &_adodb_pageexecute_all_rows(&$zthis, $sql, $nrows, $page, 
+						$inputarr=false, $secs2cache=0) 
+{
+	$atfirstpage = false;
+	$atlastpage = false;
+	$lastpageno=1;
+
+	// If an invalid nrows is supplied, 
+	// we assume a default value of 10 rows per page
+	if (!isset($nrows) || $nrows <= 0) $nrows = 10;
+
+	$qryRecs = false; //count records for no offset
+	
+	$qryRecs = _adodb_getcount($zthis,$sql,$inputarr,$secs2cache);
+	$lastpageno = (int) ceil($qryRecs / $nrows);
+	$zthis->_maxRecordCount = $qryRecs;
+	
+
+
+	// ***** Here we check whether $page is the last page or 
+	// whether we are trying to retrieve 
+	// a page number greater than the last page number.
+	if ($page >= $lastpageno) {
+		$page = $lastpageno;
+		$atlastpage = true;
+	}
+	
+	// If page number <= 1, then we are at the first page
+	if (empty($page) || $page <= 1) {	
+		$page = 1;
+		$atfirstpage = true;
+	}
+	
+	// We get the data we want
+	$offset = $nrows * ($page-1);
+	if ($secs2cache > 0) 
+		$rsreturn = &$zthis->CacheSelectLimit($secs2cache, $sql, $nrows, $offset, $inputarr);
+	else 
+		$rsreturn = &$zthis->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+
+	
+	// Before returning the RecordSet, we set the pagination properties we need
+	if ($rsreturn) {
+		$rsreturn->_maxRecordCount = $qryRecs;
+		$rsreturn->rowsPerPage = $nrows;
+		$rsreturn->AbsolutePage($page);
+		$rsreturn->AtFirstPage($atfirstpage);
+		$rsreturn->AtLastPage($atlastpage);
+		$rsreturn->LastPageNo($lastpageno);
+	}
+	return $rsreturn;
+}
+
+// Iván Oliva version
+function &_adodb_pageexecute_no_last_page(&$zthis, $sql, $nrows, $page, $inputarr=false, $secs2cache=0) 
+{
+
+	$atfirstpage = false;
+	$atlastpage = false;
+	
+	if (!isset($page) || $page <= 1) {	// If page number <= 1, then we are at the first page
+		$page = 1;
+		$atfirstpage = true;
+	}
+	if ($nrows <= 0) $nrows = 10;	// If an invalid nrows is supplied, we assume a default value of 10 rows per page
+	
+	// ***** Here we check whether $page is the last page or whether we are trying to retrieve a page number greater than 
+	// the last page number.
+	$pagecounter = $page + 1;
+	$pagecounteroffset = ($pagecounter * $nrows) - $nrows;
+	if ($secs2cache>0) $rstest = &$zthis->CacheSelectLimit($secs2cache, $sql, $nrows, $pagecounteroffset, $inputarr);
+	else $rstest = &$zthis->SelectLimit($sql, $nrows, $pagecounteroffset, $inputarr, $secs2cache);
+	if ($rstest) {
+		while ($rstest && $rstest->EOF && $pagecounter>0) {
+			$atlastpage = true;
+			$pagecounter--;
+			$pagecounteroffset = $nrows * ($pagecounter - 1);
+			$rstest->Close();
+			if ($secs2cache>0) $rstest = &$zthis->CacheSelectLimit($secs2cache, $sql, $nrows, $pagecounteroffset, $inputarr);
+			else $rstest = &$zthis->SelectLimit($sql, $nrows, $pagecounteroffset, $inputarr, $secs2cache);
+		}
+		if ($rstest) $rstest->Close();
+	}
+	if ($atlastpage) {	// If we are at the last page or beyond it, we are going to retrieve it
+		$page = $pagecounter;
+		if ($page == 1) $atfirstpage = true;	// We have to do this again in case the last page is the same as the first
+			//... page, that is, the recordset has only 1 page.
+	}
+	
+	// We get the data we want
+	$offset = $nrows * ($page-1);
+	if ($secs2cache > 0) $rsreturn = &$zthis->CacheSelectLimit($secs2cache, $sql, $nrows, $offset, $inputarr);
+	else $rsreturn = &$zthis->SelectLimit($sql, $nrows, $offset, $inputarr, $secs2cache);
+	
+	// Before returning the RecordSet, we set the pagination properties we need
+	if ($rsreturn) {
+		$rsreturn->rowsPerPage = $nrows;
+		$rsreturn->AbsolutePage($page);
+		$rsreturn->AtFirstPage($atfirstpage);
+		$rsreturn->AtLastPage($atlastpage);
+	}
+	return $rsreturn;
+}
+
+function _adodb_getupdatesql(&$zthis,&$rs, $arrFields,$forceUpdate=false,$magicq=false,$force=2)
+{
+		if (!$rs) {
+			printf(ADODB_BAD_RS,'GetUpdateSQL');
+			return false;
+		}
+	
+		$fieldUpdatedCount = 0;
+		$arrFields = _array_change_key_case($arrFields);
+
+		$hasnumeric = isset($rs->fields[0]);
+		$setFields = '';
+		
+		// Loop through all of the fields in the recordset
+		for ($i=0, $max=$rs->FieldCount(); $i < $max; $i++) {
+			// Get the field from the recordset
+			$field = $rs->FetchField($i);
+
+			// If the recordset field is one
+			// of the fields passed in then process.
+			$upperfname = strtoupper($field->name);
+			if (adodb_key_exists($upperfname,$arrFields,$force)) {
+				
+				// If the existing field value in the recordset
+				// is different from the value passed in then
+				// go ahead and append the field name and new value to
+				// the update query.
+				
+				if ($hasnumeric) $val = $rs->fields[$i];
+				else if (isset($rs->fields[$upperfname])) $val = $rs->fields[$upperfname];
+				else if (isset($rs->fields[$field->name])) $val =  $rs->fields[$field->name];
+				else if (isset($rs->fields[strtolower($upperfname)])) $val =  $rs->fields[strtolower($upperfname)];
+				else $val = '';
+				
+			
+				if ($forceUpdate || strcmp($val, $arrFields[$upperfname])) {
+					// Set the counter for the number of fields that will be updated.
+					$fieldUpdatedCount++;
+
+					// Based on the datatype of the field
+					// Format the value properly for the database
+					$type = $rs->MetaType($field->type);
+						
+
+					if ($type == 'null') {
+						$type = 'C';
+					}
+					
+					if (strpos($upperfname,' ') !== false)
+						$fnameq = $zthis->nameQuote.$upperfname.$zthis->nameQuote;
+					else
+						$fnameq = $upperfname;
+					
+					
+                // is_null requires php 4.0.4
+                //********************************************************//
+                if (is_null($arrFields[$upperfname])
+					|| (empty($arrFields[$upperfname]) && strlen($arrFields[$upperfname]) == 0)
+                    || $arrFields[$upperfname] === 'null'
+                    )
+                {
+                    switch ($force) {
+
+                        //case 0:
+                        //    //Ignore empty values. This is allready handled in "adodb_key_exists" function.
+                        //break;
+
+                        case 1:
+                            //Set null
+                            $setFields .= $field->name . " = null, ";
+                        break;
+							
+                        case 2:
+                            //Set empty
+                            $arrFields[$upperfname] = "";
+                            $setFields .= _adodb_column_sql($zthis, 'U', $type, $upperfname, $fnameq,$arrFields, $magicq);
+                        break;
+						default:
+                        case 3:
+                            //Set the value that was given in array, so you can give both null and empty values
+                            if (is_null($arrFields[$upperfname]) || $arrFields[$upperfname] === 'null') {
+                                $setFields .= $field->name . " = null, ";
+                            } else {
+                                $setFields .= _adodb_column_sql($zthis, 'U', $type, $upperfname, $fnameq,$arrFields, $magicq);
+                            }
+                        break;
+                    }
+                //********************************************************//
+                } else {
+						//we do this so each driver can customize the sql for
+						//DB specific column types. 
+						//Oracle needs BLOB types to be handled with a returning clause
+						//postgres has special needs as well
+						$setFields .= _adodb_column_sql($zthis, 'U', $type, $upperfname, $fnameq,
+														  $arrFields, $magicq);
+					}
+				}
+			}
+		}
+
+		// If there were any modified fields then build the rest of the update query.
+		if ($fieldUpdatedCount > 0 || $forceUpdate) {
+					// Get the table name from the existing query.
+			if (!empty($rs->tableName)) $tableName = $rs->tableName;
+			else {
+				preg_match("/FROM\s+".ADODB_TABLE_REGEX."/is", $rs->sql, $tableName);
+				$tableName = $tableName[1];
+			}
+			// Get the full where clause excluding the word "WHERE" from
+			// the existing query.
+			preg_match('/\sWHERE\s(.*)/is', $rs->sql, $whereClause);
+			
+			$discard = false;
+			// not a good hack, improvements?
+			if ($whereClause) {
+				if (preg_match('/\s(ORDER\s.*)/is', $whereClause[1], $discard));
+				else if (preg_match('/\s(LIMIT\s.*)/is', $whereClause[1], $discard));
+				else preg_match('/\s(FOR UPDATE.*)/is', $whereClause[1], $discard);
+			} else
+				$whereClause = array(false,false);
+				
+			if ($discard)
+				$whereClause[1] = substr($whereClause[1], 0, strlen($whereClause[1]) - strlen($discard[1]));
+			
+			$sql = 'UPDATE '.$tableName.' SET '.substr($setFields, 0, -2);
+			if (strlen($whereClause[1]) > 0) 
+				$sql .= ' WHERE '.$whereClause[1];
+
+			return $sql;
+
+		} else {
+			return false;
+	}
+}
+
+function adodb_key_exists($key, &$arr,$force=2)
+{
+	if ($force<=0) {
+		// the following is the old behaviour where null or empty fields are ignored
+		return (!empty($arr[$key])) || (isset($arr[$key]) && strlen($arr[$key])>0);
+	}
+
+	if (isset($arr[$key])) return true;
+	## null check below
+	if (ADODB_PHPVER >= 0x4010) return array_key_exists($key,$arr);
+	return false;
+}
+
+/**
+ * There is a special case of this function for the oci8 driver.
+ * The proper way to handle an insert w/ a blob in oracle requires
+ * a returning clause with bind variables and a descriptor blob.
+ * 
+ * 
+ */
+function _adodb_getinsertsql(&$zthis,&$rs,$arrFields,$magicq=false,$force=2)
+{
+static $cacheRS = false;
+static $cacheSig = 0;
+static $cacheCols;
+
+	$tableName = '';
+	$values = '';
+	$fields = '';
+	$recordSet = null;
+	$arrFields = _array_change_key_case($arrFields);
+	$fieldInsertedCount = 0;
+	
+	if (is_string($rs)) {
+		//ok we have a table name
+		//try and get the column info ourself.
+		$tableName = $rs;			
+	
+		//we need an object for the recordSet
+		//because we have to call MetaType.
+		//php can't do a $rsclass::MetaType()
+		$rsclass = $zthis->rsPrefix.$zthis->databaseType;
+		$recordSet = new $rsclass(-1,$zthis->fetchMode);
+		$recordSet->connection = &$zthis;
+		
+		if (is_string($cacheRS) && $cacheRS == $rs) {
+			$columns =& $cacheCols;
+		} else {
+			$columns = $zthis->MetaColumns( $tableName );
+			$cacheRS = $tableName;
+			$cacheCols = $columns;
+		}
+	} else if (is_subclass_of($rs, 'adorecordset')) {
+		if (isset($rs->insertSig) && is_integer($cacheRS) && $cacheRS == $rs->insertSig) {
+			$columns =& $cacheCols;
+		} else {
+			for ($i=0, $max=$rs->FieldCount(); $i < $max; $i++) 
+				$columns[] = $rs->FetchField($i);
+			$cacheRS = $cacheSig;
+			$cacheCols = $columns;
+			$rs->insertSig = $cacheSig++;
+		}
+		$recordSet =& $rs;
+	
+	} else {
+		printf(ADODB_BAD_RS,'GetInsertSQL');
+		return false;
+	}
+
+	// Loop through all of the fields in the recordset
+	foreach( $columns as $field ) { 
+		$upperfname = strtoupper($field->name);
+		if (adodb_key_exists($upperfname,$arrFields,$force)) {
+			$bad = false;
+			if (strpos($upperfname,' ') !== false)
+				$fnameq = $zthis->nameQuote.$upperfname.$zthis->nameQuote;
+			else
+				$fnameq = $upperfname;
+			
+			$type = $recordSet->MetaType($field->type);
+			
+            /********************************************************/
+            if (is_null($arrFields[$upperfname])
+                || (empty($arrFields[$upperfname]) && strlen($arrFields[$upperfname]) == 0)
+                || $arrFields[$upperfname] === 'null'
+				)
+               {
+                    switch ($force) {
+
+                        case 0: // we must always set null if missing
+							$bad = true;
+							break;
+							
+                        case 1:
+                            $values  .= "null, ";
+                        break;
+		
+                        case 2:
+                            //Set empty
+                            $arrFields[$upperfname] = "";
+                            $values .= _adodb_column_sql($zthis, 'I', $type, $upperfname, $fnameq,$arrFields, $magicq);
+                        break;
+
+						default:
+                        case 3:
+                            //Set the value that was given in array, so you can give both null and empty values
+							if (is_null($arrFields[$upperfname]) || $arrFields[$upperfname] === 'null') { 
+								$values  .= "null, ";
+							} else {
+                        		$values .= _adodb_column_sql($zthis, 'I', $type, $upperfname, $fnameq, $arrFields, $magicq);
+             				}
+              			break;
+             		} // switch
+
+            /*********************************************************/
+			} else {
+				//we do this so each driver can customize the sql for
+				//DB specific column types. 
+				//Oracle needs BLOB types to be handled with a returning clause
+				//postgres has special needs as well
+				$values .= _adodb_column_sql($zthis, 'I', $type, $upperfname, $fnameq,
+											   $arrFields, $magicq);
+			}
+			
+			if ($bad) continue;
+			// Set the counter for the number of fields that will be inserted.
+			$fieldInsertedCount++;
+			
+			
+			// Get the name of the fields to insert
+			$fields .= $fnameq . ", ";
+		}
+	}
+
+
+	// If there were any inserted fields then build the rest of the insert query.
+	if ($fieldInsertedCount <= 0)  return false;
+	
+	// Get the table name from the existing query.
+	if (!$tableName) {
+		if (!empty($rs->tableName)) $tableName = $rs->tableName;
+		else if (preg_match("/FROM\s+".ADODB_TABLE_REGEX."/is", $rs->sql, $tableName))
+			$tableName = $tableName[1];
+		else 
+			return false;
+	}		
+
+	// Strip off the comma and space on the end of both the fields
+	// and their values.
+	$fields = substr($fields, 0, -2);
+	$values = substr($values, 0, -2);
+
+	// Append the fields and their values to the insert query.
+	return 'INSERT INTO '.$tableName.' ( '.$fields.' ) VALUES ( '.$values.' )';
+}
+
+
+/**
+ * This private method is used to help construct
+ * the update/sql which is generated by GetInsertSQL and GetUpdateSQL.
+ * It handles the string construction of 1 column -> sql string based on
+ * the column type.  We want to do 'safe' handling of BLOBs
+ * 
+ * @param string the type of sql we are trying to create
+ *                'I' or 'U'. 
+ * @param string column data type from the db::MetaType() method  
+ * @param string the column name
+ * @param array the column value
+ * 
+ * @return string
+ * 
+ */
+function _adodb_column_sql_oci8(&$zthis,$action, $type, $fname, $fnameq, $arrFields, $magicq) 
+{
+    $sql = '';
+    
+    // Based on the datatype of the field
+    // Format the value properly for the database
+    switch($type) {
+    case 'B':
+        //in order to handle Blobs correctly, we need
+        //to do some magic for Oracle
+
+        //we need to create a new descriptor to handle 
+        //this properly
+        if (!empty($zthis->hasReturningInto)) {
+            if ($action == 'I') {
+                $sql = 'empty_blob(), ';
+            } else {
+                $sql = $fnameq. '=empty_blob(), ';
+            }
+            //add the variable to the returning clause array
+            //so the user can build this later in
+            //case they want to add more to it
+            $zthis->_returningArray[$fname] = ':xx'.$fname.'xx';
+        } else if (empty($arrFields[$fname])){
+            if ($action == 'I') {
+                $sql = 'empty_blob(), ';
+            } else {
+                $sql = $fnameq. '=empty_blob(), ';
+            }            
+        } else {
+            //this is to maintain compatibility
+            //with older adodb versions.
+            $sql = _adodb_column_sql($zthis, $action, $type, $fname, $fnameq, $arrFields, $magicq,false);
+        }
+        break;
+
+    case "X":
+        //we need to do some more magic here for long variables
+        //to handle these correctly in oracle.
+
+        //create a safe bind var name
+        //to avoid conflicts w/ dupes.
+       if (!empty($zthis->hasReturningInto)) {
+            if ($action == 'I') {
+                $sql = ':xx'.$fname.'xx, ';                
+            } else {
+                $sql = $fnameq.'=:xx'.$fname.'xx, ';
+            }
+            //add the variable to the returning clause array
+            //so the user can build this later in
+            //case they want to add more to it
+            $zthis->_returningArray[$fname] = ':xx'.$fname.'xx';
+        } else {
+            //this is to maintain compatibility
+            //with older adodb versions.
+            $sql = _adodb_column_sql($zthis, $action, $type, $fname, $fnameq, $arrFields, $magicq,false);
+        }            
+        break;
+        
+    default:
+        $sql = _adodb_column_sql($zthis, $action, $type, $fname, $fnameq,  $arrFields, $magicq,false);
+        break;
+    }
+    
+    return $sql;
+}    
+	
+function _adodb_column_sql(&$zthis, $action, $type, $fname, $fnameq, $arrFields, $magicq, $recurse=true) 
+{
+
+	if ($recurse) {
+		switch($zthis->dataProvider)  {
+		case 'postgres':
+			if ($type == 'L') $type = 'C';
+			break;
+		case 'oci8':
+			return _adodb_column_sql_oci8($zthis, $action, $type, $fname, $fnameq, $arrFields, $magicq);
+			
+		}
+	}
+		
+	switch($type) {
+		case "C":
+		case "X":
+		case 'B':
+			$val = $zthis->qstr($arrFields[$fname],$magicq);
+			break;
+
+		case "D":
+			$val = $zthis->DBDate($arrFields[$fname]);
+			break;
+
+		case "T":
+			$val = $zthis->DBTimeStamp($arrFields[$fname]);
+			break;
+
+		default:
+			$val = $arrFields[$fname];
+			if (empty($val)) $val = '0';
+			break;
+	}
+
+	if ($action == 'I') return $val . ", ";
+	
+	
+	return $fnameq . "=" . $val  . ", ";
+	
+}
+
+
+
+function _adodb_debug_execute(&$zthis, $sql, $inputarr)
+{
+	$ss = '';
+	if ($inputarr) {
+		foreach($inputarr as $kk=>$vv) {
+			if (is_string($vv) && strlen($vv)>64) $vv = substr($vv,0,64).'...';
+			$ss .= "($kk=>'$vv') ";
+		}
+		$ss = "[ $ss ]";
+	}
+	$sqlTxt = is_array($sql) ? $sql[0] : $sql;
+	/*str_replace(', ','##1#__^LF',is_array($sql) ? $sql[0] : $sql);
+	$sqlTxt = str_replace(',',', ',$sqlTxt);
+	$sqlTxt = str_replace('##1#__^LF', ', ' ,$sqlTxt);
+	*/
+	// check if running from browser or command-line
+	$inBrowser = isset($_SERVER['HTTP_USER_AGENT']);
+	
+	$dbt = $zthis->databaseType;
+	if (isset($zthis->dsnType)) $dbt .= '-'.$zthis->dsnType;
+	if ($inBrowser) {
+		if ($ss) {
+			$ss = '<code>'.htmlspecialchars($ss).'</code>';
+		}
+		if ($zthis->debug === -1)
+			ADOConnection::outp( "<br />\n($dbt): ".htmlspecialchars($sqlTxt)." &nbsp; $ss\n<br />\n",false);
+		else 
+			ADOConnection::outp( "<hr />\n($dbt): ".htmlspecialchars($sqlTxt)." &nbsp; $ss\n<hr />\n",false);
+	} else {
+		ADOConnection::outp("-----\n($dbt): ".$sqlTxt."\n-----\n",false);
+	}
+
+	$qID = $zthis->_query($sql,$inputarr);
+	
+	/* 
+		Alexios Fakios notes that ErrorMsg() must be called before ErrorNo() for mssql
+		because ErrorNo() calls Execute('SELECT @ERROR'), causing recursion
+	*/
+	if ($zthis->databaseType == 'mssql') { 
+	// ErrorNo is a slow function call in mssql, and not reliable in PHP 4.0.6
+		if($emsg = $zthis->ErrorMsg()) {
+			if ($err = $zthis->ErrorNo()) ADOConnection::outp($err.': '.$emsg);
+		}
+	} else if (!$qID) {
+		ADOConnection::outp($zthis->ErrorNo() .': '. $zthis->ErrorMsg());
+	}
+	
+	if ($zthis->debug === 99) _adodb_backtrace(true,9999,2);
+	return $qID;
+}
+
+# pretty print the debug_backtrace function
+function _adodb_backtrace($printOrArr=true,$levels=9999,$skippy=0)
+{
+	if (!function_exists('debug_backtrace')) return '';
+	 
+	$html =  (isset($_SERVER['HTTP_USER_AGENT']));
+	$fmt =  ($html) ? "</font><font color=#808080 size=-1> %% line %4d, file: <a href=\"file:/%s\">%s</a></font>" : "%% line %4d, file: %s";
+
+	$MAXSTRLEN = 128;
+
+	$s = ($html) ? '<pre align=left>' : '';
+	
+	if (is_array($printOrArr)) $traceArr = $printOrArr;
+	else $traceArr = debug_backtrace();
+	array_shift($traceArr);
+	array_shift($traceArr);
+	$tabs = sizeof($traceArr)-2;
+	
+	foreach ($traceArr as $arr) {
+		if ($skippy) {$skippy -= 1; continue;}
+		$levels -= 1;
+		if ($levels < 0) break;
+		
+		$args = array();
+		for ($i=0; $i < $tabs; $i++) $s .=  ($html) ? ' &nbsp; ' : "\t";
+		$tabs -= 1;
+		if ($html) $s .= '<font face="Courier New,Courier">';
+		if (isset($arr['class'])) $s .= $arr['class'].'.';
+		if (isset($arr['args']))
+		 foreach($arr['args'] as $v) {
+			if (is_null($v)) $args[] = 'null';
+			else if (is_array($v)) $args[] = 'Array['.sizeof($v).']';
+			else if (is_object($v)) $args[] = 'Object:'.get_class($v);
+			else if (is_bool($v)) $args[] = $v ? 'true' : 'false';
+			else {
+				$v = (string) @$v;
+				$str = htmlspecialchars(substr($v,0,$MAXSTRLEN));
+				if (strlen($v) > $MAXSTRLEN) $str .= '...';
+				$args[] = $str;
+			}
+		}
+		$s .= $arr['function'].'('.implode(', ',$args).')';
+		
+		
+		$s .= @sprintf($fmt, $arr['line'],$arr['file'],basename($arr['file']));
+			
+		$s .= "\n";
+	}	
+	if ($html) $s .= '</pre>';
+	if ($printOrArr) print $s;
+	
+	return $s;
+}
+
 ?>
-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

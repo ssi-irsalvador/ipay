@@ -1,52 +1,15 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-Znwz+Z1/KW==
+<?php
+require_once 'lib/swift_required.php';
+// Create the message
+$message = Swift_Message::newInstance()
+// Give the message a subject
+->setSubject('Your subject')
+// Set the From address with an associative array
+->setFrom(array('ishmaels@sagesoftinc.com' => 'IR Salvador'))
+// Set the To addresses with an associative array
+->setTo(array('ishmaels@sagesoftinc.com' => 'IR Salvador'))
+// Give it a body
+->setBody('Here is the message itself')
+// And optionally an alternative body
+->addPart('<q>Here is the message itself</q>', 'text/html');
+    ?>

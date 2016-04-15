@@ -1,51 +1,23 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-vLjq8dR0FbkMkcfSTex9nO/4zg08Cqdl
+<?php
+
+require_once 'Swift/Transport/StreamBuffer/AbstractStreamBufferAcceptanceTest.php';
+
+class Swift_Transport_StreamBuffer_ProcessAcceptanceTest
+    extends Swift_Transport_StreamBuffer_AbstractStreamBufferAcceptanceTest
+{
+    public function skip()
+    {
+        $this->skipIf(!SWIFT_SENDMAIL_PATH,
+            'Cannot run test without a path to sendmail (define ' .
+            'SWIFT_SENDMAIL_PATH in tests/acceptance.conf.php if you wish to run this test)'
+            );
+    }
+
+    protected function _initializeBuffer()
+    {
+        $this->_buffer->initialize(array(
+            'type' => Swift_Transport_IoBuffer::TYPE_PROCESS,
+            'command' => SWIFT_SENDMAIL_PATH . ' -bs'
+            ));
+    }
+}

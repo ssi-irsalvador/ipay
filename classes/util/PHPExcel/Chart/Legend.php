@@ -1,62 +1,171 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category	PHPExcel
+ * @package		PHPExcel_Chart
+ * @copyright	Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license		http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version		1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Chart_Legend
+ *
+ * @category	PHPExcel
+ * @package		PHPExcel_Chart
+ * @copyright	Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Chart_Legend
+{
+	/** Legend positions */
+	const xlLegendPositionBottom	= -4107;	//	Below the chart.
+	const xlLegendPositionCorner	= 2;		//	In the upper right-hand corner of the chart border.
+	const xlLegendPositionCustom	= -4161;	//	A custom position.
+	const xlLegendPositionLeft		= -4131;	//	Left of the chart.
+	const xlLegendPositionRight		= -4152;	//	Right of the chart.
+	const xlLegendPositionTop		= -4160;	//	Above the chart.
+
+	const POSITION_RIGHT	= 'r';
+	const POSITION_LEFT		= 'l';
+	const POSITION_BOTTOM	= 'b';
+	const POSITION_TOP		= 't';
+	const POSITION_TOPRIGHT	= 'tr';
+
+	private static $_positionXLref = array( self::xlLegendPositionBottom	=> self::POSITION_BOTTOM,
+											self::xlLegendPositionCorner	=> self::POSITION_TOPRIGHT,
+											self::xlLegendPositionCustom	=> '??',
+											self::xlLegendPositionLeft		=> self::POSITION_LEFT,
+											self::xlLegendPositionRight		=> self::POSITION_RIGHT,
+											self::xlLegendPositionTop		=> self::POSITION_TOP
+										  );
+
+	/**
+	 * Legend position
+	 *
+	 * @var	string
+	 */
+	private $_position = self::POSITION_RIGHT;
+
+	/**
+	 * Allow overlay of other elements?
+	 *
+	 * @var	boolean
+	 */
+	private $_overlay = TRUE;
+
+	/**
+	 * Legend Layout
+	 *
+	 * @var	PHPExcel_Chart_Layout
+	 */
+	private $_layout = NULL;
+
+
+	/**
+	 *	Create a new PHPExcel_Chart_Legend
+	 */
+	public function __construct($position = self::POSITION_RIGHT, PHPExcel_Chart_Layout $layout = NULL, $overlay = FALSE)
+	{
+		$this->setPosition($position);
+		$this->_layout = $layout;
+		$this->setOverlay($overlay);
+	}
+
+	/**
+	 * Get legend position as an excel string value
+	 *
+	 * @return	string
+	 */
+	public function getPosition() {
+		return $this->_position;
+	}
+
+	/**
+	 * Get legend position using an excel string value
+	 *
+	 * @param	string	$position
+	 */
+	public function setPosition($position = self::POSITION_RIGHT) {
+		if (!in_array($position,self::$_positionXLref)) {
+			return false;
+		}
+
+		$this->_position = $position;
+		return true;
+	}
+
+	/**
+	 * Get legend position as an Excel internal numeric value
+	 *
+	 * @return	number
+	 */
+	public function getPositionXL() {
+		return array_search($this->_position,self::$_positionXLref);
+	}
+
+	/**
+	 * Set legend position using an Excel internal numeric value
+	 *
+	 * @param	number	$positionXL
+	 */
+	public function setPositionXL($positionXL = self::xlLegendPositionRight) {
+		if (!array_key_exists($positionXL,self::$_positionXLref)) {
+			return false;
+		}
+
+		$this->_position = self::$_positionXLref[$positionXL];
+		return true;
+	}
+
+	/**
+	 * Get allow overlay of other elements?
+	 *
+	 * @return	boolean
+	 */
+	public function getOverlay() {
+		return $this->_overlay;
+	}
+
+	/**
+	 * Set allow overlay of other elements?
+	 *
+	 * @param	boolean	$overlay
+	 * @return	boolean
+	 */
+	public function setOverlay($overlay = FALSE) {
+		if (!is_bool($overlay)) {
+			return false;
+		}
+
+		$this->_overlay = $overlay;
+		return true;
+	}
+
+	/**
+	 * Get Layout
+	 *
+	 * @return PHPExcel_Chart_Layout
+	 */
+	public function getLayout() {
+		return $this->_layout;
+	}
+
+}

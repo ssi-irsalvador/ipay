@@ -1,61 +1,35 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+require_once 'Swift/Mime/HeaderEncoder/Base64HeaderEncoder.php';
+require_once 'Swift/ByteStream/ArrayByteStream.php';
+
+class Swift_Mime_HeaderEncoder_Base64HeaderEncoderAcceptanceTest extends UnitTestCase
+{
+    private $_encoder;
+
+    public function setUp()
+    {
+        $this->_encoder = new Swift_Mime_HeaderEncoder_Base64HeaderEncoder();
+    }
+
+    public function testEncodingJIS()
+    {
+        if (function_exists('mb_convert_encoding')) {
+            // base64_encode and split cannot handle long JIS text to fold
+            $subject = "長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い長い件名";
+
+            $encodedWrapperLength = strlen('=?iso-2022-jp?' . $this->_encoder->getName() . '??=');
+
+            $old = mb_internal_encoding();
+            mb_internal_encoding('utf-8');
+            $newstring = mb_encode_mimeheader($subject, 'iso-2022-jp', 'B', "\r\n");
+            mb_internal_encoding($old);
+
+            $encoded = $this->_encoder->encodeString($subject, 0, 75 - $encodedWrapperLength, 'iso-2022-jp');
+            $this->assertEqual(
+                $encoded, $newstring,
+                'Encoded string should decode back to original string for sample '
+            );
+        }
+    }
+}

@@ -1,326 +1,990 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ *	PHPExcel
+ *
+ *	Copyright (c) 2006 - 2014 PHPExcel
+ *
+ *	This library is free software; you can redistribute it and/or
+ *	modify it under the terms of the GNU Lesser General Public
+ *	License as published by the Free Software Foundation; either
+ *	version 2.1 of the License, or (at your option) any later version.
+ *
+ *	This library is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *	Lesser General Public License for more details.
+ *
+ *	You should have received a copy of the GNU Lesser General Public
+ *	License along with this library; if not, write to the Free Software
+ *	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ *	@category	PHPExcel
+ *	@package	PHPExcel_Cell
+ *	@copyright	Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ *	@license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ *	@version	1.8.0, 2014-03-02
+ */
+
+
+/**
+ *	PHPExcel_Cell
+ *
+ *	@category   PHPExcel
+ *	@package	PHPExcel_Cell
+ *	@copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Cell
+{
+
+	/**
+	 *  Default range variable constant
+	 *
+	 *  @var  string
+	 */
+	const DEFAULT_RANGE = 'A1:A1';
+
+	/**
+	 *	Value binder to use
+	 *
+	 *	@var	PHPExcel_Cell_IValueBinder
+	 */
+	private static $_valueBinder = NULL;
+
+	/**
+	 *	Value of the cell
+	 *
+	 *	@var	mixed
+	 */
+	private $_value;
+
+	/**
+	 *	Calculated value of the cell (used for caching)
+	 *	This returns the value last calculated by MS Excel or whichever spreadsheet program was used to
+	 *		create the original spreadsheet file.
+	 *	Note that this value is not guaranteed to reflect the actual calculated value because it is
+	 *		possible that auto-calculation was disabled in the original spreadsheet, and underlying data
+	 *		values used by the formula have changed since it was last calculated.
+	 *
+	 *	@var mixed
+	 */
+	private $_calculatedValue = NULL;
+
+	/**
+	 *	Type of the cell data
+	 *
+	 *	@var	string
+	 */
+	private $_dataType;
+
+	/**
+	 *	Parent worksheet
+	 *
+	 *	@var	PHPExcel_CachedObjectStorage_CacheBase
+	 */
+	private $_parent;
+
+	/**
+	 *	Index to cellXf
+	 *
+	 *	@var	int
+	 */
+	private $_xfIndex;
+
+	/**
+	 *	Attributes of the formula
+	 *
+	 */
+	private $_formulaAttributes;
+
+
+	/**
+	 *	Send notification to the cache controller
+	 *
+	 *	@return void
+	 **/
+	public function notifyCacheController() {
+		$this->_parent->updateCacheData($this);
+
+		return $this;
+	}
+
+	public function detach() {
+		$this->_parent = NULL;
+	}
+
+	public function attach(PHPExcel_CachedObjectStorage_CacheBase $parent) {
+
+
+		$this->_parent = $parent;
+	}
+
+
+	/**
+	 *	Create a new Cell
+	 *
+	 *	@param	mixed				$pValue
+	 *	@param	string				$pDataType
+	 *	@param	PHPExcel_Worksheet	$pSheet
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function __construct($pValue = NULL, $pDataType = NULL, PHPExcel_Worksheet $pSheet = NULL)
+	{
+		// Initialise cell value
+		$this->_value = $pValue;
+
+		// Set worksheet cache
+		$this->_parent = $pSheet->getCellCacheController();
+
+		// Set datatype?
+		if ($pDataType !== NULL) {
+			if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2)
+				$pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
+			$this->_dataType = $pDataType;
+		} else {
+			if (!self::getValueBinder()->bindValue($this, $pValue)) {
+				throw new PHPExcel_Exception("Value could not be bound to cell.");
+			}
+		}
+
+		// set default index to cellXf
+		$this->_xfIndex = 0;
+	}
+
+	/**
+	 *	Get cell coordinate column
+	 *
+	 *	@return	string
+	 */
+	public function getColumn()
+	{
+		return $this->_parent->getCurrentColumn();
+	}
+
+	/**
+	 *	Get cell coordinate row
+	 *
+	 *	@return	int
+	 */
+	public function getRow()
+	{
+		return $this->_parent->getCurrentRow();
+	}
+
+	/**
+	 *	Get cell coordinate
+	 *
+	 *	@return	string
+	 */
+	public function getCoordinate()
+	{
+		return $this->_parent->getCurrentAddress();
+	}
+
+	/**
+	 *	Get cell value
+	 *
+	 *	@return	mixed
+	 */
+	public function getValue()
+	{
+		return $this->_value;
+	}
+
+	/**
+	 *	Get cell value with formatting
+	 *
+	 *	@return	string
+	 */
+	public function getFormattedValue()
+	{
+		return (string) PHPExcel_Style_NumberFormat::toFormattedString(
+				$this->getCalculatedValue(),
+				$this->getWorksheet()->getParent()->getCellXfByIndex($this->getXfIndex())
+					->getNumberFormat()->getFormatCode()
+			);
+	}
+
+	/**
+	 *	Set cell value
+	 *
+	 *	Sets the value for a cell, automatically determining the datatype using the value binder
+	 *
+	 *	@param	mixed	$pValue					Value
+	 *	@return	PHPExcel_Cell
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function setValue($pValue = NULL)
+	{
+		if (!self::getValueBinder()->bindValue($this, $pValue)) {
+			throw new PHPExcel_Exception("Value could not be bound to cell.");
+		}
+		return $this;
+	}
+
+	/**
+	 *	Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder)
+	 *
+	 *	@param	mixed	$pValue			Value
+	 *	@param	string	$pDataType		Explicit data type
+	 *	@return	PHPExcel_Cell
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function setValueExplicit($pValue = NULL, $pDataType = PHPExcel_Cell_DataType::TYPE_STRING)
+	{
+		// set the value according to data type
+		switch ($pDataType) {
+			case PHPExcel_Cell_DataType::TYPE_NULL:
+				$this->_value = $pValue;
+				break;
+			case PHPExcel_Cell_DataType::TYPE_STRING2:
+				$pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
+			case PHPExcel_Cell_DataType::TYPE_STRING:
+			case PHPExcel_Cell_DataType::TYPE_INLINE:
+				$this->_value = PHPExcel_Cell_DataType::checkString($pValue);
+				break;
+			case PHPExcel_Cell_DataType::TYPE_NUMERIC:
+				$this->_value = (float)$pValue;
+				break;
+			case PHPExcel_Cell_DataType::TYPE_FORMULA:
+				$this->_value = (string)$pValue;
+				break;
+			case PHPExcel_Cell_DataType::TYPE_BOOL:
+				$this->_value = (bool)$pValue;
+				break;
+			case PHPExcel_Cell_DataType::TYPE_ERROR:
+				$this->_value = PHPExcel_Cell_DataType::checkErrorCode($pValue);
+				break;
+			default:
+				throw new PHPExcel_Exception('Invalid datatype: ' . $pDataType);
+				break;
+		}
+
+		// set the datatype
+		$this->_dataType = $pDataType;
+
+		return $this->notifyCacheController();
+	}
+
+	/**
+	 *	Get calculated cell value
+	 *
+	 *	@deprecated		Since version 1.7.8 for planned changes to cell for array formula handling
+	 *
+	 *	@param	boolean $resetLog  Whether the calculation engine logger should be reset or not
+	 *	@return	mixed
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function getCalculatedValue($resetLog = TRUE)
+	{
+//echo 'Cell '.$this->getCoordinate().' value is a '.$this->_dataType.' with a value of '.$this->getValue().PHP_EOL;
+		if ($this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA) {
+			try {
+//echo 'Cell value for '.$this->getCoordinate().' is a formula: Calculating value'.PHP_EOL;
+				$result = PHPExcel_Calculation::getInstance(
+					$this->getWorksheet()->getParent()
+				)->calculateCellValue($this,$resetLog);
+//echo $this->getCoordinate().' calculation result is '.$result.PHP_EOL;
+				//	We don't yet handle array returns
+				if (is_array($result)) {
+					while (is_array($result)) {
+						$result = array_pop($result);
+					}
+				}
+			} catch ( PHPExcel_Exception $ex ) {
+				if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->_calculatedValue !== NULL)) {
+//echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
+					return $this->_calculatedValue; // Fallback for calculations referencing external files.
+				}
+//echo 'Calculation Exception: '.$ex->getMessage().PHP_EOL;
+				$result = '#N/A';
+				throw new PHPExcel_Calculation_Exception(
+					$this->getWorksheet()->getTitle().'!'.$this->getCoordinate().' -> '.$ex->getMessage()
+				);
+			}
+
+			if ($result === '#Not Yet Implemented') {
+//echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
+				return $this->_calculatedValue; // Fallback if calculation engine does not support the formula.
+			}
+//echo 'Returning calculated value of '.$result.' for cell '.$this->getCoordinate().PHP_EOL;
+			return $result;
+		} elseif($this->_value instanceof PHPExcel_RichText) {
+//		echo 'Cell value for '.$this->getCoordinate().' is rich text: Returning data value of '.$this->_value.'<br />';
+			return $this->_value->getPlainText();
+		}
+//		echo 'Cell value for '.$this->getCoordinate().' is not a formula: Returning data value of '.$this->_value.'<br />';
+		return $this->_value;
+	}
+
+	/**
+	 *	Set old calculated value (cached)
+	 *
+	 *	@param	mixed $pValue	Value
+	 *	@return	PHPExcel_Cell
+	 */
+	public function setCalculatedValue($pValue = NULL)
+	{
+		if ($pValue !== NULL) {
+			$this->_calculatedValue = (is_numeric($pValue)) ? (float) $pValue : $pValue;
+		}
+
+		return $this->notifyCacheController();
+	}
+
+	/**
+	 *	Get old calculated value (cached)
+	 *	This returns the value last calculated by MS Excel or whichever spreadsheet program was used to
+	 *		create the original spreadsheet file.
+	 *	Note that this value is not guaranteed to refelect the actual calculated value because it is
+	 *		possible that auto-calculation was disabled in the original spreadsheet, and underlying data
+	 *		values used by the formula have changed since it was last calculated.
+	 *
+	 *	@return	mixed
+	 */
+	public function getOldCalculatedValue()
+	{
+		return $this->_calculatedValue;
+	}
+
+	/**
+	 *	Get cell data type
+	 *
+	 *	@return string
+	 */
+	public function getDataType()
+	{
+		return $this->_dataType;
+	}
+
+	/**
+	 *	Set cell data type
+	 *
+	 *	@param	string $pDataType
+	 *	@return	PHPExcel_Cell
+	 */
+	public function setDataType($pDataType = PHPExcel_Cell_DataType::TYPE_STRING)
+	{
+		if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2)
+			$pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
+
+		$this->_dataType = $pDataType;
+
+		return $this->notifyCacheController();
+	}
+
+    /**
+     *  Identify if the cell contains a formula
+     *
+     *  @return boolean
+     */
+    public function isFormula()
+    {
+        return $this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA;
+    }
+
+	/**
+	 *	Does this cell contain Data validation rules?
+	 *
+	 *	@return	boolean
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function hasDataValidation()
+	{
+		if (!isset($this->_parent)) {
+			throw new PHPExcel_Exception('Cannot check for data validation when cell is not bound to a worksheet');
+		}
+
+		return $this->getWorksheet()->dataValidationExists($this->getCoordinate());
+	}
+
+	/**
+	 *	Get Data validation rules
+	 *
+	 *	@return	PHPExcel_Cell_DataValidation
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function getDataValidation()
+	{
+		if (!isset($this->_parent)) {
+			throw new PHPExcel_Exception('Cannot get data validation for cell that is not bound to a worksheet');
+		}
+
+		return $this->getWorksheet()->getDataValidation($this->getCoordinate());
+	}
+
+	/**
+	 *	Set Data validation rules
+	 *
+	 *	@param	PHPExcel_Cell_DataValidation	$pDataValidation
+	 *	@return	PHPExcel_Cell
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function setDataValidation(PHPExcel_Cell_DataValidation $pDataValidation = NULL)
+	{
+		if (!isset($this->_parent)) {
+			throw new PHPExcel_Exception('Cannot set data validation for cell that is not bound to a worksheet');
+		}
+
+		$this->getWorksheet()->setDataValidation($this->getCoordinate(), $pDataValidation);
+
+		return $this->notifyCacheController();
+	}
+
+	/**
+	 *	Does this cell contain a Hyperlink?
+	 *
+	 *	@return boolean
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function hasHyperlink()
+	{
+		if (!isset($this->_parent)) {
+			throw new PHPExcel_Exception('Cannot check for hyperlink when cell is not bound to a worksheet');
+		}
+
+		return $this->getWorksheet()->hyperlinkExists($this->getCoordinate());
+	}
+
+	/**
+	 *	Get Hyperlink
+	 *
+	 *	@return	PHPExcel_Cell_Hyperlink
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function getHyperlink()
+	{
+		if (!isset($this->_parent)) {
+			throw new PHPExcel_Exception('Cannot get hyperlink for cell that is not bound to a worksheet');
+		}
+
+		return $this->getWorksheet()->getHyperlink($this->getCoordinate());
+	}
+
+	/**
+	 *	Set Hyperlink
+	 *
+	 *	@param	PHPExcel_Cell_Hyperlink	$pHyperlink
+	 *	@return	PHPExcel_Cell
+	 *	@throws	PHPExcel_Exception
+	 */
+	public function setHyperlink(PHPExcel_Cell_Hyperlink $pHyperlink = NULL)
+	{
+		if (!isset($this->_parent)) {
+			throw new PHPExcel_Exception('Cannot set hyperlink for cell that is not bound to a worksheet');
+		}
+
+		$this->getWorksheet()->setHyperlink($this->getCoordinate(), $pHyperlink);
+
+		return $this->notifyCacheController();
+	}
+
+	/**
+	 *	Get parent worksheet
+	 *
+	 *	@return PHPExcel_CachedObjectStorage_CacheBase
+	 */
+	public function getParent() {
+		return $this->_parent;
+	}
+
+	/**
+	 *	Get parent worksheet
+	 *
+	 *	@return PHPExcel_Worksheet
+	 */
+	public function getWorksheet() {
+		return $this->_parent->getParent();
+	}
+
+	/**
+	 *	Get cell style
+	 *
+	 *	@return	PHPExcel_Style
+	 */
+	public function getStyle()
+	{
+		return $this->getWorksheet()->getParent()->getCellXfByIndex($this->getXfIndex());
+	}
+
+	/**
+	 *	Re-bind parent
+	 *
+	 *	@param	PHPExcel_Worksheet $parent
+	 *	@return	PHPExcel_Cell
+	 */
+	public function rebindParent(PHPExcel_Worksheet $parent) {
+		$this->_parent = $parent->getCellCacheController();
+
+		return $this->notifyCacheController();
+	}
+
+	/**
+	 *	Is cell in a specific range?
+	 *
+	 *	@param	string	$pRange		Cell range (e.g. A1:A1)
+	 *	@return	boolean
+	 */
+	public function isInRange($pRange = 'A1:A1')
+	{
+		list($rangeStart,$rangeEnd) = self::rangeBoundaries($pRange);
+
+		// Translate properties
+		$myColumn	= self::columnIndexFromString($this->getColumn());
+		$myRow		= $this->getRow();
+
+		// Verify if cell is in range
+		return (($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn) &&
+				($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow)
+			   );
+	}
+
+	/**
+	 *	Coordinate from string
+	 *
+	 *	@param	string	$pCoordinateString
+	 *	@return	array	Array containing column and row (indexes 0 and 1)
+	 *	@throws	PHPExcel_Exception
+	 */
+	public static function coordinateFromString($pCoordinateString = 'A1')
+	{
+		if (preg_match("/^([$]?[A-Z]{1,3})([$]?\d{1,7})$/", $pCoordinateString, $matches)) {
+			return array($matches[1],$matches[2]);
+		} elseif ((strpos($pCoordinateString,':') !== FALSE) || (strpos($pCoordinateString,',') !== FALSE)) {
+			throw new PHPExcel_Exception('Cell coordinate string can not be a range of cells');
+		} elseif ($pCoordinateString == '') {
+			throw new PHPExcel_Exception('Cell coordinate can not be zero-length string');
+		}
+
+		throw new PHPExcel_Exception('Invalid cell coordinate '.$pCoordinateString);
+	}
+
+	/**
+	 *	Make string row, column or cell coordinate absolute
+	 *
+	 *	@param	string	$pCoordinateString		e.g. 'A' or '1' or 'A1'
+	 *					Note that this value can be a row or column reference as well as a cell reference
+	 *	@return	string	Absolute coordinate		e.g. '$A' or '$1' or '$A$1'
+	 *	@throws	PHPExcel_Exception
+	 */
+	public static function absoluteReference($pCoordinateString = 'A1')
+	{
+		if (strpos($pCoordinateString,':') === FALSE && strpos($pCoordinateString,',') === FALSE) {
+			// Split out any worksheet name from the reference
+			$worksheet = '';
+			$cellAddress = explode('!',$pCoordinateString);
+			if (count($cellAddress) > 1) {
+				list($worksheet,$pCoordinateString) = $cellAddress;
+			}
+			if ($worksheet > '')	$worksheet .= '!';
+
+			// Create absolute coordinate
+			if (ctype_digit($pCoordinateString)) {
+				return $worksheet . '$' . $pCoordinateString;
+			} elseif (ctype_alpha($pCoordinateString)) {
+				return $worksheet . '$' . strtoupper($pCoordinateString);
+			}
+			return $worksheet . self::absoluteCoordinate($pCoordinateString);
+		}
+
+		throw new PHPExcel_Exception('Cell coordinate string can not be a range of cells');
+	}
+
+	/**
+	 *	Make string coordinate absolute
+	 *
+	 *	@param	string	$pCoordinateString		e.g. 'A1'
+	 *	@return	string	Absolute coordinate		e.g. '$A$1'
+	 *	@throws	PHPExcel_Exception
+	 */
+	public static function absoluteCoordinate($pCoordinateString = 'A1')
+	{
+		if (strpos($pCoordinateString,':') === FALSE && strpos($pCoordinateString,',') === FALSE) {
+			// Split out any worksheet name from the coordinate
+			$worksheet = '';
+			$cellAddress = explode('!',$pCoordinateString);
+			if (count($cellAddress) > 1) {
+				list($worksheet,$pCoordinateString) = $cellAddress;
+			}
+			if ($worksheet > '')	$worksheet .= '!';
+
+			// Create absolute coordinate
+			list($column, $row) = self::coordinateFromString($pCoordinateString);
+			$column = ltrim($column,'$');
+			$row = ltrim($row,'$');
+			return $worksheet . '$' . $column . '$' . $row;
+		}
+
+		throw new PHPExcel_Exception('Cell coordinate string can not be a range of cells');
+	}
+
+	/**
+	 *	Split range into coordinate strings
+	 *
+	 *	@param	string	$pRange		e.g. 'B4:D9' or 'B4:D9,H2:O11' or 'B4'
+	 *	@return	array	Array containg one or more arrays containing one or two coordinate strings
+	 *								e.g. array('B4','D9') or array(array('B4','D9'),array('H2','O11'))
+	 *										or array('B4')
+	 */
+	public static function splitRange($pRange = 'A1:A1')
+	{
+		// Ensure $pRange is a valid range
+		if(empty($pRange)) {
+			$pRange = self::DEFAULT_RANGE;
+		}
+
+		$exploded = explode(',', $pRange);
+		$counter = count($exploded);
+		for ($i = 0; $i < $counter; ++$i) {
+			$exploded[$i] = explode(':', $exploded[$i]);
+		}
+		return $exploded;
+	}
+
+	/**
+	 *	Build range from coordinate strings
+	 *
+	 *	@param	array	$pRange	Array containg one or more arrays containing one or two coordinate strings
+	 *	@return	string	String representation of $pRange
+	 *	@throws	PHPExcel_Exception
+	 */
+	public static function buildRange($pRange)
+	{
+		// Verify range
+		if (!is_array($pRange) || empty($pRange) || !is_array($pRange[0])) {
+			throw new PHPExcel_Exception('Range does not contain any information');
+		}
+
+		// Build range
+		$imploded = array();
+		$counter = count($pRange);
+		for ($i = 0; $i < $counter; ++$i) {
+			$pRange[$i] = implode(':', $pRange[$i]);
+		}
+		$imploded = implode(',', $pRange);
+
+		return $imploded;
+	}
+
+	/**
+	 *	Calculate range boundaries
+	 *
+	 *	@param	string	$pRange		Cell range (e.g. A1:A1)
+	 *	@return	array	Range coordinates array(Start Cell, End Cell)
+	 *					where Start Cell and End Cell are arrays (Column Number, Row Number)
+	 */
+	public static function rangeBoundaries($pRange = 'A1:A1')
+	{
+		// Ensure $pRange is a valid range
+		if(empty($pRange)) {
+			$pRange = self::DEFAULT_RANGE;
+		}
+
+		// Uppercase coordinate
+		$pRange = strtoupper($pRange);
+
+		// Extract range
+		if (strpos($pRange, ':') === FALSE) {
+			$rangeA = $rangeB = $pRange;
+		} else {
+			list($rangeA, $rangeB) = explode(':', $pRange);
+		}
+
+		// Calculate range outer borders
+		$rangeStart = self::coordinateFromString($rangeA);
+		$rangeEnd	= self::coordinateFromString($rangeB);
+
+		// Translate column into index
+		$rangeStart[0]	= self::columnIndexFromString($rangeStart[0]);
+		$rangeEnd[0]	= self::columnIndexFromString($rangeEnd[0]);
+
+		return array($rangeStart, $rangeEnd);
+	}
+
+	/**
+	 *	Calculate range dimension
+	 *
+	 *	@param	string	$pRange		Cell range (e.g. A1:A1)
+	 *	@return	array	Range dimension (width, height)
+	 */
+	public static function rangeDimension($pRange = 'A1:A1')
+	{
+		// Calculate range outer borders
+		list($rangeStart,$rangeEnd) = self::rangeBoundaries($pRange);
+
+		return array( ($rangeEnd[0] - $rangeStart[0] + 1), ($rangeEnd[1] - $rangeStart[1] + 1) );
+	}
+
+	/**
+	 *	Calculate range boundaries
+	 *
+	 *	@param	string	$pRange		Cell range (e.g. A1:A1)
+	 *	@return	array	Range coordinates array(Start Cell, End Cell)
+	 *					where Start Cell and End Cell are arrays (Column ID, Row Number)
+	 */
+	public static function getRangeBoundaries($pRange = 'A1:A1')
+	{
+		// Ensure $pRange is a valid range
+		if(empty($pRange)) {
+			$pRange = self::DEFAULT_RANGE;
+		}
+
+		// Uppercase coordinate
+		$pRange = strtoupper($pRange);
+
+		// Extract range
+		if (strpos($pRange, ':') === FALSE) {
+			$rangeA = $rangeB = $pRange;
+		} else {
+			list($rangeA, $rangeB) = explode(':', $pRange);
+		}
+
+		return array( self::coordinateFromString($rangeA), self::coordinateFromString($rangeB));
+	}
+
+	/**
+	 *	Column index from string
+	 *
+	 *	@param	string $pString
+	 *	@return	int Column index (base 1 !!!)
+	 */
+	public static function columnIndexFromString($pString = 'A')
+	{
+		//	Using a lookup cache adds a slight memory overhead, but boosts speed
+		//	caching using a static within the method is faster than a class static,
+		//		though it's additional memory overhead
+		static $_indexCache = array();
+
+		if (isset($_indexCache[$pString]))
+			return $_indexCache[$pString];
+
+		//	It's surprising how costly the strtoupper() and ord() calls actually are, so we use a lookup array rather than use ord()
+		//		and make it case insensitive to get rid of the strtoupper() as well. Because it's a static, there's no significant
+		//		memory overhead either
+		static $_columnLookup = array(
+			'A' => 1, 'B' => 2, 'C' => 3, 'D' => 4, 'E' => 5, 'F' => 6, 'G' => 7, 'H' => 8, 'I' => 9, 'J' => 10, 'K' => 11, 'L' => 12, 'M' => 13,
+			'N' => 14, 'O' => 15, 'P' => 16, 'Q' => 17, 'R' => 18, 'S' => 19, 'T' => 20, 'U' => 21, 'V' => 22, 'W' => 23, 'X' => 24, 'Y' => 25, 'Z' => 26,
+			'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9, 'j' => 10, 'k' => 11, 'l' => 12, 'm' => 13,
+			'n' => 14, 'o' => 15, 'p' => 16, 'q' => 17, 'r' => 18, 's' => 19, 't' => 20, 'u' => 21, 'v' => 22, 'w' => 23, 'x' => 24, 'y' => 25, 'z' => 26
+		);
+
+		//	We also use the language construct isset() rather than the more costly strlen() function to match the length of $pString
+		//		for improved performance
+		if (isset($pString{0})) {
+			if (!isset($pString{1})) {
+				$_indexCache[$pString] = $_columnLookup[$pString];
+				return $_indexCache[$pString];
+			} elseif(!isset($pString{2})) {
+				$_indexCache[$pString] = $_columnLookup[$pString{0}] * 26 + $_columnLookup[$pString{1}];
+				return $_indexCache[$pString];
+			} elseif(!isset($pString{3})) {
+				$_indexCache[$pString] = $_columnLookup[$pString{0}] * 676 + $_columnLookup[$pString{1}] * 26 + $_columnLookup[$pString{2}];
+				return $_indexCache[$pString];
+			}
+		}
+		throw new PHPExcel_Exception("Column string index can not be " . ((isset($pString{0})) ? "longer than 3 characters" : "empty"));
+	}
+
+	/**
+	 *	String from columnindex
+	 *
+	 *	@param	int $pColumnIndex Column index (base 0 !!!)
+	 *	@return	string
+	 */
+	public static function stringFromColumnIndex($pColumnIndex = 0)
+	{
+		//	Using a lookup cache adds a slight memory overhead, but boosts speed
+		//	caching using a static within the method is faster than a class static,
+		//		though it's additional memory overhead
+		static $_indexCache = array();
+
+		if (!isset($_indexCache[$pColumnIndex])) {
+			// Determine column string
+			if ($pColumnIndex < 26) {
+				$_indexCache[$pColumnIndex] = chr(65 + $pColumnIndex);
+			} elseif ($pColumnIndex < 702) {
+				$_indexCache[$pColumnIndex] = chr(64 + ($pColumnIndex / 26)) .
+											  chr(65 + $pColumnIndex % 26);
+			} else {
+				$_indexCache[$pColumnIndex] = chr(64 + (($pColumnIndex - 26) / 676)) .
+											  chr(65 + ((($pColumnIndex - 26) % 676) / 26)) .
+											  chr(65 + $pColumnIndex % 26);
+			}
+		}
+		return $_indexCache[$pColumnIndex];
+	}
+
+	/**
+	 *	Extract all cell references in range
+	 *
+	 *	@param	string	$pRange		Range (e.g. A1 or A1:C10 or A1:E10 A20:E25)
+	 *	@return	array	Array containing single cell references
+	 */
+	public static function extractAllCellReferencesInRange($pRange = 'A1') {
+		// Returnvalue
+		$returnValue = array();
+
+		// Explode spaces
+		$cellBlocks = explode(' ', str_replace('$', '', strtoupper($pRange)));
+		foreach ($cellBlocks as $cellBlock) {
+			// Single cell?
+			if (strpos($cellBlock,':') === FALSE && strpos($cellBlock,',') === FALSE) {
+				$returnValue[] = $cellBlock;
+				continue;
+			}
+
+			// Range...
+			$ranges = self::splitRange($cellBlock);
+			foreach($ranges as $range) {
+				// Single cell?
+				if (!isset($range[1])) {
+					$returnValue[] = $range[0];
+					continue;
+				}
+
+				// Range...
+				list($rangeStart, $rangeEnd)	= $range;
+				sscanf($rangeStart,'%[A-Z]%d', $startCol, $startRow);
+				sscanf($rangeEnd,'%[A-Z]%d', $endCol, $endRow);
+				$endCol++;
+
+				// Current data
+				$currentCol	= $startCol;
+				$currentRow	= $startRow;
+
+				// Loop cells
+				while ($currentCol != $endCol) {
+					while ($currentRow <= $endRow) {
+						$returnValue[] = $currentCol.$currentRow;
+						++$currentRow;
+					}
+					++$currentCol;
+					$currentRow = $startRow;
+				}
+			}
+		}
+
+		//	Sort the result by column and row
+		$sortKeys = array();
+		foreach (array_unique($returnValue) as $coord) {
+			sscanf($coord,'%[A-Z]%d', $column, $row);
+			$sortKeys[sprintf('%3s%09d',$column,$row)] = $coord;
+		}
+		ksort($sortKeys);
+
+		// Return value
+		return array_values($sortKeys);
+	}
+
+	/**
+	 * Compare 2 cells
+	 *
+	 * @param	PHPExcel_Cell	$a	Cell a
+	 * @param	PHPExcel_Cell	$b	Cell b
+	 * @return	int		Result of comparison (always -1 or 1, never zero!)
+	 */
+	public static function compareCells(PHPExcel_Cell $a, PHPExcel_Cell $b)
+	{
+		if ($a->getRow() < $b->getRow()) {
+			return -1;
+		} elseif ($a->getRow() > $b->getRow()) {
+			return 1;
+		} elseif (self::columnIndexFromString($a->getColumn()) < self::columnIndexFromString($b->getColumn())) {
+			return -1;
+		} else {
+			return 1;
+		}
+	}
+
+	/**
+	 * Get value binder to use
+	 *
+	 * @return PHPExcel_Cell_IValueBinder
+	 */
+	public static function getValueBinder() {
+		if (self::$_valueBinder === NULL) {
+			self::$_valueBinder = new PHPExcel_Cell_DefaultValueBinder();
+		}
+
+		return self::$_valueBinder;
+	}
+
+	/**
+	 * Set value binder to use
+	 *
+	 * @param PHPExcel_Cell_IValueBinder $binder
+	 * @throws PHPExcel_Exception
+	 */
+	public static function setValueBinder(PHPExcel_Cell_IValueBinder $binder = NULL) {
+		if ($binder === NULL) {
+			throw new PHPExcel_Exception("A PHPExcel_Cell_IValueBinder is required for PHPExcel to function correctly.");
+		}
+
+		self::$_valueBinder = $binder;
+	}
+
+	/**
+	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
+	 */
+	public function __clone() {
+		$vars = get_object_vars($this);
+		foreach ($vars as $key => $value) {
+			if ((is_object($value)) && ($key != '_parent')) {
+				$this->$key = clone $value;
+			} else {
+				$this->$key = $value;
+			}
+		}
+	}
+
+	/**
+	 * Get index to cellXf
+	 *
+	 * @return int
+	 */
+	public function getXfIndex()
+	{
+		return $this->_xfIndex;
+	}
+
+	/**
+	 * Set index to cellXf
+	 *
+	 * @param int $pValue
+	 * @return PHPExcel_Cell
+	 */
+	public function setXfIndex($pValue = 0)
+	{
+		$this->_xfIndex = $pValue;
+
+		return $this->notifyCacheController();
+	}
+
+	/**
+	 *	@deprecated		Since version 1.7.8 for planned changes to cell for array formula handling
+	 */
+	public function setFormulaAttributes($pAttributes)
+	{
+		$this->_formulaAttributes = $pAttributes;
+		return $this;
+	}
+
+	/**
+	 *	@deprecated		Since version 1.7.8 for planned changes to cell for array formula handling
+	 */
+	public function getFormulaAttributes()
+	{
+		return $this->_formulaAttributes;
+	}
+
+    /**
+     * Convert to string
+     *
+     * @return string
+     */
+	public function __toString()
+	{
+		return (string) $this->getValue();
+	}
+
+}
+

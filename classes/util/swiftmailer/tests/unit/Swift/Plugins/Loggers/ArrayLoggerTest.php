@@ -1,69 +1,70 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-hwNyFb7udquji/SXzdS=
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Plugins/Loggers/ArrayLogger.php';
+
+class Swift_Plugins_Loggers_ArrayLoggerTest
+    extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testAddingSingleEntryDumpsSingleLine()
+    {
+        $logger = new Swift_Plugins_Loggers_ArrayLogger();
+        $logger->add(">> Foo\r\n");
+        $this->assertEqual(">> Foo\r\n", $logger->dump());
+    }
+
+    public function testAddingMultipleEntriesDumpsMultipleLines()
+    {
+        $logger = new Swift_Plugins_Loggers_ArrayLogger();
+        $logger->add(">> FOO\r\n");
+        $logger->add("<< 502 That makes no sense\r\n");
+        $logger->add(">> RSET\r\n");
+        $logger->add("<< 250 OK\r\n");
+
+        $this->assertEqual(
+            ">> FOO\r\n" . PHP_EOL .
+            "<< 502 That makes no sense\r\n" . PHP_EOL .
+            ">> RSET\r\n" . PHP_EOL .
+            "<< 250 OK\r\n",
+            $logger->dump()
+            );
+    }
+
+    public function testLogCanBeCleared()
+    {
+        $logger = new Swift_Plugins_Loggers_ArrayLogger();
+        $logger->add(">> FOO\r\n");
+        $logger->add("<< 502 That makes no sense\r\n");
+        $logger->add(">> RSET\r\n");
+        $logger->add("<< 250 OK\r\n");
+
+        $this->assertEqual(
+            ">> FOO\r\n" . PHP_EOL .
+            "<< 502 That makes no sense\r\n" . PHP_EOL .
+            ">> RSET\r\n" . PHP_EOL .
+            "<< 250 OK\r\n",
+            $logger->dump()
+            );
+
+        $logger->clear();
+
+        $this->assertEqual('', $logger->dump());
+    }
+
+    public function testLengthCanBeTruncated()
+    {
+        $logger = new Swift_Plugins_Loggers_ArrayLogger(2);
+        $logger->add(">> FOO\r\n");
+        $logger->add("<< 502 That makes no sense\r\n");
+        $logger->add(">> RSET\r\n");
+        $logger->add("<< 250 OK\r\n");
+
+        $this->assertEqual(
+            ">> RSET\r\n" . PHP_EOL .
+            "<< 250 OK\r\n",
+            $logger->dump(),
+            '%s: Log should be truncated to last 2 entries'
+            );
+    }
+
+}

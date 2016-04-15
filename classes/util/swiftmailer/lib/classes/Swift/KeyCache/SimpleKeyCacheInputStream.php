@@ -1,68 +1,129 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Writes data to a KeyCache using a stream.
+ *
+ * @package    Swift
+ * @subpackage KeyCache
+ * @author     Chris Corbyn
+ */
+class Swift_KeyCache_SimpleKeyCacheInputStream implements Swift_KeyCache_KeyCacheInputStream
+{
+    /** The KeyCache being written to */
+    private $_keyCache;
+
+    /** The nsKey of the KeyCache being written to */
+    private $_nsKey;
+
+    /** The itemKey of the KeyCache being written to */
+    private $_itemKey;
+
+    /** A stream to write through on each write() */
+    private $_writeThrough = null;
+
+    /**
+     * Set the KeyCache to wrap.
+     *
+     * @param Swift_KeyCache $keyCache
+     */
+    public function setKeyCache(Swift_KeyCache $keyCache)
+    {
+        $this->_keyCache = $keyCache;
+    }
+
+    /**
+     * Specify a stream to write through for each write().
+     *
+     * @param Swift_InputByteStream $is
+     */
+    public function setWriteThroughStream(Swift_InputByteStream $is)
+    {
+        $this->_writeThrough = $is;
+    }
+
+    /**
+     * Writes $bytes to the end of the stream.
+     *
+     * @param string                $bytes
+     * @param Swift_InputByteStream $is    optional
+     */
+    public function write($bytes, Swift_InputByteStream $is = null)
+    {
+        $this->_keyCache->setString(
+            $this->_nsKey, $this->_itemKey, $bytes, Swift_KeyCache::MODE_APPEND
+            );
+        if (isset($is)) {
+            $is->write($bytes);
+        }
+        if (isset($this->_writeThrough)) {
+            $this->_writeThrough->write($bytes);
+        }
+    }
+
+    /**
+     * Not used.
+     */
+    public function commit()
+    {
+    }
+
+    /**
+     * Not used.
+     */
+    public function bind(Swift_InputByteStream $is)
+    {
+    }
+
+    /**
+     * Not used.
+     */
+    public function unbind(Swift_InputByteStream $is)
+    {
+    }
+
+    /**
+     * Flush the contents of the stream (empty it) and set the internal pointer
+     * to the beginning.
+     */
+    public function flushBuffers()
+    {
+        $this->_keyCache->clearKey($this->_nsKey, $this->_itemKey);
+    }
+
+    /**
+     * Set the nsKey which will be written to.
+     *
+     * @param string $nsKey
+     */
+    public function setNsKey($nsKey)
+    {
+        $this->_nsKey = $nsKey;
+    }
+
+    /**
+     * Set the itemKey which will be written to.
+     *
+     * @param string $itemKey
+     */
+    public function setItemKey($itemKey)
+    {
+        $this->_itemKey = $itemKey;
+    }
+
+    /**
+     * Any implementation should be cloneable, allowing the clone to access a
+     * separate $nsKey and $itemKey.
+     */
+    public function __clone()
+    {
+        $this->_writeThrough = null;
+    }
+}

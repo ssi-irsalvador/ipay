@@ -1,77 +1,56 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<style type="text/css">
+<!--
+.style3 {font-size: 12px}
+.style4 {color: #333333}
+.style5 {color: #FF0000}
+-->
+</style>
+<?php
+if (isset($eMsg)) {
+	if (is_array($eMsg)) {
+		?>
+<div class="tblListErrMsg"><strong>Check the following error(s) below:</strong><br />
+		<?php
+		foreach ($eMsg as $key => $value) {
+			?> &nbsp;&nbsp;&bull;&nbsp;<?=$value?><br />
+			<?php
+		}
+		?></div>
+		<?php
+	} else {
+		?>
+<div class="tblListErrMsg"><?=$eMsg?></div>
+		<?
+	}
+}
 ?>
-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
+<div class="themeFieldsetDiv01">
+<fieldset class="themeFieldset01" style="background: #FAD163; border-radius: 4px 4px 0 0;"><h2 style="margin: 0 0 -5px 0;">Import YTD Details</h2></fieldset>
+<fieldset class="themeFieldset01_notopborder">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	</tr>
+	<tr>
+		<td width="110" class="divTblTH_">Pay Group: </td>
+		<td class="divTblTH_"><strong><?= $oData['pps_name']?></strong></td>
+	</tr>
+	<tr>
+		<td width="110" class="divTblTH_">Cut-off Start: </td>
+		<td class="divTblTH_"><strong><?= $oData['pp_start']?></strong></td>
+	</tr>	
+	<tr>
+		<td width="110" class="divTblTH_">Cut-off End: </td>
+		<td class="divTblTH_"><strong><?= $oData['pp_end']?></strong></td>
+	</tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	</tr>
+</table>
+</fieldset>
+<fieldset class="themeFieldset01_notopborder">
+<?=$tblDataList?>
+</fieldset>
+</div>

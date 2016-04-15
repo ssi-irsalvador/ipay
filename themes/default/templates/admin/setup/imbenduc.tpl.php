@@ -1,90 +1,68 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<style type="text/css">
+<!--
+.style3 {font-size: 12px}
+.style4 {color: #333333}
+.style5 {color: #FF0000}
+-->
+</style>
+<?php
+if (isset($eMsg)) {
+	if (is_array($eMsg)) {
+		?>
+<div class="tblListErrMsg"><strong>Check the following error(s) below:</strong><br />
+		<?php
+		foreach ($eMsg as $key => $value) {
+			?> &nbsp;&nbsp;&bull;&nbsp;<?=$value?><br />
+			<?php
+		}
+		?></div>
+		<?php
+	} else {
+		?>
+<div class="tblListErrMsg"><?=$eMsg?></div>
+		<?
+	}
+}
 ?>
-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
+<div class="themeFieldsetDiv01">
+<fieldset class="themeFieldset01" style="background: #FAD163; border-radius: 4px 4px 0 0;"><h2 style="margin: 0 0 -5px 0;">Import Recurring Benefits and Deduction</h2></fieldset>
+<fieldset class="themeFieldset01">
+<!--<legend class="themeLegend01">Recurring Benefits and Deduction XLS Import</legend>-->
+<form method="post" enctype="multipart/form-data" action="">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr bgcolor="#FAD163">
+	  <td colspan="2" style="height:19px"><strong>Upload Recurring Benefits and Deduction Information</strong></td>
+	  </tr>
+	<tr>
+		<td width="110" class="divTblTH_">&nbsp;</td>
+		<td class="divTblTH_"><strong class="longlabel">Select File <span class="style5">*</span></strong>
+		  <input type="file" name="uptahead_file" accept="application/vnd.ms-excel"></td>
+	</tr>
+	<tr>
+	  <td class="divTblTH_">&nbsp;</td>
+	  <td class="divTblTH_"><label class="longlabel">&nbsp;</label>
+	    <input type="submit" name="submit[save]" value="Upload File" class="themeInputButton" /></td>
+	  </tr>
+	<tr bgcolor="#FAD163">
+	  <td colspan="2" style="height:19px"><strong>**Note</strong></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em> All header in &quot;<span class="style5">Red Font</span>&quot; are compulsory </em></div></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em>All date fields should be in YYYY-MM-DD format </em></div></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em>Each import file should be configured for 1000 records or less </em></div></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em>Sample XLS file:&nbsp;<a href="?statpos=imbenduc&download=RecurringBenefitsAndDeductionTemplate" target="_blank">Download</a></em></div></td>
+	</tr>
+</table>
+</form>
+</fieldset>
+</div>

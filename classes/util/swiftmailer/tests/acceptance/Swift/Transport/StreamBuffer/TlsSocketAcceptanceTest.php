@@ -1,60 +1,35 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-/lr/T0==
+<?php
+
+require_once 'Swift/Transport/StreamBuffer/AbstractStreamBufferAcceptanceTest.php';
+
+class Swift_Transport_StreamBuffer_TlsSocketAcceptanceTest
+    extends Swift_Transport_StreamBuffer_AbstractStreamBufferAcceptanceTest
+{
+    public function skip()
+    {
+        $streams = stream_get_transports();
+        $this->skipIf(!in_array('tls', $streams),
+            'TLS is not configured for your system.  It is not possible to run this test'
+            );
+        $this->skipIf(!SWIFT_TLS_HOST,
+            'Cannot run test without a TLS enabled SMTP host to connect to (define ' .
+            'SWIFT_TLS_HOST in tests/acceptance.conf.php if you wish to run this test)'
+            );
+    }
+
+    protected function _initializeBuffer()
+    {
+        $parts = explode(':', SWIFT_TLS_HOST);
+        $host = $parts[0];
+        $port = isset($parts[1]) ? $parts[1] : 25;
+
+        $this->_buffer->initialize(array(
+            'type' => Swift_Transport_IoBuffer::TYPE_SOCKET,
+            'host' => $host,
+            'port' => $port,
+            'protocol' => 'tls',
+            'blocking' => 1,
+            'timeout' => 15
+            ));
+    }
+}

@@ -1,77 +1,76 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-Gka69CdJLwGDulZQFPck7ZFMTvK1lf7fGi4=
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Mime/Headers/DateHeader.php';
+require_once 'Swift/Mime/Grammar.php';
+
+class Swift_Mime_Headers_DateHeaderTest
+    extends Swift_Tests_SwiftUnitTestCase
+{
+    /* --
+    The following tests refer to RFC 2822, section 3.6.1 and 3.3.
+    */
+
+    public function testTypeIsDateHeader()
+    {
+        $header = $this->_getHeader('Date');
+        $this->assertEqual(Swift_Mime_Header::TYPE_DATE, $header->getFieldType());
+    }
+
+    public function testGetTimestamp()
+    {
+        $timestamp = time();
+        $header = $this->_getHeader('Date');
+        $header->setTimestamp($timestamp);
+        $this->assertIdentical($timestamp, $header->getTimestamp());
+    }
+
+    public function testTimestampCanBeSetBySetter()
+    {
+        $timestamp = time();
+        $header = $this->_getHeader('Date');
+        $header->setTimestamp($timestamp);
+        $this->assertIdentical($timestamp, $header->getTimestamp());
+    }
+
+    public function testIntegerTimestampIsConvertedToRfc2822Date()
+    {
+        $timestamp = time();
+        $header = $this->_getHeader('Date');
+        $header->setTimestamp($timestamp);
+        $this->assertEqual(date('r', $timestamp), $header->getFieldBody());
+    }
+
+    public function testSetBodyModel()
+    {
+        $timestamp = time();
+        $header = $this->_getHeader('Date');
+        $header->setFieldBodyModel($timestamp);
+        $this->assertEqual(date('r', $timestamp), $header->getFieldBody());
+    }
+
+    public function testGetBodyModel()
+    {
+        $timestamp = time();
+        $header = $this->_getHeader('Date');
+        $header->setTimestamp($timestamp);
+        $this->assertEqual($timestamp, $header->getFieldBodyModel());
+    }
+
+    public function testToString()
+    {
+        $timestamp = time();
+        $header = $this->_getHeader('Date');
+        $header->setTimestamp($timestamp);
+        $this->assertEqual('Date: ' . date('r', $timestamp) . "\r\n",
+            $header->toString()
+            );
+    }
+
+    // -- Private methods
+
+    private function _getHeader($name)
+    {
+        return new Swift_Mime_Headers_DateHeader($name, new Swift_Mime_Grammar());
+    }
+}

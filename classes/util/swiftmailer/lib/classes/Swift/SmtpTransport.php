@@ -1,49 +1,53 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Sends Messages over SMTP with ESMTP support.
+ *
+ * @package    Swift
+ * @subpackage Transport
+ * @author     Chris Corbyn
+ */
+class Swift_SmtpTransport extends Swift_Transport_EsmtpTransport
+{
+    /**
+     * Create a new SmtpTransport, optionally with $host, $port and $security.
+     *
+     * @param string  $host
+     * @param integer $port
+     * @param string  $security
+     */
+    public function __construct($host = 'localhost', $port = 25, $security = null)
+    {
+        call_user_func_array(
+            array($this, 'Swift_Transport_EsmtpTransport::__construct'),
+            Swift_DependencyContainer::getInstance()
+                ->createDependenciesFor('transport.smtp')
+            );
+
+        $this->setHost($host);
+        $this->setPort($port);
+        $this->setEncryption($security);
+    }
+
+    /**
+     * Create a new SmtpTransport instance.
+     *
+     * @param string  $host
+     * @param integer $port
+     * @param string  $security
+     *
+     * @return Swift_SmtpTransport
+     */
+    public static function newInstance($host = 'localhost', $port = 25, $security = null)
+    {
+        return new self($host, $port, $security);
+    }
+}

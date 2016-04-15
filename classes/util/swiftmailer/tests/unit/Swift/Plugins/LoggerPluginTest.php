@@ -1,139 +1,198 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPrk+6HVw//FYM9fXZ3IOLMe+yKXOTE+/5Ei3kLdippQHjuYYdLeKKFy1NrCGw7wD+Il1ywId
-LiYLNWr+XLF1HNwng3O5eHnUHSw3UtC77sceF+23yt4GjIP+++oS4cAclKjFcscvvepw6MwBznX0
-40cnbpL91U380kAq4bzpduvnmToKjDPbVfakyUcIbHLPaUdJP0i6YOo1sxKatTpFP92j3+Ie7e7l
-dhqOwURmSLnH2G2TbcbEur9cVZ5IpkTo1iGQa6S0H+DZEY4movEtIsLi5kEj6T/kNFlhGu4TSXIF
-1dDc3Qt3haEOAhcW0Y5I3kDwAHiE7Wd7sTZfiAVwnUq4OHpE3X42MdcCtFX7zwAaHjT9IQOlSQb5
-pUkEWA2N1GVJYaVk6UrNjGAiVpWDhGiKsoXGUrn1CC8X+ObilkFyAWUq/+FkMP+G7ObI/J/c97PT
-youIpiVgKBDcYSdVxspH97tkgCxJryxLZCYYbdTMhQ4KgBbg+yV0SlOHCtk/VTI/6BlH1CUmrbP2
-HdNaieKX8pOQ1p2RPLbbWjIo/z0HfSGZtZ2LVJsmxwMcx0x55M9ILjwGpbgpYrmFkqa4shXx2muB
-TCmCbYeee0QQxDWo99zWu3QaEwUMDlY9hLKsop4HsGe1sqh6MtQJupK51mXkVTDfpZAfY+2+Gu1q
-ChluxSEf2EbUnbaQPl3c6S3uWLTVJeOepWU75PDM4Ev3ALpgdBaBxcJ9MIWvyFMUPDdkkQ6u2kR1
-U1FpM41mL8MOiFOuABa1MzZJrULkQZhtoyUZxJxD8uMDcGZd4EDifXiTrIgP0VfGmu1efycr90Ek
-Rew4Jw0F5HaBSnJYv9TSlbpCuthkPdHmC6wv3C0Rp/r4tbBLskljJq+e0ZGsfSTTQa0K3XPu4gE1
-htjyGcqmrmaa9n/HrDJ1Vw5DXR2tw66B7jeVY5XFfHlMddqCAFJBzBrkZwJiyy+jwRO4gb+lUY1x
-7Ra0mbMjuvhmMD4zXP6maghJMu5R4LtVGQ+Tzhx6hYYuEmF7Nj+SjpTV6GAIU5vJEYM8b8YuTro4
-5hv7DQlNI9NtMa+CaVd4GVXPVoGz2MmfRFIGjTS+ZIejQ7nN7ex91t/tZAltUtk85sWGKZyw8kgf
-9kIO3NNlq0ukDGab6VeW+GemwYwgrzMdZ2BV2R83IpElXfYQh9AezBokmmYTOl/BAi5FXl2bYPpx
-L721HCA4CBPUOHjS/AdFfh7ifS1IsNlpjq5G+L+bh2BVCqKEKPRdIQ2U0OLMecR3oCN6Fzj7yErH
-4kQR7+Qe2jbfbxIqdr6ziNT4VpV5YIE0CWlAL3BUkflNh8uXCPyq684bIYgpdWHuwGGUwBXqLYSr
-IxK/fFSRGZgU3pMBx11D4UnaycQfaTYhhto7oXYNg7eQUy38w9s1ebttc0/UyAxpcwKFd1++M9on
-2HsQ/m+V9C23qgLHBwJvMwFX7WN4/NPNJ2LUVHd4BEKC/BgXdsXEGgmCTQncnapO+3IESyGPJDr+
-HUqc5pKKMEFNEz303Wg03nZjjYHAQPJ2PGUqx3M6cpYSGk3zhE5o45XG4aJEDeUIQuYVDgVtITou
-BPKoc8igeUzPcRA/F/n1WFBghFqqdMUNGG4ugNngholxiRv+QukK0YqfaLTkkgqaq7AQEF/C1ucn
-VKjgJC5lU9MeWy/7SHxj9zAW46TjuQwzl1/VoJ5ZyxR1M0PSHJSdRqdtJ0EazoaPM5JshuRCxZk4
-Q9IPnit7NUsJKSlGYbHQg/WWfvcIL51LBaYyMcZfMW6UC4ykfOGdD6M4R1ZhIyNPtWCqkJYnyyi5
-her0rjHzuwvNTURPy7u4B5vkyBe5jGdqnasjIXNY/DU+dxub63jTpTrSUeKc2S1FZIQJVMoN9kPy
-dZhEkM9FpWweP4qHxP4rVhYDjMh3l4OS8tjb1huC+PImrGZCaaNn7c1aLMJeT/gCjr+ItoXzeE6e
-2MqQWRfQuSHRF/k5JSxG69kYX2hVlT9dFgDPszrLAL4GQDpqQI+h8lctQivfEVXB29nMphgPlezU
-pZf0r61dMic6iEyzv+lHorCU2AmVqhtBw+s1RYvBXsegUQS+le5U+hHD7nR9ZCoAcywEkG8msxKD
-oWqhff/gTJ7pVufIAlPO/WhCL2C9yGFbrufNmFW5UDlAqb0v+o79x4YF0MXURoGJKagSXa8gsgUf
-lASdzJ5ZPFW2EenyfAQLI6U5l/Zcj6mOl4z6q1pc3oo0pHYrAqq/HvwAn5v6S0hL2sMQQL+uvoRR
-quhgulkfeloVWhuEz1QS3g8nDG7RTj3agtr4hAnoQgVcu8oBBEu7MEC7QTLJjbIBcelRTzkFNmri
-dWl/ojg9oAk5iog16Xx8EpLRLTorQU67GtisKWPuYpF5rBI1wifRJ5v/CWkbdHpv1uXXh677YkYt
-VpfFqZNzyesQWst28dneWAbGUYuezMd607U74vANeD49Ex5wGkR7/P91aClI7f8jybqPFU/5Tb6f
-OFRx+y2qAUexRP6u390Q5N5zWZyPJTllNBKjQIjs6i2ByHTGJUrxwsK2vdOjTnlwUljU0BS8BWpZ
-1mKDbJraTQEIZoigICOCZ6d2nB4Wv1TWhdyc5sTkMsPn+kcuc0udBQq1XFKNqt4HvfAruDSu2Pz5
-8A+VsxnX2Ud+HDYl3CxQ9ptAd+P9d5BKQbgV0DzaCzn3233jcSmpw9iZNcY0pdFvA2Xk0QiI/pIJ
-JCxCYZ1+7+OgbkrzhqOJXqHc/LOoDlczFmh1yzaOTGBRL794FTs3LQwAjaKwo+qtoXLCwKdD+Cci
-+PV5hEVOeOh5dbpKAROmrWm3XG2u2d3EwMjY1pFZNChdjTi2ifUK6RPdeG+P+Q8+NZA/5tTuy7K7
-inYV6cTolLdbeAQoKdhD5dNs+Q9bGBuvpgPxxuvu1/z5wHAJnMpGzH7PRkeqnXkoVM6U8UTQRLpg
-gqWpA1MG7RbnbOqwvXWs4xsH6hDBzS2cav5D8XRCpFz7HM8xMZudEzB+/RcjIqke+DWpnbAtihd9
-c6rM6f5257/7tBYj4m12guf3p4ax2YnDsIixmdjVSveXv5xQvuggo3QFpr/x1AVtP60EPvcSyBiM
-pUS0420rPwWilS0LMAc6SAS3wIqZnntiBGsjEYuZfcFP1LrllNXEoA5Ky0Dm8Bqx3SQ6ViUgOWmm
-kbGtFes1hSmr90DPIDNGVAte+ZhxGu4sxg/9007UfEQVS6S6lnyoDz2UXtXKRwyA1VIDtEe5vNJy
-yXBxUule6VGiHVXHmy2Sd9ByID7rMiY5szgK8+ggcE+kJJjez97KZ3a769Jl4QGIQEJk5tzmDbbp
-YD6HQP7l8nl9RVhu0HX1+GFEbhvRvUPc8NRlXlTRJ1QMFRwHLbQPCeWsomuK5Ll+uQj2s9C/VQLy
-Qmsz/VJyDZEE5nmS+Ff3FnyBrfYn1i3fSbB2KagfWtd+fz56nJBz+9oP43LDm2kvLqEdcA6Snxp1
-3Sgi8gH+CHy+h7wJ8JPoqFuCdDNNh8Pyhtys4/RMKx55U42p04o27f04Scnlrz1UcVZiHiQhr/Ij
-cc06tvWOWx6vRLkZv75UBhoTSoeGJCirzHuUD16QfoQPHz3o4TO1cdB1C/WgxjUBUttMbLmcrxpY
-ED0joDWZD74DFpGIDvpTHv8+PemcbR7dCjUgRtqjpridUVE2nw2I17ag5I3oZ5Sxk3l/9nHGjJe3
-ZbSsqCN5J9lE8Y1lO8WWaiNEnTaiZLtOUe2bF/+eB+/8IG7RhCdHBQ1JjU5InvQnyJuI/7ZdCObh
-OPVfohg4kAiakD8Vr+NNKZ8DGU593Lu3o5MqnR8sxx6yuw6SV185pI8/MAtySTeN+Ct19LXKrEST
-/IN8G4lDW8Cl14riqWjj+tx+z9PZOTUEHQnUW+QcNC0j0Cv6oGPPLlM8wPNZqvjrYc22kG6sjxaR
-q1fXQihNDFqLhShmO/Hfrg5/xdhFM2ANJGApPs3frZX0OGe1vXeCLdI00T2djfMlmXnLkzs4EYeR
-XcTp1tkL9YGnPTSiyh8PuExbMq8jFIQVopbKTTIdW7xm2hFTZfD05rHarKarrpggrtGuqhmr2XWz
-U3IfDvrDuBk4FjN3DYUNQjWA0mNEDxH/5nbVER4pGp421K4OhEVrp1JtBREMHHUa8Oo1ooVInF17
-9MC9G+9GyTqWWwuk2/SZNUTa7pYfEKrd398juJFeqGF8CJbETcJkL7CMm+bMmaq4WpjzuZf9qvI3
-ihMpOxjy0fs33OOg7VUW1slO9o5u/DnzzYNDK34rV8zxtChihUJwKwW7t2Fxcesv4on3qSHYMapE
-HHtFtUeAxHMCgwy/CAcrnC/jFqcYh85wMCtbN/GQKPB8Udue/BIqLUI1Qmvc1lj09gBvxowlKjhw
-YFzFd5sY0yGnLLDVbM5h+e+kx8QrhyNVS2ajFx0qfat/m8LpmkCoLTDMsOEeNthemEMLjxtFfkcF
-wAtFG8UgaL+sZJQ6/MEbg1sVE/gZk/mNd5GodwuUJ/EbtG4Ra945ufw/1xR8266wCMYZvvNSggkk
-cq/IErogrkmVGdXu5hiwTtGzvhf+x75NIEBquTMsRdv7/H8oifmq7rHnTlSXCMA6lm4gk7J06W1k
-4wYFUfnM3LtGy01zIhMbkdqKlOaSMc/Dma0HQ7JGnjullrk6CQc2nEPivDyK46xN+Me3XmbHvjB5
-TTjwV3cIoooSDIY6C0i6ZmJ1yz23hqGg9W0c50Qh+ss4JkrEp5Z8wEDupLraaG3Ch0bVQ8UC9Qdq
-SDkgNFzY/yixKnYd+rRsIercEAWAN++19uvwATf1feIrijRt0qpYAnD9Ver9eiwNo9jVoUBXnB73
-8P6JzNLGfijHNrWDj3eW5FQpoUewOjykhr212mT2ZWIleRA2P4boYUw0cFRV7VzPwKaBSZZmeIr7
-FynS/pgaTrWXVQHKBfwVYeUSozR8qFLh66+txYe6HnUI7NZT4QJZN5arjPpjBKFRWTB2Vjn2GHLG
-X9Lu+c+suyP1bZj44q8QBI4s6y5EqU/GvBOw+c5g0GAudTt7IT6r2qcf4QiznKSxI89tAh9t3X8Q
-YiRN+qQMy687ijjO6U6dyVfXMtowLdPtRFJ+tCwccJuJ1utckj0KiCYJIaqEoCCF1J/mjmHV9UJw
-8PQDRY7e2y4kofLiE35sShS38vrXgDtwdTsuEgZjZXjo5CiWxa3udgwZ6up/aCMXlhXT6ddIz4L4
-gkLfjQIHdOjJI0Uj3voYIdSHlBYBQVlM5LnkjTgXwd98/vJN3uh6WzqSgVg2eKb6m8nrlv1PMxZ7
-OGGhtUW5tt/ouzqtY3WVv3U6Is1yaTSZkPQ0NHQ+7kYeGNy7gH0DrZBtG4pP95sqGm2QsIo1jiue
-q/6BJU5kMpTBjinLE1QVMbi7xyugT2yB4PfnzWi7u8MkSoN9MwMg30B96l/GzrvZtJx/8HELXHCR
-2hg5I+0L8+NeD69JV6f2Z+u96sSBLaQAtlSIhy0kRgJQx/iZLDKW/sPTHdAb5O48xggsgFSP3XP6
-UuYvTBBU0dlTckIvChwutXaeEK7dZ7t4hp581BpSqlfF2Hg24Mo2sYIhrQTnkhVJ4/DVaTM9oJD4
-j/Sw1abG75NGFbrwUKXZACwLGM32xbbhAhMg0hvD6degbYw4PYgrbYwFkrum1O5K9LyGyg3bC/tv
-jPHCwHIP7wH0fKfOZBuPO0BV1eo0WLfZuodqMrR0Gojl2s6ewq26lzeK8gcUrAtnLo/W6mQaIfAB
-dPIHrf8CbZVwmYr7n8vkEWf44q3qwYFnOUzVGxYVhinQX0ECN5OXrpHx7F+81KJKFxIXIO2/+wnm
-uO58m6XGk3rIiRj9WRZvu/4O9c6mSFrLwt6MjrvH4iPzVTxg98IKsbTke+R6DNAovG1btijePt/I
-xbFXCP2dadyaT8mcc1GbufkZzjUWo1xF+irbcY2FxcH1E2a37q3PjYhT1m51TAcJp6yZefWxhNia
-OgsibNq3uoswUzM4ZPp6/W7bqpdo+KVbhF/KAUptjofk4ZUWyrQ8Awi9gWlTXhJVa6e3S2pV6EAr
-pauVHKksruHOtu21I6yVCo4znqIsTkGIRXYUgH/71ecHLnQrMBddioPX+BNQSph/QCY3BVK6Adv3
-L1jwMJUyZkLmQpgV+j1c/vhfHYT4WDljFlNZq2xWyVB2RaIEjtGGavRjCFmS7oBL+aBfKqu4JqmV
-+1ANFhtCcCPdMUPl5Og29iV662emnLwB0jG9EM+8rgw4YMGjEkkWIvxBuv/0G4+qTjXVsWIHivWh
-C8DPAYklu9Ny24e7GS0IaCcwyp5MQsFaCrJa87musmkUG/3vQeDEfCKuQ5hpgQwaunauTM92bxMI
-l35RFGaRGs/KGQV+38750Ost9Rns7nfg0aKkTVqkFUqiwCR35QeTCrp4l0eZaVPqtXIdobuRQjQR
-5c6cfDnSvQrUak1LY01L9z5UImtTE9Nnyo8UzDgHQVtgtzSIbuVr+k/V92rmSLk4E5maQ/vOZYUU
-YNAO3rGN5xPLLIWfLk4d/ioxOJWeThoCSj9mIQWsHWOqpnt2RudG7jfEQG0HdjW4xGJWWGLuh/2X
-TE29xjyH98yMZ6WxbJrLwRpkZfJnqo5+tDQcwRimAI8sVyPBGgk0pb/2bOqrVeuxc4yNPWXCVqYP
-YnFE1/8BHulmC5cpKyw4/qoqgcDfUn8Za2Vt6h+lghXNfBDtfeG8vqX5q5FgMC+BwK6oDbcmrUFh
-vc8qYHkOd3y54chKNAevnArDZwSCQlHNTenv0fh0UebCUqD55X1s76boSBUNaXhoQ48swHWllW0q
-qiojrkWn+M20WExMw8GNlFdBQlyCtAL0a002j1/tCVqRnKSwfneNwLFNcEqgObIQp0kO3EWVd5lV
-wzUumQ+ZQqT2xlaAQmOpDwzcgE8z5Dsl3O9YfolqrMytQCZeaWqeJe+d0W7ur33ViYHi/Po4UF0v
-t3enj88LDYM2llzNiF7Z0p2b3hIIH+7hOMm0rt9jMx5D+h2vN0UmIn5pe+NjAodgrS6hJaKKOIXP
-O1ZfWPJjhsEvnZQYpnqd+v4oEYYEZGlNoTmx5+xnDTKF4MIwEXTMqhI/od/GHPfL/SWFz9XLTbDt
-Q8NjGN3qjrVQuAcbtRv9M707NVhu2Mq4Sms8iYGtaLDTtCC3Ix8gV3EVg32Hr8mn/p3SNOEX7nEE
-n5V/+itwE9mKMllXyZInY93Pm8hZvGWR+t9E8duSHL+jjMgnvZFiOcd2tY9FdSKCyq5BOKToMvb+
-iK3hqe3q1QeWbKtR5smEaObiuQqSJKWXEeKYMlSTKs3yIYdtIw1CAeenqoU4VvQxCFJsGXNHGS01
-PFBfrRC2ZrHrejTgOxvFryGHJCSL1V2VcmOYnU2bPolw+0sDjdRIhyv0XwYjk2deV2LvlwOqozL1
-hHjiRs4uvVZBkPXaphnCnU6mlpUSKWe1LCuoKbODy9ag35QKo6nmz01f66vMZFyH1f9YbrnzpxIS
-0sMFuOiQZo/QM8RpqKnr1WeYgo7/6yFyDtZdgTzDLLDIGGnWj3wr471KFgSjnOv4oW7UUqsXr4TG
-tajAdV5xwAXUv7dryAHlVaXRpBPBz4GSlykWmqCsVNzvOR250kXoQjwOvKTckes0MnY38ngA8lsj
-vGZpZObL6MJPtbCtZqwz6C5ENO4X2+n13v0sreE0YY+4ivSUhU+gDwT2+QHUl/qGBoOXbQH486XE
-RRvZQL675+idde8dO7mIMqzwN6jmiBuQT3eO/9OckpWlzBX67+baiM/4YK74HZkNwkeOaIIXf9zg
-86bfT5IBIzBHT7IfniFYZhIHkEYjVXkOZcSeZ2C3DByZjTbfj0nA8sebvszOYIJsIFyjACNzwLzK
-rg55EJjaj8nssQgA9JfgG14ZJkUliQyflg3agA9EZMKQSeRDfO1NtHz7YRYJWt0VXYbPL5+V1N5y
-Fb8GN695IVAqrtZ8Aj6o9dklVnK7VOb0ItknFMRcHuhRpxfaD5dKvTgZUl4Um6CiUM9iiQPYZ8P0
-5HXiZWqc4+uhjzj7pHVx1UK35AHUcXpVYMMx+DEEWPEzmH8l2Eya+U4YlTETcEbKTh6AV6PNcAdI
-z8f16WDUeXLPPeVSGKeYmWwm7cR9LMDqowOvNJ3Lnvesp9NX6q3IN1BlOSS1D5A5pb1Xx4HEjyqd
-L3dNLgv7UHBVauDNE7qn1GsNduv1gXawmUnpZLtQpxj/cHjGO8iLRLfrK2NvYktGAu0MaaLEcYDF
-4KDM112SzQxS0LhDamIZEHZ5yIblEcMJAphxTm403x3Y5MYJjvpfQf0doICoRbuq0fpB6MWlxu+Z
-VyPWyQFodWhFYHWGGvEbgd5Cfwjm3rLo98KeAw7WbkBUttspxrMfPWNJJi4YmcTpYBuYWgxdGb3s
-nq2h3MrN6n9QBRFaCg+7Lcl6VZkQWHDM7z5R9cfXKqoBDU+sxyo7j30+bi+obYbknJ7vzJ8h2aQM
-QMKq9ZywgnIf1PEHxvNudHDmliLyNA0YGsADyjl43cx87IXWp8fI60eXOrP6Y6hOHeRGTqbr9JfJ
-5UPYLmGK1rcb84aRyTxL56DFChY78iT9iQkrjEqsVn+BMzeAygPns7S6t1ZDf8wFPaAxlki546AS
-cqw3lKITTwM1gGtLLrX2eNX9p+apwUGjuZAQ1WW8wBtib/jsULE816MYfPhvUdl6+ZWmqyD8Lm2E
-MyETPffCFaS9J6MCYkrC5e4bFlIX3HCw/oPa9OXwYQXjfJCh8vt+PfIH545qtuhgq1PgIXVOu1bn
-W54cilHPvKjCbJk27Yuvwux0OVT2p5EbPvQZITsKYDryBOmNPxMa2rGxDuFyfZStKLdrmNgttqq3
-ryvEMpf//MyvowKsEdBsVX8gCoFd/o2Aza1OyWusBpODBV+Vnzm9ivhFvijugz3oMVC7KWducWdO
-fkzPcmpxYB+xoEc+r/DrBXlDdJwuOcQ3PSAbDWu/IRY/oST1PLftaNfjf0j5Yv1jiwfbUg1/qA+D
-T6mBfgUrxdZIdEJcVyCFojVESgq6gv9WBgdqDewT1T7LV/g4FlqTfgBiCr8B+iYEe35FAaYkFHqv
-uI5Rtqb8M22E5szh8WDi2kOsmgxE7SGSQ5572JjirYtc6kfkjSXUr6K+BEUUbGpvZBYfKlYxij/R
-32CXyDGxdWiY9rJ8OuezKV6JT4ILAY34bN+5RJrXOSF1qFpJtODlFyYS/Ej/4bus8XasmUMhyO9j
-HWTppEKGH/fPho+5ccO02eOB2/+fnD7RJZ8RIK9J+5IHMQrj6FzWX0dmJNjuIxB8AlbujiHithgb
-asNB450k7nmvuDcI0jvKWvammZHua1zW1oNCENAz7VY0yWQl40EWi7vLC9bd3o+5rUuns31EbVZy
-9MF3VOKhxjRLDkrNLtAKrzZvD40pQT1NMw4GfE002NzOwUDyy3C8uOpoJewl2Cq5shVxMQvQP2NJ
-tg/TxcIdDHcSg92msV6u+R7a2R50a7mjZTWfW+Gjrgseo8RJqxFC1yscGqleSsxohWQIYv8zLCLx
-hUyO78kKJUiiXt6MBt5BO/kDLIFANg8nzOVltaX7RDN2AIxEy6hv9bl/X57ZwSjTYu3IvA1CuMWt
-Z53TDkeZ113jGONKetbN3XxQU01WWj8m0XcQgGrMFR2ktkVb9iPzk5bDvkfxb1Lv3VoyBBd2+3Fz
-7efbjP7rNGxnxRZxyfoaCuVXwNyzfpEQC9qhFpL9sw9ciSZTAbngHNYahxcRYrTGjGF804t9wP+9
-1WJV89uDx0LHhV8YADW/p0ykj7kigJhB9BkHHMfYtGleA30XJW+u8bgmye4BTObK7LA4ZB2rKxG/
-wsQOg9wvi8QmMhXvdeCDcpfsFjEfVlQGEZfjm+do62PdMWNm/g6iTgEDByxDvQjK0x6RU3TIXuju
-yBQqRlfwWa68O7ZrBtnF3DXzh/jrjyfr/iaIsIjCAAd6CKZ6UTwX6kNDW5l6aJgcOUXhM8zWcsmo
-I9Kud1+/JdDw9q3QmsNS2S9Q8xEd/7DNoYS4+YChWJFcD+o0wXoTP3/3MAsk72cmyfAEHsTET6Ic
-MEim6di7QGI8/5ypVoji/9bdVsSzIVfdklxS7fy=
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Plugins/LoggerPlugin.php';
+require_once 'Swift/Plugins/Logger.php';
+require_once 'Swift/Events/CommandEvent.php';
+require_once 'Swift/Events/ResponseEvent.php';
+require_once 'Swift/Events/TransportChangeEvent.php';
+require_once 'Swift/Events/TransportExceptionEvent.php';
+require_once 'Swift/Transport.php';
+require_once 'Swift/TransportException.php';
+
+class Swift_Plugins_LoggerPluginTest extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testLoggerDelegatesAddingEntries()
+    {
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->add('foo')
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $plugin->add('foo');
+    }
+
+    public function testLoggerDelegatesDumpingEntries()
+    {
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->dump() -> returns('foobar')
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $this->assertEqual('foobar', $plugin->dump());
+    }
+
+    public function testLoggerDelegatesClearingEntries()
+    {
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->clear()
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $plugin->clear();
+    }
+
+    public function testCommandIsSentToLogger()
+    {
+        $evt = $this->_createCommandEvent("foo\r\n");
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->add(pattern('~foo\r\n~'))
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $plugin->commandSent($evt);
+    }
+
+    public function testResponseIsSentToLogger()
+    {
+        $evt = $this->_createResponseEvent("354 Go ahead\r\n");
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->add(pattern('~354 Go ahead\r\n~'))
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $plugin->responseReceived($evt);
+    }
+
+    public function testTransportBeforeStartChangeIsSentToLogger()
+    {
+        $evt = $this->_createTransportChangeEvent();
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->add(any())
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $plugin->beforeTransportStarted($evt);
+    }
+
+    public function testTransportStartChangeIsSentToLogger()
+    {
+        $evt = $this->_createTransportChangeEvent();
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->add(any())
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $plugin->transportStarted($evt);
+    }
+
+    public function testTransportStopChangeIsSentToLogger()
+    {
+        $evt = $this->_createTransportChangeEvent();
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->add(any())
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $plugin->transportStopped($evt);
+    }
+
+    public function testTransportBeforeStopChangeIsSentToLogger()
+    {
+        $evt = $this->_createTransportChangeEvent();
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->add(any())
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        $plugin->beforeTransportStopped($evt);
+    }
+
+    public function testExceptionsArePassedToDelegateAndLeftToBubbleUp()
+    {
+        $transport = $this->_createTransport();
+        $evt = $this->_createTransportExceptionEvent();
+        $logger = $this->_createLogger();
+        $this->_checking(Expectations::create()
+            -> one($logger)->add(any())
+            -> allowing($logger)
+            );
+
+        $plugin = $this->_createPlugin($logger);
+        try {
+            $plugin->exceptionThrown($evt);
+            $this->fail('Exception should bubble up.');
+        } catch (Swift_TransportException $ex) {
+        }
+    }
+
+    // -- Creation Methods
+
+    private function _createLogger()
+    {
+        return $this->_mock('Swift_Plugins_Logger');
+    }
+
+    private function _createPlugin($logger)
+    {
+        return new Swift_Plugins_LoggerPlugin($logger);
+    }
+
+    private function _createCommandEvent($command)
+    {
+        $evt = $this->_mock('Swift_Events_CommandEvent');
+        $this->_checking(Expectations::create()
+            -> ignoring($evt)->getCommand() -> returns($command)
+            -> ignoring($evt)
+            );
+
+        return $evt;
+    }
+
+    private function _createResponseEvent($response)
+    {
+        $evt = $this->_mock('Swift_Events_ResponseEvent');
+        $this->_checking(Expectations::create()
+            -> ignoring($evt)->getResponse() -> returns($response)
+            -> ignoring($evt)
+            );
+
+        return $evt;
+    }
+
+    private function _createTransport()
+    {
+        return $this->_mock('Swift_Transport');
+    }
+
+    private function _createTransportChangeEvent()
+    {
+        $evt = $this->_mock('Swift_Events_TransportChangeEvent');
+        $this->_checking(Expectations::create()
+            -> ignoring($evt)->getSource() -> returns($this->_createTransport())
+            -> ignoring($evt)
+            );
+
+        return $evt;
+    }
+
+    private function _createTransportExceptionEvent()
+    {
+        $evt = $this->_mock('Swift_Events_TransportExceptionEvent');
+        $this->_checking(Expectations::create()
+            -> ignoring($evt)->getException() -> returns(new Swift_TransportException(''))
+            -> ignoring($evt)
+            );
+
+        return $evt;
+    }
+}

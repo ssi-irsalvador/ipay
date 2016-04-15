@@ -1,57 +1,55 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPviZ0G38flatZE+K8z4vUYGiYHs4LGNopDh8AdFsJTZl7mjaaJUneIyFphnfBMwAkC1sikXN
-cjv20yIYoK2Wre1s5wO/FZl/NrdQqRQlCRnurb2SL7OzyzSwvrLelBgJyJA55Sau40BtTwmDjn77
-7U66jGPVEQwu6zfBFWbIwDF68Y672iQwaPkYasGgKkrHUPlqz30/8ys+hg7B8uiI2qSwFYjQFQM1
-4w4o4bu5aFPuD3/bCYCquO+HNngEbJlnXhjWRho1QE5ARPy2Ne9NTBkJJSqn441gzJ9C271vASGr
-X5NUMn2eAoDTSlIblXo2SimIgn7rUCEDzUmpI3AKkye6K+WZWTIPexGre73tJsAvpTMN3Gm9PhOM
-7qX5HkMuUdul2aImzEonm95SrLfQRdQwoTS+tbPf3d86zInMRiD526RKUCcwEwRt5Qq0fVQ1oc73
-jsuZXqPrYPz2oKEEhdqzn5CVZM11RnEW/WNyiEq5d9kG7VjvQyU4vAG8jFLYDMRpeksf0qNIwoNK
-7ICiEvHnwYE1A3j0dbNAS7u2IKgXJQUqrdzOQA9zvGFMCgE5xLbE+3KcN5cAqazOeK9OIzPXxvp9
-GKY5ftnWSLLHLdBa4Ta9otAvTLra/FhpbGX0+ZeLSh5q80K54kLX2qnRHeSlrQ17Y5BeHyoGTKCx
-I7HXn+VimA8oZOcEWRNURKWXm3Zsuu86n0PLYz5lHViXBJZBCy78KzRtfrr+Et6j0zLU/9PAZ/uE
-OvdW9qT8b/7jjaVAhk/1H9KEkcbgGKXC09ego/+NH4rl9MxOBCDp9mAYrEQK8TUtONJExdB3Hd9y
-15/pzb8xi2wUlLPJrX6OyRj1IggtNKwwsXUR9deacn9MYVie4ikljySaLu2Jz5t/jbibmNgcBm4L
-i8Ub7Ux4devld7GWBKQnr5PcchW6AWwde6agknzGkDXT+DusM8UZTZrIzwOkAlKtMnowRa/r8AIY
-x99e0RDSR/fKXmPegWfvdK9ubDkkomKG/TsZ2Cx8/EApDl9DUmkLHessL66EpIrcX8KcpMTjNjaR
-cyECKW1EGw3gesZZ3OENAfqQ8tr3/7IJNZjh2sdspgbHm2FjDza2D4b9NsRF9rUt/sXucvT5XIx0
-DvE5jd+/1i5BLLJEM86Gfe/OeiZgIMIjAUzTyycYTGLqUBK4wZbiI89lg/MI21PF8hGt1OJDdcJz
-ejeSb5S5NjESkcc379IaVQcjykDE2xlqb84vnC9XpISEOlqNi9u1XLQYPiF8nSO/sqVmxL7Wrett
-n1rY6A8c7VDtYcDQ6H39/XXhL81ivcTJvYlI/y14cTLE6s46jeIpEPD4KO6W1Tgg0zqmbgAWYrEV
-/gtdVuuWNod+pHqk1rYKAfF4VcnEJ+8zzMEeCL/+E4/XmEdJhQ4nvoZl7qWWxmCoGfy7GJyzM4mU
-iCBU5wBpYQq5DyVKJSb4fbMefcko1ST9In5+SXZ8V3A1IsRPIuHNkO4A6xQzU2/3OpkfTR4mRuhl
-sQw1YIejVP1fow1AMLt9DEht7oZTfqN66kisOIQNKULZcG9cysq1hqOH4ceE9BCT+61yYj5/EWkk
-HjEmoTkVcCb1dEzPYV880rbXPNbGf6Jwoj/DQHXuS+fGfnqNVFs3XvaQxWlOwwGpol4YukQrB1ev
-/vXmAmYkfys+xg7T4E5vBeJo7q+hL29xpW9b/DcCFadskuW5Rrbr1itYOE8MK2HLl+gBjyFYnPq4
-l2SSjM+GnMGKnmJ7ejiCMgmsqDtssRJ3mUUxxpC+EetUg2jJFWplrjp7j296f/bJTFzuSab8vmxO
-kK+NRKLJQfb30e7UQONpluL0nU0OHJWO2Lw2cDsimGzM3ExI4o/uB4ABJ846919dpu9fI3HIjtSA
-tQxbrr83LbLgHRJkqhOVqNz6uj8/QRXRE+szUYMkXBVIKTf5cQ3ZbOcdbdP9kctuaJdRLRTZ25k6
-1XL9jeW9F/x2/krU0Qi1kyzj2bSXqbtR7xidWnLwodXrkVw5Urrw2kSs+pgDuLlfsdyelAdTL1/8
-TUNMxhYLVTOvqcKaL4LkDLjwMh7iVmpUv5e/CUWbjvM8z/2KCm0rZOT8T/6qxUY2538Mk3lUZRDv
-C9Gbf8RraFZWv0APYK1KYJIS+Ug75dg8gP6s8I3plELS94hd3LULT1A4BsEj4T9rbUQZsRyMgAWV
-RWlVo1s9lAjpe3GcsyD1ULw7N8FZ9qZ0UywJklmun6990sIr8vimMV7zZoG8W5fj8FkBmAA2XjqN
-OM/+/VEFro92xZ6148f/+NFBMbZtpRqz0Cbk0UwRYDxAqvesC8M59UxPpDOJsyg9qbzp3fDyPBsc
-8iWbMV/rPGyPeMr5f61CdBdvoGyhA4YgQzR316Toicm4ZVhGClKNv+fTDZrd4bYwP4r7pikLbIzy
-oXXNlyItITSxffCD5DsWQIv8yYj9mv/GskVI9fnxfbr60eodz+GaMxlEMQUfOhqFJj+j17iKLVAj
-S76v338Os+6VYzqDLJhDIXAVYTGoIeTDDEHGH3XBZO0EArzKf8spxgdpg3AC0A5uWiUzwRLHQIXn
-EAbXrWSPqd76p2ivl2BY/++kcirZ2Og/Pn2FDfpk7cJiBbfc4QUCDPF7vSVUI/f2T2US/6SHauPO
-vInRvmR2e8WqkdYgM4PyI1Z6SKgkkN2wBNeH1IDBxyD2/tTBwWGUzthIW//ooYpuT4vgDXL/shln
-nF/F0/XzRvpXEJfScnUCtTdC8MB3nXB+rXN5CtM+rnS422FBMI1NftA2d+iYPAvu2OCPNYf0wdcN
-YUCrl/10C+OVaV60mjd0Y4Va1UEb2NSDOndoHt75tRiiThsL97fmq5607TNhykf0RcefT8pgFl9J
-yvbemKtraPc8wCWwtOX0LjMCQu/XmeDVgjbp1fVJfvHTFdJ+cOLAwbgWgOUfO4VcipRFa/Xc5Ai+
-WfRtkgbXtR0v1oO5wruB0xPybRbd25e5YJ+0OQNcjxHTxTsOTcFSS/+eYojVXNyuOphF9KO3aGlV
-D1NnEK7/ffUoyyyVxEJ1Fwry9Uok4aYl1gNvP0f2GsVd58sSpSIlCnBCA+dhg5cBz8m8Q0gbEsFc
-fAyovwQ9qYmM29NKiFMWiBxQ2z7k+bhoYvewhaaTVnD0bArFQrBGrOzthpq78ymQJusw2TgJopcU
-gFYstfW0MWX4aXoky/tGeLs185DZCgZo/DC7Ja4wuTWs4tdC0mLUlSTfJgaqEp6rurHuPcxMRvK+
-VSuT7+18byjzytMdDrn1AlCPwfWsPUxnaY8mJGr2JSFsy5Lf+Q3A5pd+43JPHHNgkVIW/FMCpud7
-wETjLL9GQnSbruYhUzngPenovrDgfv1QPGwBfSFNo7MHPpA2RvGC6hbQQUewNdqdY4ifZcZTRM5R
-658r6fUPDvlAUVX74zHP5hIbEOxhwaZIPZJOyOSB22mDBf3QV2xnBksVxwjb3RXafpPvKuhPCuvX
-m+6FT2/At0VOB2ja+r//NeIjVuXeCv1H1RxyUjDHcfohLVnEK/2Qa/Pm5g6bEjjlcy6ESordy2eA
-uR7zSdkzet7xhS7DM4dwMqldda1a9kTOhJsa8hBio2Jw3I7PG6QKvWcHuwYkcjSKSdq/V92sfQ4m
-809pPBAhduoFDaJtUd1h0XA3dg78ZQk0vWEqM71vARSccKm75WesJn0lXtSwbf9TvPGLfyoJNoeE
-S5t/Nve9WJIbMgdu+5nBPisY8Nop0IeCKoLzOhHXbSWnl197rRIsSudjNvihDpTjC29t8URAGucA
-itQEj+XKeC5Xt35UVCmhHPp8Mpuhc5SlZ51C49DlEv7cZyO/4fHTxoW+ROqo62p/J7aORyOYZewF
-KGMZ3QQ0nszq
+<?php
+
+require_once 'Swift/CharacterReader/UsAsciiReader.php';
+
+class Swift_CharacterReader_UsAsciiReaderTest
+    extends UnitTestCase
+{
+    /*
+
+    for ($c = '', $size = 1; false !== $bytes = $os->read($size); ) {
+        $c .= $bytes;
+        $size = $v->validateCharacter($c);
+        if (-1 == $size) {
+            throw new Exception( ... invalid char .. );
+        } elseif (0 == $size) {
+            return $c; //next character in $os
+        }
+    }
+
+    */
+
+    private $_reader;
+
+    public function setUp()
+    {
+        $this->_reader = new Swift_CharacterReader_UsAsciiReader();
+    }
+
+    public function testAllValidAsciiCharactersReturnZero()
+    {
+        for ($ordinal = 0x00; $ordinal <= 0x7F; ++$ordinal) {
+            $this->assertIdentical(
+                0, $this->_reader->validateByteSequence(array($ordinal), 1)
+                );
+        }
+    }
+
+    public function testMultipleBytesAreInvalid()
+    {
+        for ($ordinal = 0x00; $ordinal <= 0x7F; $ordinal += 2) {
+            $this->assertIdentical(
+                -1, $this->_reader->validateByteSequence(array($ordinal, $ordinal + 1), 2)
+                );
+        }
+    }
+
+    public function testBytesAboveAsciiRangeAreInvalid()
+    {
+        for ($ordinal = 0x80; $ordinal <= 0xFF; ++$ordinal) {
+            $this->assertIdentical(
+                -1, $this->_reader->validateByteSequence(array($ordinal), 1)
+                );
+        }
+    }
+}

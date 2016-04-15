@@ -1,63 +1,116 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * DOMPDF - PHP5 HTML to PDF renderer
+ *
+ * File: $RCSfile: image_frame_decorator.cls.php,v $
+ * Created on: 2004-08-08
+ *
+ * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library in the file LICENSE.LGPL; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * Alternatively, you may distribute this software under the terms of the
+ * PHP License, version 3.0 or later.  A copy of this license should have
+ * been distributed with this file in the file LICENSE.PHP .  If this is not
+ * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
+ *
+ * The latest version of DOMPDF might be available at:
+ * http://www.dompdf.com/
+ *
+ * @link http://www.dompdf.com/
+ * @copyright 2004 Benj Carson
+ * @author Benj Carson <benjcarson@digitaljunkies.ca>
+ * @contributor Helmut Tischer <htischer@weihenstephan.org>
+ * @package dompdf
+ *
+ * Changes
+ * @contributor Helmut Tischer <htischer@weihenstephan.org>
+ * @version 0.5.1.htischer.20090507
+ * - add optional debug output
+ */
+
+/* $Id: image_frame_decorator.cls.php 283 2010-07-19 17:57:40Z fabien.menager $ */
+
+/**
+ * Decorates frames for image layout and rendering
+ *
+ * @access private
+ * @package dompdf
+ */
+class Image_Frame_Decorator extends Frame_Decorator {
+
+  /**
+   * The path to the image file (note that remote images are
+   * downloaded locally to DOMPDF_TEMP_DIR).
+   *
+   * @var string
+   */
+  protected $_image_url;
+
+  /**
+   * The image's file extension (i.e. png, jpeg, gif)
+   *
+   * @var string
+   */
+  protected $_image_ext;
+
+  /**
+   * Class constructor
+   *
+   * @param Frame $frame the frame to decorate
+   * @param DOMPDF $dompdf the document's dompdf object (required to resolve relative & remote urls)
+   */
+  function __construct(Frame $frame, DOMPDF $dompdf) {
+    global $_dompdf_warnings;
+    
+    parent::__construct($frame, $dompdf);
+    $url = $frame->get_node()->getAttribute("src");
+      
+    //debugpng
+    if (DEBUGPNG) print '[__construct '.$url.']';
+
+    list($this->_image_url, $this->_image_ext) = Image_Cache::resolve_url($url,
+                                                                          $dompdf->get_protocol(),
+                                                                          $dompdf->get_host(),
+                                                                          $dompdf->get_base_path());
+
+    if ( strrpos( $this->_image_url, DOMPDF_LIB_DIR . "/res/broken_image.png", 0) !== false &&
+         $alt = $frame->get_node()->getAttribute("alt") ) {
+      $style = $frame->get_style();
+      $style->width  = (4/3)*Font_Metrics::get_text_width($alt, $style->font_family, $style->font_size, $style->word_spacing);
+      $style->height = Font_Metrics::get_font_height($style->font_family, $style->font_size);
+    }
+  }
+
+  /**
+   * Return the image's url
+   *
+   * @return string The url of this image
+   */
+  function get_image_url() {
+    return $this->_image_url;
+  }
+
+  /**
+   * Return the image's file extension
+   *
+   * @return string The image's file extension
+   */
+  function get_image_ext() {
+    return $this->_image_ext;
+  }
+  
+}

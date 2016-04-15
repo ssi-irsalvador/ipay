@@ -1,56 +1,104 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-oDZ9DCQ73P0iQMYJK1128+qJgQ6Y344=
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ */
+ 
+//require 'Yay/Matcher.php';
+
+/**
+ * Compares values to see if they reference one another.
+ * @author Chris Corbyn <chris@w3style.co.uk>
+ * @package Yay
+ */
+class Yay_Matchers_ReferenceMatcher implements Yay_Matcher
+{
+  
+  /**
+   * The expected reference.
+   * @var mixed
+   * @access private
+   */
+  private $_ref;
+  
+  /**
+   * The desired return value.
+   * @var boolean
+   * @access private
+   */
+  private $_result;
+  
+  /**
+   * Create a new IdenticalMatcher expecting $expected.
+   * @param mixed $expected
+   * @param boolean $result to be expected
+   */
+  public function __construct(&$ref, $result = true)
+  {
+    $this->_ref =& $ref;
+    $this->_result = $result;
+  }
+  
+  /**
+   * Compare $ref with the expected reference and return true if it is the same reference.
+   * @param mixed $ref
+   * @return boolean
+   */
+  public function matches(&$ref)
+  {
+    if (is_object($ref))
+    {
+      $isRef = ($this->_ref === $ref);
+    }
+    else
+    {
+      if ($this->_ref === $ref)
+      {
+        $copy = $ref;
+        $randomString = uniqid('yay');
+        $ref = $randomString;
+        $isRef = ($this->_ref === $ref);
+        $ref = $copy;
+      }
+      else
+      {
+        $isRef = false;
+      }
+    }
+    
+    return (($this->_result && $isRef) || (!$this->_result && !$isRef));
+  }
+  
+  /**
+   * Returns true if the argument doesn't need to be present.
+   * @return boolean
+   */
+  public function isOptional()
+  {
+    return false;
+  }
+  
+  /**
+   * Writes the match description as a string following $format.
+   * $format is a sprintf() string with %s, $s as $matcherName, $value respectively.
+   * @param string $format
+   * @return string
+   */
+  public function describeMatch($format)
+  {
+    return '[reference]';
+  }
+  
+}

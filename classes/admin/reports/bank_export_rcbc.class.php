@@ -1,352 +1,517 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ * Initial Declaration
+ */
+require_once(SYSCONFIG_CLASS_PATH."util/pdf.class.php");
+require_once(SYSCONFIG_CLASS_PATH.'admin/reports/sss.class.php');
+
+/**
+ * Class Module
+ *
+ * @author  JIM
+ *
+ */
+class clsBankExportRCBC{
+
+	var $conn;
+	var $fieldMap;
+	var $Data;
+	var $txtHash;
+
+	/**
+	 * Class Constructor
+	 *
+	 * @param object $dbconn_
+	 * @return clsBankExportReport object
+	 */
+	function clsBankExportRCBC($dbconn_ = null){
+		$this->conn =& $dbconn_;
+		$this->fieldMap = array(
+		 "payperiod_id" => "payperiod_id"
+		,"pbr_batchno" => "batch_no"
+		,"pbr_bank_name" => "banklist_name"
+		,"pbr_routing_number" => "bank_routing_number"
+		,"pbr_company_code" => "bank_company_code"
+		,"pbr_company_accountno" => "bank_acct_no"
+		,"pbr_ceiling_amount" => "bank_ceiling_amount"
+		,"pbr_prepared_by" => "pbr_prepared_by"
+		,"pbr_approved_by" => "pbr_approved_by"
+		,"pbr_credit_date" => "pbr_credit_date"
+		,"bank_id" => "bank_id"
+		);
+		$this->txtHash = "";
+	}
+
+	
+	function getHashFile($id_ = "",$isPDF_ = true){
+        if ($isPDF_) {
+            $fldname = "pdf";
+        }else{
+            $fldname = "txt";
+        }
+		$sql = "select pbrd_hash_$fldname from payroll_bank_report_data where pbr_id = ?";
+		$rsResult = $this->conn->Execute($sql,array($id_));
+		if(!$rsResult->EOF){
+			return $rsResult->fields["pbrd_hash_$fldname"];
+		}
+	}
+	
+	/**
+	 * To get BANK INFO.
+	 * @param $id_
+	 */
+	function getHashFileInfo($id_ = ""){
+		$sql = "select * from payroll_bank_report_data where pbr_id = ?";
+		$rsResult = $this->conn->Execute($sql,array($id_));
+		if(!$rsResult->EOF){
+			$sql_ = "select * from payroll_bank_reports where pbr_id = ?";
+			$rsResult_ = $this->conn->Execute($sql_,array($id_));
+			return $rsResult_->fields;
+		}
+	}
+	
+	/**
+	 * Populate array parameters to Data Variable
+	 *
+	 * @param array $pData_
+	 * @param boolean $isForm_
+	 * @return bool
+	 */
+	function doPopulateData($pData_ = array(),$isForm_ = false){
+		if(count($pData_)>0){
+			foreach ($this->fieldMap as $key => $value) {
+				if ($isForm_) {
+					$this->Data[$value] = $pData_[$value];
+				}else {
+					$this->Data[$key] = $pData_[$value];
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Validation function
+	 *
+	 * @param array $pData_
+	 * @return bool
+	 */
+	function doValidateData($pData_ = array()){
+		$isValid = true;
+//		$isValid = false;
+		return $isValid;
+	}
+
+	
+    function updateAccountNo($pData = array()){
+        if(count($pData)>0){
+            foreach($pData as $key => $val){
+                $sql  ="update payroll_employee_account set pea_account_no = '".$val."' where pea_id =".$key." ";
+                $this->conn->Execute($sql);
+
+            }
+            $_SESSION['eMsg']="Successfully Updated.";
+        }
+    }
+    
+    /**
+     * BANK ADVISE RCBC PDF & TXT FILE
+     * @param $gData
+     */
+	function getPDFResult_RCBC($gData = array()){
+        $orientation='P';
+        $unit='mm';
+        $format='LETTER';
+        $unicode=true;
+        $encoding="UTF-8";
+        $oPDF = new clsPDF($orientation, $unit, $format, $unicode, $encoding);
+        $objClsSSS = new clsSSS($this->conn);
+        $branch_details = $objClsSSS->dbfetchCompDetails(1);
+        // set header and footer fonts
+        $oPDF->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $oPDF->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        //set margins
+        $oPDF->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $oPDF->SetHeaderMargin(PDF_MARGIN_HEADER);
+        // set auto page break to false so that we can control the page break
+        // depending on the desired number of lines on the ouput
+        $oPDF->SetAutoPageBreak(false);
+        // use a freesans font as a default font
+        $oPDF->SetFont('dotim5','',10);
+        // suppress print header and footer
+        $oPDF->setPrintHeader(true);
+        $oPDF->setPrintFooter(false);
+        // set initila coordinates
+        $coordX = 5;
+        $coordY = 30;
+        $oPDF->AliasNbPages();
+        // set initial pdf page
+        $oPDF->AddPage();
+        $oPDF->SetFillColor(255,255,255);
+        $oPDF->SetFont('dotim5', '', '12');
+        // printa($branch_details);
+        $oPDF->SetXY($coordX,$coordY-20);
+        $oPDF->MultiCell(200, 2, $branch_details['comp_name'],0,'C',1);
+        $oPDF->Text($coordX+60,$coordY-10,'PAYROL TRANSACTION PROOFLIST');
+        $oPDF->Text($coordX+67,$coordY-05,'PAYROLL DATE: '.$gData['pbr_credit_date']);
+        
+        $oPDF->SetFont('dotim5', '', '10');
+        $arrData = $this->generateReport($gData);
+        $ctr = 0;
+        $net =0;
+        $netxt =0;
+        $gtotal_hash = 0;
+        $gtotal_hash_acct=0;
+        
+        foreach($arrData as $key => $val){
+            $net += $val['net'];
+            $netxt += number_format($val['net']);
+            $gtotal_hash += $val['hash'];
+            $gtotal_hash_acct += str_replace('-', "", $val['bankiemp_acct_no']);
+            $ctr++;
+        }
+        if($coordY==30){
+            $oPDF->SetXY($coordX+5, $coordY);
+            $oPDF->MultiCell(40, 2, "COMPANY CODE :",0,'R',1);
+            $oPDF->SetXY($coordX+45, $coordY);
+            $oPDF->MultiCell(70, 2, $gData['pbr_company_code'],0,'L',1);
+            $oPDF->SetXY($coordX+110, $coordY);
+            $oPDF->MultiCell(50, 2, "CEILING AMOUNT :",0,'R',1);
+            $oPDF->SetXY($coordX+160, $coordY);
+            $oPDF->MultiCell(40, 2, $gData['pbr_ceiling_amount'],0,'L',1);
+            $coordY+=$oPDF->getFontSize()+1;
+
+            $oPDF->SetXY($coordX+5, $coordY);
+            $oPDF->MultiCell(40, 2, "ACCOUNT NO.:",0,'R',1);
+            $oPDF->SetXY($coordX+45, $coordY);
+            $oPDF->MultiCell(70, 2, $gData['pbr_company_accountno'],0,'L',1);
+            $oPDF->SetXY($coordX+110, $coordY);
+            $oPDF->MultiCell(50, 2, "RECORD COUNT:",0,'R',1);
+            $oPDF->SetXY($coordX+160, $coordY);
+            $oPDF->MultiCell(40, 2, $ctr,0,'L',1);
+            $coordY+=$oPDF->getFontSize()+1;
+
+            $oPDF->SetXY($coordX+5, $coordY);
+            $oPDF->MultiCell(40, 2, "BATCH NO.:",0,'R',1);
+            $oPDF->SetXY($coordX+45, $coordY);
+            $oPDF->MultiCell(70, 2, $gData['pbr_batchno'],0,'L',1);
+            $oPDF->SetXY($coordX+110, $coordY);
+            $oPDF->MultiCell(50, 2, "TOTAL PAYROLL AMOUNT :",0,'R',1);
+            $oPDF->SetXY($coordX+160, $coordY);
+            $oPDF->MultiCell(40, 2, number_format($net,2),0,'L',1);
+            $coordY+=$oPDF->getFontSize()+3;
+            
+            $oPDF->SetXY($coordX+5, $coordY);
+            $oPDF->MultiCell(40, 2, "ACCOUNT NO.",1,'C',1);
+            $oPDF->SetXY($coordX+45, $coordY);
+            $oPDF->MultiCell(70, 2, 'EMPLOYEE NAME',1,'C',1);
+            $oPDF->SetXY($coordX+110, $coordY);
+            $oPDF->MultiCell(50, 2, "TRANSACTION AMOUNT",1,'C',1);
+            $oPDF->SetXY($coordX+160, $coordY);
+            $oPDF->MultiCell(40, 2, 'HORIZONTAL HASH',1,'C',1);
+            $coordY+=$oPDF->getFontSize()+4;
+        }
+        $row_ctr = 0;
+        $net_total_perpage=0;
+        $hash_net_total_perpage=0;
+        $hash_acct_total_perpage=0;
+        foreach($arrData as $key => $val ){
+            $net_total_perpage +=$val['net'];
+            $hash_net_total_perpage +=$val['hash'];
+            $hash_acct_total_perpage +=str_replace('-', "", $val['bankiemp_acct_no']);
+            $row_ctr++;
+            $oPDF->SetXY($coordX+5, $coordY);
+            $oPDF->MultiCell(40, 2, trim($val['bankiemp_acct_no']),0,'C',1);
+            $oPDF->SetXY($coordX+45, $coordY);
+            $oPDF->MultiCell(70, 2,strtoupper($val['name']),0,'L',1);
+            $oPDF->SetXY($coordX+110, $coordY);
+            $oPDF->MultiCell(50, 2, number_format($val['net'],2),0,'R',1);
+            $oPDF->SetXY($coordX+160, $coordY);
+            $oPDF->MultiCell(40, 2,number_format($val['hash'],2),0,'R',1);
+            $coordY+=$oPDF->getFontSize()+1;
+            if($row_ctr  > 30){
+                $oPDF->Line($coordX+5, $coordY+5.5, 200, $coordY+5.5);
+                $coordY+=$oPDF->getFontSize()+1;
+                // plot net total,hash total, accnt number hash total per page
+                $oPDF->SetFont('dotim5', '', '10');
+                $oPDF->SetXY($coordX+5, $coordY);
+                $oPDF->MultiCell(80, 2, "HASH TOTALS (page)",0,'L',1);
+                $coordY+=$oPDF->getFontSize()+1;
+                $oPDF->SetXY($coordX+5, $coordY);
+                $oPDF->MultiCell(40, 2, $hash_acct_total_perpage,0,'C',1);
+                $oPDF->SetXY($coordX+45, $coordY);
+                $oPDF->MultiCell(70, 2,"",0,'L',1);
+                $oPDF->SetXY($coordX+110, $coordY);
+                $oPDF->MultiCell(50, 2, number_format($net_total_perpage,2),0,'R',1);
+                $oPDF->SetXY($coordX+160, $coordY);
+                $oPDF->MultiCell(40, 2,number_format($hash_net_total_perpage,2),0,'R',1);
+                $coordY+=$oPDF->getFontSize()+1;
+
+                // reset variable settings
+                $net_total_perpage = 0;
+                $hash_net_total_perpage = 0;
+                $hash_acct_total_perpage = 0;
+                $row_ctr = 0;
+                $coordY = 30;
+                $oPDF->AliasNbPages();
+                // set initial pdf page
+                $oPDF->AddPage();
+                $oPDF->SetFillColor(255,255,255);
+                $oPDF->SetFont('dotim5', '', '12');
+                $oPDF->Text($coordX+60,$coordY-10,'PAYROL TRANSACTION PROOFLIST');
+                $oPDF->Text($coordX+67,$coordY-05,'PAYROLL DATE: '.$gData['pbr_credit_date']);
+               if($coordY==30){
+                    $oPDF->SetFont('dotim5', '', '10');
+                    $oPDF->SetXY($coordX+5, $coordY);
+                    $oPDF->MultiCell(40, 2, "COMPANY CODE :",0,'R',1);
+                    $oPDF->SetXY($coordX+45, $coordY);
+                    $oPDF->MultiCell(70, 2, $gData['pbr_company_code'],0,'L',1);
+                    $oPDF->SetXY($coordX+110, $coordY);
+                    $oPDF->MultiCell(50, 2, "CEILING AMOUNT :",0,'R',1);
+                    $oPDF->SetXY($coordX+160, $coordY);
+                    $oPDF->MultiCell(40, 2, $gData['pbr_ceiling_amount'],0,'L',1);
+                    $coordY+=$oPDF->getFontSize()+1;
+
+                    $oPDF->SetXY($coordX+5, $coordY);
+                    $oPDF->MultiCell(40, 2, "ACCOUNT NO.:",0,'R',1);
+                    $oPDF->SetXY($coordX+45, $coordY);
+                    $oPDF->MultiCell(70, 2, $gData['pbr_company_accountno'],0,'L',1);
+                    $oPDF->SetXY($coordX+110, $coordY);
+                    $oPDF->MultiCell(50, 2, "RECORD COUNT:",0,'R',1);
+                    $oPDF->SetXY($coordX+160, $coordY);
+                    $oPDF->MultiCell(40, 2, $ctr,0,'L',1);
+                    $coordY+=$oPDF->getFontSize()+1;
+
+                    $oPDF->SetXY($coordX+5, $coordY);
+                    $oPDF->MultiCell(40, 2, "BATCH NO.:",0,'R',1);
+                    $oPDF->SetXY($coordX+45, $coordY);
+                    $oPDF->MultiCell(70, 2, $gData['pbr_credit_date'],0,'L',1);
+                    $oPDF->SetXY($coordX+110, $coordY);
+                    $oPDF->MultiCell(50, 2, "Total Payroll Amt:",0,'R',1);
+                    $oPDF->SetXY($coordX+160, $coordY);
+                    $oPDF->MultiCell(40, 2, number_format($net,2),0,'L',1);
+                    $coordY+=$oPDF->getFontSize()+3;
+
+                    $oPDF->SetXY($coordX+5, $coordY);
+                    $oPDF->MultiCell(40, 2, "ACCOUNT NO.",1,'C',1);
+                    $oPDF->SetXY($coordX+45, $coordY);
+                    $oPDF->MultiCell(70, 2, 'EMPLOYEE NAME',1,'C',1);
+                    $oPDF->SetXY($coordX+110, $coordY);
+                    $oPDF->MultiCell(50, 2, "TRANSACTION AMOUNT",1,'C',1);
+                    $oPDF->SetXY($coordX+160, $coordY);
+                    $oPDF->MultiCell(40, 2, 'HORIZONTAL HASH',1,'C',1);
+                    $coordY+=$oPDF->getFontSize()+4;
+                }else{
+                    // increment coordinate Y
+                    $coordY+=$oPDF->getFontSize()+1;
+                }
+            }
+        }
+        $oPDF->Line($coordX+5, $coordY+5.5, 200, $coordY+5.5);
+        $coordY+=$oPDF->getFontSize()+1;
+        // plot net total,hash total, accnt number hash total per page
+        $oPDF->SetFont('dotim5', '', '10');
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(80, 2, "HASH TOTALS (page)",0,'L',1);
+        $coordY+=$oPDF->getFontSize()+1;
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(40, 2, $hash_acct_total_perpage,0,'C',1);
+        $oPDF->SetXY($coordX+45, $coordY);
+        $oPDF->MultiCell(70, 2,"",0,'L',1);
+        $oPDF->SetXY($coordX+110, $coordY);
+        $oPDF->MultiCell(50, 2, number_format($net_total_perpage,2),0,'R',1);
+        $oPDF->SetXY($coordX+160, $coordY);
+        $oPDF->MultiCell(40, 2,number_format($hash_net_total_perpage,2),0,'R',1);
+        $coordY+=$oPDF->getFontSize()+1;
+
+        // grand totals
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(70, 2, "COMPUTED HASH TOTALS",0,'L',1);
+        $coordY+=$oPDF->getFontSize()+1;
+        
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(40, 2, $gtotal_hash_acct,0,'C',1);
+        $oPDF->SetXY($coordX+45, $coordY);
+        $oPDF->MultiCell(70, 2,"",0,'L',1);
+        $oPDF->SetXY($coordX+110, $coordY);
+        $oPDF->MultiCell(50, 2, number_format($net,2),0,'R',1);
+        $oPDF->SetXY($coordX+160, $coordY);
+        $oPDF->MultiCell(40, 2,number_format($gtotal_hash,2),0,'R',1);
+        $coordY+=$oPDF->getFontSize()+10;
+
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(100, 2, "PREPARED BY:",0,'L',1);
+        $oPDF->SetXY($coordX+100, $coordY);
+        $oPDF->MultiCell(100, 2,"APPROVED BY:",0,'L',1);
+        $coordY+=$oPDF->getFontSize()+7;
+        
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(100, 2, "__________________________________________",0,'L',1);
+        $oPDF->SetXY($coordX+100, $coordY);
+        $oPDF->MultiCell(100, 2,"__________________________________________",0,'L',1);
+        $coordY+=$oPDF->getFontSize()+1;
+        
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(100, 2, "",0,'L',1);
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(100, 2,$gData['pbr_prepared_by'],0,'C',1);
+        $oPDF->SetXY($coordX+5, $coordY);
+        $oPDF->MultiCell(100, 2, "",0,'L',1);
+        $oPDF->SetXY($coordX+100, $coordY);
+        $oPDF->MultiCell(100, 2,$gData['pbr_approved_by'],0,'C',1);
+        $coordY+=$oPDF->getFontSize()+3;
+        
+        //build hash header for the text hash report
+        $hashHeader_ ='H'.str_pad($gData['pbr_company_code'],5,'0',STR_PAD_LEFT);
+        $date = dDate::getFormattedDateStampMDY(dDate::parseDateTime($gData['pbr_credit_date']));
+        $hashHeader_ .= str_pad($date,6,'0',STR_PAD_LEFT);
+        //batch no+'3'fixed
+        $hashHeader_ .= str_pad($gData['pbr_batchno'],2,'0',STR_PAD_LEFT)."1";
+        //company account no
+        $hashHeader_ .= str_pad($gData['pbr_company_accountno'],10,'0',STR_PAD_LEFT);
+        //presenting office code
+        $hashHeader_ .= str_pad($gData['pbr_routing_number'],3,'0',STR_PAD_LEFT);
+        //ceiling amount
+        $hashHeader_ .= str_pad(str_replace('.', "", $gData['pbr_ceiling_amount']),12,'0',STR_PAD_LEFT);
+        //net
+        $hashHeader_ .= str_pad(str_replace('.', "", $net),12,'0',STR_PAD_LEFT)."1";
+        //spaces
+        $hashHeader_ .= str_repeat(" ", 75);
+
+        //build hash footer for the text hash report
+        // H & account # total
+        $hashFooter_ ='H'.str_pad($gtotal_hash_acct,20,'0',STR_PAD_LEFT);
+        // total netpay
+        $hashFooter_ .= str_pad(number_format($net,0,'.',''),20,'0',STR_PAD_LEFT);
+        // total hash
+        $hashFooter_ .= str_pad(str_replace('.', "", $gtotal_hash),20,'0',STR_PAD_LEFT);
+        
+        // get the pdf output
+        $output = $oPDF->Output("payroll_transaction_prooflist".date('Y-m-d').".pdf","S");
+
+        if(!empty($output)){
+            $this->doTextHash($arrData, $hashHeader_, $hashFooter_);
+            return $output;
+        }
+        return false;
+    }
+    
+    function doTextHash_(){
+    	return $this->txtHash;
+    }
+    
+	function generateReport($gData = array()){
+        $qry = array();
+        $qry[] = "h.payperiod_id = ".$gData['payperiod_id']."";
+        $qry[] = "c.emp_stat in ('1','7')";
+        $qry[] = "g.banklist_id = ".$gData['banklist_id']."";
+        $criteria = (count($qry)>0)?" where ".implode(" and ",$qry):"";
+        $sql = "SELECT concat(e.pi_lname,', ',e.pi_fname) as name,f.bankiemp_acct_no,c.emp_id
+                FROM payroll_pay_period h
+                JOIN payroll_pay_period_sched a on (a.pps_id=h.pps_id)
+                JOIN payroll_pps_user b on (b.pps_id=a.pps_id)
+                JOIN emp_masterfile c on (c.emp_id=b.emp_id)
+                JOIN emp_personal_info e on (e.pi_id=c.pi_id)
+                JOIN bank_infoemp f on (f.emp_id = c.emp_id)
+                JOIN bank_empgroup bnkeg on (bnkeg.bankiemp_id=f.bankiemp_id)
+                JOIN bank_info g on (g.bank_id = bnkeg.bank_id)
+                JOIN app_userdept dept on dept.ud_id=c.ud_id
+                $criteria
+                order by e.pi_lname";
+        $rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF){
+			$arrData[$rsResult->fields['emp_id']] = $rsResult->fields;
+            $arrData[$rsResult->fields['emp_id']]['net'] = $this->getNetpayPerEmp($rsResult->fields['emp_id'],$gData['payperiod_id']);
+            $arrData[$rsResult->fields['emp_id']]['hash'] = $this->computeHorizontalHash($rsResult->fields['bankiemp_acct_no'],$arrData[$rsResult->fields['emp_id']]['net']);
+            $empacctno = substr($rsResult->fields['bankiemp_acct_no'],1,3);
+            IF($empacctno == '000'){
+            	$empacctno_ = '001';
+            }ELSE{
+            	$empacctno_ = $empacctno;
+            }
+            
+            //CTL 1,2,3,4
+            $text_hash = '01001'.$empacctno_.'000';
+            //empolyee account no
+            $text_hash .= str_pad(str_replace('-', "", trim($rsResult->fields['bankiemp_acct_no'])),14,'0',STR_PAD_LEFT);
+            //Transaction Code fixed, User Code fixed and DRCR Amount(net pay)
+            $text_hash .= '801110'.str_pad(str_replace('.', "",number_format($arrData[$rsResult->fields['emp_id']]['net'],2,'.','')),15,'0',STR_PAD_LEFT);
+            //convert Transaction Date to MMDDYY & Back Date
+            $date = dDate::getFormattedDateStampMDY(dDate::parseDateTime($gData['pbr_credit_date']));
+            $text_hash .= str_pad($date,5,'0',STR_PAD_LEFT).'0';
+            //FILLER
+            $text_hash .= str_repeat(" ", 25);
+            //batch No fixed & FILLER
+            $text_hash .= '00001'.str_repeat(" ", 10);
+            //Originating Branch
+            $text_hash .= trim($gData['pbr_routing_number']);
+            $text_hash .= str_repeat(" ", 4);
+            $arrData[$rsResult->fields['emp_id']]['txt_hash'] = $text_hash;
+            $rsResult->MoveNext();
+		}
+        return $arrData;
+    }
+
+    function getNetpayPerEmp($emp_id  ="", $payperiod_id =""){
+
+        if($emp_id == ""){
+            return 0.00;
+        }
+        if($payperiod_id == ""){
+            return 0.00;
+        }
+
+        $sql ="SELECT b.ppe_amount
+                FROM payroll_pay_stub a
+                JOIN payroll_paystub_entry b on (a.paystub_id = b.paystub_id)
+                JOIN payroll_paystub_report c on (a.payperiod_id = c.payperiod_id) and (b.paystub_id = c.paystub_id)
+                WHERE c.ppr_isdeleted = 0 and c.ppr_status = 1 and b.psa_id =5 and a.payperiod_id = $payperiod_id and a.emp_id = $emp_id";
+        $rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+			return $rsResult->fields['ppe_amount'];
+		}
+    }
+
+    function doTextHash($aData_ = null,$hashHeader_ = "", $hashFooter_ = "", $delimeter_ = "\r\n" ) {
+        if(is_null($aData_)){
+            return "";
+        }
+//        $this->txtHash = $hashHeader_.$delimeter_;
+
+        if(count($aData_)>0)
+        foreach ($aData_ as $keyData => $valData) {
+            $this->txtHash .= $valData['txt_hash'].$delimeter_;
+        }
+
+        $this->txtHash .= $hashFooter_.$delimeter_;
+    }
+
+    function computeHorizontalHash($account_no ="", $net=""){
+        
+        if($account_no == ""){
+            return 0.00;
+        }
+        if($net == ""){
+            return 0.00;
+        }
+
+        $data = explode('-',$account_no);
+        
+        $x = substr($data[0], 4,2);
+        $y = substr($data[0], 6,2);
+        $z = substr($data[0], 8,2);
+//        echo $x." x<br>";
+//        echo $y." y<br>";
+//        echo $z." z<br>";
+//        echo $net."<br>";
+        $x_net = $x*$net;
+        $y_net = $y*$net;
+        $z_net = $z*$net;
+
+        $hash = $x_net+$y_net+$z_net;
+        
+        return $hash;
+    }
+}
 ?>
-HR+cPuHfoN0uFZ97t6TSKwz7PVw1+/Bb8Xn3zTdFqh3kV4FvwqViRkRl4JksjG4DUtfzdWh3ZHdb
-ASz70o3wQBdRz+4mIaYL14tOdiHkNl3Qts1ABnrFdYJxEG0Ekc5D1JS/ubLeKJPL5GZlQVIcFIre
-6EhLSw+2cjye5RHf03XR61ATqKeS/R7YvlPUavncdO/P7wsegncMOeaORM2+kEjlE/geBnBjYNxP
-1TStDqed1IT0Zz3nJxc0CLoMMMs2+cuKBAYQmDkjuiv294k38MoaaI31gusq6al3fglMzqUErP+0
-/QBUmPYbOHfP2Ec4CPYb2mN6WsB6IF5l1HNOLeqjI1pxuQ/Vc+s6Rizj7847xVTcs/h8OmD7+HEC
-hMKIU36FHAyHAT08Z+37yFcpXC7R69PNQrODovZ7gT4EDoB6D360/KehIP/UNxjHok9IGt1ZNSWn
-dOd0lJjdpypiIA1ADh9F7uMAHpWkI3cpPhUvL8Had0LlumUN0CFtiKK2U1uYpQ9LSTUQl7UoT44Z
-QMY7lJRnY+IFn9552x+8e4sPAQfmmrneErgCC15JqDst60FZsCSw6B0iv5+tsz5pWYqCU6PYHi4Q
-9iSvjim5CgAOyKPDFpgikHXuDBJjzsSlThv9qVWIuhiU3PjHL/qBLJSi9+wF0l5WBo3FUw+SCVIG
-vHPJCdjPaB+IB6kCE6zZ4fqE35hvvbBOV3VBGZZxytZ7tSeFjCuM9xCMs4sY0l/t9Oc6DjjDAn/k
-JafL6Pr2HeJGplQx9CIqKnElMWNYG3Jq9Jel4vboyEU85uCp90uvkUnCNKZfuL4FlJbPYwe+gr5S
-s4OPkQztUD2MSU5KIIalkuuChUfrJeph4Kr0sCOBIXYRXfohmrUWbnHBrHAaXOUtnnQ2FdVhuPmV
-68utaK6pPZl84cJyJKF0kDcEhBmUglM3n578vzg822U6uoW8kFNtJxaA82cDsbv1T8vCw3V6xAeu
-un07zk7NOaR3B14+hEpKPp5McyDQH1Gw8NF8yyS0q1QtqAWz2nosHHo9542IY2M4AJOwjxC3nIGG
-xmn4qtwF9KYuKiY9yQAEHobQBP7DsKpWi1Z8Mh4TJRWmur/omqm+dfpDMFu9CASzpInv4JVIpkZP
-tSj8UtyN5SHwGy2sz9OvPK93G04AB72HyAdoW4Qs7X4G5I0tKGROAFeFZN/ItDHaUmwXLVEp9INA
-mYue7DkjqsHYB9NYkjiRHfl/fp0vscwtwEi3Hxes6OEk54bt+TcU0OLMecR3oCN6Fzj7yErHjzHD
-nFubTK8DlaK69nmKIXj/RuLN9U/aaHvhQS3Uxixgz1rp3Pe7BBLtouS9UltYKCOqV4PnDUn6zvcL
-Hw7CNz26b04qlM2xPjer3iphjZaFKTi8a0CAQx5jL8IInb7WeiTf3gcJZ+QliEAKvqeSezCwxOhN
-HRMAxtHn5tDTqhZiL8JpC7ghkuUF6lWJAy6/bvjr8NzxYtl+mN6hVIn2aG0SpJtlon+gA0ZR4tdR
-z+EWI+U1g9C1I1/12IxqjuhnaTErgf7HJYgDYWp7Kg4etL397jlrNBaTN9xKfvZmcp3PWRFMWxrL
-IAHFUrMiDPWraSHnx6e3vJrluYN+q1/jDti+RE3Bjzb/iCOgvzkAxzP/CC6c9S3Gf63XJ4QziLSG
-Ra0YtCW1OMiwII8t61MRcbWC3nNTjNCO8ypnVSEM3sh3pdMouhx1tE1hhBmsRj1a7269paEiX6LX
-KUOqlHgVQ7X/IqeBIhTSYIexA0/K4z193OX1Klj4CgmaKOzWtwqdXRxxHTR5idlnmXOVhYdHoTqr
-gksFi4QmBEpidefcJRfpMHILVOl5OqfBCdNCiiVfWIo8bz8P9YYeIz+jhQIU7ZDDwFedPOljl+3o
-aJdudWx1Fc4XKO+5S24+bMGMWAwr9j30/SwUsOs9njvGyF63VyR2CInM4wWDt5LOjzaCUz1JLyEv
-mYT05dNc+91bB8g8PkGMxqm+o4qu/o6ofu0sKmFojqAHIoyvakr+5I/c2chyxersYjh+B+SAhDU8
-OGiwtA4lFJQkRkIPw4uRNbwIs6NpMnJy9sEn5CZihUeg7lfXC7AhBEpiraSKpdqu7MdP46AaiHXG
-spiEeg4Nh524CRfZPrcsvtEfBcYBOgE50TNh+L1hBMk6SzVEoWBMVcvkOI71bXS+AXVQBJCgope9
-cU1VuIopFntT35iZ+kHwDQLBE6uX+fFJ8v6CQkRMvIR55GyLdoKNXFONgJGLSYJ3vhBz+aQDzGOu
-JNTssP1aLVjvsFxRLCmNtB4zzq8wD4/trTmCoHFzSfiBzQl/SZifmxXbwXhUZyd5YWZ/zXgdZOn3
-AFLrSrIqxwUQNx7JQZjA90v2B6PisAaUfjUaRFdnnmbsoxlPdSz4yM7+1bBScXgsnVfRPhWjDytD
-4pUaAOv0Q0yUIgz8icu7V6oc+EPEQj7JcK7m9Faxk1aaO/I1u4eUDsjNRiG+xpghlEEsccXzMa6e
-8aW5X+5aLTbvnWmLT/+8EA5M1VJC83Yc7vBnAFIxs/ZDKM+RCxBtiOVsmyfmwHQ0k0VqPrkkwc9P
-K1AJMZFX4KsaIfPdZQe52PAIOCpIXJTOqYdunN+ukAlGpC9WTHnKy2wL2PV4sUnaRg5G9cN3fiTZ
-g/h4tIi+Ftcs9vnsx5HF2oq2GpBjLPQwSu4we8kbtWLB+Sow26M5P/ZL2QcTkYcoiKwtw0vPWR1n
-YHAbEOXXHZIowR4gB3i3cNOuSahl6UeD1NipmSduKMAkOdsn9DASqEl94zK39qIBp3Mi08fBwIXs
-j/J1TOIP92xtO540FM0JJm+O1q+jm40xiC+z90+rmHA/zz6MR+cI8qfOyDrAVUV4t/RxHsLLYaeo
-XpYLgtvaO7+QFcEyUdCWNv96kc0QNxhHmzoFTrC01hQJy/b+JtSvz7VJUyQA/Ic972xrAKzcQY4C
-BiDZbMO5+8cRPY+nzxMXADEO3yqRV2r+hIk0XCDsVByDaOovEqmgTGsF0rzpWJY/Lfxd9mCX9ufr
-yjGEJnKzpXNOjEOFycb2xtAMJXI3xchcaiwABa2v6xUd7jkxHCHtuuoj6icjto+5sG+QJKxmtZ5l
-XOG3y0d9gHSs8ib4/ijXh7q0KncVr/9vPQBRSHT1wSENNaEFvkxZMkYBfI9N+4iXNeaT01+mC1lR
-ZO5P2jV6H66lGeFX2PW1KTSwB4RevxIn4XuSz0wVN9tKU83WK9RkEMqUNxaAsKfvkRn+jlXFHJ9/
-rtt2C8sNDOWEghNp7tc7olwZs6xhSdEh552YuGuVf3+2DlHkKZZr6pOSZki/j6uIoFRTHc/qunUZ
-0q10/Q2aRzJfTSlfi9MpbLL637VYqh8S82f5lhwQptxloMzEzM4AuslMYvNTQ0CAAehbBYRmI7UN
-1H8ZNUdX6ptmn6Y12qHDk+kB0MEAuMVaTowLWrw4TSZ45fmed1EtrTklWhWjIiW3Hvv3KYD0hKy9
-pc4oBhAN5E1wilt6ugzj35OpKsiA87t5AQBubQxk6a3v98yM8psob4fVNaH3hY1ZqaoTDzi2sB/d
-Cy2jVasQOOWb+V3EhEVEHcf7HzrGOHJFDyn/aNIiUID6Z4z3ns6m1Do1qXYeq80FfzvDOs9Aow15
-HdG12AxA2k4D9Wqftwuuus1thmN2M0sWCESnzmFLEtYJE4gWzFgGfCUxpTcUIsWFvUhJCgqgAPM5
-2AxD2HvlDl/cbwgRjWoMih6gdEvTx8UDyvNOe0QtRGp736WR+Kwm2Ka/GI5zseMWVX1JxCA7AOW8
-jjLJEROJ2ApSfoA07UHGlb/m3Q8C66x7eeuQAV4PTSnydV4LrXcLBSkrlaBTtXXeJhuuE0VVcwLR
-Txl0vC5L4AOWSnzW4uoklHLex6Jbt0/sDJJvJl37a8g3JCbD/+M2nXaG2gbd/d7g26VsgJub04Jp
-H8Ftzua8bYcTRIaTqn/K2B/L7mqSrMi//1P2LVm8Ja1EqWeE0/iueGtegU9SM068SVKDpE0RhshM
-xqNbY6ehI4BMTcYSW8dLJVdOlR4JIqRmjaqJiw3oQpkDFuTys0v4mV4eRFOse5ZF+T/Z6JSGmqMG
-KGtmUJlOJAePQux9aALf77QjV6ytH4wONY5q9kYihVpX/s97t/OQyYpZWbR7TiMMU27tcPz/OPFp
-CsiLJ+RV4kK3x6/m1Y5wkaYAUEPxMZV73VREoLHwClAzRbqwgAmUhxrYsXmwYEW9JIcn6jGHwUpA
-REvXdyq6u6dHR/upYgJT2x/BdD/XFhi0GCix4E+w1n+DL1VA1DlL0aWwECb6yU8i8bI0Eu8asyfr
-FLWCGPq6gq274UURnz0PWGLGMW+4qS6JmPnVM2RnLRqf10V90ijc1S3JHQLmUuWCB5s9aP3J5WKl
-p3VA+khbKV6C4Jd/zNuarFjQLEumS2FX3zx//6E5XmGj6m+JbqzZoWjxcUnkGQr+QXE2cCnMD+X8
-IRNroy1gm02Jpj4b/Hgzcyj0lulvkyHjRhJUKxmepXisrkwQxDuCFKFaw59f1lF893Mimr9BkJ2f
-lklW+iJ82wEnEYz492DUbkI8o+G4IYCufwWMQDG80TyxilkqmaM4SYBRifT1nCnyuy0ZOzpZtufl
-VPD0fffYltLNnhTbKiDsCsEAnalzyNbrn8wiPjoGdFRmlv+mDlWg2ZbHYCZAhNWAiE8TGt2t60fa
-ccUJqhFBfnVyre9XQHlmHwt9RH09y6TjrPuLysW+xnAOYHQPqM6f3/z30EfGMkHK1t8BvqNq4hK7
-+Smmz/dH5eOGRZNjf8IbwkdGeR0k4HrQ4gj5nWYHn3/uGyhvbS+5jqeVjrZPBwpMp4SXXam/ledI
-MMytWT9tlwlC220mtGgtkzDbzPtPUD6oZk358t0+QetCXN3yUDn3vP9rRNIZKF2zPgiG0l0cjlxI
-/OMeb4tA7ViXEzwV+xXxQEzHFVX0n/ZHA8fDfhr1EoT5ij9PsMgJz+loi20gq+Rb6O0psGlrY/Q3
-QYvVVIflVEE4J4/0/wvbMkmBUQho8zznqYAp1lAWFlxpAEddMMI9vcaJxCeB4Huf3oJ4/55Vq/ge
-2GJhZWAbsQcTtpiOKPBnI/NjOux3HFAdhlcnO2gFvgo7A93pz6Io4KKkLkPK2HQ0qQHtDhYy1Scx
-kbbvt8SlPO1fFKVXKbols7iX4NJEd22GYx0QQncOZ8icSyRMJPW2Fo6CG0UYP7gf5pun6qJnq3iz
-ZAI/QhZSgLn2QPjokbDATYoV0tMBb03kKraMT6puyFIazy/pBGH+yQwMSI5OAM781F2nI+bYHJS1
-yELo3BYxyKL/Oox17dYB30BPWYpM409S8ad9QlGX0vcDMfp+7FhvT/jUJKWqQ4gonmVe197uBD7y
-gnE8rZyRrBD6B4TDzWyK0rrbbKqcilqCG2nRJQqzKAm3YPuphA4reCJo5lhU/6jYcS0eujbIgQvQ
-XsUheSOtCkQSxcpRRM+eS7xelUiKkLyrb1W99+FDfIgA99eHy3ZogO+fKLDk+YApd8oo0kb4CWqk
-jLOBnrd7xUS3C9agWjUVaiOTkkVAGK2yPh4L+7GtqFkBfqYSSIdPWuOSgtm1GJT1DU5aaDrTwFzQ
-8gnpwcopX8vYPIDsBPrBYLM4gyaioGYoUIWVj3FA6jjUX+UOApUubhA2BROOYR/gQyos96kSoZNo
-BNXx5gIcyZgUMEYIzU6x0QA+efV/7ZPWaQZRKnu7LTULBot6TA9gCyQrsYm6FQl9jJ9PNjdT2Q+g
-HpPukMgpW9ryb5Ll4QD4nmLq+XJ8KT1LhAA5aKaHY6ucIA1y6xhX8YT4nusm59Z1Ozt9TaAgE80U
-Mz18xEQZyfb39W2JKiBIxDN6zFWOc0p4a+T6NCGCJ9/7AxfvGAKjcSY3Ql7hmIaJ+LndVVUc1KGN
-Rsz9ufU5qUG/w44Dk9DpTBKvRzWtDmz2kLorUDA6EgX/yFgaxb5eVTZuES+mLnnT9vIOJ6u128Yv
-0YCMfX6n826uRB2hDU2G6ojY3GcefHyTPHyo/a6nXz/E8/Bt+cP+SqlpNlbmx5avQl5923r1iOvU
-gVoMaVSKBcAuptg9v3g9WoMKbj+88Jkj+tsIneUA61XbAHj6TKOvWZ9PNUO0nUE6kQ3RdX8B/v6H
-HF+SpY82mQ84stgMtb2WVfEIcHjAMt8/lAhQCAIZLcMZeX2kH8n79md0JVXJX/2iKGVkSLKm7yT2
-tn2H5xWNxfK6hrgkDndKJmQhP7G+IiRaxrJGjlPzfDU2eedcNuIcZV3PtXU2jz3r1ULNBUkfrnVX
-1qrRJZDlZ1GgUY6+ll/wqnqKJUwq0uekE6GtrKgWtjKMrc9ofhaiWQsnJSUmRGUVcodYZ8VcITsh
-sfqkBwfu0LWQgVu2HKys/VR19dwmetoZILe/Fy3ZPHzlIrz/u6xDdqmX3YLCyMgRII5w4ruJKgb8
-YXjdmYDE9TuH8MDb092eHbkHwz1K0hmWPbB/BmnWLZ+Ll0nzNAIwD3TigoNSBguIVHjlG08B3VCL
-rTjCJe2XubJvAakYBRWs+jGLFhM8wYKhTcj//YPi4jLb6nACIVkEMyC3lRMzOADGziMG2z9K/9FP
-6e40FfiIoGGKjdmMbYdvR1n7KGsDpZDXcO+qEHU7rCWnf2zV1yE0jTiv1i1NytKZV3uRy+kKbaG7
-SS3GpTTd/LeAQhtj9Sdztjg5P5fOhACDUXNFS6WE2DG1n14s7CWLVmKadGB3jKzTQMqFuYvP3vp5
-fUpQvXVMfg1mNKlVD5O0a7aPkxOF7DUaRisCBgkRhehTU0ZnoYi+3LozsU/tnE580qz6iCrJNF/3
-YntHbVqub6y7urhPNRBpp8/fH+o/B4k9m4WdoFLj3kwASC7Ay8qgRwN/BxzkuHs4KdKM3yQMk/FJ
-x5Qvz1fIY1a665NPH4PPLxmxDlUcp9gOrDH/iLbGPC/UoC8GPJaL91XoQdJ4f35OjH4Q9gexaDLC
-KpG6FZxzN8TKN5vnZjGpWcl3DF867TIKKGRGa8ikdvUHmAA/lSieZKYx+6mNoqFK3S98qGBM/nBA
-3WjTywgSoNGO5Q0tjB/CgM06/bxEqj+YYNGsXWe6mGz4/kuOuNwjkXRou7yl0Gyp3B6wXCxM1sbT
-UZtLN5+W0wXDUgDRY9ofsB3eSk09TZrR0ZyWp4x+o0GPDp51tRH+Ck68JTXrobIEC/Vl8Xe0sBoR
-CsJ5IaFh7MkF/Y8MzDWq//k8m7Yyz+E11WcdEb7JYcwpPJloW4KK2MrBgK3ZHSjmBvEuCl2unCNk
-1HNKrTMwDIB5W3NlMIF0HMJhxAXyGGVKfSWtrFtqvaLRvr/nOW0Cj3Yapt2VjtEVA533KmLXw0A5
-0vuDdSdkPaNHVaaZOT06zDRsdqT3ciSUes7e89JVQFjjqbb/KGCqg4SWWOCO4u8xHvm9KA5s/e3J
-VU5LHe2+ApBYPR8JOqvAbI4h+xSd/b4cJwXsG3BZ5NGJ7k0eFOJSUfKHSnU+lvCTm9jmQEHAciJu
-GZ9PPeJSL2ZoTesiwUFpnUP6iTnXreAFrhsn9ljl0oH4dw4nyai1GGmtsgqsvajs0+bXetirLi91
-9DZY6iagiTFJxp/Z03j/h6fdatpcwyEPGqA6269ZMlVdsJsIHau7X6q7IC7F4uuXH4ZRrlaopGiu
-zHC/nPt/2OKPfvSg89ShgUWXZNhHP3T0Qj+xC/L64Qqx4sTNXE+ntsDWGJg9IrFqFZGtU+IrIFsS
-rEU0Wv2Bvok4sZeqhNVLyyED/NyKXTNwoDBU+drz0/gR/OwRT+5FDk7KxGCJdcUXg0LNGi2XYmtC
-R2dyYe5Revf/R1/He4OBrQLLm5oa/5LRuDrGuuHwybT90AqqS/a0ArMh1oZTiARRtjBtE0oDCz76
-CeZpw5Mm0nqjfu7ewJ+2XGK9dsuRdW97PAfCXobM0VsMXNlKzhT99veKZNZr69H40tafDh3pYb8h
-tfbWXLLyErGNStqTt6PteNdSykN355Py5j/pdrEWgQDnrtnNDqohum1zMwSg9lcEWSt+S57MKTLw
-IZ2J2wOSeyJv+tMcBTVDM1eBz/tc4lUl23AhJQojC4LRYstHmiE8W7CKLtcIcZyvL1Lau4scftsX
-rCnRm1N8B+7A2nwkNaJYzF/ltt/LrIddXLGEU70WhLAjTyJ76KB8rGLzpljXFovEqnzZ2xSG8uHL
-o49f4LWKc0Y78uoTQRqxB/LY9oPPDuFtgysq2Ju75ecln+4aXkvaa5Z8pHK6517Y9HALwIjeVSDv
-7yRygyLdqp4ve2tG1bVqLTaawOYPO59LqA/lAlanqnerMJiWbcrjwE9bA7dLmFiDr7IHaqdZ15ka
-nqPKwRwJHDMNMAsKCvrtd04WXDJyLU3rrDm06MjRnn39lxuhPi9+R0B8nzxU0FajkhqtGPAm9rFv
-yDB64lU7gLbux6e47v8aMK/rjcUpEL5YDsfbC0zX1iyQHt1KuC5b6L5J2EnGmthyciZxsQL9BJ/+
-7jAwo827Gks4CkZlyazXZBky/Dknp7YnheUnN1qRXN/6tCZD+d93j9JCpmjy/yHNghiDs3T2fO3D
-2XKGdej/zCxV3yjqf9yKO+N/49KNNExOI3z2gc9OdRHcyC4wnGR3er6gjqWvQupZZV6kMlf++iNf
-YXoyxSXFW5cnenICDt/w+WgYlv92uHEBQ+skrA6dHJOS5jA5GG1sq75HQKHOsgwrlBR6+zIEgFPo
-3Y5EhE1V8c7ySINf4GdSMCge9gRi+UR1q7GmDZQk7xHZzqqFsRe3SIxSS8geqTDgBsylwRJ39Q5K
-ywgghrZoNl2hYdk8ddeVcLm3jW1yxcxxPcylVFxyVWmUN9CB5/ndpswWX+OjZLjRzMJD9GUEKMah
-GBa579W9DCnfnIEUSy1yEIabeRHBqHRe39ZH3Vvf2SJfH7p/aWND4HnrkJGD+K4OWxfEViVeFwXD
-Fd4dTlhm9lwVaBszRQbsnqRQr7d/At9JmYSohhCMkVVlK19g9no61KUkxw4j8Run3T9DYEal3CJ/
-8K5FzHJB72EGUcu84rldrTqHHO1fHTud4zNyFHLVcPF77NwEv0YdDOYdFLuNX1CjB4ppoyMUNYnX
-aaACuuH1iaMgz3zmtLrar2Pbm3KcZwVrYYBvZDHRgzJL4DkQZJ8aLVn6xDAJCQPAgdphCtUltr2+
-/CJFbU9OGJF57v/LOBaXQlsTCV1k6hgQ8HB2pUS+YG5F5yJ64aCGJUtVpg3pXlR0B8JZOJN5qcQ3
-lgxO4j1E1q+LSPSAdBsNkDxTomxVVGliXqsl1o+339BZKaOSxwDn4xuuekdv6ieMNOIbjgxbsdYI
-OraBr6VyLhCt7bCLOi0PO5plbPBJxcpsJFJpfkCrdOV4Pvt+YymVKYPc1OzhO4mzASNgCvDS3fpN
-aMBsdvPgtxgF6onnYmf67+AmA2DPk4pm9UPQQmycapMICg0TYUF/RzRHWQooeqaGJw6gRfXnTOgr
-MH6RptVelHXnTyJ0U6Y4Y1ORA9dOH522hwTSq9KXbShSNGvB+wRwSxJtb2K4Fghka+DByndSNNq0
-8EshUiUbEU4LgfrN3WmOn06u0aoS9d7Fu0nN8X/xuKYzdDnfyHQ0epczbN38xmXG8XqbV5H49faW
-zBi+8WNNwdJRKaCYVp8L2BflUYgKOvih+DX+Ihzjc39m1PZl5jYv1An0TF2MfIh0SLPdDo4DzaRP
-VnC8dT6gbjdWuQzP2ek8RZTutk7/azCdK9imjg80a4mVnPXtn3ZvLBSppN/hcY58MNRmHG7rkCF4
-CGHet6LlHC+5iVFba4ty5fX+oQHhAgRt4S5QQg8g1SAHWb5TSSY18VhZUt/g9J6B705mNzPZFstz
-9r4We1/cjO2KV5xxcBvku3K8rwO3N89JbnPfDLafbb+lqC4ms8xHVy6ok7MYV62eZbPRiolW9B2I
-Dbm8IHoNvcLSevbCSsVd4jJfafF+UWXxOl/9DoXeRADZ3cp1TRGIfOeFGWeiteagbqjE0/emuq3n
-LM0zD9a2L9ADSZACj5fqB1S6zY/56kAE2JZBpuJ8WL39fpqQo87wbPimKRDOqXkAVWblWnjBAc/f
-EwQe6GwkFV23Y2pWctGc8f7uOnwHssEkfUpG98hDVfhTkU8xZbJaXimZG6ya4YbM0/tk+HOW4roO
-ifIzFeQDvbNoE0zg6bkdVXRNaJSS5TS3RMtoQc2e2A74uo2ExNOf9g6fsUvFjBNFHoaOYdKG35nw
-VqZErQrJQPieuc/XniSYEsv9ajIs0/SSyxVP5JH6DweoQkBX6BK5XAirit3OJPImioudpzOc/x6o
-ex8JBwGvYzcSxKGLdFFgB0G1s+4W9ukexJwV2+vBEddelOCHqNliGoJoWUa/E1rW1wBhac9pxQeV
-LsOwxJORkYe+ZEk7rdvPXWsKAcfSTgEwWccR1FbZJ2YqTAPW06OThBk9uSBH2MwuNVsm845jwsVa
-3Ls68ox2I+zdztKMHRwoY9XVQOaYSIWZRFJtf3V7khFUofpwGX3gmfXe0ZdYRUWVSrw+w9fDxasQ
-nFpA4Ur3LJ485nTp27l1lstOoF0n8z787yDXWjlBXWEN7G4lUCYKGmBoRHf4eNrSOeTKErL7MGRU
-+regM3IJFJamHwnKVlSTdpPGxGaxudLSW651gTPFmB4LIgr5EnFunjtVitlTj9Tq2NRdZtneGn5W
-J/F2SEhei91vrUCSCCilSXHZkoBbe2Q3KRp4BOHSY0Q5r+A1UskzvRIMWctFIUMjp9MJVuE8xnyV
-7tFRfl3SwtD/aqP4z97EWiTVnEIPprWZf7bnHyzL/H+SJ9RfOmGDOqRbrHw+tojjbeGvrsuGQlSz
-v81YajUz60r93S5mBhkSJbEifuouOzrcjdvi6uHuHHMvKhT83EJ1NMOAwxmJdPKNojNzCV9uUbBB
-U5Ty74ymiuTYtxeAyLryOwIAA5MDRCwfOkJR2vdCq5s1nb1TQUvCxin0R+Faj/ABhydCNFho9Fs6
-5KDxGD8FER2ZH0TDmtafCBVzk8fMe/so6k7JOwJqL1vw2zJJK1X8S0YyVwdsUJHpaU+n+g2SI1Zu
-hEh35H7LMg4Q6TnobJ9Fkvxk8kmfYsPsa4PoOd9koJ552N/vZzyK2PbKiMRdN2eKOJJqGyLG3n+u
-cQjH88TkM6bGrpZw8tOsdQY8KJjztu2aUVbfHWUwoGkhMnarfdhqiwgAfeWQi4XnM777TJSv1LGU
-/ZSGqPMCi/IxKzIipjR1jndqELybUEy4Chhk+jWebMyPUL/so0V9bimWQrYKV2vGxgxvNsVNjfCR
-DQ3KH9bh6VujYE6g09iVl6l0aVByhKBJ7y8jy6eUcFrJew20cCeQVl3258/RjsgBnMkaJuut0Qad
-FlNMY329RrMOS6liJsvqWmzKU9x7GbIcFSMfvaQRyeVKd0oxYx5q8nPtDL25uJ+O3fgl2uo2t+Uw
-9I+uNDkY+CjPv5OhGtfNiL9dsIMT2NY/WxCxs2hUSmuHYxggU+ZMqfCHnZquN7rdoTk/y5XU35KC
-APLsoEGNKERcM0zY5zBbWeNnhHrASBRUR0+JK7DR1JXJ++P9ssfjTv/rrUyEGzQBE4rogocqsSYH
-KVcOgIHjYpXrK9+B9ktC3unISTpzRy30WnPUUqpgp25FhLUXNwmQPJMeH1SJ8KDa7BEtG/5rltD0
-CdyXDRlsBbwBrnTTzcxlPTflMAMhM9s3zK13dzdPgqRhy5cm5aWg+dyVQtgEq98o/aIN8jPps0XL
-Hnnv9PHjCtVhnF02/3GdT6T2OArihq8To2UBVvDBbFgoTXUPyEm4l7Moeuog+5qMP5/RtWEqwotB
-RD8AeIJqLDKs+VP1yyaT3aV/Olwm0k0RwKvDtSsAAH0VUvvRGNCYVybsFm59YPX0mJTq/EcO1gPm
-9QznVifhYijjpSZyTl440k+74P0xs1QAmt1ZjpapG3kyMKd0dYKwt+zcY2WoK+eDA2EAil3mDYmN
-7/ExNp5/O+w4Kif56wpEMW2w0AurJlDpNvqFsuZf/jBFiQfA3oEeJnYiihJg4lO8rHRSvagvhF1F
-jgVjnEnpjzoFTRVPpHr/NkPrPwbip7liMTZy/NGFhttxxy8PUGmIR/fd5u4r5opB2f/yYZL12p7Y
-sx7K63GlWylzmAQ0sGBcRrnn6eWELxq++MWuAPveRFh5x/xKzciXpcr642u57QscT3qS/yazRRA2
-1vWInqGFdVPCE97WvQs79mY6cj5fEXce5prhPiCjfejJXcq7uuG5nfPF/BYZD1uAuVEwgGFO4e+3
-ywRC1nm4n8X5pY9hmJhsYG989J3AQEHbt6L7gNwK+y+8ZDrd/9lZFhekO9Y1IHny1cI9r+Fb9gsu
-o13+xDJVM6fieYO+usqY0t5SQGuZP9+unkNvpMTGeTVKRtnLW91sSWR5DyUPFfHVHuGqGKzBdUYE
-2btRltW6/UHw9rGwtxmRWS0i9A8rKTjA4u1HtMy8OK7xyiBON53bxAvde0lIv/ldgCmMcSQvDuZA
-/eiTE+e5I+rDZuuFPCTFbIdJps7XFSxBwlmXH34cZ4HVI0ape7MLJ5/IUj/bRw9FIdTrfe+shP5B
-ctxmCQlVc+l6enPSLovVJe69kVEW8sCTVIcjfeUcY5e9iRpEV4xn5O5qRc5RGlqPRQBiUBTi09lo
-KlJOgoVm5YPOXYUQs8UoX05SmbcWcKoLfshZBggSRqZMDTzaTKLGQQOii1zgUcu65O3r204dY7Lv
-gxQYRXj33ryJAsNcYz18z8iAxpc9ryrvt8SjQhO44zq5uB8VbSe6KsVrdyVY+Jx775/gG2ZVEjaX
-tbKG2hN+iZCC8EoSsTLJn8Wxpd0Z2Pcbd96GogMLsr8elp/Rtf9bsyLDz0X8Owm/9v2NoWqJIxqR
-xVz5KuesKUiuR5GVSBRN40Nex4J/530sRbLbsvkGnPg10Ii0cE7BBkucTPfnaj9gvoX27pAfK07j
-nvbj457b5xTePI6IvqtUX/KDmbKDgo/XwxAuSI07rWMB8+ie0K7zlWuWz+NqlrUAWFjF0jH3FWiT
-HkbNabrt+T9RQ/RoI1O6/FGjseQiVPZJd6/fnCyDVl10uaHncHmsgwu3h6r/YZcS8CawRXeDM8UL
-gahW7q7uuOoxn9XRvWYfO/CYbuldMlUGfTc00smm2E1YpoinWPZ20jrCJiXZ1s+xoYzx7C75MVRS
-UZCkmM3OhC2QhOn1g8eczksipwTd0Aqj4Hq3KNbACce8Vz4kiDe/T7FX+eqxCp0GV/wmUJXWc7jB
-iL1FfTrGXbUNGJhISaOQiqpb679Mr4+u7YZjHh9WV9jFRvVRWQ6Jx0vFhNJGTldcDLpvQs8g6Y2S
-AAeDjN5A18kw5nY5sEupYvwKw3sIJf7zqk3vC16bI0ARZ1N66u+eY+136Hp0DT77dySuCSc19wpP
-D/AZwb0VrLMwYQ5lOf76FqYfBmhlsrxa/GkRN6UxseOlNqsXENVl2iiKIFTx93FmAPOZLqfGqq2C
-8NHzE5U3aDdJtvTwEdt5ct3mUwkFMrmBjEg4SyNjnu8U1gkRagP1bwer/QMe5/5GSTADYdrSeeN3
-L0GfS4xhQbmf3Ntz10NeT1C2yF9ErfBRtlNZqKHubqL2PSjUDOe4V0PYzfU603WYBUeX1ioaJhB1
-27+LLOvBgfaWSqnmg6O9DTE74NGQXcIObU8lH45B0vpUefoewjZI3URBg5fBFLkK5S40L6KfOP5b
-JBSvgFXMtnaO3nphu5qHE3P5fDlN1M7rxG7It4SVTKRyeplRCKxT82JsP5tE6yUuET8+BYwQNHfs
-AVaR+6pvXpaq5k4TmP3AHTqruYA0AN7Q+OtZwC5vdei80ElPUL2TIpcYcwT2VvPCDby4Ji5tNFRx
-8Te9PUwEO9mFcwHEbWSbZlIJbTsrR3B1R1f3vQwWXGVyRrgEpyzXTy5cNuYkKwbEVBTLRu+LSjgU
-yi/TGtwr3iSTsZ4fwzvyyAA5YYAPjT3HIHoFzGiQ3Suk0MZs2Ut5ROk0oW1SPI3/EuSwVuhD3Ihk
-9mxMLq/ksXokpSg5UOl8Sz8WgH9oB52u/sCpEP5K65ogt2iTGonXptmEhEG2lYVMJuTj7Dl4WkQQ
-fVjQlcI051j6MWZN9JqR4F17IuUw+/GLNTHz7ztklh2R/Zq6tAKEjZiSdHjGoFC81mnUIaVBaT3z
-pKmEqaifGNRs7EL6PnBt0RAT3Rm70b0jwaU9Itygr3ds0BbFLhdUx/W53EtwS8bsD5A2VSsWq11e
-JomzyZZWGLISAO5kuCWzuuyOu3sWKX7E/V575EPLQnMpnyfJ1c4aXXMYUYqVB0yGx50aGjXt1eBS
-gRRX5PEoc27hUGYGHPIQRi59a8FrZzCRs5Gl5DVmM8agdak/cvE88U/4usIa7PLWyN3yfoeiea/7
-7xExqTNIeDALFe8DcSXsb7xXaBej7ldePnFpXffn2ziWyB3gcIoFaWlTMgBiCUZ9/ngpqMjhH9Ze
-wwW03BOxJaWjK2Okl0Gq7zNFZB8mrw/6NvaD1BS9qPYI1R+3gxBYOcdUkAcSw3c3HviIuPll1DtN
-rblTP3PRJ34/8sw4D5hpHUncbWVgd42eVKXs/vcyVWZjUgFdPqOjno/FEfyA/ysBRnEJmtGGE2cV
-iHj9cRpfMi5e3Bwqc6Hin7XZDRuJVjStsZU9cz9555uNL0Gt0KS0Pkz1xUvwSPrWQcW42xlJvmWV
-szGryDiW7PlB8k4DFpeTFpqvhj3ayE06Jp6WC1INupzooK3l5NmUCG/y3Nx2jZrXemrnLGQANBQm
-jZd82KSKTsVYbB6GrcoE4jqPM4Fwg0zP7x7c3wVY0nS/AgHBsrsgV0RyIjWLz7RofNxslSO60D8s
-a3bhyiVQouMmCrJGBD0r0g9KBVpX/lOXliZhsqqA+5pheasTVXTKefqPM5BJlq6cboFuwBKtCszb
-FRTg+/mj+J5RV7aGAAmOvFgbSMIF+kHKM1YWdBRuPlTyYozhLJWHG7QqKQ7R0dubvtylXto8ydMj
-6O48Ax/NIhmV3x9FBy51xVQp7v+CzK3q5u/SVnJV2D0Q3BxCEEONG3Kv38JTVYJhpfz/A4Bk9J6Y
-XOdXwF8fTfa+ukZAM6JJHt473pWR8cbaJHFY8IOg2IO8XITWpaz+YIy/HRpdCP+J6OCHI4ZxXc98
-uNhKGB4Oht6zPFLi1JxxMxscwNit4LTiUB0Dzes8AC59i2i4ya5dU3H2qydrBOnuRL1jNxy+L2ht
-7fHYSqq8qoJXLXsQZwv2VpXzBKQCTZ+zLj5hBdp65AdcyJHtKRnLHZrRONja9jGwJ+p4Z1PrjptJ
-6m40+nQvC14HNSHtuLSaAXNbWPJJXGp5xWGF/U2iqQR9uIZNgsRGh2NfB96baz9Oay1vayi4eP7L
-CTxbEVM0puepoEwOzJ0YSCyeT3Wi0CoRLwQTSoix88IzUo2MoMSIyRsswhufNxGwrP1aHYoZih5L
-uPsMeo3vAxKzEJ5urYwKWB2RdwXCPvoQlWbKoBG42P/dbTcj2hKL/HV/E8+vzEuHjkUCJE2FAUSd
-ZRhfwRqsv9I7lB01TWOXABGL8Rl8/Lm2Px/EGBYS5Qb/9KSSRl8CX998iaF9NYRd72IcDP6Lvy+Z
-4b1wwWAx74lD10o6Xfq8n0kdIbaeofksU6IIiiFWS35ofdAif2Z2Ndrq/txU41DuuWp9LXQDPNyl
-Di6F07kvaEZzzzHxqSEBxnvm45LpUY5gXx7PSKgTzKrSgxzAzg/uhSU3BGm2Cli5l0JQmpxHDxux
-QRKvSoWAAedbpA8nwAZm/ZcyFvMBfsyhdaBFMaPT1vou0+p9ZLJZvcBPOYdocK6GR+4q8gMAJs2P
-zQabA6HYuFUbW2SXUVzcbi1oMeiElxQ8Ffezc9OIRInPYLYyX3SPVYV/hHMDe6lc3ixnv42a6aVr
-ZGU4Nxe7wR8Gw4x1Rp+KLDumVb0PVPwvhoVvYxKCYpMYOIxn8fHmAW+M3zS/QQRd2bkBCWelwM/2
-wi9/9n3VTiqqANIfpGiT4LIiJzxKijt+5AbhuUoocBkuvCjrL7Se/z9cZgBVsCjPUJFlNU7PAvxC
-k79k4erDBEUHtsL8yevKbxKMx4BGlYog4Iyb6R/t4hPHwgCfFJdFE26qcr6G0trzH5bPQn24HDTi
-TPqxLtFDBWlnQ8XeHYYHn0nHFsyIf7f1pfpChp379R/9VAmSfaf/TUCz/rkncYxoIYhpbuCKlSUI
-b3stcloNaH22COdlKDIS6S6qqxgIpKDAtJIIHKgHIzxayzRnTh0LMtq2E4sJKDRQO7TTHJJj6RaV
-mgrlnNEy03cc2Ia/DboFUmWY7zIh07v/z5qzs49SAVmgHm2725WWqfCilneeZKMxFP/SENNJu4Vd
-Ctxi4lCOr7TQ4nvoEwQxcyYfocEaS0uSMwFW8SoXWI8oQ5aUn7S+ZjGZ2y8GoGqD2WFTQRjtAXam
-mMb07OY5jqFp3fplAuywUEPEpfOalBtZeIPbrnEE2eY/2JOGzvYregZS/qm5NsduhZwJ6f/g4kme
-aH1TtHX9c97HgAd6Zaen4l4+rXszpdQIdC4hyUuU54tUqUECVDPG5fm25JEGxv4ejwoV8O/wmvDA
-EAnoXOoAYOf/Kitidx+8N33AHGPFllW0P3WXxt731+CzAS/xBXdHwgoZas3OA9QOhT4QVcLkD9Oc
-OnSt4WveJU813KqdmGYpCT50/IQ6iyubkqxPdDMXfPPx2gfRnT7jp8X8FPi7V4oTg6yflc5vFPqv
-9XDk1EMFUE0pYMsW9qEoo/CuYJ5Onm43x6t/sNI8N5umsiYMa6w+hqXgRobA5BFlPqvZyxpQ4QtJ
-hxk3zVHO2stFRknkqBUN/CR7VVkikJeboyHJOuXPOBR8Q3E5rR//PUzAA7zdEl+fQa9qWah7fGF3
-B0UaKLnriwMjs1QdrUKQOptarZA/kC0wiYLl7Hc1aaG/1MEJYyXxGlz7/6yujagb9Ql0urnEK/tB
-eVOAEwSiUn9xYv2hP9CBkI2FymSHo8JLwaIPpcLf6lMwWFVmHweLC+/Ftac5ZEezdfdu6NalY2fq
-/4uuYiG/NR2qUhFSuA8nSW6c9tRhSshxxSFj3eLZUaYIbKGlwZ4W/XxCnIJczTMSZR8glfM3b07d
-nUCeBqLbRKGBzWP58cL31PP1odJa2t9phlzH3S/UHr/wuPKehWBPCVJ/LdFtua/N9drwCPgKn4y4
-qB7P9npg0DEd42DiRvBWpP8FgkvSKknFj+zgCFLHBBT+KmisOaTPXu+LZE6+ZtvB97vSIKws9BoW
-zPLjgUhWAzL3h5LupsFe/NzCz4hLGBYeUatJy4+PHWDQal3YKCVTrwAD2mwQdAMVz3HLRS40dOHY
-hTMZ6C+p51vI2232bB9GEzcneUhvykBdBH3o7XMBjbJkkuhv+tfNxI81dpjTByzsmysyElOAZV/I
-6n+H7O5mtgKscHBfKEDa+ZakZqbdL5zIEu96YkKEgBlVfEQkYdktWogkFih+aBAF4pQp42DtilED
-ndZ/+Z1TL+Y3eOSXm3YW5uKcw5zK53qGc2MRhuh8a5tBpsYPkZxou+KY3W3BJMAdLqB/oXnKfOkK
-ZbrfXArlMGFaNrrfZ1Pm5zZqCia3XDKKoYytptvUZPdkMB5+g+EwlkksQCNFkX3ZMZvc3hkPWNaD
-jEB2lNmEWE9RfvVhPy3w4LUOEpI1YTSG7LtfubYYjpM9axDKcyiug/dqAoRfKNcbsxNJFZ0BmeN+
-waUbGZtQysjT4f1l7O0NmA9XKSTpOEV6UUX1O+SFwvHB4Qth24rfUD0rUzEwslhaG1nx9Y4CTc70
-/XrViM/qmcl26orpwA7oqkvCLS68Jk4iekQ3a36FGt0EQAa/vUHfzzC/Ln/Za6L7ZKpRonf4UEmv
-CnigyEOegWD+tL/D3ODKOxGRCjRdHscc6rmCFx8NAmeRQYNquA9CmCHwrojTn4ryQNjv+mFaxaj+
-aq8O0H5Zu3EwNO+FbaFSWJhIuCUqD1HaiS91it4tAzXxwDHiFkLisT4pCTvNhccRp0vKsfOTcFBV
-6XLt10477Ob3EITMmbI7cZELvlUyplzJON0OQbdlD1Pw7cVjjb3s3pTl94QGal+iP+Evtk8R5X3M
-+OHiKDPUBRqJvqUKgMVdrKnCX+TC3gqlrf3doNv8cqkQth4x7JNJxAXUD2GIVTDoV/K27dBM7gHq
-nQUknoAHtUfg+fmo7oSfDO7DUK5lruaXbFukT8LpFsrfJoMwYxRyK4Y9v0F4lti4/XwTb394HUuZ
-t0mmm3WtPtzeWGSckjIqzynQhZdh7tI8ymnpu35clTTzY8OPnt8rcnKmfqjSaAR774nN5/qEk96F
-kOEqOasJbtuD98GdQ9LdDaw/1jafWjA78+AmSaLrTQ6GZuzmrg3G/QBEmsPFTvPDcbqNcxsM92+O
-2qMBgbGsxvUDDZ8QmNN/NcDnT0tadm1lfRcgT76iKX/KdmEwN5BBwG5jL67X/AmbUd7x5DB1Dx4K
-QyTpZHMTtPrGBCj+GwJkv/Eoogbpuy+hkUhhukWnSAfa7r0PVEX8S/uEnU4kShF4guWFS2FAKX7u
-E5Pv1YdBmUEX0e/r86xcluj1QbV11m8WHLc+U7U7yZ62Y4X6PFzLommL9hyBYe23VudYLEwgEepO
-fXUzOtO5yBakkK66+VhpiIpuNZgphtA51LyqbPzBxVJjMFwMPw65dPPdRCjUsT112fxKIp5xVNof
-vqvbKe3+O0d4rbRjDaHqqcJGlzCl46fx472GTMiE8/AVM6K8w+il50ZvDrjB2WNBzv7h47ny/boe
-0e2exjajW+W3LS0v22Ezs7eXAVP00TiWPARrs+IrxXUQw/pITfXTzi+j5l5CgYHPMwlH+aACcsaC
-vebf06zV7Qd2DyaIfK0xDyIjetsXoNEwS2oz1ksBgFaf2fniZhalIamEdmI9G/tF+XoZrdvwAE3N
-SOTywMuQVV/tdRoTYbdabko+CWOZuK7zqKIIpNXwe1mYJ1kEhKXDAhbMRk5DOXAvOqYt1Hb9TqYx
-wTAPHg5hTBP+Hf8wM2DVgUrXjMPsIUSG10VdTwl5T6C2Z6i/MJ+Q+8w6fMin+iMGqe5BMJDgwnjD
-qSU4bwv4aBVOI84eMXutFr5KhQK5NAiAMV7XoZGrTyKsGO85qOt9/iEOiMlZsK8BN87iJfGVyOs0
-mROzYKhH8QC5X+MORf+R9l4MocrErj7h6stCkxkzQw1ryfvdmg2Jtb9TwbX53kRNXcSHerKNm9cW
-cBgtprNmqrBsmBLXw9MKYw47dG9rO8OrWX2DOuzo+veQ1L8s5jLQ/gM1cNMuRS3GsdtSQW25+38p
-j6kMbncP5h9T00RkyR2RdxtloEM1HP2rZ+bdsl+tn8CZLnMe5jHecA6/z1HSC/dBvDcd7XqFQHaw
-aPqTwLzQbZApXziLbfovaFGOTZWkxL8sXPwWmgxyEQFPu8lNeg6eyWHd8rg8UTRHQKyaxWD/jUkm
-TalKJP0o4fkC/XTwpIFQL2yuEketosIYXfIl6LlQmERHIfLC0OtnnIiDPggFcUG4JdOYthXAk2iq
-W0gLNy6/N4MVfuRmxN+zp+uIcDws2FANQVyO9PQQccGlhVyE1dwNGwPQkVSE7p82BlSXopK8ISMJ
-MaXJJTrfbPQLhgmpFXlEyQCqgnxH0oF44hcSnUSftYIvfGtEFNtBDc1hpmmCru2bEeP1xxECPLVf
-Ka095mkiQDCA7S43t99dkjcbFYPQimZveJq1wBV7AGNJj2Wo+gGbfqgGwa9LZEYI7pBe26M9LXvX
-eFvKlsE4Ng9d7ZqZyKlZ9BSwaUFGDogZb5ioz+JsGrIj2Sl7g32JZzB9SUicrfh7WOdvTdMO1tr3
-yUA2hD3/TeTfDz/DIeTKnt2yeXRW63tQHLWgDm7F7Kd4brdW5Xl9vIHWeMMt15IH+hcR3LqmnuDs
-VzZTpcjLa71zRqBbZ2Erc5mDzGc53LUbkT3FC9rEPkqaXXVVPJkFbZaADd8xOGETxsc1w5YBKSCz
-0e7X1Qm8L/UAo1s3M1G47h8Q3xUHJSUuT2sFODqLi6k6US0vXskcOL9063LTX0bOq6TVH9PMX713
-kA9jK7HQu+SsnvjhqPLaA7dfO9Q4foqgKpSuidgtPEr3Td7QkQ3OwenlzGYuVKPQOZ1dP8SgiPBu
-ET0dXIo6TMuAvQZQ3B6KdhKYWmS2SPXtAaxDhAqhYu51cSoTo5wLLaFOuLzLy+Yz+so5XPovqJus
-HvaQfQysQrb3HslKcUGOPK6IhXhK+CA/NJa7pqn2RII4cG7PHjRbRNANeERiA2kAWdGWmdZJqDRK
-qUiOvNfBsZ4Z3uN7whDNmntsnf0QmDcSKYDI/mT1g0IwLCSX06O7+g0mgV9DQkui8uN19GHQyPmI
-uGHZkffwkNmO6SZN2MoA8TrmBY/YUgUuRzLODTtnyxYVpMQSintJ0+I9vGVDN18swa6gsG9rnZOM
-+ZZN4RtMqAdCqNR7GJ9StxvSOwz8rUIMm8iVrfMhj3jjoOdsZT0/tynMYPgwrzCYxVQv+s/cukFS
-hB1C9bVLPqw2Qmho39s92zgpJMn6k/nqh1y67BwZHvxi7E7wih+jvmZojyhe+J3VpRaEP6pbdAb6
-WjdMjbQD71147XRC16S1h/SBWmMyMMCXa7hnTTwVB31bfbg/LLqnxzFHdfOtp47JP5V9ApqmBIh/
-3axrrYzalj35rmI0qxwyb/yVCBWJRn7PvmeDpv5gt/zyMeNCAj2St03AQ+Di4RGo1iCs+OeoMODQ
-4+BOa+dveZ1WYxQWXJDJk00DAkqmyf/hV62zDmlOaQwNRH+tAaMnfbs0W59/jOIbGYfnu2SpEMpD
-1ZVzyf3leDiFoo+Lk3bC2i9HGJ3OjYb4cE9eT4zrq5yVtemXlueuyWh6qry4WaALvziRc1Kn2wyh
-j1s6Tb2kHE3XQL4cZDYy2i3Uh+m2Kc2Plx04t+0wLwoEuQuWxb6L37hSbakPLoksLhKwwwedH/QJ
-0iQQPRigB895sNOM/XanQp4mujiz5h09fqpYVIK/hptrnOSz9Ii2xhsfNRbDwn0adt9+BmLIBsGR
-ZKlFWsTqNzRrdG4gsSARL0ZBWK6umaEKeN6qCMhx9IPjH2qDQ6SuyJEkatzLnDKMdSOYG4s5E589
-Rry0NJBeDSVoyfGo6vcgeB14h5GzLkBpdW33h0hWa6IOclYYKEzyurYLc9F6D1qppK54wNL2Cswr
-z4Sz0jShlNKDyyK+A0LazXvhceZddLvQHgkzKI1H+QhcgyJnQwlh76HpVCLkPeeaskLPadLChiM7
-RgioKX91KRXBLLUjyiIAOIYa23k/L+hJuqSQfc7Z2o8CMhdRTHbRXgDIz0X4EZ5dS9FlQWzdubuo
-PumO/wjQcEcg69Jia9AlBzhBKkv5csfpuQI6voPIy9WrcJaH77/8z+9lpH2NXg2g67Gh4aqQ99pv
-vlIO5T9tp+zE4aD3WDEv9X67v2BXX274kZat1jIv/1J9Ls97+t/JpcKmC+vuAGGkxanK+CwtZku1
-8m7CVcoF3ApLtfS60izH57V/MpOI39gCvrnBpe4UXeEQ1YxxdahlnVUn33Xoicyj2nj5SC/joyoR
-cyjCmQh/Y5rizpUzuoa+WD0TIO9aYENnfkfYoM/7ltCN+FBuKmhjg65XvD7E7jpAOGDwyTpNyDdE
-oJ+DLypSSLgOWrds9ddRRKytNxqNPJNBrlSLOVzi/r7pY6epX3+32p0JvcDVlFtY+kv/uInwPE3F
-co3+o12kxBAHusgCQWUQjXbQUVpX65uTfzePQHCVlKWHg/JnI9HIy8jw+xgv257V7vYOEPhcWFO2
-koGadqOB0ZIkmHBcqUUrvRQS/AZK7BotzJ0Mixd+CjH4pUV+wZLvOC5ub4LZbSVBQptQge5Z3Wlz
-S05087JMFmB1lCjKx/jMgcnffUHk/eunaCVpqe8CAGfbC5Ef3HglMf6K347L/VAXAKRPGDX0eWWC
-AJPy5LuM5BUpxcSuRRa2SQ3c1KmaR3/5d4gLlhDGlA3tnJyHnT2/ZKdA2Vht1JeUaJCr2zcZlOT3
-4+RNg98ODA2TBDxubU9b+TL19cDY3CBqJaghYaPDj3Hi7wYYl6Q1xnF1Wv6PBPH7z9FWZ3HMaCwi
-pgEpnRmNDbmAjZRqViBOuo3dM9oGguYh8UNIVQ2YBSgXAIrf0fqWX/pI8acHhqUmKi3pPBxHGg2W
-X0kJE3w+8jQjkSHzt0bl+li4RtnA2Y6o7FFrJf1+mSjv94jrdL5RmAVCevMYgdO7fue8jb/GbAGA
-NY23dJIGOcGdggDUUBlN5GWAO5uEBTpX1xmS7Qw8ZigY0WOe7NuKlV1ntx3s4zLTl6Sj7NYEf/ar
-7UXMh5aTJaQX6xEigZzYrptSogy6K3UOO+RB3C4/Iqt0a722iW4j/p3fw+v3ts1AiqDNzABEuTgS
-lLM7dr6/SxHuT4vGS9qCdUSJfJHesRk+VReKlaFaKTQjYJPjkt/Dm0PbqbjSWd1RB7Fs3HW8HXru
-8SJTvsafEywyc/EwNBNxlF5qpFdH5Nu/4+hgv2G7gYr+KiQDMrDP/9Upy1/RXSzmxmPifRZeRR7h
-mL6xrH0Kvi8Z85coY6u+TeImr/G8WaBG1YT0dWPhCzZpOxg+s0CAOldRgNTLqxeOynxJLYb/Ijf7
-xJOEs3iNMIptCRNrzVi33kVFde2FpHoV/zG1DOvanlo094WC1tcOljCOLyYBGGm+l5Mm+a/E0ze2
-fAUqdJkG7zUAIpg2TTIa+sSrikQLgR+0N/YR6YGlazVprkveco4mWIsQlzkaxT8xbEl5zaY7KBCL
-bEJzvI6Ou1fMX8qteusFpcJ0Oy/sJncNPWWHNl2TAOHBOuKCco7JtbLxScyDu0oPewh5HxyGxsoD
-PnmrmmOSi2DLWYAQ64pID9TMc/mt6Ipuw4++rvf5jIkrrrzBV1Ep42jPCOu4aAswCdiOyUVNinFt
-1RvUeGYn35Solpij1i/JqPR7WaS0e3WW+yQAUj81WwuIPT6fJXXo/H7N1Cjd6Hhr2JEqcd/lobIy
-SZbSwLuuOaD6QN4MZiuJRxTd12Tb+trwQKBWeQmqaUPbbMpyI/IHklD6Z5UQZRaw/oDDnwpSXxfz
-P5ViKSx5k1rsQjLbei4IGp2ImvihLOFQZjkAX0jfCvNcQJb8ZyE8xLcDG5KmBaK9de43nc2XRcPk
-ogxLFSF+QSSdqrgTHZNVcmbjYh9mI0G/MZiZu8n8uzwnCcis30NwzUlN12W68Hj8VOi5G7ywyFNA
-MhiY0ZA9G5g/5n941mYzesnEmq/N3S9hGi1eZj311mAImlgcZFinDxnMLDouTMCPnU0g7r+bETmA
-ANWGSWfJmsCRWCTl8snePwrkQOQMT3TF8QW6wlYyAt/LQ1NCYXAwx1A3h6TZr6KcE+e4khFGWlhX
-rrO9zV6hyyZ7+myURez0bFPon33/ndtQKg4zX/totY7HUAOwLj6GK9SKIwQGPYtK/HUAr4Fzh1yp
-aAX02RY2dWeXSIxmREVMC2ALjZQLpkYhdPKrPsCbaXIuZvk8MWl01UDVl1Tv8YwMB1NK4zOVs6LL
-Z4jP9sYm/rf/6LZ1WhvKNzzR31O6hyOcbkCUw1TtzZs5IhImKpvJRCfEIg0CfUg+P4HJx89/U9ss
-HMLgFTVMZTMeIoij6M4NXgHnR4wuEcwuyraGut9BETSq1Vnk3c0KnicqHAf5aoN2T4KvG6qMTY6C
-rLlMO82ZpH+Y8owWdrNdVuSiEJeCl2e3BxlVtxBZl4DcvaQdXIfdt0mlpcJwMnZrNbNDqA3i2tZf
-UixkX39BcsTuIBh1QnL0gp+f0QB2utMvHw5szqoD4neT+vzkgYhrGkGnB2ABC6kE6Cjk9hnwmG6W
-4q0szM6clASgAq3DGlKEe6X3e72udkGEBXlBU55zgmAzK0CVEYYDKwHKWlOkOAkitlwfCTkrN+kw
-+aJy9FBiaeNcGbVCFt2Ef0bwAMHw/MrJEIoDz7gldUwrfB+17A5JUTjNl6INiFp8Nr1695WQJDKp
-xiKD/vzZJLOEzRVWtwzOn1eU2dVPt6RLNnCASIk4czHeu8Hi9VbjpWWn/9RKhUvr2mJ711aEVIHV
-O5D9/W1gg33nBsewfPYH57rb/hprdp0PGRie99drix+E+UclsJfO+L1lr207PPft5kVNob2nceE1
-nFOYdTCzy8Wu7QlPGEav4cwmdKF0tYQN5Ce1rxeU2/TOWe2SgxbxfgECzMTmeuZatUsB6lbhHmkL
-sIptYmuCti/e21CLMooO+PTSyGPsjP4QkrW9T6K7GNSrxNAKDBRBLXxkJqxRLocp0ngGxFA+tkCf
-geiP8Q9Tc0/tb3PB7EO8Nj4UBY75bpPc9+uF/oOCz7sjOX9KXt8hXVjfRrOSDf+AbNZ0Y/6a+s3w
-KcfFlMA5fHPUk9+TtnmkAmm0TgYCbrCIGL2TK2gJ/vVltDiK+GTJL2ui7m4g+dG60HTZQuWTFpZC
-/LSU0Gx/a4082Y56twzY3fSomxE7BQkRjjuvwuRJoWNIdA+mXTcFxAp/V6sVATxDpcwTiyvKtXyk
-ULLfN4lU5PH3Io89rpRADFbp4hbPIUnL2N81HbwW+LWKed0KCL3+MIACmO5U7tDtAPsQVOqVfs8C
-skc7G9jL309phYXSly0z8kkrpHBAdvmAj17qkI8AMHW/UyJzSHSBt5GhGqLSbZ8kX4T7ij9EhAbM
-KcKHTfg2Uqf8euDC576QbKAXka1tddrXov2surD1l+Z+6zH4OUPpm6s5++OPkI++mLvtS9V/NrmR
-JyZ3MingLkGAbjJaLemItaorBmePJdi+SRLI+6S+OOzFQFyTXehDhi6IzPT2RyDZRJ752a27icjg
-3OfRXS1g0L+6OKKgHRDk6OrIw3iYgR98rEGC8o7rUMIA2ZLgVgcqZw/i536DiYj6FOaNroxNlMvJ
-XrwdmLL7tEggCTZE16+WqFw81D7+SkTa/ry032Pd/8gt3Vh8PjOWnZBJs/oTq0+BBsGOcx9eImtz
-29q16oYnYzkXqk75NDQVrHkL4Hfz5+QoDjm2zIhCzKPOAQUN87pwN9/IDCJ4zOXsZeiHCVtKmMa9
-930r8QQmhpVnGKyN29wWFtDZeIFk0EiXR1iwQxeJ8vSRM2UlYdL4mSq2LV5tg6RcCZraYYaec+i6
-sWNb2V1j/vgyEzQgNytPp71DGnRL6IpsEtGjqsawSfCdCU+Mg1CVasqTdQoaSCWpr8pGDv7UURmw
-3altpIJyro2kEzIi9AdjO1+mC/pbwctLwO5M80DSpJLo8qgkm9DNilaGjt83RHs5PqvDja6Euz8J
-5MsP3JbA7jTrH5VpfYBeZDcMss7U0XW/Yiis18G+CzCsxhD/vqkL5ss3Ovi0LUI/NTWKpsqLmPGv
-8niQ5enbVsWw5O6iyTRGbiggu50fCQEEMpC2btn5muHQo0zjl6YL12pRaL8q2q8k5JfHbHLazpX3
-96+2WYb3oRcl/Ndt2XIgOY571PUlj5ai5HmdNwBFZGB1MGwy2CRX0EoEKixy6+6obxNELZY4AWYs
-HVo9bbp0hS90EX8RkC5scpVBkNVGpLqNG81siMI5voKA9gFrr3yazfvI29S+ujLwRWPtCEny02+K
-WXCYZ0Bp+zwluFSWRUkK9fAI/sRjrDlHy9WNt6e+I/vL6o/zYEca8NXZpDG7S1uv9HGnyFUQHACq
-taZJm0xG8Vflie3wJXZ2/5hCXyAKmosUioeNLWv8+cdE9qiUjx7BuI8KZs+Q7LqgZxt4ZwEEJZr2
-DDOC3Nfj8fSkDEQXZYs+TRU1ELRk0CSf1FWO7EaQC2DCH/16fdlaQ7561TMmNZ1i/T6WISvMP1go
-zkohdaPCbMVRM71piUNSDxAzbEqDYY6mgOzASI8BaAWO1uWegyLYyqqlEcG2VmY5s13JNhxBbs7X
-Js1Myfn8H0c794C41I/+vQ+DN35ZX3A57ARzwCrBIjapXWJ0CBybYN+1Iwtg2u4SHxJ7VpO0tVdO
-mn81Di6qg5w8c5mSZXza9Gjy3JhxNr9K4e1PGjgMy1yzO3GSeTpO042bvC6uLAg36QoHzrydgU4k
-yL7qzgra1TK3GDpEi3foma8lVqCsh6OTidDUvKO/+HDID13wug6Nf6V4Bo24eL3spHXgFRdHi4sK
-TTSQwShjVcKfkzMfmHZzbSmd3DEIwvt04ioXc5GGvzqCI2SaRy91VFLd83vaVAUgGd5VvrVCq5ri
-2tEhHGtmI0SRUW3ZT/mRAHPdjpDUvyC=

@@ -1,70 +1,59 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-+yOsEf7tOJJx+TEN+Xm1wRO1BKTp
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Plugins/Reporters/HtmlReporter.php';
+require_once 'Swift/Mime/Message.php';
+
+class Swift_Plugins_Reporters_HtmlReporterTest
+    extends Swift_Tests_SwiftUnitTestCase
+{
+    private $_html;
+    private $_message;
+
+    public function setUp()
+    {
+        $this->_html = new Swift_Plugins_Reporters_HtmlReporter();
+        $this->_message = $this->_mock('Swift_Mime_Message');
+    }
+
+    public function testReportingPass()
+    {
+        ob_start();
+        $this->_html->notify($this->_message, 'foo@bar.tld',
+            Swift_Plugins_Reporter::RESULT_PASS
+            );
+        $html = ob_get_clean();
+
+        $this->assertPattern('~ok|pass~i', $html, '%s: Reporter should indicate pass');
+        $this->assertPattern('~foo@bar\.tld~', $html, '%s: Reporter should show address');
+    }
+
+    public function testReportingFail()
+    {
+        ob_start();
+        $this->_html->notify($this->_message, 'zip@button',
+            Swift_Plugins_Reporter::RESULT_FAIL
+            );
+        $html = ob_get_clean();
+
+        $this->assertPattern('~fail~i', $html, '%s: Reporter should indicate fail');
+        $this->assertPattern('~zip@button~', $html, '%s: Reporter should show address');
+    }
+
+    public function testMultipleReports()
+    {
+        ob_start();
+        $this->_html->notify($this->_message, 'foo@bar.tld',
+            Swift_Plugins_Reporter::RESULT_PASS
+            );
+        $this->_html->notify($this->_message, 'zip@button',
+            Swift_Plugins_Reporter::RESULT_FAIL
+            );
+        $html = ob_get_clean();
+
+        $this->assertPattern('~ok|pass~i', $html, '%s: Reporter should indicate pass');
+        $this->assertPattern('~foo@bar\.tld~', $html, '%s: Reporter should show address');
+        $this->assertPattern('~fail~i', $html, '%s: Reporter should indicate fail');
+        $this->assertPattern('~zip@button~', $html, '%s: Reporter should show address');
+    }
+}

@@ -1,80 +1,75 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+
+class Swift_Bug35Test extends Swift_Tests_SwiftUnitTestCase
+{
+    public function setUp()
+    {
+        Swift_Preferences::getInstance()->setCharset('utf-8');
+    }
+
+    public function testHTMLPartAppearsLastEvenWhenAttachmentsAdded()
+    {
+        $message = Swift_Message::newInstance();
+        $message->setCharset('utf-8');
+        $message->setSubject('test subject');
+        $message->addPart('plain part', 'text/plain');
+
+        $attachment = Swift_Attachment::newInstance('<data>', 'image.gif', 'image/gif');
+        $message->attach($attachment);
+
+        $message->setBody('HTML part', 'text/html');
+
+        $message->setTo(array('user@domain.tld' => 'User'));
+
+        $message->setFrom(array('other@domain.tld' => 'Other'));
+        $message->setSender(array('other@domain.tld' => 'Other'));
+
+        $id = $message->getId();
+        $date = preg_quote(date('r', $message->getDate()), '~');
+        $boundary = $message->getBoundary();
+
+        $this->assertPattern(
+        '~^' .
+        'Sender: Other <other@domain.tld>' . "\r\n" .
+        'Message-ID: <' . $id . '>' . "\r\n" .
+        'Date: ' . $date . "\r\n" .
+        'Subject: test subject' . "\r\n" .
+        'From: Other <other@domain.tld>' . "\r\n" .
+        'To: User <user@domain.tld>' . "\r\n" .
+        'MIME-Version: 1.0' . "\r\n" .
+        'Content-Type: multipart/mixed;' . "\r\n" .
+        ' boundary="' . $boundary . '"' . "\r\n" .
+        "\r\n\r\n" .
+        '--' . $boundary . "\r\n" .
+        'Content-Type: multipart/alternative;' . "\r\n" .
+        ' boundary="(.*?)"' . "\r\n" .
+        "\r\n\r\n" .
+        '--\\1' . "\r\n" .
+        'Content-Type: text/plain; charset=utf-8' . "\r\n" .
+        'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
+        "\r\n" .
+        'plain part' .
+        "\r\n\r\n" .
+        '--\\1' . "\r\n" .
+        'Content-Type: text/html; charset=utf-8' . "\r\n" .
+        'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
+        "\r\n" .
+        'HTML part' .
+        "\r\n\r\n" .
+        '--\\1--' . "\r\n" .
+        "\r\n\r\n" .
+        '--' . $boundary . "\r\n" .
+        'Content-Type: image/gif; name=image.gif' . "\r\n" .
+        'Content-Transfer-Encoding: base64' . "\r\n" .
+        'Content-Disposition: attachment; filename=image.gif' . "\r\n" .
+        "\r\n" .
+        preg_quote(base64_encode('<data>'), '~') .
+        "\r\n\r\n" .
+        '--' . $boundary . '--' . "\r\n" .
+        '$~D',
+        $message->toString()
+        );
+    }
+}

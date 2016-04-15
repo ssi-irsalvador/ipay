@@ -1,1845 +1,3856 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+require_once(SYSCONFIG_CLASS_PATH."util/dompdf/dompdf_config.inc.php");
+require_once(SYSCONFIG_CLASS_PATH.'admin/reports/bir_alphalist.class.php');
+require_once(SYSCONFIG_CLASS_PATH.'admin/application.class.php');
+require_once(SYSCONFIG_CLASS_PATH."util/pdf.class.php");
+/**
+ * Initial Declaration
+ */
+$month = array(
+	"01" => "January"
+	,"02" => "Febuary"
+	,"03" => "March"
+	,"04" => "April"
+	,"05" => "May"
+	,"06" => "June"
+	,"07" => "July"
+	,"08" => "August"
+	,"09" => "September"
+	,"10" => "October"
+	,"11" => "November"
+	,"12" => "December"
+);
+
+$year = array(
+	date('Y') => date('Y'),
+	date('Y')-1 => date('Y')-1,
+	date('Y')-2 => date('Y')-2,
+	date('Y')-3 => date('Y')-3,
+	date('Y')-4 => date('Y')-4,
+	date('Y')-5 => date('Y')-5,
+	date('Y')-6 => date('Y')-6,
+	date('Y')-7 => date('Y')-7,
+);
+
+/**
+ * Class Module
+ *
+ * @author  Jason I. Mabignay
+ *
+ */
+class clsTAX extends clsBIRAlphalist{
+
+	var $conn;
+	var $fieldMap;
+	var $Data;
+
+	/**
+	 * Class Constructor
+	 *
+	 * @param object $dbconn_
+	 * @return clsTAX object
+	 */
+	function clsTAX($dbconn_ = null){
+		$this->conn =& $dbconn_;
+		$this->fieldMap = array(
+		 "mnu_name" => "mnu_name"
+		,"mnu_desc" => "mnu_desc"
+		,"mnu_parent" => "mnu_parent"
+		,"mnu_icon" => "mnu_icon"
+		,"mnu_ord" => "mnu_ord"
+		,"mnu_status" => "mnu_status"
+		,"mnu_link_info" => "mnu_link_info"
+		);
+	}
+
+	/**
+	 * Get the records from the database
+	 *
+	 * @param string $id_
+	 * @return array
+	 */
+	function dbFetch($id_ = ""){
+		$sql = "";
+		$rsResult = $this->conn->Execute($sql,array($id_));
+		if(!$rsResult->EOF){
+			return $rsResult->fields;
+		}
+	}
+	/**
+	 * Populate array parameters to Data Variable
+	 *
+	 * @param array $pData_
+	 * @param boolean $isForm_
+	 * @return bool
+	 */
+	function doPopulateData($pData_ = array(),$isForm_ = false){
+		if(count($pData_)>0){
+			foreach ($this->fieldMap as $key => $value) {
+				if ($isForm_) {
+					$this->Data[$value] = $pData_[$value];
+				}else {
+					$this->Data[$key] = $pData_[$value];
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Validation function
+	 *
+	 * @param array $pData_
+	 * @return bool
+	 */
+	function doValidateData($pData_ = array()){
+		$isValid = true;
+
+//		$isValid = false;
+
+		return $isValid;
+	}
+
+	/**
+	 * Save New
+	 *
+	 */
+	function doSaveAdd(){
+		$flds = array();
+		foreach ($this->Data as $keyData => $valData) {
+			$valData = addslashes($valData);
+			$flds[] = "$keyData='$valData'";
+		}
+		$fields = implode(", ",$flds);
+
+		$sql = "insert into /*app_modules*/ set $fields";
+		$this->conn->Execute($sql);
+
+		$_SESSION['eMsg']="Successfully Added.";
+	}
+
+	/**
+	 * Save Update
+	 *
+	 */
+	function doSaveEdit(){
+		$id = $_GET['edit'];
+
+		$flds = array();
+		foreach ($this->Data as $keyData => $valData) {
+			$valData = addslashes($valData);
+			$flds[] = "$keyData='$valData'";
+		}
+		$fields = implode(", ",$flds);
+
+		$sql = "update /*app_modules*/ set $fields where mnu_id=$id";
+		$this->conn->Execute($sql);
+		$_SESSION['eMsg']="Successfully Updated.";
+	}
+
+	/**
+	 * Delete Record
+	 *
+	 * @param string $id_
+	 */
+	function doDelete($id_ = ""){
+		$sql = "delete from /*app_modules*/ where mnu_id=?";
+		$this->conn->Execute($sql,array($id_));
+		$_SESSION['eMsg']="Successfully Deleted.";
+	}
+
+	/**
+	 * Get all the Table Listings
+	 *
+	 * @return array
+	 */
+	function getTableList(){
+		// Process the query string and exclude querystring named "p"
+		if (!empty($_SERVER['QUERY_STRING'])) {
+			$qrystr = explode("&",$_SERVER['QUERY_STRING']);
+			foreach ($qrystr as $value) {
+				$qstr = explode("=",$value);
+				if ($qstr[0]!="p") {
+					$arrQryStr[] = implode("=",$qstr);
+				}
+			}
+			$aQryStr = $arrQryStr;
+			$aQryStr[] = "p=@@";
+			$queryStr = implode("&",$aQryStr);
+		}
+
+		//bby: search module
+		$qry = array();
+		if (isset($_REQUEST['search_field'])) {
+
+			// lets check if the search field has a value
+			if (strlen($_REQUEST['search_field'])>0) {
+				// lets assign the request value in a variable
+				$search_field = $_REQUEST['search_field'];
+
+				// create a custom criteria in an array
+				$qry[] = "mnu_name like '%$search_field%'";
+
+			}
+		}
+
+		// put all query array into one criteria string
+		$criteria = (count($qry)>0)?" where ".implode(" and ",$qry):"";
+
+		// Sort field mapping
+		$arrSortBy = array(
+		 "viewdata"=>"viewdata"
+		,"mnu_name"=>"mnu_name"
+		,"mnu_link"=>"mnu_link"
+		,"mnu_ord"=>"mnu_ord"
+		);
+
+		if(isset($_GET['sortby'])){
+			$strOrderBy = " order by ".$arrSortBy[$_GET['sortby']]." ".$_GET['sortof'];
+		}
+
+		// Add Option for Image Links or Inline Form eg: Checkbox, Textbox, etc...
+		$viewLink = "";
+		$editLink = "<a href=\"?statpos=tax&edit=',am.mnu_id,'\"><img src=\"".SYSCONFIG_DEFAULT_IMAGES_INCTEMP."icons/edited/edit.png\" title=\"Edit\" hspace=\"2px\" border=0 width=\"16\" height=\"16\"></a>";
+		$delLink = "<a href=\"?statpos=tax&delete=',am.mnu_id,'\" onclick=\"return confirm(\'Are you sure, you want to delete?\');\"><img src=\"".SYSCONFIG_DEFAULT_IMAGES_INCTEMP."icons/edited/delete.png\" title=\"Delete\" hspace=\"2px\"  border=0 width=\"16\" height=\"16\"></a>";
+
+		// SqlAll Query
+		$sql = "select am.*, CONCAT('$viewLink','$editLink','$delLink') as viewdata
+						from app_modules am
+						$criteria
+						$strOrderBy";
+
+		// Field and Table Header Mapping
+		$arrFields = array(
+		 "viewdata"=>"Action"
+		,"mnu_name"=>"Module Name"
+		,"mnu_link"=>"Link"
+		,"mnu_ord"=>"Order"
+		);
+
+		// Column (table data) User Defined Attributes
+		$arrAttribs = array(
+		"mnu_ord"=>" align='center'",
+		"viewdata"=>"width='50' align='center'"
+		);
+
+		// Process the Table List
+		$tblDisplayList = new clsTableList($this->conn);
+		$tblDisplayList->arrFields = $arrFields;
+		$tblDisplayList->paginator->linkPage = "?$queryStr";
+		$tblDisplayList->sqlAll = $sql;
+		$tblDisplayList->sqlCount = $sqlcount;
+
+		return $tblDisplayList->getTableList($arrAttribs);
+	}
+	
+    function dbfetchCompDetails($comp_id_ = null){
+		if($comp_id_!=null || $comp_id_ != ''){
+		$qry[] = "comp_id = '".$comp_id_."'";
+		$criteria = (count($qry)>0)?" where ".implode(" and ",$qry):"";
+		}
+		$sql = "select * from company_info $criteria";
+		$rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+			return $rsResult->fields;
+		}
+    }
+    
+    function getTaxContribution($month, $year, $emp_id){
+    	$sql = "select sum(ppe.ppe_amount) as ppe_amount_sum from payroll_paystub_entry ppe
+				left join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+				left join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+				WHERE ppp.payperiod_period='$month' and ppp.payperiod_period_year='$year' and ppe.psa_id='8' and ppr.emp_id='$emp_id'";
+    	$rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields;
+    	}
+    }
+    
+    function getTotalTaxContribution($month, $year, $comp_id, $branchinfo_id){
+    	$qry = "";
+    	$objClsSSS = new clsSSS($this->conn);
+    	if($objClsSSS->getSettings($comp_id,12) && $branchinfo_id != 0){
+    		$qry = " AND branchinfo_id='$branchinfo_id' ";
+    	}
+    	$sql = "select sum(ppe.ppe_amount) as totalTaxWithheld, sum(ppe.ppe_amount_employer) as totalTaxableCompensation from payroll_paystub_entry ppe
+				join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+				join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+				join emp_masterfile em on (em.emp_id=ppr.emp_id)
+				WHERE ppp.payperiod_period='$month' and ppp.payperiod_period_year='$year' and ppe.psa_id='8'
+				and em.comp_id='$comp_id' $qry";
+    	$rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields;
+    	}   	
+    }
+    
+    function getGrossCompensation($month, $year, $emp_id){
+    	/**$sql = "select sum(ppe.ppe_amount) as gross from payroll_paystub_entry ppe
+				join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+				join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+				join payroll_ps_account ppa on (ppa.psa_id=ppe.psa_id)
+				where (ppp.payperiod_period='$month' and ppp.payperiod_period_year='$year' and ppr.emp_id='$emp_id') 
+				and (ppe.psa_id in ('4','25','26','28'))";**/
+    	$sql = "SELECT basic_amt-(ut_abs_amt)+ot_amt+cola_amt+pe_entry_amt+amm_amt AS gross
+				FROM 
+				
+				(SELECT COALESCE(SUM(a.ppe_amount), 0) AS basic_amt FROM payroll_paystub_entry a
+				JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=d.emp_id)
+				WHERE c.payperiod_period_year='{$year}' AND d.emp_id='{$emp_id}' AND a.psa_id='1' AND c.payperiod_period='{$month}') basic_tbl,
+				
+				(select COALESCE(sum(emp_tarec_amtperrate),0) as ut_abs_amt 
+				FROM ta_emp_rec a 
+				JOIN ta_tbl b on (b.tatbl_id=a.tatbl_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=a.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				WHERE (a.tatbl_id IN (1,3,4)) AND a.emp_id='{$emp_id}' AND a.paystub_id!=0 AND c.payperiod_period = '{$month}' AND c.payperiod_period_year = '{$year}') ut_tbl,
+				
+				(select COALESCE(sum(ppe_amount),0) as ot_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_pay_stub b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_paystub_report c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=c.emp_id)
+				WHERE a.psa_id='16' AND c.emp_id='{$emp_id}' AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') ot_tbl,
+    			
+    			(select COALESCE(sum(ppe_amount),0) as cola_amt 
+    			FROM payroll_paystub_entry a 
+    			JOIN payroll_pay_stub b on (b.paystub_id=a.paystub_id) 
+    			JOIN payroll_paystub_report c on (c.paystub_id=b.paystub_id) 
+    			JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+    			JOIN emp_masterfile em on (em.emp_id=c.emp_id)
+    			WHERE a.psa_id='39' AND c.emp_id='{$emp_id}' and d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') cola_tbl,
+    			
+    			(SELECT COALESCE(sum(a.ppe_amount),0) as pe_entry_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				WHERE a.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_paystub_entry b on (b.psa_id=a.psa_id) 
+				JOIN payroll_pay_stub c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN payroll_paystub_report e on (e.paystub_id=b.paystub_id) 
+				WHERE a.psa_type=1 and a.psa_procode!=6 and e.emp_id='{$emp_id}' and d.payperiod_period = '{$month}' and d.payperiod_period_year = '{$year}') 
+				AND b.emp_id='{$emp_id}' AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}') pe_entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				FROM payroll_ps_amendemp a 
+				JOIN payroll_ps_amendment b on (b.psamend_id=a.psamend_id)
+				JOIN payroll_pay_stub c on (c.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				WHERE b.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_ps_amendment b on (b.psa_id=a.psa_id) 
+				JOIN payroll_ps_amendemp c on (c.psamend_id=b.psamend_id) 
+				JOIN payroll_pay_stub d on (d.paystub_id=c.paystub_id) 
+				JOIN payroll_pay_period e on (e.payperiod_id=d.payperiod_id) 
+				WHERE a.psa_type=1 and a.psa_procode!=6 and c.emp_id='{$emp_id}' and e.payperiod_period = '{$month}' and e.payperiod_period_year = '{$year}') 
+				AND a.emp_id='{$emp_id}' AND a.paystub_id!=0 AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') amm_tbl";
+    	$rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields;
+    	}  	
+    }
+    
+    function getTotalGrossCompensation($month, $year, $comp_id, $branchinfo_id){
+    	$qry = "";
+    	$objClsSSS = new clsSSS($this->conn);
+    	if($objClsSSS->getSettings($comp_id,12) && $branchinfo_id != 0){
+    		$qry = " AND branchinfo_id='$branchinfo_id' ";
+    	}
+    	/**$sql = "select sum(ppe.ppe_amount) as gross from payroll_paystub_entry ppe
+				join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+				join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+				join payroll_ps_account ppa on (ppa.psa_id=ppe.psa_id)
+				join emp_masterfile em on (em.emp_id=ppr.emp_id)
+				where (ppp.payperiod_period='$month' and ppp.payperiod_period_year='$year') 
+				and (ppe.psa_id in ('4','25','26','28'))
+				and em.comp_id='$comp_id'";**/
+    	$sql = "SELECT basic_amt-(ut_abs_amt)+ot_amt+cola_amt+pe_entry_amt+amm_amt AS gross
+				FROM 
+				
+				(SELECT COALESCE(SUM(a.ppe_amount), 0) AS basic_amt FROM payroll_paystub_entry a
+				JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=d.emp_id)
+				WHERE c.payperiod_period_year='{$year}' AND em.comp_id='{$comp_id}' $qry AND a.psa_id='1' AND c.payperiod_period='{$month}') basic_tbl,
+				
+				(select COALESCE(sum(emp_tarec_amtperrate),0) as ut_abs_amt 
+				FROM ta_emp_rec a 
+				JOIN ta_tbl b on (b.tatbl_id=a.tatbl_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=a.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				WHERE (a.tatbl_id IN (1,3,4)) AND em.comp_id='{$comp_id}' $qry AND a.paystub_id!=0 AND c.payperiod_period = '{$month}' AND c.payperiod_period_year = '{$year}') ut_tbl,
+				
+				(select COALESCE(sum(ppe_amount),0) as ot_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_pay_stub b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_paystub_report c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=c.emp_id)
+				WHERE a.psa_id='16' AND em.comp_id='{$comp_id}' $qry AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') ot_tbl,
+    			
+    			(select COALESCE(sum(ppe_amount),0) as cola_amt 
+    			FROM payroll_paystub_entry a 
+    			JOIN payroll_pay_stub b on (b.paystub_id=a.paystub_id) 
+    			JOIN payroll_paystub_report c on (c.paystub_id=b.paystub_id) 
+    			JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+    			JOIN emp_masterfile em on (em.emp_id=c.emp_id)
+    			WHERE a.psa_id='39' AND em.comp_id='{$comp_id}' $qry and d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') cola_tbl,
+    			
+    			(SELECT COALESCE(sum(a.ppe_amount),0) as pe_entry_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				WHERE a.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_paystub_entry b on (b.psa_id=a.psa_id) 
+				JOIN payroll_pay_stub c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				WHERE a.psa_type=1 and a.psa_procode!=6 and d.payperiod_period = '{$month}' and d.payperiod_period_year = '{$year}') 
+				AND em.comp_id='{$comp_id}' $qry AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}') pe_entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				FROM payroll_ps_amendemp a 
+				JOIN payroll_ps_amendment b on (b.psamend_id=a.psamend_id)
+				JOIN payroll_pay_stub c on (c.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				WHERE b.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_ps_amendment b on (b.psa_id=a.psa_id) 
+				JOIN payroll_ps_amendemp c on (c.psamend_id=b.psamend_id) 
+				JOIN payroll_pay_stub d on (d.paystub_id=c.paystub_id) 
+				JOIN payroll_pay_period e on (e.payperiod_id=d.payperiod_id) 
+				WHERE a.psa_type=1 and a.psa_procode!=6 and e.payperiod_period = '{$month}' and e.payperiod_period_year = '{$year}') 
+				AND em.comp_id='{$comp_id}' $qry AND a.paystub_id!=0 AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') amm_tbl";
+    	//echo $sql;
+    	//exit;		
+    			
+    	
+    	$rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields['gross'];
+    	}  	
+    	
+    }
+    
+    function getNonTaxable($month, $year, $emp_id){
+    	/*$sql = "select sum(ppe.ppe_amount) as nontax from payroll_paystub_entry ppe
+				join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+				join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+				join payroll_ps_account ppa on (ppa.psa_id=ppe.psa_id)
+				where (ppp.payperiod_period='$month' and ppp.payperiod_period_year='$year' and ppr.emp_id='$emp_id') 
+				and (ppe.psa_id='27' or ppa.psa_procode in ('2'))";*/
+    	$sql = "SELECT (pe_entry_amt+amm_amt)-(statutory_amt+pe_entry_deduct_amt+amm_deduct_amt) AS nontax
+				FROM 
+				
+				(SELECT COALESCE(sum(a.ppe_amount),0) as pe_entry_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				WHERE a.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_paystub_entry b on (b.psa_id=a.psa_id) 
+				JOIN payroll_pay_stub c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN payroll_paystub_report e on (e.paystub_id=b.paystub_id) 
+				WHERE a.psa_type=1 and a.psa_procode!=6 and e.emp_id='{$emp_id}' and d.payperiod_period = '{$month}' and d.payperiod_period_year = '{$year}' AND a.psa_tax=0) 
+				AND b.emp_id='{$emp_id}' AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}') pe_entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				FROM payroll_ps_amendemp a 
+				JOIN payroll_ps_amendment b on (b.psamend_id=a.psamend_id)
+				JOIN payroll_pay_stub c on (c.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				WHERE b.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_ps_amendment b on (b.psa_id=a.psa_id) 
+				JOIN payroll_ps_amendemp c on (c.psamend_id=b.psamend_id) 
+				JOIN payroll_pay_stub d on (d.paystub_id=c.paystub_id) 
+				JOIN payroll_pay_period e on (e.payperiod_id=d.payperiod_id) 
+				WHERE a.psa_type=1 and a.psa_procode!=6 and c.emp_id='{$emp_id}' and e.payperiod_period = '{$month}' and e.payperiod_period_year = '{$year}' AND a.psa_tax=0) 
+				AND a.emp_id='{$emp_id}' AND a.paystub_id!=0 AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') amm_tbl,
+				
+				(SELECT COALESCE(sum(a.ppe_amount),0) as statutory_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				WHERE a.psa_id IN (7,14,15) 
+				AND b.emp_id='{$emp_id}' AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}') statutory_tbl,
+				
+				(SELECT COALESCE(sum(a.ppe_amount),0) as pe_entry_deduct_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				WHERE a.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_paystub_entry b on (b.psa_id=a.psa_id) 
+				JOIN payroll_pay_stub c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN payroll_paystub_report e on (b.paystub_id=e.paystub_id)
+				WHERE a.psa_type=2 and a.psa_procode!=6 and e.emp_id='{$emp_id}' and d.payperiod_period = '{$month}' and d.payperiod_period_year = '{$year}' AND a.psa_tax=1) 
+				AND b.emp_id='{$emp_id}' AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}') pe_entry_deduct_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_deduct_amt 
+				FROM payroll_ps_amendemp a 
+				JOIN payroll_ps_amendment b on (b.psamend_id=a.psamend_id)
+				JOIN payroll_pay_stub c on (c.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				WHERE b.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_ps_amendment b on (b.psa_id=a.psa_id) 
+				JOIN payroll_ps_amendemp c on (c.psamend_id=b.psamend_id) 
+				JOIN payroll_pay_stub d on (d.paystub_id=c.paystub_id) 
+				JOIN payroll_pay_period e on (e.payperiod_id=d.payperiod_id) 
+				WHERE a.psa_type=2 and a.psa_procode!=6 and c.emp_id='{$emp_id}' and e.payperiod_period = '{$month}' and e.payperiod_period_year = '{$year}' AND a.psa_tax=1) 
+				AND a.emp_id='{$emp_id}' AND a.paystub_id!=0 AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') amm_deduct_tbl";
+    	$rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields['nontax'];
+    	}
+    }  	
+    
+   function getStatutory($month, $year, $emp_id){
+    	$sql = "select sum(ppe.ppe_amount) as statMWE from payroll_paystub_entry ppe
+		join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+		join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+		where (ppp.payperiod_period='$month' and ppp.payperiod_period_year='$year' and ppr.emp_id='$emp_id') 
+		and (ppe.psa_id='27')";
+    	$rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields;
+    	}  	
+    }
+	
+	function getGrossMWE($month, $year, $emp_id){
+		$sql = "SELECT basic_amt-(ut_abs_amt)+cola_amt+pe_entry_amt+amm_amt AS grossMWE
+				FROM 
+				
+				(SELECT COALESCE(SUM(a.ppe_amount), 0) AS basic_amt FROM payroll_paystub_entry a
+				JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=d.emp_id)
+				JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+				WHERE c.payperiod_period_year='{$year}' AND d.emp_id='{$emp_id}' AND a.psa_id='1' AND c.payperiod_period='{$month}'
+				AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') basic_tbl,
+				
+				(select COALESCE(sum(emp_tarec_amtperrate),0) as ut_abs_amt 
+				FROM ta_emp_rec a 
+				JOIN ta_tbl b on (b.tatbl_id=a.tatbl_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=a.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+				WHERE (a.tatbl_id IN (1,3,4)) AND a.emp_id='{$emp_id}' AND a.paystub_id!=0 AND c.payperiod_period = '{$month}' AND c.payperiod_period_year = '{$year}'
+				AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') ut_tbl,
+    			
+    			(select COALESCE(sum(ppe_amount),0) as cola_amt 
+    			FROM payroll_paystub_entry a 
+    			JOIN payroll_pay_stub b on (b.paystub_id=a.paystub_id) 
+    			JOIN payroll_paystub_report c on (c.paystub_id=b.paystub_id) 
+    			JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+    			JOIN emp_masterfile em on (em.emp_id=c.emp_id)
+    			JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+    			WHERE a.psa_id='39' AND c.emp_id='{$emp_id}' and d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}'
+    			AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') cola_tbl,
+    			
+    			(SELECT COALESCE(sum(a.ppe_amount),0) as pe_entry_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+				WHERE a.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_paystub_entry b on (b.psa_id=a.psa_id) 
+				JOIN payroll_pay_stub c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				WHERE a.psa_type=1 and a.psa_procode!=6 and d.payperiod_period = '{$month}' and d.payperiod_period_year = '{$year}') 
+				AND b.emp_id='{$emp_id}' AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}'
+				AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') pe_entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				FROM payroll_ps_amendemp a 
+				JOIN payroll_ps_amendment b on (b.psamend_id=a.psamend_id)
+				JOIN payroll_pay_stub c on (c.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+				WHERE b.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_ps_amendment b on (b.psa_id=a.psa_id) 
+				JOIN payroll_ps_amendemp c on (c.psamend_id=b.psamend_id) 
+				JOIN payroll_pay_stub d on (d.paystub_id=c.paystub_id) 
+				JOIN payroll_pay_period e on (e.payperiod_id=d.payperiod_id) 
+				WHERE a.psa_type=1 and a.psa_procode!=6 and e.payperiod_period = '{$month}' and e.payperiod_period_year = '{$year}') 
+				AND a.emp_id='{$emp_id}' AND a.paystub_id!=0 AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}'
+				AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') amm_tbl";
+    	$rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields['grossMWE'];
+    	}
+    }
+    
+    function getTotalGrossMWE($month, $year, $comp_id, $branchinfo_id){
+    	$qry = "";
+    	$objClsSSS = new clsSSS($this->conn);
+    	if($objClsSSS->getSettings($comp_id,12) && $branchinfo_id != 0){
+    		$qry = " AND branchinfo_id='$branchinfo_id' ";
+    	}
+    	$sql = "SELECT basic_amt-(ut_abs_amt)+cola_amt+pe_entry_amt+amm_amt AS grossMWE
+				FROM 
+				
+				(SELECT COALESCE(SUM(a.ppe_amount), 0) AS basic_amt FROM payroll_paystub_entry a
+				JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=d.emp_id)
+				JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+				WHERE c.payperiod_period_year='{$year}' AND em.comp_id='{$comp_id}' $qry AND a.psa_id='1' AND c.payperiod_period='{$month}'
+				AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') basic_tbl,
+				
+				(select COALESCE(sum(emp_tarec_amtperrate),0) as ut_abs_amt 
+				FROM ta_emp_rec a 
+				JOIN ta_tbl b on (b.tatbl_id=a.tatbl_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=a.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+				WHERE (a.tatbl_id IN (1,3,4)) AND em.comp_id='{$comp_id}' $qry AND a.paystub_id!=0 AND c.payperiod_period = '{$month}' AND c.payperiod_period_year = '{$year}'
+				AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') ut_tbl,
+    			
+    			(select COALESCE(sum(ppe_amount),0) as cola_amt 
+    			FROM payroll_paystub_entry a 
+    			JOIN payroll_pay_stub b on (b.paystub_id=a.paystub_id) 
+    			JOIN payroll_paystub_report c on (c.paystub_id=b.paystub_id) 
+    			JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+    			JOIN emp_masterfile em on (em.emp_id=c.emp_id)
+    			JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+    			WHERE a.psa_id='39' AND em.comp_id='{$comp_id}' $qry and d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}'
+    			AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') cola_tbl,
+    			
+    			(SELECT COALESCE(sum(a.ppe_amount),0) as pe_entry_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+				WHERE a.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_paystub_entry b on (b.psa_id=a.psa_id) 
+				JOIN payroll_pay_stub c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				WHERE a.psa_type=1 and a.psa_procode!=6 and d.payperiod_period = '{$month}' and d.payperiod_period_year = '{$year}') 
+				AND em.comp_id='{$comp_id}' $qry AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}'
+				AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') pe_entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				FROM payroll_ps_amendemp a 
+				JOIN payroll_ps_amendment b on (b.psamend_id=a.psamend_id)
+				JOIN payroll_pay_stub c on (c.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				JOIN period_benloanduc_sched pbs ON (pbs.emp_id=em.emp_id)
+				WHERE b.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_ps_amendment b on (b.psa_id=a.psa_id) 
+				JOIN payroll_ps_amendemp c on (c.psamend_id=b.psamend_id) 
+				JOIN payroll_pay_stub d on (d.paystub_id=c.paystub_id) 
+				JOIN payroll_pay_period e on (e.payperiod_id=d.payperiod_id) 
+				WHERE a.psa_type=1 and a.psa_procode!=6 and e.payperiod_period = '{$month}' and e.payperiod_period_year = '{$year}') 
+				AND em.comp_id='{$comp_id}' $qry AND a.paystub_id!=0 AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}'
+				AND pbs.bldsched_period = '2' AND pbs.empdd_id = '5') amm_tbl";
+    	$rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields['grossMWE'];
+    	}
+    }
+    
+    function getTotalStat($month, $year, $comp_id, $branchinfo_id){
+    	$qry = "";
+    	$objClsSSS = new clsSSS($this->conn);
+    	if($objClsSSS->getSettings($comp_id,12) && $branchinfo_id != 0){
+    		$qry = " AND branchinfo_id='$branchinfo_id' ";
+    	}
+    	/*$sql = "select sum(ppe.ppe_amount) as statMWE from payroll_paystub_entry ppe
+				join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+				join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+				join emp_masterfile em on (em.emp_id=ppr.emp_id)
+				where ppp.payperiod_period='$month' and ppp.payperiod_period_year='$year'
+				and (ppe.psa_id='27')
+				and em.comp_id='$comp_id'";*/
+		$sql = "SELECT (pe_entry_amt+amm_amt)-(statutory_amt+pe_entry_deduct_amt+amm_deduct_amt) AS statMWE
+				FROM 
+				
+				(SELECT COALESCE(sum(a.ppe_amount),0) as pe_entry_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				WHERE a.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_paystub_entry b on (b.psa_id=a.psa_id) 
+				JOIN payroll_pay_stub c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				WHERE a.psa_type=1 and a.psa_procode!=6 and d.payperiod_period = '{$month}' and d.payperiod_period_year = '{$year}' AND a.psa_tax=0) 
+				AND em.comp_id='{$comp_id}' $qry AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}') pe_entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				FROM payroll_ps_amendemp a 
+				JOIN payroll_ps_amendment b on (b.psamend_id=a.psamend_id)
+				JOIN payroll_pay_stub c on (c.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				WHERE b.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_ps_amendment b on (b.psa_id=a.psa_id) 
+				JOIN payroll_ps_amendemp c on (c.psamend_id=b.psamend_id) 
+				JOIN payroll_pay_stub d on (d.paystub_id=c.paystub_id) 
+				JOIN payroll_pay_period e on (e.payperiod_id=d.payperiod_id) 
+				WHERE a.psa_type=1 and a.psa_procode!=6 and e.payperiod_period = '{$month}' and e.payperiod_period_year = '{$year}' AND a.psa_tax=0) 
+				AND em.comp_id='{$comp_id}' $qry AND a.paystub_id!=0 AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') amm_tbl,
+				
+				(SELECT COALESCE(sum(a.ppe_amount),0) as statutory_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				WHERE a.psa_id IN (7,14,15) 
+				AND em.comp_id='{$comp_id}' $qry AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}') statutory_tbl,
+				
+				(SELECT COALESCE(sum(a.ppe_amount),0) as pe_entry_deduct_amt 
+				FROM payroll_paystub_entry a 
+				JOIN payroll_paystub_report b on (b.paystub_id=a.paystub_id) 
+				JOIN payroll_pay_period c on (c.payperiod_id=b.payperiod_id) 
+				JOIN emp_masterfile em on (em.emp_id=b.emp_id)
+				WHERE a.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_paystub_entry b on (b.psa_id=a.psa_id) 
+				JOIN payroll_pay_stub c on (c.paystub_id=b.paystub_id) 
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				WHERE a.psa_type=2 and a.psa_procode!=6 and d.payperiod_period = '{$month}' and d.payperiod_period_year = '{$year}' AND a.psa_tax=1) 
+				AND em.comp_id='{$comp_id}' $qry AND c.payperiod_period = '{$month}' and c.payperiod_period_year = '{$year}') pe_entry_deduct_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_deduct_amt 
+				FROM payroll_ps_amendemp a 
+				JOIN payroll_ps_amendment b on (b.psamend_id=a.psamend_id)
+				JOIN payroll_pay_stub c on (c.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id)
+				WHERE b.psa_id IN (select distinct a.psa_id 
+				FROM payroll_ps_account a 
+				JOIN payroll_ps_amendment b on (b.psa_id=a.psa_id) 
+				JOIN payroll_ps_amendemp c on (c.psamend_id=b.psamend_id) 
+				JOIN payroll_pay_stub d on (d.paystub_id=c.paystub_id) 
+				JOIN payroll_pay_period e on (e.payperiod_id=d.payperiod_id) 
+				WHERE a.psa_type=2 and a.psa_procode!=6 and e.payperiod_period = '{$month}' and e.payperiod_period_year = '{$year}' AND a.psa_tax=1) 
+				AND em.comp_id='{$comp_id}' $qry AND a.paystub_id!=0 AND d.payperiod_period = '{$month}' AND d.payperiod_period_year = '{$year}') amm_deduct_tbl";
+        $rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields['statMWE'];
+    	}  	
+    }
+    
+	function getTotalStatMWE($month, $year, $comp_id){
+    	$sql = "select sum(ppe.ppe_amount) as statMWE from payroll_paystub_entry ppe
+				join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+				join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+				join emp_masterfile em on (em.emp_id=ppr.emp_id)
+				where ppp.payperiod_period='$month' and ppp.payperiod_period_year='$year'
+				and (ppe.psa_id='27')
+				and em.comp_id='$comp_id'";
+        $rsResult = $this->conn->Execute($sql);
+    	while(!$rsResult->EOF){
+    		return $rsResult->fields['statMWE'];
+    	}  	
+    }
+    
+	// function that will compute for the overtime
+    function getOvertime($month, $year, $comp_id, $branchinfo_id) {
+    	$qry = "";
+    	$objClsSSS = new clsSSS($this->conn);
+    	if($objClsSSS->getSettings($comp_id,12) && $branchinfo_id != 0){
+    		$qry = " AND branchinfo_id='$branchinfo_id' ";
+    	}
+       	$sql = "SELECT entry_amt+amm_amt AS total
+				FROM 
+				(SELECT COALESCE(SUM(a.ppe_amount), 0) AS entry_amt FROM payroll_paystub_entry a
+				JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=d.emp_id)
+				JOIN period_benloanduc_sched f ON (d.emp_id=f.emp_id)
+				WHERE c.payperiod_period_year='{$year}' AND em.comp_id='{$comp_id}' $qry AND a.psa_id='16' AND c.payperiod_period='{$month}' AND f.empdd_id = '5' AND f.bldsched_period = '2') entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				from payroll_ps_amendemp a 
+				join payroll_ps_amendment b on (b.psamend_id=a.psamend_id) 
+				join payroll_pay_stub c on (c.paystub_id=a.paystub_id) 
+				join payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN payroll_ps_account e ON (e.psa_id=b.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id) 
+				JOIN period_benloanduc_sched f ON (a.emp_id=f.emp_id)
+				WHERE d.payperiod_period_year='{$year}' AND em.comp_id='{$comp_id}' $qry AND b.psa_id='16' AND d.payperiod_period='{$month}' AND f.empdd_id = '5' AND f.bldsched_period = '2'
+				AND a.paystub_id NOT IN (SELECT a.paystub_id FROM payroll_paystub_entry a
+				JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=d.emp_id)
+				JOIN period_benloanduc_sched f ON (d.emp_id=f.emp_id)
+				WHERE c.payperiod_period_year='{$year}' AND em.comp_id='{$comp_id}' $qry AND a.psa_id='16' AND c.payperiod_period='{$month}' AND f.empdd_id = '5' AND f.bldsched_period = '2')) amm_tbl";
+    	$rsResult = $this->conn->Execute($sql);
+    	while (!$rsResult->EOF) {
+    		if ($rsResult->fields['total'] != '' or $rsResult->fields['total'] != NULL or $rsResult->fields['total'] != 0.00) {
+    			return $rsResult->fields['total'];
+    		} else {
+    			return 0.00;
+    		}
+    	}
+    }
+    
+	function getEmpOvertime($month, $year, $emp_id) {
+       	$sql = "SELECT entry_amt+amm_amt AS total
+				FROM 
+				(SELECT COALESCE(SUM(a.ppe_amount), 0) AS entry_amt FROM payroll_paystub_entry a
+				JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=d.emp_id)
+				JOIN period_benloanduc_sched f ON (d.emp_id=f.emp_id)
+				WHERE c.payperiod_period_year='{$year}' AND d.emp_id='{$emp_id}' AND a.psa_id='16' AND c.payperiod_period='{$month}' AND f.empdd_id = '5' AND f.bldsched_period = '2') entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				from payroll_ps_amendemp a 
+				join payroll_ps_amendment b on (b.psamend_id=a.psamend_id) 
+				join payroll_pay_stub c on (c.paystub_id=a.paystub_id) 
+				join payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				JOIN payroll_ps_account e ON (e.psa_id=b.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=a.emp_id) 
+				JOIN period_benloanduc_sched f ON (a.emp_id=f.emp_id)
+				WHERE d.payperiod_period_year='{$year}' AND a.emp_id='{$emp_id}' AND b.psa_id='16' AND d.payperiod_period='{$month}' AND f.empdd_id = '5' AND f.bldsched_period = '2'
+				AND a.paystub_id NOT IN (SELECT a.paystub_id FROM payroll_paystub_entry a
+				JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				JOIN emp_masterfile em on (em.emp_id=d.emp_id)
+				JOIN period_benloanduc_sched f ON (d.emp_id=f.emp_id)
+				WHERE c.payperiod_period_year='{$year}' AND d.emp_id='{$emp_id}' AND a.psa_id='16' AND c.payperiod_period='{$month}' AND f.empdd_id = '5' AND f.bldsched_period = '2')) amm_tbl";
+    	$rsResult = $this->conn->Execute($sql);
+    	while (!$rsResult->EOF) {
+    		if ($rsResult->fields['total'] != '' or $rsResult->fields['total'] != NULL or $rsResult->fields['total'] != 0.00) {
+    			return $rsResult->fields['total'];
+    		} else {
+    			return 0.00;
+    		}
+    	}
+    }
+    
+    function moneyFormat($num){
+    	$objClsMngeDecimal = new Application();
+    	if((float)$num!=0){
+    		$money_format = $finalDecFormat = $objClsMngeDecimal->setFinalDecimalPlaces($num);
+    	}else{
+    		$money_format = $finalDecFormat = $objClsMngeDecimal->setFinalDecimalPlaces(0);
+    	}
+    	return $money_format;
+    }
+    
+	function getMonthInWords($month){
+		$MonthInWords = date("F", mktime(0, 0, 0, $month));
+		return $MonthInWords;
+	}
+	
+	function getTaxDetails($comp_id){
+		$sql = "select te_rdo, te_atc FROM tax_employer WHERE comp_id='$comp_id'";
+		$rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF){
+    		return $rsResult->fields;
+    	}  	
+	}
+	
+	function createPDF($content, $paper, $orientation, $filename){
+		$dompdf = new DOMPDF();
+		$dompdf->load_html($content);
+		$dompdf->set_paper($paper,$orientation);
+		$dompdf->render();
+		$dompdf->stream($filename,array('Attachment' => 0));	
+	}
+	
+	function getPDFMonthlyRemittance1($gData = array()){
+		$orientation='P';
+		$unit='mm';
+		$format='LEGAL';
+		$unicode=true;
+		$encoding="UTF-8";
+
+		$oPDF = new clsPDF($orientation, $unit, $format, $unicode, $encoding);
+		
+		// set auto page break to false so that we can control the page break
+		// depending on the desired number of lines on the output
+		$oPDF->SetAutoPageBreak(false);
+		// use a freeserif font as a default font
+		$oPDF->SetFont('helvetica','',10);
+		
+		// suppress print header and footer
+		$oPDF->setPrintHeader(false);
+		$oPDF->setPrintFooter(false);
+
+		// set initial coordinates
+		$coordX = 0;
+		$coordY = 0;
+
+		// set initial pdf page
+		$oPDF->AddPage();
+		
+		$oPDF->Image(SYSCONFIG_THEME_PATH."default/images/admin/1601-C.jpg",$coordX,$coordY,$oPDF->getPageWidth(),$oPDF->getPageHeight());
+		
+		if(clsSSS::getSettings($gData['comp'],12) && $gData['branchinfo_id'] != 0){
+        	$branch_details = clsSSS::getLocationInfo($gData['branchinfo_id']);
+        	$company_name = $branch_details['branchinfo_name'];
+        	$company_address = $branch_details['branchinfo_add'];
+        	$company_tin = $branch_details['branchinfo_tin'];
+        	$company_tel = $branch_details['branchinfo_tel1'];
+        	$company_type = $branch_details['comptype_id'];
+        }ELSE{
+        	$branch = $this->dbfetchCompDetails($comp_id);
+        	$company_name = $branch['comp_name'];
+        	$company_address = $branch['comp_add'];
+        	$company_tin = $branch['comp_tin'];
+        	$company_tel = $branch['comp_tel'];
+        	$company_type = $branch['comptype_id'];
+        }
+		$getZip = explode(",",$company_address);
+		$address = "";
+		
+		//gross compensation
+		$totalGross = $this->getTotalGrossCompensation($gData['month'],$gData['year'], $gData['comp'],$gData['branchinfo_id']);
+		
+		//Statutory(non-taxable) - 16C
+		$totalStat = $this->getTotalStat($gData['month'],$gData['year'], $gData['comp'],$gData['branchinfo_id']);
+		
+		//MWE - 16.A
+		$totalMWE = $this->getTotalGrossMWE($gData['month'],$gData['year'], $gData['comp'],$gData['branchinfo_id']);
+
+		//MWE Overtime - 16B
+		$totalOT = $this->getOvertime($gData['month'],$gData['year'], $gData['comp'],$gData['branchinfo_id']);
+
+		//taxable
+		
+		$totalTaxCompensation = $totalGross-($totalStat+$totalMWE+$totalOT);
+		
+		//tax contribution
+		$totalTaxContribution = $this->getTotalTaxContribution($gData['month'],$gData['year'], $gData['comp'],$gData['branchinfo_id']);
+		
+		$trans_date = $gData['year'].'-'.$gData['month'];
+		$tax_emp = $this->getTaxDetails($gData['comp']);
+		$month = str_split($gData['month']);
+		$year = str_split($gData['year']);
+		$rdo_code = str_split($tax_emp['te_rdo']);
+		$comp_tel = str_split($company_tel);
+		$tin = str_split(str_replace (array(" ","-"), "", $company_tin));
+		if ($company_type == 1) {
+			$oPDF->SetFont('helvetica','',13);
+			$oPDF->Text($coordX+21.6, $coordY+101, "X");
+		} else {
+			$oPDF->SetFont('helvetica','',13);
+			$oPDF->Text($coordX+37.7, $coordY+101, "X");
+			
+		}
+		
+		//for the month and year
+		$oPDF->Text($coordX+45.5, $coordY+58, $month[0]);
+		$oPDF->Text($coordX+50.5, $coordY+58, $month[1]);
+		$oPDF->Text($coordX+55.6, $coordY+58, $year[0]);
+		$oPDF->Text($coordX+60.6, $coordY+58, $year[1]);
+		$oPDF->Text($coordX+65.7, $coordY+58, $year[2]);
+		$oPDF->Text($coordX+70.9, $coordY+58, $year[3]);
+		
+		//tin
+		$oPDF->Text($coordX+22.3, $coordY+69.5, $tin[0]);
+		$oPDF->Text($coordX+27.5, $coordY+69.5, $tin[1]);
+		$oPDF->Text($coordX+31.8, $coordY+69.5, $tin[2]);
+		$oPDF->Text($coordX+40, $coordY+69.5, $tin[3]);
+		$oPDF->Text($coordX+45, $coordY+69.5, $tin[4]);
+		$oPDF->Text($coordX+50, $coordY+69.5, $tin[5]);
+		$oPDF->Text($coordX+59, $coordY+69.5, $tin[6]);
+		$oPDF->Text($coordX+64, $coordY+69.5, $tin[7]);
+		$oPDF->Text($coordX+68.2, $coordY+69.5, $tin[8]);
+		$oPDF->Text($coordX+76.5, $coordY+69.5, $tin[9]);
+		$oPDF->Text($coordX+81, $coordY+69.5, $tin[10]);
+		$oPDF->Text($coordX+85.5, $coordY+69.5, $tin[11]);
+		$oPDF->Text($coordX+89, $coordY+69.5, $tin[12]);
+		
+		//RDO Code
+		$oPDF->Text($coordX+117.5, $coordY+69.5, $rdo_code[0]);
+		$oPDF->Text($coordX+122.5, $coordY+69.5, $rdo_code[1]);
+		$oPDF->Text($coordX+126.5, $coordY+69.5, $rdo_code[2]);
+		
+		
+		
+		//company
+		$oPDF->SetFont('helvetica','',9.5);
+		$oPDF->Text($coordX+22.3, $coordY+79, $company_name);
+		//telephone number
+		$oPDF->Text($coordX+173.5, $coordY+79, $comp_tel[0]);
+		$oPDF->Text($coordX+177.5, $coordY+79, $comp_tel[1]);
+		$oPDF->Text($coordX+182, $coordY+79, $comp_tel[2]);
+		$oPDF->Text($coordX+186.5, $coordY+79, $comp_tel[3]);
+		$oPDF->Text($coordX+190.5, $coordY+79, $comp_tel[4]);
+		$oPDF->Text($coordX+195, $coordY+79, $comp_tel[5]);
+		$oPDF->Text($coordX+199, $coordY+79, $comp_tel[6]);
+		//address
+		$oPDF->Text($coordX+22.3, $coordY+90, $company_address);
+		//zip
+		$getZip = explode(",",$company_address);
+		foreach ($getZip as $key => $value) {
+			if ($key == count($getZip)-1 && is_numeric($value)) {
+				$zip = $value;
+			}
+		}
+		
+		$comp_zip = str_split($zip);
+		$oPDF->Text($coordX+182, $coordY+90, $comp_zip[1]);
+		$oPDF->Text($coordX+188, $coordY+90, $comp_zip[2]);
+		$oPDF->Text($coordX+193, $coordY+90, $comp_zip[3]);
+		$oPDF->Text($coordX+198, $coordY+90, $comp_zip[4]);
+		
+		$oPDF->Text($coordx+117, $coordY+116, $this->moneyFormat($totalGross));
+		$oPDF->Text($coordx+117, $coordY+123, $this->moneyFormat($totalMWE));
+		$oPDF->Text($coordx+117, $coordY+130, $this->moneyFormat($totalOT));
+		$oPDF->Text($coordx+117, $coordY+137, $this->moneyFormat($totalStat));
+		$oPDF->Text($coordx+117, $coordY+144, $this->moneyFormat($totalTaxCompensation));
+		$oPDF->Text($coordx+163, $coordY+149, $this->moneyFormat($totalTaxContribution['totalTaxWithheld']));
+		
+		$oPDF->setfont('helvetica', '', '7');
+		//pos rep
+		$oPDF->Text($coordX+50, $coordY+268, $gData['rep']);
+		$oPDF->Text($coordX+32, $coordY+280.5, $gData['pos_rep']);
+		$oPDF->Text($coordX+78, $coordY+280.5, $gData['tin_rep']);
+		$oPDF->Text($coordX+35, $coordY+286.5, $gData['acc']);
+		$oPDF->Text($coordX+69, $coordY+286.5, $gData['issue_date']);
+		$oPDF->Text($coordX+96, $coordY+286.5, $gData['exp_date']);
+		$oPDF->Text($coordX+145, $coordY+268, $gData['treasurer']);
+		$oPDF->Text($coordX+145, $coordY+280, $gData['pos_tre']);
+		$oPDF->Text($coordX+145, $coordY+286, $gData['tin_tre']);
+		
+		
+		//get the pdf output
+		$output = $oPDF->Output("1601C_".$this->getMonthInWords($gData['month']).'_'.$gData['year'].".pdf");
+
+		if (!empty($output)) {
+			return $output;
+		}
+
+		return false;
+		}
+	
+	
+	function getPDFMonthlyRemittance($gData = array()){
+		$objClsMngeDecimal = new Application();
+		$paper = 'Legal';
+		$orientation = 'portrait';
+		$filename = '1601-C_'.$this->getMonthInWords($gData['month']).'_'.$gData['year'].'.pdf';
+		$branch = $this->dbfetchCompDetails($gData['comp']);
+		
+		$getZip = explode(",",$branch['comp_add']);
+		$address = "";
+		foreach($getZip as $key => $value){
+			if($key == count($getZip)-1 && is_numeric($value)){
+				$zip = $value;
+			} else {
+				$address .= $value;
+				$zip ="&nbsp;";
+			}
+		}
+		//gross compensation
+		$totalGross = $this->getTotalGrossCompensation($gData['month'],$gData['year'], $gData['comp']);
+		
+		//Statutory(non-taxable)
+		$totalStat = $this->getTotalStat($gData['month'],$gData['year'], $gData['comp']);
+		
+		// MWE
+		$totalMWE = $this->getTotalGrossMWE($gData['month'],$gData['year'], $gData['comp']);
+		
+		//MWE Overtime
+		$totalOT = $this->getOvertime($gData['month'],$gData['year'], $gData['comp']);
+		
+		//taxable
+		// $totalTaxCompensation = $totalGross - $totalMWE - $totalStat;
+		$totalTaxCompensation = $totalGross-($totalStat+$totalMWE+$totalOT);
+		//tax contribution
+		$totalTaxContribution = $this->getTotalTaxContribution($gData['month'],$gData['year'], $gData['comp']);
+		
+		$trans_date = $gData['year'].'-'.$gData['month'];
+		$tax_emp = $this->getTaxDetails($gData['comp']);
+		$month = str_split($gData['month']);
+		$year = str_split($gData['year']);
+		$tin = str_split(str_replace (array(" ","-"), "", $branch['comp_tin']));
+		if($branch['comptype_id'] == 1){
+			$private = 'X';
+			$gov = '&nbsp;';
+		}else {
+			$private = '&nbsp;';
+			$gov = 'X';	
+		}
+		$content = 	'<html><head>
+					<style type="text/css">
+						@page { margin-top: 1.5em; margin-bottom: 1em;} 
+					</style></head>
+					<body><table style=\'font-family:Helvetica; border:2px solid black; color:black; border-collapse:collapse; \' width=\'600px\'><tr><td>
+					<table style=\'border-bottom:2px solid black; border-collapse:collapse;\' width=\'100%\'><tr><td width=\'60px\'><img src="'.SYSCONFIG_CLASS_PATH.'util/dompdf/images/pdf_report/BIR-Logo.gif" height=\'50px\' width=\'50px\'></td>
+					<td style=\'font-size:11px;\' width=\'160px\'>Republika ng Pilipinas<br>Kagawaran ng Pananalapi<br>Kawanihan ng Rentas Internas</td>
+					<td align=\'center\' style=\'font-size:18px;\' width=\'270px\'><strong><span>Monthly Remittance Return<br>of Income Taxes Withheld<br>on Compensation</strong></td>
+					<td><span style=\'font-size:10px; padding-left:70px;\'>BIR Form No.</span><br><span style=\'font-size:30px;\'><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1601-C</strong></span><br><span style=\'font-size:10px; padding-left:70px;\'>July 2008 (ENCS)</span></td>
+					</tr></table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; border-collapse:collapse;\' width=\'100%\'><tr><td>Fill in all applicable spaces. Mark all appropriate boxes with an "X"</td></tr></table>
+					
+					<table width=\'100%\' style=\'font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\'>
+					<tr>
+						<td width=\'230px\' style=\'border-right:2px solid black; border-collapse:collapse;\'><table style="border-collapse:collapse; padding:3px 0;"><tr>
+							<td width=\'80px\' style=\'vertical-align:top;\' colspan=\'3\'><strong>1</strong>&nbsp;&nbsp; For the Month</td></tr>
+							<tr>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(MM/YYYY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white; vertical-align:bottom;\' width=\'40px\' align=\'center\'>'.$month[0].'<span style=\'font-size:2px;\'>|</span> '.$month[1].'</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'60px\' align=\'center\'>'.$year[0].'<span style=\'font-size:2px;\'>|</span> '.$year[1].'<span style=\'font-size:2px;\'>|</span> '.$year[2].'<span style=\'font-size:2px;\'>|</span> '.$year[3].'</td>
+						</tr></table></td>
+						<td width=\'180px\' style=\'border-right:2px solid black; border-collapse:collapse;\'><table style="border-collapse:collapse;">
+							<tr><td colspan=\'8\' style="padding-bottom:4px;">&nbsp;<strong>2</strong>&nbsp;&nbsp; Amended Return?</td></tr>
+							<tr>
+								<td width="30px">&nbsp;</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'20px\' align=\'center\'>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td style="vertical-align:bottom;">Yes</td>
+								<td>&nbsp;</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'20px\' align=\'center\'>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td style="vertical-align:bottom;">No</td>
+							</tr>
+						</table></td>
+						<td style=\'border-right:2px solid black;\'><table style="border-collapse:collapse;">
+							<tr><td colspan=\'4\' style="padding-bottom:4px;">&nbsp;<strong>3</strong>&nbsp;&nbsp; No. of Sheets Attached</td></tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'40px\' align=\'center\'>&nbsp;<span style=\'font-size:2px;\'>|</span> &nbsp;</td></tr>
+						</table></td>
+						<td ><table style="border-collapse:collapse;">
+							<tr><td colspan=\'5\' style="padding-bottom:4px;">&nbsp;<strong>4</strong>&nbsp;&nbsp; Any Taxes Withheld?</td></tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'20px\' align=\'center\'>&nbsp;</td>
+								<td style="vertical-align:bottom;">Yes</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'20px\' align=\'center\'>&nbsp;</td>
+								<td style="vertical-align:bottom;">No</td>
+							</tr>
+						</table></td>
+					</tr>
+					</table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black;  background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'><tr><td><strong>Part I</strong></td><td align=\'center\'><span style=\'padding-left:500px;\'><strong>B a c k g r o u n d<span style="margin-right:10px;">&nbsp;</span>I n f o r m a t i o n</strong></span></td></tr></table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'><tr>
+						<td style=\'border-right:2px solid black; padding:3px 0;\' width=\'315px\'><table style="border-collapse:collapse;">
+							<tr>
+								<td style=\'vertical-align:top;\' width=\'10px\'><strong>5</strong>&nbsp;&nbsp;&nbsp; TIN &nbsp;&nbsp;&nbsp;</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'60px\' align=\'center\'>'. $tin[0] .'<span style=\'font-size:2px;\'>|</span> '. $tin[1] .'<span style=\'font-size:2px;\'>|</span> '. $tin[2] .'</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'60px\' align=\'center\'>'. $tin[3] .'<span style=\'font-size:2px;\'>|</span> '. $tin[4] .'<span style=\'font-size:2px;\'>|</span> '. $tin[5] .'</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'60px\' align=\'center\'>'. $tin[6] .'<span style=\'font-size:2px;\'>|</span> '. $tin[7] .'<span style=\'font-size:2px;\'>|</span> '. $tin[8] .'</td>
+								<td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'60px\' align=\'center\'> 0 <span style=\'font-size:2px;\'>|</span> 0 <span style=\'font-size:2px;\'>|</span> 0 </td>
+							</tr>
+						</table></td>
+						<td style=\'border-right:2px solid black; padding:3px 0;\' width=\'140px\'><table style="border-collapse:collapse;"><tr>
+							<td style=\'vertical-align:top;\'><strong>&nbsp;6</strong>&nbsp;&nbsp; RDO Code</td>
+							<td><table style="border-collapse:collapse;"><tr><td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'55px\' align=\'center\'>&nbsp;'.$tax_emp['te_rdo'].'</td></tr></table></td>
+						</tr></table></td>
+						<td style="padding:3px 0;"><table style="border-collapse:collapse;"><tr>
+							<td width=\'100px\'><strong>&nbsp;7</strong>&nbsp;&nbsp; Line of Business/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Occupation</td>
+							<td><table style="border-collapse:collapse;"><tr><td style=\'border:1px solid black; vertical-align:bottom; font-size:14px; background-color:white;\' width=\'150px\'> &nbsp;</td></tr></table></td>
+						</tr></table></td>
+					</tr></table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collpase;\' width=\'100%\'>
+						<tr>
+							<td style=\'border-right:2px solid black;\' width=\'583px\'><table style="border-collapse:collapse;">
+								<tr><td width="500px"><strong>8</strong>&nbsp;&nbsp; Withholding Agent\'s Name (Last Name, First Name, Middle Name for Individuals)/(Registered Name for Non-Individuals)</td></tr>
+								<tr><td><table style="border-collapse:collapse;"><tr><td width="25px" style="padding:3px 0;">&nbsp;</td><td width="539px" style=\'border:1px solid black; background-color:white; font-size:12px;\'>'.$branch['comp_name'].'</td></tr></table></td></tr>
+							</table></td>
+							<td><table style="border-collapse:collapse;">
+								<tr><td><strong>9</strong>&nbsp;&nbsp; Telephone Number</td></tr>
+								<tr><td style=\'border:1px solid black; background-color:white; padding:3px 0; font-size:12px;\' width=\'120px\'>'.$branch['comp_tel'].'</td></tr>
+							</table></td>
+						</tr>
+					</table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'>
+						<tr>
+							<td style=\'border-right:2px solid black;\' width=\'584px\'><table style="border-collapse:collapse;">
+								<tr><td width="500px"><strong>10</strong>&nbsp;&nbsp; Registered Address</td></tr>
+								<tr><td style="padding-bottom:3px;"><table style="border-collapse:collapse;"><tr><td width="25px" style="padding:3px 0;">&nbsp;</td><td width="539px" style=\'border:1px solid black; background-color:white; font-size:12px;\' width=\'530px\'>&nbsp;'.$address.'</td></tr></table></td></tr>
+							</table></td>
+							<td><table style="border-collapse:collapse;">
+								<tr><td><strong>11</strong>&nbsp;&nbsp; Zip Code</td></tr>
+								<tr><td><table style="border-collapse:collapse;"><tr><td width="25px" style="padding:3px 0;">&nbsp;</td><td style=\'border:1px solid black; background-color:white; font-size:12px;\' width=\'95px\'>'.$zip.'</td></tr></table></td></tr>
+							</table></td>
+						</tr>
+					</table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'>
+						<tr>
+							<td style=\'border-right:2px solid black;\'width=\'180px\'><table style="border-collapse:collapse;">
+								<tr><td colspan=\'5\' style="padding-bottom:8px;"><strong>12</strong>&nbsp;&nbsp; Category of Withholding Agent</td></tr>
+								<tr>
+									<td width="30px">&nbsp;</td>
+									<td style=\'border:1px solid black; background-color:white; font-size:16px;\' width=\'20px\' align="center">'.$private.'</td>
+									<td><br>Private</td>
+									<td style=\'border:1px solid black; background-color:white; font-size:16px;\' width=\'20px\' align="center">'.$gov.'</td>
+									<td style="margin-bottom:3px;"><br>Government</td>
+								</tr>
+							</table></td>
+							<td style=\'border-right:2px solid black;\' width=\'401px\'><table style="border-collapse:collapse;">
+								<tr><td colspan=\'7\'><strong>13</strong>&nbsp;&nbsp; Are there payees availing of tax relief under Special Law<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or International Tax Treaty?</td></tr>
+								<tr>
+									<td width="20px">&nbsp;</td>
+									<td style=\'border:1px solid black; background-color:white;s\' width=\'20px\'>&nbsp;</td>
+									<td width="10px">Yes</td>
+									<td style=\'border:1px solid black; background-color:white;s\' width=\'20px\'>&nbsp;</td>
+									<td width="20px">No</td>
+									<td width="80px">If yes, specify<br></td>
+									<td style=\'border:1px solid black; background-color:white; padding:4px 0;\' width=\'107px\'>&nbsp;</td>
+								</tr>
+							</table></td>
+							<td><table style="border-collapse:collapse;">
+								<tr><td><strong>14</strong>&nbsp;&nbsp; A T C<br><br></td></tr>
+								<tr><td><table style="border-collapse:collapse;"><tr><td width="25px">&nbsp;</td><td style=\'padding:4px 0; border:1px solid black; background-color:white;\' width=\'95px\'>'.$tax_emp['te_atc'].'&nbsp;</td></tr></table></td></tr>
+							</table></td>
+						</tr>
+					</table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'><tr><td width=\'30px\'><strong>Part II</strong></td><td align=\'center\'><span style=\'padding-left:500px;\'><strong>C o m p u t a t i o n<span style="margin-right:10px;">&nbsp;</span>o f<span style="margin-right:10px;">&nbsp;</span>T a x</strong></span></td></tr></table>
+					
+					<table style=\'font-size:10px; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'>
+						<tr>
+							<td colspan=\'2\' align=\'center\' width=\'260px\'>Particulars</td>
+							<td align=\'center\' colspan=\'2\' width=\'20px\'>Amount of Compensation</td>
+							<td align=\'left\'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tax Due</td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'>&nbsp;<strong>15</strong>&nbsp;&nbsp; Total Amount of Compensation</td>
+							<td colspan=\'2\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>15</strong></td><td style=\'border:1px solid black; background-color:white; padding:1px 0; font-size:14px;\' width=\'200px\' align=\'right\'>'.$this->moneyFormat($totalGross).'</td></tr></table></td>
+							<td align=\'left\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'><table style="border-collapse:collapse;"><tr><td><strong>&nbsp;16</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Less: Non-Taxable Compensation<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>16A</strong>&nbsp;&nbsp; Statutory Minimum Wage (MWEs)</td></tr></table></td>
+							<td colspan=\'2\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>16A</strong></td><td style=\'border:1px solid black; background-color:white; padding:1px 0; font-size:14px;\' width=\'200px\' align=\'right\'>'.$this->moneyFormat($totalMWE).'</td></tr></table></td>
+							<td align=\'left\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'><table style="border-collapse:collapse;"><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>16B</strong>&nbsp;&nbsp; Holiday Pay, Overtime Pay, Night <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift Differential Pay, Hazard Pay <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Minimum Wage Earner)</td></tr></table></td>
+							<td colspan=\'2\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>16B</strong></td><td style=\'padding:3px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>'.$this->moneyFormat($totalOT).'</td></tr></table></td>
+							<td align=\'left\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'><table style="border-collapse:collapse;"><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>16C</strong>&nbsp;&nbsp; Other Non-Taxable Compensation</td></tr></table></td>
+							<td colspan=\'2\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>16C</strong></td><td style=\'padding:1px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>'.$this->moneyFormat($totalStat).'</td></tr></table></td>
+							<td align=\'left\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'>&nbsp;<strong>17</strong>&nbsp;&nbsp; Taxable Compensation</td>
+							<td colspan=\'2\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>&nbsp;17</strong></td><td style=\'padding:1px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>'.$this->moneyFormat($totalTaxCompensation).'</td></tr></table></td>
+							<td align=\'left\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'>&nbsp;<strong>18</strong>&nbsp;&nbsp; Tax Required to be Withheld</td>
+							<td colspan=\'2\'>&nbsp;</td>
+							<td align=\'left\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>&nbsp;18</strong></td><td style=\'padding:1px 0; border:1px solid black; background-color:white; font-size:14px;\' width=\'200px\' align=\'right\'>'.$this->moneyFormat($totalTaxContribution['totalTaxWithheld']).'</td></tr></table></td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'><table style="border-collapse:collapse;"><tr><td><strong>&nbsp;19</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Add/Less: Adjustment(from Item 26 of Section A)</td></tr></table></td>
+							<td colspan=\'2\'>&nbsp;</td>
+							<td align=\'left\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>&nbsp;19</strong></td><td style=\'padding:1px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>&nbsp;</td></tr></table></td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'>&nbsp;<strong>20</strong>&nbsp;&nbsp; Tax Required to be Withheld for Remittance</td>
+							<td colspan=\'2\'>&nbsp;</td>
+							<td align=\'left\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'>&nbsp;<strong>20</strong></td><td style=\'padding:1px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>&nbsp;</td></tr></table></td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'><table style="border-collapse:collapse;"><tr><td><strong>&nbsp;21</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Less: Tax Remitted in Return Previously Filed, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if this is an emended return</td></tr></table></td>
+							<td colspan=\'2\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>21A</strong></td><td style=\'padding:1px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>&nbsp;</td></tr></table></td>
+							<td align=\'left\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=\'2\' align=\'left\'><table style="border-collapse:collapse;"><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Other Payments Made (please attach <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;proof of payment BIR Form No. 0605)</td></tr></table></td>
+							<td colspan=\'2\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>21B</strong></td><td style=\'padding:1px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>&nbsp;</td></tr></table></td>
+							<td align=\'left\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan=\'4\' align=\'left\'>&nbsp;<strong>22</strong>&nbsp;&nbsp; Total Tax payments Made(Sum of Items Nos. 21A & 21B)</td>
+							<td align=\'left\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>22</strong></td><td style=\'padding:1px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>&nbsp;</td></tr></table></td>
+						</tr>
+						<tr>
+							<td colspan=\'4\' align=\'left\'>&nbsp;<strong>23</strong>&nbsp;&nbsp; Tax Still Due/(Overremittance) (Item No. 20 less Item No. 22)</td>
+							<td align=\'left\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>23</strong></td><td style=\'padding:1px 0; font-size:14px; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>&nbsp;</td></tr></table></td>
+						</tr>
+						<tr><td colspan=\'5\'>&nbsp;<strong>24</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Add Penalties</td></tr>
+						<tr>
+							<td colspan="4">
+								<table style="border-collapse:collapse;">
+									<tr>
+										<td colspan="2" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Surcharge</td>
+										<td colspan="2" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interest</td>
+										<td colspan="2" align="right">Compromise&nbsp;</td>
+									</tr>
+									<tr>
+										<td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24A</strong></td><td style=\'font-size:14px; padding:1px 0; border:1px solid black; background-color:white;\' width=\'121px\' align=\'right\'>&nbsp;</td>
+										<td><strong>&nbsp;&nbsp;&nbsp;&nbsp;24B</strong></td><td style=\'font-size:14px; padding:1px 0; border:1px solid black; background-color:white;\' width=\'121px\' align=\'right\'>&nbsp;</td>
+										<td><strong>&nbsp;&nbsp;&nbsp;&nbsp;24C</strong></td><td style=\'font-size:14px; padding:1px 0; border:1px solid black; background-color:white;\' width=\'121px\' align=\'right\'>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+							<td align=\'left\'><table style="border-collapse:collapse;"><tr><td>&nbsp;</td></tr><tr><td width=\'20px\'><strong>24D</strong></td><td style=\'padding:3px 0; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>&nbsp;</td></tr></table></td>
+						</tr>
+						<tr>
+							<td colspan=\'4\' align=\'left\'>&nbsp;<strong>25</strong>&nbsp;&nbsp; Total Amount Still Due/(Overremittance)</td>
+							<td align=\'left\'><table style="border-collapse:collapse;"><tr><td width=\'20px\'><strong>25</strong></td><td style=\'font-size:14px; padding:1px 0; border:1px solid black; background-color:white;\' width=\'200px\' align=\'right\'>&nbsp;</td></tr></table></td>
+						</tr>
+					</table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; border-top:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'><tr><td width=\'50px\'><strong>Section A</strong></td><td align=\'center\'><span style=\'padding-left:500px;\'><strong>Adjustment of Taxes Withheld on Compensation For Previous Months</strong></span></td></tr></table>
+					
+					<table style=\'vertical-align:top; font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'>
+						<tr>
+							<td width="100px" colspan=\'2\' align=\'center\' style=\'border-right:1px solid black;\'>Previous Month(s)<br>(1)<br>(MM/YYYY)</td>
+							<td width="100px" colspan=\'3\' align=\'center\' style=\'border-right:1px solid black;\'>Date Paid<br>(2)<br>(MM/DD/YYYY)</td>
+							<td width="100px" align=\'center\' style=\'border-right:1px solid black;\'>Bank Validation/<br>ROR No.<br>(3)</td>
+							<td width="100px" align=\'center\'><br>Bank Code<br>(4)</td>
+						</tr>
+						<tr>
+							<td width="20px" style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td width="80px" style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td width="20px" style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td width="20px" style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td width="60px" style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+						</tr>
+					</table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'><tr><td width=\'50px\' colspan=\'2\'><strong>Section A(continuation)</strong></td></tr></table>
+					
+					<table style=\'vertical-align:top; font-size:10px; border-bottom:1px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'>
+						<tr>
+							<td align=\'center\' style=\'border-right:1px solid black;\'>Tax paid (Excluding Penalties)</td>
+							<td align=\'center\' style=\'border-right:1px solid black;\'>Should Be Tax Due</td>
+							<td align=\'center\' colspan=\'2\' style=\'border-bottom:1px solid black;\'>Adjustment (7)</td>
+						</tr>
+						<tr>
+							<td align=\'center\' style=\'border-right:1px solid black;\'>for the Month<br>(5)</td>
+							<td align=\'center\' style=\'border-right:1px solid black;\'>for the Month<br>(6)</td>
+							<td align=\'center\' style=\'border-right:1px solid black;\' width="180px">From Current Year<br>(7a)</td>
+							<td align=\'center\'>From Year-End Adjustment of the<br>Immediately Preceeding Year (7b)</td>
+						</tr>
+						<tr>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+						</tr>
+						<tr>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border:1px solid black; background-color:white;\'>&nbsp;</td>
+							<td style=\'border-top:1px solid black; background-color:white;\'>&nbsp;</td>
+						</tr>
+					</table>
+					
+					<table style=\'font-size:10px; border-bottom:2px solid black; background-color:#c0c0c0; border-collapse:collapse;\' width=\'100%\'><tr><td width=\'430px\'><strong>26</strong>&nbsp;&nbsp; Total (7a plus 7b)(To Item 19)</td><td width="200px" style="background-color:white; border-left:1px solid black; border-right:1px solid black;">&nbsp;</td><td witdh="80px">&nbsp;</td></tr></table>
+					
+					<table style="font-size:10px; border-bottom:2px solid black; border-collapse:collapse;" width=\'100%\'>
+						<tr><td colspan=\'5\'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We declare, under the penalties of perjury, that this return has been made in good faith, verified by us, and to the best of our knowledge and belief,<br> is true and correct, pursuant to the provisions of the National Internal Revenue Code, as amended, and the regulations issued under authority thereof.</td></tr>
+						<tr>
+							<td colspan=\'3\' align=\'center\' style=""><strong>27&nbsp;&nbsp;<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$gData['rep'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></strong><br>President/Vice President/Principal Officer/Accredited Tax Agent/<br>Authorized Representative/Taxpayer<br>(Signature Over Printed Name)</td>
+							<td colspan=\'2\' align=\'center\' style=\'vertical-align:top;\'><strong>28&nbsp;&nbsp;<u>_____________'.$gData['treasurer'].'_____________</u></strong><br>Treasurer/Assistant Treasurer<br>(Signature Over Printed Name)</td>
+						</tr>
+						<tr>
+							<td align=\'center\'><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$gData['pos_rep'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u><br> Title/Position of Signatory</td>
+							<td align=\'center\' colspan="2"><u>________'.$gData['tin_rep'].'________</u><br> TIN of Signatory</td>
+							<td colspan=\'2\' align=\'center\' style=\'vertical-align:top;\'><u>____________'.$gData['pos_tre'].'____________</u><br>Title/Position of Signatory</td>
+						</tr>
+						<tr>
+							<td align=\'center\'>_______________'.$gData['acc'].'_______________<br> <span style="font-size:8px;">Tax Agent Acc. No./Atty\'s Roll No.(If applicable)</span></td>
+							<td align=\'center\'><u>________'.$gData['issue_date'].'_______</u><br> Date of Issuance</td>
+							<td align=\'center\'><u>______'.$gData['exp_date'].'_______</u><br> Date of Expiry</td>
+							<td align=\'center\' colspan="2"><u>____________'.$gData['tin_tre'].'____________</u><br> TIN of Signatory</td>
+						</tr>
+					</table>
+					
+					<table style=\'font-size:10px; background-color:#c0c0c0; border-collapse:collapse; border-bottom:2px solid black;\' width=\'100%\'>
+					<tr>
+						<td width=\'80%\' style=\'border-right:2px solid black;\'>
+							<table style=\'border-bottom:1px solid black; border-collapse:collapse;\' width=\'600px\'><tr>
+								<td><strong>Part III</strong></td>
+								<td align=\'center\'><strong>D e t a i l s&nbsp;&nbsp;&nbsp;&nbsp;o f&nbsp;&nbsp;&nbsp;&nbsp;P a y m e n t</strong></td>
+							</tr></table>
+							<table width=\'600px\' style="border-collapse:collapse;"><tr>
+								<td align=\'center\' style=\'border-right:1px solid black; border-bottom:1px solid black;\' width=\'70px\'><strong>Particulars</strong></td>
+								<td align=\'center\' style=\'border-right:1px solid black; border-bottom:1px solid black;\' width=\'40px\' colspan=\'2\'><strong><strong>Drawee Bank/<br>Agency</strong></td>
+								<td align=\'center\' style=\'border-right:1px solid black; border-bottom:1px solid black;\' width=\'40px\' colspan=\'2\'>Number</strong></td>
+								<td align=\'center\' style=\'border-right:1px solid black; border-bottom:1px solid black;\' width=\'90px\' colspan=\'4\'><strong>Date<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MM DD YYYY</strong></td>
+								<td align=\'center\' style=\'border-bottom:1px solid black;\' colspan=\'2\'><strong>Amount</strong></td>
+							</tr>
+							<tr>
+								<td align=\'left\' style="padding-top:2px;"><strong>29</strong> Cash/Bank <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Debit Demo</td>
+								<td align=\'right\' width="10px" style="vertical-align:top; padding-top:2px;"><strong>29A</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'100px\' align=\'right\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'100px\'>&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:2px;"><strong>29B</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'90px\' align=\'left\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'100px\'>&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:2px;"><strong>29C</strong></td><td style=\'vertical-align:center; padding-top:3px;\' colspan="3"><table style=\'border-collapse:collapse;\' width="65px"><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\'>&nbsp;&nbsp;&nbsp;</td><td style=\'border:1px solid black; background-color:white;\'>&nbsp;&nbsp;</td><td style=\'border:1px solid black; background-color:white;\'>&nbsp;&nbsp;&nbsp;&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:2px;"><strong>29D</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'90px\' align=\'left\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'165px\'>&nbsp;</td></tr></table></td>
+							</tr>
+							<tr>
+								<td align=\'left\' style="padding-top:3px;"><strong>30</strong> Check</td>
+								<td align=\'right\' width="10px" style="vertical-align:top; padding-top:3px;"><strong>30A</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'100px\' align=\'right\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'100px\'>&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:3px;"><strong>30B</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'90px\' align=\'left\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'100px\'>&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:3px;"><strong>30C</strong></td><td style=\'vertical-align:center; padding-top:3px;\' colspan="3"><table style=\'border-collapse:collapse;\' width="65px"><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\'>&nbsp;&nbsp;&nbsp;</td><td style=\'border:1px solid black; background-color:white;\'>&nbsp;&nbsp;</td><td style=\'border:1px solid black; background-color:white;\'>&nbsp;&nbsp;&nbsp;&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:3px;"><strong>30D</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'90px\' align=\'left\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'165px\'>&nbsp;</td></tr></table></td>
+							</tr>
+							<tr>
+								<td align=\'left\' style="padding-top:3px;"><strong>31</strong> Others</td>
+								<td align=\'right\' width="10px" style="vertical-align:top; padding-top:3px;"><strong>31A</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'100px\' align=\'right\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'100px\'>&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:3px;"><strong>31B</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'90px\' align=\'left\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'100px\'>&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:3px;"><strong>31C</strong></td><td style=\'vertical-align:center; padding-top:3px;\' colspan="3"><table style=\'border-collapse:collapse;\' width="65px"><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\'>&nbsp;&nbsp;&nbsp;</td><td style=\'border:1px solid black; background-color:white;\'>&nbsp;&nbsp;</td><td style=\'border:1px solid black; background-color:white;\'>&nbsp;&nbsp;&nbsp;&nbsp;</td></tr></table></td>
+								<td align=\'left\' style="vertical-align:top; padding-top:3px;"><strong>31D</strong></td><td style=\'vertical-align:center; padding-top:3px;\' width=\'90px\' align=\'left\'><table style=\'border-collapse:collapse;\'><tr><td style=\'border:1px solid black; background-color:white; padding:5px 0;\' width=\'165px\'>&nbsp;</td></tr></table></td>
+							</tr>
+							</table>
+							
+						</td>
+						<td style=\'background-color:white;\'><center>Stamp of<br>Receiving Office/AAB<br>and<br>Date of Receipt<br>(RO\'s Signature/<br>Bank Teller\'s Initial)</center></td>
+					</tr>
+					</table>
+					<table style=\'font-size:10px; border-collapse:collapse;\' width=\'100%\'>
+						<tr><td style="vertical-align:top;">&nbsp;Machine Validation/Revenue Official Receipt Details (If not filed with the bank)<br><br><br><br><br><br></td></tr>
+					</table>
+					</td></tr></table></body></html>';
+		$this->createPDF($content,$paper,$orientation,$filename);		
+	}
+	
+	function getEmp($gData = array()){
+		$comp_id = $gData['comp'];
+		$month = $gData['month'];
+		$year = $gData['year'];
+		$qry = array();
+		IF($gData['branchinfo_id']!=0){//get Location parameter.
+			$qry[] = "em.branchinfo_id = '".$gData['branchinfo_id']."'";
+		}
+		$qry[]="em.comp_id='".$comp_id."'";	
+		$qry[]="ppp.payperiod_period='".$month."'";	
+		$qry[]="ppp.payperiod_period_year='".$year."'";
+		//$qry[]="s.empdd_id='5'";
+		//$qry[]="s.bldsched_period in ('1','2')";
+		$criteria = count($qry)>0 ? " WHERE ".implode(' AND ',$qry) : '';
+		$sql = "SELECT distinct em.emp_id, IF(e.pi_tin IS NULL OR e.pi_tin = '','',e.pi_tin) as pi_tin, e.pi_fname, e.pi_mname, e.pi_lname 
+				FROM emp_masterfile em 
+				JOIN emp_personal_info e on (e.pi_id=em.pi_id)
+				JOIN payroll_paystub_report ppr on (ppr.emp_id=em.emp_id) 
+				JOIN payroll_pay_stub pps on (pps.payperiod_id=ppr.payperiod_id) 
+				JOIN payroll_pay_period ppp on (ppp.payperiod_id=pps.payperiod_id) 
+				$criteria
+				ORDER BY e.pi_lname ASC";
+		$rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF){
+			$arr[] = $rsResult->fields;
+			$rsResult->MoveNext();
+		}
+		return $arr;
+	}
+	
+	
+	function verifyMWE($emp_id){
+		$sql = "select bldsched_period from period_benloanduc_sched where emp_id='$emp_id' and empdd_id='5'";
+		$rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF){
+			if($rsResult->fields['bldsched_period'] == '2'){
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	
+	function formatTin($number)
+	 {
+	    $number = preg_replace('/[^\d]/', '', $number);
+	    return substr($number, 0, 3) . '-' . substr($number, 3, 3) . '-' . substr($number, 6, 3);
+	 }
+	
+	function get1601CExcel($gData = array()){
+		$filename = '1601_'. $this->getMonthInWords($gData['month']) . '_' . $gData['year'].'.xls';
+		if(clsSSS::getSettings($gData['comp'],12) && $gData['branchinfo_id'] != 0){
+        	$branch_details = clsSSS::getLocationInfo($gData['branchinfo_id']);
+        	$compname = $branch_details['branchinfo_name'];
+        	$compadds = $branch_details['branchinfo_add'];
+        	$comptinno = $branch_details['branchinfo_tin'];
+        	$comptelno = $branch_details['branchinfo_tel1'];
+        }ELSE{
+        	$branch = $this->dbfetchCompDetails($gData['comp_id']);
+        	$compname = $branch['comp_name'];
+        	$compadds = $branch['comp_add'];
+        	$comptinno = $branch['comp_tin'];
+        	$comptelno = $branch['comp_tel'];
+        }
+		$objPHPExcel = new PHPExcel();
+		$objClsMngeDecimal = new Application();
+		$finalDecFormat = $objClsMngeDecimal->setFinalDecimalPlaces(0);
+		$objReader = PHPExcel_IOFactory::createReader('Excel5');
+		$objPHPExcel = $objReader->load("templates/TAX_1601C.xls");
+		$objSheet = $objPHPExcel->getActiveSheet();
+		//header
+		$objSheet->setCellValue('C3', $this->getMonthInWords($gData['month']). ' '.$gData['year']);
+		$objSheet->setCellValue('C4', $comptinno);
+		$objSheet->getStyle('C4')
+			    ->getNumberFormat()
+			    ->setFormatCode(
+			        PHPExcel_Style_NumberFormat::FORMAT_TEXT
+			    );
+		$objSheet->setCellValue('C5', $compname);
+		$getZip = explode(",",$compadds);
+		$compadds = "";
+		foreach($getZip as $key => $value){
+			if($key == count($getZip)-1 && is_numeric($value)){
+				$zip = $value;
+			} else {
+				$compadds .= $value;
+				$zip ="";
+			}
+		}
+		$objSheet->setCellValue('C6', $compadds);
+		$objSheet->setCellValue('I6', $zip);
+		$objSheet->setCellValue('C7', $comptelno);
+		
+		//main content
+		$emp = $this->getEmp($gData);
+		$row = 10;
+		if(count($emp)>0){
+			foreach($emp as $key => $val){				
+				//tax withheld
+				$taxCompute = $this->getTaxContribution($gData['month'], $gData['year'], $val['emp_id']);
+				$ppe_amount_sum += (float)$taxCompute['ppe_amount_sum'];
+				
+				//gross
+				$emp_gross = $this->getGrossCompensation($gData['month'], $gData['year'], $val['emp_id']);
+				$totalGross += $emp_gross['gross'];
+
+				if($this->verifyMWE($val['emp_id'])){
+					$statMWE = $this->getGrossMWE($gData['month'], $gData['year'], $val['emp_id']);
+					$ot = $this->getEmpOvertime($gData['month'], $gData['year'], $val['emp_id']);
+				} else {
+					$statMWE = 0;
+					$ot = 0;
+				}
+				$totalMWE += $statMWE;
+				
+				$nonTaxable = $this->getNonTaxable($gData['month'], $gData['year'], $val['emp_id'])+$statMWE+$ot;
+				$taxable = $emp_gross['gross']-$nonTaxable;
+			
+				$totalTaxable += $taxable;
+				$totalNonTaxable += (float)$nonTaxable;
+		
+				$tin = (empty($val['pi_tin']) ? '' : $this->formatTin($val['pi_tin']));
+				
+				//write data to excel here
+				$objSheet->setCellValue('A'.$row, $tin);
+				$objSheet->setCellValue('B'.$row, $val['pi_lname']);
+				$objSheet->setCellValue('C'.$row, $val['pi_fname']);
+				$objSheet->setCellValue('D'.$row, substr($val['pi_mname'],0,1));
+				$objSheet->setCellValue('E'.$row, $this->moneyFormat($emp_gross['gross']));
+				$objSheet->getStyle('E'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+				$objSheet->getStyle('E'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+				$objSheet->setCellValue('F'.$row, $this->moneyFormat($statMWE));
+				$objSheet->getStyle('F'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+				$objSheet->getStyle('F'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+				$objSheet->setCellValue('G'.$row, $this->moneyFormat($nonTaxable));
+				$objSheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+				$objSheet->getStyle('G'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+				$objSheet->setCellValue('H'.$row, $this->moneyFormat($taxable));
+				$objSheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+				$objSheet->getStyle('H'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+				$objSheet->setCellValue('I'.$row, $this->moneyFormat($taxCompute['ppe_amount_sum']));
+				$objSheet->getStyle('I'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+				$objSheet->getStyle('I'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+				$row++;
+			}
+			$row++;
+			$objSheet->getStyle('A'.$row.':I'.$row)->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK);
+			$objSheet->setCellValue('A'.$row, '*****NOTHING FOLLOWS*****');
+			$objSheet->getStyle('A'.$row.':I'.$row)->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK);
+			$row++;
+			//total
+			$styleArray = array('font' => array('bold' => true));
+			$objSheet->setCellValue('A'.$row, 'TOTAL');
+			$objSheet->getStyle('A'.$row)->applyFromArray($styleArray);
+			
+			$objSheet->setCellValue('E'.$row, $this->moneyFormat($totalGross));
+			$objSheet->getStyle('E'.$row)->applyFromArray($styleArray);
+			$objSheet->getStyle('E'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+			$objSheet->getStyle('E'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+			
+			$objSheet->setCellValue('F'.$row, $this->moneyFormat($totalMWE));
+			$objSheet->getStyle('F'.$row)->applyFromArray($styleArray);
+			$objSheet->getStyle('F'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+			$objSheet->getStyle('F'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+			
+			$objSheet->setCellValue('G'.$row, $this->moneyFormat($totalNonTaxable));
+			$objSheet->getStyle('G'.$row)->applyFromArray($styleArray);
+			$objSheet->getStyle('G'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+			$objSheet->getStyle('G'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+			
+			$objSheet->setCellValue('H'.$row, $this->moneyFormat($totalTaxable));
+			$objSheet->getStyle('H'.$row)->applyFromArray($styleArray);
+			$objSheet->getStyle('H'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+			$objSheet->getStyle('H'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+			
+			$objSheet->setCellValue('I'.$row, $this->moneyFormat($ppe_amount_sum));
+			$objSheet->getStyle('I'.$row)->applyFromArray($styleArray);
+			$objSheet->getStyle('I'.$row)->getNumberFormat()->setFormatCode('#,##'.$finalDecFormat);
+			$objSheet->getStyle('I'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+			
+			$row = $row+3;
+			
+			//footer
+			$objSheet->setCellValue('A'.$row, 'Certified Correct:');
+			$objSheet->getStyle('A'.$row)->getFont()->setBold(true)->setSize(12);
+			
+			$row = $row+4;
+			$objSheet->getStyle('A'.$row.':D'.$row)->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK);
+			$objSheet->setCellValue('A'.$row, 'Signature Over Printed Name');
+			$objSheet->getStyle('A'.$row)->getFont()->setBold(true)->setSize(12);
+			
+			$row = $row+2;
+			$objSheet->setCellValue('A'.$row, '(Please attach to BIR Form 1601-C)');
+			$objSheet->getStyle('A'.$row)->getFont()->setBold(true)->setSize(12);
+			
+			$row++;
+			$objSheet->setCellValue('A'.$row, 'Please Take note:');
+			$objSheet->getStyle('A'.$row)->getFont()->setBold(false)->setSize(12);
+			
+			$row++;
+			$objSheet->setCellValue('A'.$row, 'Gross Compensation = Total Taxable Compensation + Total Non-Taxable Compensation');
+			$objSheet->getStyle('A'.$row)->getFont()->setBold(false)->setSize(12);
+			
+			$row++;
+			$objSheet->setCellValue('A'.$row, 'Taxable Compensation = Gross Compensation - (Staturory Minimum Wage(MWEs) + Other Non-Taxable Compensation)');
+			$objSheet->getStyle('A'.$row)->getFont()->setBold(false)->setSize(12);
+			
+			$row++;
+			$objSheet->setCellValue('A'.$row, 'Total Non-Taxable = Statutory Contribution + Bonus + Union Dues + etc');
+			$objSheet->getStyle('A'.$row)->getFont()->setBold(false)->setSize(12);
+			
+		}
+		// Rename sheet
+		$objSheet->setTitle($filename);
+		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+		$objPHPExcel->setActiveSheetIndex(0);
+		// Redirect output to a web browser (Excel5)
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename='.$filename);
+		header('Cache-Control: max-age=0');
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$objWriter->save('php://output');
+		exit;
+	}
+	
+	function get1601CPDF1($gData = array()){
+		$orientation = 'portrait';
+		$unit = 'mm';
+		$format = 'A4';
+		$unicode = true;
+		$encoding = "UTF-8";
+		$filename = '1601_'.$this->getMonthInWords($gData['month']).'_'.$gData['year'].'.pdf';
+		
+		
+		$oPDF = new clsPDF($orientation, $unit, $format, $unicode, $encoding);
+		$oPDF->SetAutoPageBreak(false);
+		$oPDF->SetPrintHeader(false);
+		$oPDF->SetPrintFooter(false);
+		
+		if(clsSSS::getSettings($gData['comp'],12) && $gData['branchinfo_id'] != 0){
+        	$branch_details = clsSSS::getLocationInfo($gData['branchinfo_id']);
+        	$company_name = $branch_details['branchinfo_name'];
+        	$company_address = $branch_details['branchinfo_add'];
+        	$company_tin = $branch_details['branchinfo_tin'];
+        	$company_tel = $branch_details['branchinfo_tel1'];
+        }ELSE{
+        	$branch = $this->dbfetchCompDetails($comp_id);
+        	$company_name = $branch['comp_name'];
+        	$company_address = $branch['comp_add'];
+        	$company_tin = $branch['comp_tin'];
+        	$company_tel = $branch['comp_tel'];
+        }
+		
+		//set initial PDF Page
+		$oPDF->AddPage();
+    	
+		//line format
+		$style = array('width' => .5, 'cap' => 'square', 'join' => 'round', 'dash' => '0', 'phase' => 0, 'color' => array(0, 0, 0));
+    	
+		
+		//set initial coordinates
+		$coordX = 0;
+		$coordY = 0;
+		
+		$oPDF->SetFont('times', 'B', 10);
+		$oPDF->setFontSize(12);
+		$oPDF->SetTextColor(11, 24, 196);
+		$oPDF->Text($coordX+12.5, $coordY+16.5, "Bureau Of Internal Revenue");
+		$oPDF->Text($coordX+12.5, $coordY+22.5, "For the Month:");
+		$oPDF->Text($coordX+12.5, $coordY+28.6, "TIN:");
+		$oPDF->Text($coordX+12.5, $coordY+34.7, "Withholding Agent's Name:");
+		$oPDF->Text($coordX+12.5, $coordY+40.8, "Registered Address:");
+		$oPDF->Text($coordX+156, $coordY+40.8, "Zip Code");
+		$oPDF->Text($coordX+12.5, $coordY+46.9, "Telephone Number:");
+		
+		$oPDF->SetFillColor(197, 197, 197);
+		$oPDF->MultiCell(185.5, 8, '', '', 'C', 1, 1, 12.2, 53.1, true, 0, false, false, 1);
+		$oPDF->SetFont('times', 'B', 10);
+		$oPDF->setFontSize(9);
+		$oPDF->SetTextColor(0,0,0);
+		$oPDF->Text($coordX+12.5, $coordY+58.2, "TIN");
+		$oPDF->Text($coordX+36.9, $coordY+58.2, "Surname");
+		$oPDF->Text($coordX+65.2, $coordY+58.2, "Given Name");
+		$oPDF->Text($coordX+93.5, $coordY+58.2, "M.I.");
+		$oPDF->Text($coordX+101.9, $coordY+56.4, "Gross");
+		$oPDF->Text($coordX+101.9, $coordY+60.1, "Compensation");
+		$oPDF->Text($coordX+126.3, $coordY+56.4, "Non-Taxable");
+		$oPDF->Text($coordX+126.3, $coordY+60.1, "Compensation");
+		$oPDF->Text($coordX+150.6, $coordY+56.4, "Taxable");
+		$oPDF->Text($coordX+150.6, $coordY+60.1, "Compensation");
+		$oPDF->Text($coordX+175.5, $coordY+58.2, "Tax Withheld");		
+		
+		$oPDF->SetFont('times', '', 10);
+		$oPDF->setFontSize(9);
+		$oPDF->Text($coordX+65, $coordY+34.2, $company_name); //company name
+		$oPDF->Text($coordX+23.3, $coordY+28.1, $company_tin); //company tin
+		$oPDF->Text($coordX+50.1, $coordY+39.9, $company_address); //company address
+		$oPDF->Text($coordX+50.7, $coordY+46.4, $company_tel); //company address
+		$oPDF->Text($coordX+42.4, $coordY+22, $this->getMonthInWords($gData['month']).'-'.$gData['year']); //for the month
+		
+		
+		$oPDF->Line($coordX+12.2, $coordY+61.5, $coordX+197.8, $coordY+61.5, $style);
+		
+		$emp = $this->getEmp($gData);
+		
+		$temp = 1;
+		$ctr = 0;
+		$max = 35;
+		$countemp = count($emp);
+		
+		if ($countemp==0) {
+			$coordY = 65.2;
+		$oPDF->SetFont('times', 'B', 9.3);
+		$oPDF->Text($coordX+81.2, 65.2, "*****NO RECORD FOUND*****"); 
+		
+		$oPDF->Line($coordX+12.2, $coordY+1.5, $coordX+197.8, $coordY+1.5, $style);
+		$oPDF->Text($coordX+12.5, $coordY+5, "Total"); 
+		$oPDF->Text($coordX+96, $coordY+5, "PHP ".$this->moneyFormat($totalGross));
+		$oPDF->Text($coordX+122.7, $coordY+5, "PHP ".$this->moneyFormat($totalNonTaxable));
+		$oPDF->Text($coordX+145.1, $coordY+5, "PHP ".$this->moneyFormat($totalTaxable));
+		$oPDF->Text($coordX+174.1, $coordY+5, "PHP ".$this->moneyFormat($totalGross));
+		
+		$oPDF->SetFontSize(12);
+		$oPDF->Text($coordX+12.5, $coordY+15.2, "Certified Correct:");
+		$oPDF->Line($coordX+12.5, $coordY+34, $coordX+67, $coordY+34, $style);
+		$oPDF->Text($coordX+12.5, $coordY+38.3, "Signature Over Printed Name");
+		$oPDF->Text($coordX+12.5, $coordY+48, "(Please attach to BIR Form 1601-C)");
+		
+		$oPDF->SetFont('times', 'BI', 11);
+		$oPDF->Text($coordX+12.5, $coordY+57, "Please take note:");
+		$oPDF->SetFont('times', 'B', 10.5);
+		$oPDF->Text($coordX+12.5, $coordY+62.2, "Gross Compensation = Total Taxable Compensation + Total non-Taxable Compensation");
+		$oPDF->Text($coordX+12.5, $coordY+67, "Taxable Compensation = Gross Compensation - (Statutory Minimum Wage(SMWEs)+Other Non-Taxable Compensation)");
+		$oPDF->Text($coordX+12.5, $coordY+72.2, "Other Non-Taxable Compensation = Statutory Contribution + Bonus + Union Dues + etc");
+		
+		
+		
+		} else {
+			$coordY=65.2;
+			
+			 foreach($emp as $key => $val) {
+			
+			 	if ($temp<=$max) {
+			
+			//tax withheld
+			$taxCompute = $this->getTaxContribution($gData['month'], $gData['year'], $val['emp_id']);
+			$ppe_amount_sum += (float)$taxCompute['ppe_amount_sum'];
+			
+			//gross
+			$emp_gross = $this->getGrossCompensation($gData['month'], $gData['year'], $val['emp_id']);
+			$totalGross += $emp_gross['gross'];
+			//echo "EMP: ".$val['emp_id']."<br>";
+			$statMWE = $this->getGrossMWE($gData['month'], $gData['year'], $val['emp_id']);
+			//echo "<br>";
+			$ot = $this->getEmpOvertime($gData['month'], $gData['year'], $val['emp_id']);
+			//echo "<br>";
+			//non-tax
+			$nonTaxable = $this->getNonTaxable($gData['month'], $gData['year'], $val['emp_id'])+$statMWE+$ot;
+			//echo "<br><br>";
+			$taxable = $emp_gross['gross']-$nonTaxable;
+			
+			$totalTaxable += $taxable;
+			$totalNonTaxable += (float)$nonTaxable;
+			
+			$oPDF->Text($coordX+10, $coordY, $temp);
+			$oPDF->Text($coordX+14.5, $coordY, $val['pi_tin']);
+			$oPDF->Text($coordX+36, $coordY, $val['pi_lname']);
+			$oPDF->Text($coordX+60, $coordY, $val['pi_fname']);
+			$oPDF->Text($coordX+96.5, $coordY, substr($val['pi_mname'],0,1));
+			$oPDF->Text($coordX+103, $coordY, $this->moneyFormat($emp_gross['gross']));
+			$oPDF->Text($coordX+130, $coordY, $this->moneyFormat($nonTaxable));
+			$oPDF->Text($coordX+151, $coordY, $this->moneyFormat($taxable));
+			$oPDF->Text($coordX+178, $coordY, $this->moneyFormat($taxCompute['ppe_amount_sum']));
+			
+			$coordY+=5;
+			$temp++;
+			}
+			
+		} //exit;
+		if ($temp>$max) {
+			$oPDF->AddPage();
+			
+			//set initial coordinates
+		$coordX = 0;
+		$coordY = 0;
+		
+		$oPDF->SetFont('times', 'B', 10);
+		$oPDF->setFontSize(12);
+		$oPDF->SetTextColor(11, 24, 196);
+		$oPDF->Text($coordX+12.5, $coordY+16.5, "Bureau Of Internal Revenue");
+		$oPDF->Text($coordX+12.5, $coordY+22.5, "For the Month:");
+		$oPDF->Text($coordX+12.5, $coordY+28.6, "TIN:");
+		$oPDF->Text($coordX+12.5, $coordY+34.7, "Withholding Agent's Name:");
+		$oPDF->Text($coordX+12.5, $coordY+40.8, "Registered Address:");
+		$oPDF->Text($coordX+156, $coordY+40.8, "Zip Code");
+		$oPDF->Text($coordX+12.5, $coordY+46.9, "Telephone Number:");
+		
+		$oPDF->SetFillColor(197, 197, 197);
+		$oPDF->MultiCell(185.5, 8, '', '', 'C', 1, 1, 12.2, 53.1, true, 0, false, false, 1);
+		$oPDF->SetFont('times', 'B', 10);
+		$oPDF->setFontSize(9);
+		$oPDF->SetTextColor(0,0,0);
+		$oPDF->Text($coordX+12.5, $coordY+58.2, "TIN");
+		$oPDF->Text($coordX+36.9, $coordY+58.2, "Surname");
+		$oPDF->Text($coordX+65.2, $coordY+58.2, "Given Name");
+		$oPDF->Text($coordX+93.5, $coordY+58.2, "M.I.");
+		$oPDF->Text($coordX+101.9, $coordY+56.4, "Gross");
+		$oPDF->Text($coordX+101.9, $coordY+60.1, "Compensation");
+		$oPDF->Text($coordX+126.3, $coordY+56.4, "Non-Taxable");
+		$oPDF->Text($coordX+126.3, $coordY+60.1, "Compensation");
+		$oPDF->Text($coordX+150.6, $coordY+56.4, "Taxable");
+		$oPDF->Text($coordX+150.6, $coordY+60.1, "Compensation");
+		$oPDF->Text($coordX+175.5, $coordY+58.2, "Tax Withheld");		
+		
+		$oPDF->SetFont('times', '', 10);
+		$oPDF->setFontSize(9);
+		$oPDF->Text($coordX+65, $coordY+34.2, $company_name); //company name
+		$oPDF->Text($coordX+23.3, $coordY+28.1, $company_tin); //company tin
+		$oPDF->Text($coordX+50.1, $coordY+39.9, $company_address); //company address
+		$oPDF->Text($coordX+50.7, $coordY+46.4, $company_tel); //company address
+		$oPDF->Text($coordX+42.4, $coordY+22, $this->getMonthInWords($gData['month']).'-'.$gData['year']); //for the month
+		
+		
+			$coordY=65.2;
+			
+			
+			for ($i=35; $i<$countemp; $i++) {
+				
+				//tax withheld
+			$taxCompute = $this->getTaxContribution($gData['month'], $gData['year'], $emp[$i]['emp_id']);
+			$ppe_amount_sum += (float)$taxCompute['ppe_amount_sum'];
+	
+			//gross
+			$emp_gross = $this->getGrossCompensation($gData['month'], $gData['year'], $emp[$i]['emp_id']);
+			$totalGross += $emp_gross['gross'];
+			//echo "EMP: ".$emp[$i]['emp_id']."<br>";
+			$statMWE = $this->getGrossMWE($gData['month'], $gData['year'], $emp[$i]['emp_id']);
+			//echo "<br>";
+			$ot = $this->getEmpOvertime($gData['month'], $gData['year'], $emp[$i]['emp_id']);
+			//echo "<br>";
+			//non-tax
+			$nonTaxable = $this->getNonTaxable($gData['month'], $gData['year'], $emp[$i]['emp_id'])+$statMWE+$ot;
+			//echo "<br><br>";
+			$taxable = $emp_gross['gross']-$nonTaxable;
+
+			$totalTaxable += $taxable;
+			$totalNonTaxable += (float)$nonTaxable;
+			
+				
+				
+				$oPDF->Text($coordX+10, $coordY, $temp);
+				$oPDF->Text($coordX+14.5, $coordY, $emp[$i]['pi_tin']);
+				$oPDF->Text($coordX+36, $coordY, $emp[$i]['pi_lname']);
+				$oPDF->Text($coordX+60, $coordY, $emp[$i]['pi_fname']);
+				$oPDF->Text($coordX+96.5, $coordY, substr($emp[$i]['pi_mname'],0,1));
+				$oPDF->Text($coordX+103, $coordY, $this->moneyFormat($emp_gross['gross']));
+				$oPDF->Text($coordX+130, $coordY, $this->moneyFormat($nonTaxable));
+				$oPDF->Text($coordX+151, $coordY, $this->moneyFormat($taxable));
+				$oPDF->Text($coordX+178, $coordY, $this->moneyFormat($taxCompute['ppe_amount_sum']));
+				
+				$coordY+=5;
+				$temp++;
+				
+			}
+		}
+				
+		
+		//$oPDF->Line($coordX+12.2, $coordY+61.5, $coordX+197.8, $coordY+61.5, $style);
+		
+		$oPDF->Line($coordX+12.2, $coordY+1.5, $coordX+197.8, $coordY+1.5, $style);
+		$oPDF->Text($coordX+12.5, $coordY+5, "Total"); 
+		$oPDF->Text($coordX+96, $coordY+5, "PHP ".$this->moneyFormat($totalGross));
+		$oPDF->Text($coordX+122.7, $coordY+5, "PHP ".$this->moneyFormat($totalNonTaxable));
+		$oPDF->Text($coordX+145.1, $coordY+5, "PHP ".$this->moneyFormat($totalTaxable));
+		$oPDF->Text($coordX+174.1, $coordY+5, "PHP ".$this->moneyFormat($ppe_amount_sum));
+		
+		$oPDF->SetFontSize(12);
+		$oPDF->Text($coordX+12.5, $coordY+15.2, "Certified Correct:");
+		$oPDF->Line($coordX+12.5, $coordY+34, $coordX+67, $coordY+34, $style);
+		$oPDF->Text($coordX+12.5, $coordY+38.3, "Signature Over Printed Name");
+		$oPDF->Text($coordX+12.5, $coordY+48, "(Please attach to BIR Form 1601-C)");
+		
+		$oPDF->SetFont('times', 'BI', 11);
+		$oPDF->Text($coordX+12.5, $coordY+57, "Please take note:");
+		$oPDF->SetFont('times', 'B', 10.5);
+		$oPDF->Text($coordX+12.5, $coordY+62.2, "Gross Compensation = Total Taxable Compensation + Total non-Taxable Compensation");
+		$oPDF->Text($coordX+12.5, $coordY+67, "Taxable Compensation = Gross Compensation - (Statutory Minimum Wage(SMWEs)+Other Non-Taxable Compensation)");
+		$oPDF->Text($coordX+12.5, $coordY+72.2, "Other Non-Taxable Compensation = Statutory Contribution + Bonus + Union Dues + etc");
+		
+			
+		
+		
+		}
+		
+		
+		
+		
+		
+		
+		//get the PDF output
+		$output = $oPDF->Output($filename);
+		
+		if (!empty($output)){
+			return $output;
+		}
+		return false;
+		}
+	
+	function get1601CPDF($gData = array()){
+		$paper = 'A4';
+		$orientation = 'portrait';
+		$filename = '1601_'.$this->getMonthInWords($gData['month']).'_'.$gData['year'].'.pdf';
+		$comp_id = $gData['comp'];
+		IF($gData['branchinfo_id']!=0){
+        	$branch_details = clsSSS::getLocationInfo($gData['branchinfo_id']);
+        	$compname = $branch_details['branchinfo_name'];
+        	$compadds = $branch_details['branchinfo_add'];
+        	$comptinno = $branch_details['branchinfo_tin'];
+        	$comptelno = $branch_details['branchinfo_tel1'];
+        }ELSE{
+        	$branch = $this->dbfetchCompDetails($comp_id);
+        	$compname = $branch['comp_name'];
+        	$compadds = $branch['comp_add'];
+        	$comptinno = $branch['comp_tin'];
+        	$comptelno = $branch['comp_tel'];
+        }
+		$getZip = explode(",",$compadds);
+		
+		$compadds = "";
+		foreach($getZip as $key => $value){
+			if($key == count($getZip)-1 && is_numeric($value)){
+				$zip = $value;
+			} else {
+				$compadds .= $value;
+				$zip ="&nbsp;";
+			}
+		}
+		$emp = $this->getEmp($gData);
+		
+		$temp = 1;
+		$ctr = 0;
+		$content = '';
+		$max = 35;
+		
+		
+		if(count($emp)>0){
+			foreach($emp as $key => $val){
+				
+				//tax withheld
+				$taxCompute = $this->getTaxContribution($gData['month'], $gData['year'], $val['emp_id']);
+				$ppe_amount_sum += (float)$taxCompute['ppe_amount_sum'];
+				
+				//gross
+				$emp_gross = $this->getGrossCompensation($gData['month'], $gData['year'], $val['emp_id']);
+				$totalGross += $emp_gross['gross'];
+				
+				//non-tax
+				$nonTaxable = $this->getNonTaxable($gData['month'], $gData['year'], $val['emp_id']);
+				
+				$totalNonTaxable += (float)$nonTaxable;
+				if($this->verifyMWE($val['emp_id'])){
+					$statMWE = $this->getGrossMWE($gData['month'], $gData['year'], $val['emp_id']);
+				} else {
+					$statMWE = 0;
+				}
+				$totalMWE += $statMWE;
+				
+				$taxable = $emp_gross['gross']-$statMWE-$nonTaxable;
+				if($taxable > 0){
+					$totalTaxable += $taxable;
+				}
+				$tin = (empty($val['pi_tin']) ? "&nbsp;" : $this->formatTin($val['pi_tin']));
+				$header = '<table style="border-collapse:collapse; font:12px Times;">
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 18px Times; color:#00009D;">Bureau Of Internal Revenue</td></tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 14px Times; color:#00009D;" width="140px"><em>Registered Name:</em></td><td style="font:bold 16px Times;">'.$compname.'</td></tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr>
+							<td style="font:bold 14px Times; color:#00009D; vertical-align:top;" width="140px"><em>Registered Address:</em></td>
+							<td width="300px" style="vertical-align:top; font:14px Times;">'.$compadds.'</td>
+							<td width="80px">&nbsp;</td>
+							<td style="font:bold 14px Times; color:#00009D;" width="100px"><em>Zip Code</em></td>
+							<td style="font:14px Times;">'.$zip.'</td>
+						</tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 14px Times; color:#00009D;" width="140px"><em>Telephone Number:</em></td><td style="font:14px Times;">'.$comptelno.'</td></tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 14px Times; color:#00009D;" width="140px"><em>TIN:</em></td><td style="font:14px Times;">'.$comptinno.'</td></tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 14px Times; color:#00009D;" width="140px"><em>For the Month:</em></td><td style="font:14px Times;">'.$this->getMonthInWords($gData['month']).' '.$gData['year'].'</td></tr></table>
+					</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;">
+							<tr>
+								<td width="20px" style="background-color:#c0c0c0;">&nbsp;</td>
+								<td width="80px" style="background-color:#c0c0c0;"><strong>TIN</strong></td>
+								<td width="75px" style="background-color:#c0c0c0;"><strong>Surname</strong></td>
+								<td width="80px" style="background-color:#c0c0c0;"><strong>Given Name</strong></td>
+								<td width="25px" style="background-color:#c0c0c0;"><strong>M.I.</strong></td>
+								<td width="90px" style="background-color:#c0c0c0;"><strong>Gross Compensation</strong></td>
+								<td width="90px" style="background-color:#c0c0c0;"><strong>Staturory Minimum Wage(MWEs)</strong></td>
+								<td width="90px" style="background-color:#c0c0c0;"><strong>Other Non-Taxable Compensation</strong></td>
+								<td width="92px" style="background-color:#c0c0c0;"><strong>Taxable Compensation</strong></td>
+								<td style="background-color:#c0c0c0;"><strong>Tax Withheld</strong></td>
+							</tr></table>';
+					$body =	'<table style="border-collapse:collapse;font:12px;"><tr>
+								<td width="20px">'.$temp.'</td>
+								<td width="80px">'.$tin.'</td>
+								<td width="75px">'.$val['pi_lname'].'</td>
+								<td width="80px">'.$val['pi_fname'].'</td>
+								<td width="25px">'.substr($val['pi_mname'],0,1).'.</td>
+								<td width="90px">'.$this->moneyFormat($emp_gross['gross']).'</td>
+								<td width="90px">'.$this->moneyFormat($statMWE).'</td>
+								<td width="90px">'.$this->moneyFormat($nonTaxable).'</td>
+								<td width="94px">'.$this->moneyFormat($taxable).'</td>
+								<td>'.$this->moneyFormat($taxCompute['ppe_amount_sum']).'</td>
+							</tr>
+							</table>';
+					$total ='</td></tr>
+					<tr><td style="border-top:2px solid black; border-bottom:2px solid black;">
+						<table style="border-collapse:collapse;">
+							<tr><td>*****NOTHING FOLLOWS*****</td></tr>
+						</table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;">
+							<tr>
+								<td width="280px"><strong>Total</strong></td>
+								<td width="92px"><strong>'.$this->moneyFormat($totalGross).'</strong></td>
+								<td width="82px"><strong>'.$this->moneyFormat($totalMWE).'</strong></td>
+								<td width="97px"><strong>'.$this->moneyFormat($totalNonTaxable).'</strong></td>
+								<td width="93px"><strong>'.$this->moneyFormat($totalTaxable).'</strong></td>
+								<td><strong>'.$this->moneyFormat($ppe_amount_sum).'</strong></td>
+							</tr>
+						</table>
+					</td></tr>';
+					$footer = '<tr><td>&nbsp;</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;">
+							<tr><td style="font:bold 16px;">Certified Correct:</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td style="border-bottom:2px solid black;" width="50px">&nbsp;</td></tr>
+							<tr><td style="font:bold 16px;">Signature Over Printed Name</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td style="font:bold 16px;">(Please attach to BIR Form 1601-C)</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td style="font:14px;"><em>Please Take note:</em></td></tr>
+							<tr><td style="font:12px;">Gross Compensation = Total Taxable Compensation + Total Non-Taxable Compensation</td></tr>
+							<tr><td style="font:12px;">Taxable Compensation = Gross Compensation - (Staturory Minimum Wage(MWEs) + Other Non-Taxable Compensation)</td></tr>
+							<tr><td style="font:12px;">Other Non-Taxable Compensation = Statutory Contribution + Bonus + Union Dues + etc</td></tr>
+						</table>
+					</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>&nbsp;</td></tr>
+				</table>';
+				if($ctr == 0){
+					$content .= $header;
+					$content .= $body;
+					$ctr++;
+				} else {
+					$content .= $body;
+					$ctr++;
+					if($temp == count($emp)){
+						$content .= $total;
+					}
+					if($ctr == $max or $temp == count($emp)){
+						$content .= $footer;
+						$ctr=0;
+					}
+				}
+			$temp++;
+			}
+		} else {
+			$content = '<table style="border-collapse:collapse; font:12px Times;">
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 16px Times; color:#00009D;">Bureau Of Internal Revenue</td></tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 16px Times; color:#00009D;">For the Month:</td><td>&nbsp;</td><td>'.$this->getMonthInWords($gData['month']).'-'.$gData['year'].'</td></tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 16px Times; color:#00009D;">TIN:</td><td>&nbsp;</td><td>'.$comptinno.'</td></tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 16px Times; color:#00009D;">Withholding Agent\'s Name:</td><td>&nbsp;</td><td>'.$compname.'</td></tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr>
+							<td style="font:bold 16px Times; color:#00009D; vertical-align:top;" width="140px">Registered Address:</td>
+							<td width="300px" style="vertical-align:top;">'.$compadds.'</td>
+							<td width="80px">&nbsp;</td>
+							<td style="font:bold 16px Times; color:#00009D;" width="100px">Zip Code</td>
+							<td>'.$branch['comp_zipcode'].'</td>
+						</tr></table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;"><tr><td style="font:bold 16px Times; color:#00009D;">Telephone Number:</td><td>&nbsp;</td><td>'.$comptelno.'</td></tr></table>
+					</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;">
+							<tr>
+								<td width="90px" style="background-color:#c0c0c0;"><strong>TIN</strong></td>
+								<td width="105px" style="background-color:#c0c0c0;"><strong>Surname</strong></td>
+								<td width="105px" style="background-color:#c0c0c0;"><strong>Given Name</strong></td>
+								<td width="30px" style="background-color:#c0c0c0;"><strong>M.I.</strong></td>
+								<td width="90px" style="background-color:#c0c0c0;"><strong>Gross Compensation</strong></td>
+								<td width="90px" style="background-color:#c0c0c0;"><strong>Non-Taxable Compensation</strong></td>
+								<td width="92px" style="background-color:#c0c0c0;"><strong>Taxable Compensation</strong></td>
+								<td style="background-color:#c0c0c0;"><strong>Tax Withheld</strong></td>
+							</tr></table>
+					</td></tr>
+					<tr><td style="border-top:2px solid black; border-bottom:2px solid black;">
+						<table style="border-collapse:collapse;" align="center">
+							<tr><td><strong>*****NO RECORD FOUND*****<strong></td></tr>
+						</table>
+					</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;">
+							<tr>
+								<td width="330px"><strong>Total</strong></td>
+								<td width="90px"><strong>PHP 0.00;</strong></td>
+								<td width="90px"><strong>PHP 0.00</strong></td>
+								<td width="93px"><strong>PHP 0.00</strong></td>
+								<td><strong>PHP 0.00</strong></td>
+							</tr>
+						</table>
+					</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>
+						<table style="border-collapse:collapse;">
+							<tr><td style="font:bold 16px;">Certified Correct:</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td style="border-bottom:2px solid black;" width="50px">&nbsp;</td></tr>
+							<tr><td style="font:bold 16px;">Signature Over Printed Name</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td style="font:bold 16px;">(Please attach to BIR Form 1601-C)</td></tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr><td style="font:bold 14px;"><em>Please Take note:</em></td></tr>
+							<tr><td style="font:bold 14px;">Gross Compensation = Total Taxable Compensation + Total Non-Taxable Compensation</td></tr>
+							<tr><td style="font:bold 14px;">Taxable Compensation = Gross Compensation - (Staturory Minimum Wage(MWEs) + Other Non-Taxable Compensation)</td></tr>
+							<tr><td style="font:bold 14px;">Other Non-Taxable Compensation = Statutory Contribution + Bonus + Union Dues + etc</td></tr>
+						</table>
+					</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>&nbsp;</td></tr>
+				</table>';
+		}
+//		echo $content;
+//		exit;
+		$this->createPDF($content, $paper, $orientation, $filename);
+	}
+	
+	function get2316FormPDF($gData = array()){
+		$paper = 'legal';
+		$orientation = 'portrait';
+		$filename = 'Form2316_'.$this->getMonthInWords($gData['month']).'_'.$gData['year'].'.xls';
+		$content = 	'<html><body>
+				<style>
+					.textbox{
+						border:1px solid black;
+						background-color:white;
+					}
+				</style>
+				<table width="690px" style="border-collapse:collapse; font-size:9px; font-family:Helvetica;" align="left">
+				<tr><td style="border:2px solid black;"><table width="690px"><tr>
+					<td><table style="border-collapse:collapse;">
+						<tr><td><table style="border-collapse:collapse;"><tr>
+							<td width="60px"><img src="'.SYSCONFIG_CLASS_PATH.'util/dompdf/images/pdf_report/BIR-Logo.gif" style="width:50px; height:50px; margin:5px;"></td>
+							<td>Republika ng Pilipinas<br>Kagawaran ng Pananalapi<br>Kawanihan ng Rentas Internas</td>
+						</tr></table></td></tr>
+						<tr><td colspan="2" style="font-family:Times; font-size:8px;">For Compensation Payment With or Without Tax Withheld</td></tr>
+					</table></td>
+					<td><table style="font-size:18px; vertical-align:center; border-collapse:collapse;">
+						<tr><td>&nbsp;</td></tr>
+						<tr><td align="center">Certificate of Compensation</td></tr>
+						<tr><td align="center">Payment Tax Withheld</td></tr>
+					</table></td>
+					<td><table style="border-collapse:collapse;">
+						<tr><td>BIR Form No.n</td></tr>
+						<tr><td style="font-size:35px;">2316</td></tr>
+						<tr><td>October 2002(ENCS)</td></tr>
+					</table></td>
+				</tr></table></td></tr>
+				
+				<tr><td style="border:2px solid black; background-color:#c0c0c0;"><table style="border-collapse:collapse;">
+					<tr>
+						<td style="border-right:2px solid black;" width="352px"><table style="border-collapse:collapse;"><tr>
+							<td>1</td>
+							<td width="50px">For the Year</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>1</td>
+							<td class="textbox" width="70px" align="center">2007</td>
+						</tr>
+						<tr><td width="50px" colspan="7">&nbsp;&nbsp;&nbsp;&nbsp;(YYYY)</td></tr>
+						</table>
+						</td>
+						<td><table style="border-collapse:collapse;"><tr>
+							<td>2</td>
+							<td width="50px">For the Period</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td width="50px" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;From (MM/DD)</td>
+							<td class="textbox"width="70px" align="center">01/01</td>
+							<td width="50px">&nbsp;&nbsp;&nbsp;&nbsp;To (MM/DD)</td>
+							<td class="textbox" width="70px" align="center">12/31</td>
+						</tr>
+						</table></td>
+					</tr>
+				</table></td></tr>
+				
+				<tr><td style="border:2px solid black;"><table style="border-collapse:collapse;">
+					<tr>
+						<td style="border-right:2px solid black;" width="352px"><strong>
+							<table style="border-collapse:collapse;"><tr><td width="120px">Part I</td><td>Employee Information</td></tr></table>
+						</strong></td>
+						<td width="345px"><strong>
+							<table style="border-collapse:collapse;"><tr><td width="50px">Part IV</td><td style="font-size:8px;">Details of Compensation Income and Tax Withheld from Present Employer</td></tr></table>
+						</strong></td>
+					</tr>
+				</table></td></tr>
+
+				<tr>
+					<td style="border:2px solid black; background-color:#c0c0c0;"><table style="border-collapse:collapse;">
+					<tr>
+						<td style="border-right:2px solid black;" width="352px">
+							<table style="border-collapse:collapse;">
+								<tr>
+									<td style="border-bottom:2px solid black;"><table style="border-collapse:collapse;"><tr>
+										<td width="5px">3</td>
+										<td width="50px">Taxpayer\'s Identification No.</td>
+										<td width="5px">3</td>
+										<td class="textbox" width="180px">115 678 923</td>
+									</tr></table></td>
+								</tr>
+								
+								<tr>
+									<td style="border-bottom:2px solid black;"><table style="border-collapse:collapse;">
+										<tr>
+											<td width="5px">4</td>
+											<td width="110px">Employee\'s Name (Last Name, First Name, Middle Name)</td>
+											<td width="5px">5</td>
+											<td width="10px">RDO Code</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td class="textbox">BORJA, ABIGAIL</td>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+										</tr>
+										<tr>
+											<td>6</td>
+											<td>Registered Address</td>
+											<td>6A</td>
+											<td>ZIP Code</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td class="textbox">2148 KARAPATAN STREET, STA. CRUZ, MANILA</td>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+										</tr>
+										<tr>
+											<td>6B</td>
+											<td>Local Home Address</td>
+											<td>6C</td>
+											<td>ZIP Code</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td class="textbox">2148 KARAPATAN STREET, STA. CRUZ, MANILA</td>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+										</tr>
+										<tr>
+											<td>6D</td>
+											<td>Foreign Address</td>
+											<td>6E</td>
+											<td>ZIP Code</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+										</tr>
+									</table></td>
+								</tr>
+								<tr><td width="345px"><table style="border-collapse:collapse;">
+									<tr>
+										<td width="10px">9</td>
+										<td width="200px">Date of Birth(MM/DD/YYYY)</td>
+										<td width="10px">8</td>
+										<td>Telephone Number</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td width="200px" class="textbox">04-16-1961</td>
+										<td>&nbsp;</td>
+										<td class="textbox" width="110px">&nbsp;</td>
+									</tr>									
+								</table></td></tr>
+								<tr><td style="border-top:2px solid black;">
+									<table style="border-collapse:collapse;">
+										<tr>
+											<td width="10px">9</td>
+											<td colspan="8">Exemption Status</td>
+										</tr>
+										<tr>
+											<td width="10px">&nbsp;</td>
+											<td width="15px" class="textbox" align="center">&nbsp;</td>
+											<td>Single</td>
+											<td width="10px">&nbsp;</td>
+											<td width="15px" class="textbox" align="center">&nbsp;</td>
+											<td>Head of the Family</td>
+											<td width="10px">&nbsp;</td>
+											<td width="15px" class="textbox" align="center">X</td>
+											<td>Married</td>
+										</tr>
+									</table>
+								</td></tr>
+								<tr><td width="345px">
+								<table style="border-collapse:collapse;">
+										<tr>
+											<td width="10px">9A</td>
+											<td colspan="6" style="font-size:8px;">Is the wife claiming the additional exemption for qualified dependent children?</td>
+										</tr>
+										<tr><td colspan="7"><table><tr><td>
+											<td width="57px">&nbsp;</td>
+											<td width="15px" class="textbox" align="center">&nbsp;</td>
+											<td width="40px">Yes</td>
+											<td width="15px" class="textbox" align="center">X</td>
+											<td>No</td>
+											<td width="100px">&nbsp;</td>
+										</td></tr></table></tr>
+									</table>
+								</td></tr>
+								<tr><td width="345px" style="border-top:2px solid black;">
+									<table style="border-collapse:collapse;">
+										<tr>
+											<td>10</td>
+											<td>Name of Qualified Dependent Children</td>
+											<td>11</td>
+											<td>Date of Birth (MM/DD/YYYY)</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+											<td>&nbsp;</td>
+											<td class="textbox">&nbsp;</td>
+										</tr>
+									</table>
+								</td></tr>
+								
+								<tr><td>
+									<table>
+										<tr>
+											<td>12</td>
+											<td colspan="3">Other Dependent(to be accomplished if taxpayer is head of the family)</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td align="center">Name of Dependent</td>
+											<td align="center">Relationship</td>
+											<td align="center">Date of Birth<br>(MM/DD/YYYY)</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td align="center" class="textbox">&nbsp;</td>
+											<td align="center" class="textbox">&nbsp;</td>
+											<td align="center" class="textbox">&nbsp;</td>
+										</tr>										
+									</table>
+								</td></tr>
+							</table>
+						</td>
+						<td width="330px"><table>
+							<tr>
+								<td><strong>A. Non Taxable/Exempt Compensation Income</strong></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">25</td>
+									<td width="150px">13th Month Pay and Other Benefits</td>
+									<td width="15px">25</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">26</td>
+									<td width="150px">SSS, GSIS, PHIC & Pag-ibig Contributions & Union dues</td>
+									<td width="15px">26</td>
+									<td class="textbox" align="right" width="150px">558.30</td>
+								</tr></table></td>
+							</tr>	
+							<tr>
+								<td><table><tr>
+									<td width="15px">27</td>
+									<td width="150px">Salaries & Other Forms of Compensation</td>
+									<td width="15px">27</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">28</td>
+									<td width="150px">Total Non-Taxable/Exempt Compensation Income</td>
+									<td width="15px">28</td>
+									<td class="textbox" align="right" width="150px">558.30</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><strong>B. Taxable Compensation Income</strong></td>
+							</tr>
+							<tr>
+								<td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REGULAR</strong></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">29</td>
+									<td width="150px">Basic Salary</td>
+									<td width="15px">29</td>
+									<td class="textbox" align="right" width="150px">8491.70</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">30</td>
+									<td width="150px">Representation</td>
+									<td width="15px">30</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">31</td>
+									<td width="150px">Transportation</td>
+									<td width="15px">31</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">32</td>
+									<td width="150px">Cost of Living Allowance</td>
+									<td width="15px">32</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">33</td>
+									<td width="150px">Fixed Housing Allowance</td>
+									<td width="15px">33</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">34</td>
+									<td width="150px" colspan="3">Others(Specify)</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">34A</td>
+									<td class="textbox" align="center" width="142px">Others(Regular)</td>
+									<td width="15px">34A</td>
+									<td class="textbox" align="right" width="150px">1000.00</td>
+								</tr></table></td>
+							</tr>			
+							<tr>
+								<td><table><tr>
+									<td width="15px">34B</td>
+									<td class="textbox" align="center" width="142px">&nbsp</td>
+									<td width="15px">34B</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>		
+						</table></td>
+					</tr>
+				</table></td>
+				
+				</tr>
+				<tr><td style="border-right:2px solid black; border-bottom:2px solid black;"><table style="border-collapse:collapse;">
+					<tr>
+						<td style="border:2px solid black; background-color:#c0c0c0;" width="352px"><strong>
+							<table style="border-collapse:collapse; background-color:white;" width="352px">
+								<tr><td width="90px">Part II</td><td>Employer Information (Present)</td></tr>
+							</table>
+						</strong>
+							<table style="border-collapse:collapse;" width="200px">
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td><table><tr>
+									<td width="5px" style="vertical-align:top;">13</td>
+									<td width="80px">Taxpayer <br>Identification No.</td>
+									<td width="10px" style="vertical-align:top;">13 </td>
+									<td style="border:2px solid black; background-color:white;" width="220px">&nbsp;</td>
+								</tr></table></td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table>
+										<tr>
+											<td width="5px">14</td>
+											<td>Employer\'s Name</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;" width="320px">Creative Software</td>
+										</tr>
+									</table>
+								</td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table>
+										<tr>
+											<td width="5px">15</td>
+											<td>Registered Address</td>
+											<td width="5px">&nbsp;</td>
+											<td width="5px">15A</td>
+											<td width="50px">Zip Code</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;" width="220px">Unit 605 Jafer Building No.19 Eisenhower</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;">1504</td>
+										</tr>
+									</table>
+								</td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table><tr>
+										<td width="50px">&nbsp;</td>
+										<td style="border:1px solid black; background-color:white;" width="15px" align="center">X</td>
+										<td width="5px">&nbsp;</td>
+										<td width="50px">main employer</td>
+										<td style="border:1px solid black; background-color:white;" width="15px" align="center">&nbsp;</td>
+										<td width="50px">secondary employer</td>
+									</tr></table>
+								</td></tr>
+							</table>
+						</td>
+						<td width="360px" colspan="2" style="background-color:#c0c0c0;">
+							<table style="border-collapse:collapse;"><tr>
+								<td><table><tr><td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUPPLEMENTARY</strong></td></tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">35</td>
+									<td width="153px">Commission</td>
+									<td width="15px">35</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>		
+							<tr>
+								<td><table><tr>
+									<td width="15px">36</td>
+									<td width="153px">Profit Sharing</td>
+									<td width="15px">36</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">37</td>
+									<td width="153px">Fees Including Director\'s Fees</td>
+									<td width="15px">37</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">38</td>
+									<td width="153px">Taxable 13th Month Pay<br>and Other Benefits</td>
+									<td width="15px">38</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">39</td>
+									<td width="153px">Hazard Pay</td>
+									<td width="15px">39</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr></table></td>
+							</tr>
+							<tr>
+								<td><table><tr>
+									<td width="15px">40</td>
+									<td width="142px" colspan="3">Others (Specify)</td>
+								</tr></table></td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+				</table></td></tr>
+				
+				<tr><td style="border-bottom:2px solid black; border-right:2px solid black; border-left:2px solid black; background-color:#c0c0c0;"><table style="border-collapse:collapse;">
+					<tr>
+						<td style="border-right:2px solid black; background-color:#c0c0c0;" width="352px"><strong>
+							<table style="border-collapse:collapse; background-color:white;" width="352px">
+								<tr><td width="90px">Part III</td><td>Employer Information (Previous)-1</td></tr>
+							</table>
+						</strong>
+							<table style="border-collapse:collapse;" width="200px">
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td><table><tr>
+									<td width="5px" style="vertical-align:top;">16</td>
+									<td width="80px">Taxpayer <br>Identification No.</td>
+									<td width="10px" style="vertical-align:top;">16 </td>
+									<td style="border:2px solid black; background-color:white;" width="220px">&nbsp;</td>
+								</tr></table></td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table>
+										<tr>
+											<td width="5px">17</td>
+											<td>Employer\'s Name</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;" width="320px">&nbsp;</td>
+										</tr>
+									</table>
+								</td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table>
+										<tr>
+											<td width="5px">18</td>
+											<td>Registered Address</td>
+											<td width="5px">&nbsp;</td>
+											<td width="5px">18A</td>
+											<td width="50px">Zip Code</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;" width="220px">&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;">&nbsp;</td>
+										</tr>
+									</table>
+								</td></tr>
+							</table>
+						</td>
+						<td width="345px" colspan="2">
+							<table>
+								<tr>
+									<td><table><tr>
+										<td width="15px">40A</td>
+										<td width="142px" class="textbox">Others Supplementary</td>
+										<td width="15px">40A</td>
+										<td class="textbox" align="right" width="150px">0.00</td>
+									</tr></table></td>
+								</tr>
+								<tr>
+									<td><table><tr>
+										<td width="15px">40B</td>
+										<td width="142px" class="textbox">&nbsp;</td>
+										<td width="15px">40B</td>
+										<td class="textbox" align="right" width="150px">0.00</td>
+									</tr></table></td>
+								</tr>
+								<tr>
+									<td><table><tr>
+										<td width="15px">41</td>
+										<td width="150px">Total Taxable Compensation<br>Income</td>
+										<td width="15px">41</td>
+										<td class="textbox" align="right" width="150px">0.00</td>
+									</tr></table></td>
+								</tr>
+								<tr><td align="center" style="border-top:2px solid black; border-bottom:2px solid black;"><strong>Summary</strong></td></tr>
+								<tr>
+									<td><table><tr>
+										<td width="15px">42</td>
+										<td width="150px">Total Taxable Compensation Income</td>
+										<td width="15px">42</td>
+										<td class="textbox" align="right" width="150px">0.00</td>
+									</tr></table></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table></td></tr>
+				
+				<tr><td style="background-color:#c0c0c0; border-bottom:2px solid black; border-right:2px solid black;"><table style="border-collapse:collapse;">
+					<tr>
+						<td style="border:2px solid black; background-color:#c0c0c0;" width="352px"><strong>
+							<table style="border-collapse:collapse; background-color:white;" width="352px">
+								<tr><td width="90px">&nbsp;</td><td>Employer Information (Previous)-2</td></tr>
+							</table>
+						</strong>
+							<table style="border-collapse:collapse;" width="200px">
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td><table><tr>
+									<td width="5px" style="vertical-align:top;">19</td>
+									<td width="80px">Taxpayer <br>Identification No.</td>
+									<td width="10px" style="vertical-align:top;">19 </td>
+									<td style="border:2px solid black; background-color:white;" width="220px">&nbsp;</td>
+								</tr></table></td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table>
+										<tr>
+											<td width="5px">20</td>
+											<td>Employer\'s Name</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;" width="320px">&nbsp;</td>
+										</tr>
+									</table>
+								</td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table>
+										<tr>
+											<td width="5px">21</td>
+											<td>Registered Address</td>
+											<td width="5px">&nbsp;</td>
+											<td width="5px">21A</td>
+											<td width="50px">Zip Code</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;" width="220px">&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;">&nbsp;</td>
+										</tr>
+									</table>
+								</td></tr>
+							</table>
+						</td>
+						<td width="345px" colspan="2" style="vertical-align:top;">
+							<table><tr>
+									<td><table>
+										<tr>
+											<td width="15px">42</td>
+											<td width="150px">Taxable Compensation Income<br>from Present Employer</td>
+											<td width="15px">42</td>
+											<td class="textbox" align="right" width="150px">7491.70</td>
+										</tr>
+										<tr>
+											<td width="15px">43</td>
+											<td width="150px">Add: Taxable Compensation<br>from Previous Employer(s)</td>
+											<td width="15px">43</td>
+											<td class="textbox" align="right" width="150px">0.00</td>
+										</tr>
+										<tr>
+											<td width="15px">44</td>
+											<td width="150px">Gross Taxable Compensation<br>Income</td>
+											<td width="15px">44</td>
+											<td class="textbox" align="right" width="150px">7491.70</td>
+										</tr>
+										<tr>
+											<td width="15px">45</td>
+											<td width="150px">Less: Total Exemptions</td>
+											<td width="15px">45</td>
+											<td class="textbox" align="right" width="150px">32000.00</td>
+										</tr>
+										<tr>
+											<td width="15px">46</td>
+											<td width="150px">Less: Premium Paid on Health and/or Hospital Insurance</td>
+											<td width="15px">46</td>
+											<td class="textbox" align="right" width="150px">0.00</td>
+										</tr>
+									</table></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table></td></tr>
+				
+				<tr><td style="border-bottom:2px solid black; border-right:2px solid black; background-color:#c0c0c0;"><table style="border-collapse:collapse;">
+					<tr>
+						<td style="border:2px solid black; background-color:#c0c0c0;" width="352px"><strong>
+							<table style="border-collapse:collapse; background-color:white;" width="352px">
+								<tr><td width="90px">&nbsp;</td><td>Employer Information (Previous)-3</td></tr>
+							</table>
+						</strong>
+							<table style="border-collapse:collapse;" width="200px">
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td><table><tr>
+									<td width="5px" style="vertical-align:top;">22</td>
+									<td width="80px">Taxpayer <br>Identification No.</td>
+									<td width="10px" style="vertical-align:top;">22 </td>
+									<td style="border:2px solid black; background-color:white;" width="220px">&nbsp;</td>
+								</tr></table></td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table>
+										<tr>
+											<td width="5px">23</td>
+											<td>Employer\'s Name</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;" width="320px">&nbsp;</td>
+										</tr>
+									</table>
+								</td></tr>
+								<tr><td style="border-top:2px solid black;" width="250px"></td></tr>
+								<tr><td>
+									<table>
+										<tr>
+											<td width="5px">24</td>
+											<td>Registered Address</td>
+											<td width="5px">&nbsp;</td>
+											<td width="5px">24A</td>
+											<td width="50px">Zip Code</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;" width="220px">&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td style="border:1px solid black; background-color:white;">&nbsp;</td>
+										</tr>
+									</table>
+								</td></tr>
+							</table>
+						</td>
+						<td width="345px" colspan="2">
+							<table>
+								<tr>
+									<td width="15px">47</td>
+									<td width="150px">Taxable Compensation Income</td>
+									<td width="15px">47</td>
+									<td class="textbox" align="right" width="150px">68900.40</td>
+								</tr>
+								<tr>
+									<td width="15px">48</td>
+									<td width="150px">Tax Due</td>
+									<td width="15px">48</td>
+									<td class="textbox" align="right" width="150px">8335.06</td>
+								</tr>
+								<tr>
+									<td width="15px">49</td>
+									<td width="150px" colspan="3">Amount of Taxes Withheld</td>
+								</tr>
+								<tr>
+									<td width="15px">49A</td>
+									<td width="150px">Present Employer</td>
+									<td width="15px">49A</td>
+									<td class="textbox" align="right" width="150px">694.59</td>
+								</tr>
+								<tr>
+									<td width="15px">49B</td>
+									<td width="150px">Previous Employer(s)</td>
+									<td width="15px">49B</td>
+									<td class="textbox" align="right" width="150px">0.00</td>
+								</tr>
+								<tr>
+									<td width="15px">50</td>
+									<td width="150px">Total Amount of Taxes Withheld</td>
+									<td width="15px">50</td>
+									<td class="textbox" align="right" width="150px">694.59</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table></td></tr>
+				<tr><td style="border:2px solid black;">
+					<table style="border-collapse:collapse;">
+						<tr>
+							<td align="center" style="font-size:10px;" colspan="9">I declare, under the penalties of perjury, that this certificate has been made in good faith, verified by us, and to the best of our knowledge and belief, is true and correct
+	pursuant to the provisions of the National Internal Revenue Code, as amended, and the regulations issued under authority thereof.</td>
+						</tr>
+						<tr>
+							<td width="20px">&nbsp;</td>
+							<td width="5px">51 </td>
+							<td width="270px" align="center" style="border-bottom:1px solid black;">&nbsp;</td>
+							<td width="20px">&nbsp;</td>
+							<td width="60px">Date Signed </td>
+							<td class="textbox" width="100px">&nbsp;</td>
+							<td colspan="3">&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+							<td>Present Employer/Authorized Agent Signature Over Printed Name</td>
+							<td colspan="6">&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan="9">CONFORME</td>
+						</tr>
+						<tr>
+							<td width="20px">&nbsp;</td>
+							<td width="5px">52 </td>
+							<td width="270px" align="center" style="border-bottom:1px solid black;">BORJA, ABIGAIL</td>
+							<td width="20px">&nbsp;</td>
+							<td width="60px">Date Signed </td>
+							<td class="textbox" width="100px">&nbsp;</td>
+							<td colspan="3">&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>CTC No.</td>
+							<td align="center">Employee Signature Over Printed Name</td>
+							<td colspan="4">&nbsp;</td>
+							<td align="center">Amount Paid</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td width="20px">&nbsp;</td>
+							<td width="60px">of Employee </td>
+							<td width="270px" align="center"><table><tr>
+								<td class="textbox" width="80px">&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>Place of Issue</td>
+								<td class="textbox" width="80px">&nbsp;</td>
+							</tr></table></td>
+							<td width="20px">&nbsp;</td>
+							<td width="60px">Date Signed </td>
+							<td><table><tr><td class="textbox" width="100px">&nbsp;</td></tr></table></td>
+							<td>&nbsp;</td>
+							<td><table><tr><td class="textbox" width="100px" align="right">&nbsp;</td></tr></table></td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr><td colspan="9" align="center" style="border-top:2px solid black; border-bottom:2px solid black;"><strong>To be accomplished under substituted filing</strong></td></tr>
+						<tr>
+							<td colspan="3" align="justify" style="margin-left:10px; border-right:2px solid black;">
+								<table style="border-collapse:collapse;">
+									<tr>
+										<td style="font-size:8px;" colspan="3">I declare, under the penalties of perjury, that the information herein stated are reported under BIR
+Form No. 1604CF which have been filed with the Bureau of Internal Revenue</td>
+									</tr>
+									<tr>
+										<td width="5px">53 </td>
+										<td style="border-bottom:1px solid black;" width="140px">&nbsp;</td>
+										<td width="20px">&nbsp;</td>
+									</tr>
+									<tr>
+										<td width="5px">&nbsp;</td>
+										<td>Present Employer/Authorized Agent Signature Over Printed Name<br>(Head of Accountung/Human Resource or Authorized Representative)</td>
+										<td width="20px">&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+							<td colspan="5" style="font-size:6px;" align="justify">
+								<table><tr><td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I declare, under the penalties of perjury, that I am qualified under substituted filing of Income Tax Returns (BIR
+Form No. 1700), since I received purely compensation income from only one employer in the Phils. for the calendar
+year; that taxes have been correctly withheld by my employer (tax due equals tax withheld); that the BIR Form No.
+1604CF filed by my employer to the BIR shall constitute as my income tax return; and that BIR Form No. 2316 shall
+53 serve as if BIR Form No. 1700 had been filed pursuant to the provisions of RR 3-2002, as amended.</td></tr>
+									<tr>
+										<td>54 </td>
+										<td style="border-bottom:1px solid black;" width="200px">&nbsp;</td>
+										<td width="20px">&nbsp;</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td>Employee Signature Over Printed Name</td>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
+				</td></tr>
+			</table>
+			</body></html>';
+		$this->createPDF($content, $paper, $orientation, $filename);
+	}
+	
+	function getForm2316($gData = array()) {
+        $orientation='P';
+        $unit='mm';
+        $format='LEGAL';
+        $unicode=true;
+        $encoding="UTF-8";
+		
+        $appCls = new Application();
+        $oPDF = new clsPDF($orientation, $unit, $format, $unicode, $encoding);
+		
+        // set auto page break to false so that we can control the page break
+        // depending on the desired number of lines on the ouput
+        $oPDF->SetAutoPageBreak(false);
+        // use a freeserif font as a default font
+        $oPDF->SetFont('freeserif','',10);
+
+        // suppress print header and footer
+        $oPDF->setPrintHeader(false);
+        $oPDF->setPrintFooter(false);
+
+        // get a modules list from the database
+        $arrUserTypeList = $this->dbFetch();
+        
+        
+        // set initial coordinates
+        $coordX = 0;
+        $coordY = 0;
+        
+         $sql1 = "SELECT (CASE WHEN (emp_hiredate LIKE '%{$gData['year']}%') THEN DATE_FORMAT(emp_hiredate,'%m-%d') ELSE '01-01' END) as startdate, 
+				COALESCE(DATE_FORMAT(emp_resigndate,'%m-%d'),'12-31') as enddate,
+				CONCAT(pi_lname,', ',pi_fname,' ', RPAD(pi_mname,1,' '),'.') as fullname,
+				CONCAT(pi_fname,' ',pi_mname,' ', pi_lname) as employee_name,
+				DATE_FORMAT(pi_bdate,'%m%d%Y') as bdate, pi_add, pi_tin, COALESCE(pi_telone,pi_mobileone,'') as tel,
+				(CASE WHEN (taxep_code LIKE '%S%') THEN 'S' WHEN (taxep_code LIKE '%M%') THEN 'M' ELSE 'Z' END) as tax_exception,
+				taxep_code, bir_alphalist_prev_emp.*
+				FROM emp_masterfile emp
+				JOIN emp_personal_info p on (p.pi_id=emp.pi_id)
+				JOIN tax_excep taxep on (taxep.taxep_id=emp.taxep_id)
+				LEFT JOIN bir_alphalist_prev_emp on (bir_alphalist_prev_emp.emp_id=emp.emp_id)
+				";
+      $rsResultcount = $this->conn->Execute($sql1);
+      
+ 
+       
+      
+ 		//$countemp = $rsResultcount['_numOfRows'];
+ 		$emp = $gData['emp'];
+ 		
+      $empid = $this->getEmpid($gData['year']);
+ 	  $employee = $this->getEmployeeList();
+ 
+ 	
+ 		
+ 	if ($emp == 0) {
+ 	
+ 			
+ 			$emp++;
+ 			if(count($empid) > 0){
+ 			foreach ($empid as $value){
+ 				
+ 			
+ 			//while (!$rsResultcount->EOF) {
+ 				//$x=1;
+ 				$gData['emp'] = $value;
+ 			 // set initial coordinates
+       		$coordX = 0;
+        	$coordY = 0;
+ 			$oPDF->Addpage();
+ 			$oPDF->Image(SYSCONFIG_THEME_PATH."default/images/admin/2316.jpg",$coordX,$coordY,$oPDF->getPageWidth(),$oPDF->getPageHeight());
+			
+ 			$arrUserTypeList = $this->dbFetch();
+ 			
+ 			$sql = "SELECT (CASE WHEN (emp_hiredate LIKE '%{$gData['year']}%') THEN DATE_FORMAT(emp_hiredate,'%m-%d') ELSE '01-01' END) as startdate, 
+				COALESCE(DATE_FORMAT(emp_resigndate,'%m-%d'),'12-31') as enddate,
+				CONCAT(pi_lname,', ',pi_fname,' ', RPAD(pi_mname,1,' '),'.') as fullname,
+				CONCAT(pi_fname,' ',pi_mname,' ', pi_lname) as employee_name,
+				DATE_FORMAT(pi_bdate,'%m%d%Y') as bdate, pi_add, pi_tin, COALESCE(pi_telone,pi_mobileone,'') as tel,
+				(CASE WHEN (taxep_code LIKE '%S%') THEN 'S' WHEN (taxep_code LIKE '%M%') THEN 'M' ELSE 'Z' END) as tax_exception,
+				taxep_code, bir_alphalist_prev_emp.*
+				FROM emp_masterfile emp
+				JOIN emp_personal_info p on (p.pi_id=emp.pi_id)
+				JOIN tax_excep taxep on (taxep.taxep_id=emp.taxep_id)
+				LEFT JOIN bir_alphalist_prev_emp on (bir_alphalist_prev_emp.emp_id=emp.emp_id)
+				WHERE emp.emp_id={$gData['emp']}";
+    		$rsResult = $this->conn->Execute($sql);
+    		// Set footer first
+    		$oPDF->SetXY($coordX+30,$coordY+293.5);
+        	$oPDF->MultiCell(70, 3,$rsResult->fields['employee_name'],1,'C',1, 0, 0, 0, TRUE, 0, TRUE);
+        	$oPDF->SetXY($coordX+125,$coordY+326);
+        	$oPDF->MultiCell(60, 3,$rsResult->fields['employee_name'],1,'C',1, 0, 0, 0, TRUE, 0, TRUE);
+    		$oPDF->SetXY($coordX+30,$coordY+285.5);
+        	$oPDF->MultiCell(70, 3,$gData['rep'],1,'C',1, 0, 0, 0, TRUE, 0, TRUE);
+        	$oPDF->SetXY($coordX+25,$coordY+318);
+       		$oPDF->MultiCell(75, 3,$gData['rep'],1,'C',1, 0, 0, 0, TRUE, 0, TRUE);
+ 			
+       		 // Part IV-A - Summary
+    	$empList = $this->validateMWE();
+    	$checkMWE = in_array($gData['emp'], $empList);
+    	
+    	
+    	// Variable assignemnt for easy manipulation and update
+    	// Non-Taxable
+    	$item32 = 0;
+    	$item34 = 0;
+    	$item37 = 0;
+    	$item38 = 0;
+    	$item39 = 0;
+    	$item40 = 0;
+    	$item41 = 0;
+    	$item42 = 0;
+    	$item45 = 0;
+    	$item51 = 0;
+    	$item53 = 0;
+    	$item54a = 0;
+    	$item55 = 0;
+    	$item21 = 0;
+    	$item22 = 0;
+    	$item23 = 0;
+    	$item24 = 0;
+    	$item25 = 0;
+    	$item26 = 0;
+    	$item28 = 0;
+    	$item29 = 0;
+    	$item30a = 0;
+    	$item30b = 0;
+    	$item31 = 0;
+    	
+    	$item32 = ($checkMWE ? $this->getBasicIncome($gData['emp'], $gData['year'])-$this->getStatutoryAndUnionDues($gData['emp'], $gData['year']) : 0);
+    	$item33 = 0;
+    	$item34 = ($checkMWE ? clsBIRAlphalist::getOvertime($gData['emp'], $gData['year']) : 0);
+    	$item35 = 0;
+    	$item36 = 0;
+    	$this->getBonus($gData['emp'], $gData['year'],0);
+    	if($this->getBonus($gData['emp'], $gData['year'],0)>$tax_policy['tp_other_benefits']){
+    		$bonus_nt = $tax_policy['tp_other_benefits'];
+    		$addtn_bonus_taxable = $this->getBonus($val['emp_id'], $gData['year'],0)-$tax_policy['tp_other_benefits'];
+    	} else {
+    		$bonus_nt = $this->getBonus($val['emp_id'], $gData['year'],0);
+    		$addtn_bonus_taxable = 0;
+    	}
+    	$item37 = $this->getBonus($gData['emp'], $gData['year'],0);
+    	$item38 = $this->getDeminimis($gData['emp'], $gData['year']);
+    	$item39 = $this->getStatutoryAndUnionDues($gData['emp'], $gData['year']);
+    	$item40 = $this->getOtherCompensation($gData['emp'], $gData['year']);
+    	$item41 = $item32+$item33+$item34+$item35+$item36+$item37+$item38+$item39+$item40;
+    	
+    	
+    	
+    	// Taxable
+    	$item42 = ($checkMWE ? 0 : $this->getBasicIncome($gData['emp'], $gData['year'])-$this->getStatutoryAndUnionDues($gData['emp'], $gData['year']));
+    	$item43 = 0;
+    	$item44 = 0;
+    	$item45 = $this->getCola($gData['emp'], $gData['year']);
+    	$item46 = 0;
+    	$item47a = $addtn_bonus_taxable;
+    	$item47b = 0;
+    	$item48 = 0;
+    	$item49 = 0;
+    	$item50 = 0;
+    	$item51 = $this->getBonus($gData['emp'], $gData['year'],1);
+    	$item52 = 0;
+    	$item53 = ($checkMWE ? 0 : clsBIRAlphalist::getOvertime($gData['emp'], $gData['year']));
+    	$item54a = $this->getOtherCompensationTaxable($gData['emp'], $gData['year'])-$item53;
+    	$item54b = 0;
+    	$item55 = $item42+$item43+$item44+$item45+$item46+$item47a+$item47b+$item48+$item49+$item50+$item51+$item52+$item53+$item54a+$item54b+$item55;
+    	
+    	//echo '<pre>';
+    	//echo print_r($rsResult);
+    	//echo '<pre>';
+    	//exit;
+    	
+    	$item21 = $item41+$item55;
+    	$item22 = $item41;
+    	$item23 = $item55;
+    	$item24 = ($rsResult->fields['bir_alphalist_year'] == $gData['year'] ? (($rsResult->fields['taxable_basic']+$rsResult->fields['taxable_other_ben']+$rsResult->fields['taxable_compensation'])-$rsResult->fields['nt_statutories']) : 0.00);
+    	$item25 = $item23+$item24;
+    	$item26 = $this->getExemptAmount($rsResult->fields['taxep_code']);
+    	$item27 = 0;
+    	$item28 = $item25-$item26-$item27;
+    	
+    	$prev_tax_withheld = ($rsResult->fields['bir_alphalist_year'] == $gData['year'] ? $rsResult->fields['tax_withheld'] : 0.00);
+    	$item29 = $this->getAnnualTaxDue($gData['emp'],$gData['year'],$rsResult->fields['taxep_code'],$item25);
+    	$present_tax_withheld = $this->getTaxWithheld($gData['emp'], $gData['year']);
+    	$item30a = $present_tax_withheld;
+    	$item30b = $prev_tax_withheld;
+    	$item31 = $this->getAnnualTaxDue($gData['emp'],$gData['year'],$rsResult->fields['taxep_code'],$item25);
+    	
+    	$oPDF->SetXY($coordX+64.8,$coordY+212);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item21),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+217.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item22),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+64.8,$coordY+223.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item23),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+229);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item24),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+64.8,$coordY+234.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item25),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+240);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item26),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+		$oPDF->SetXY($coordX+64.8,$coordY+245.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item27),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+64.8,$coordY+251);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item28),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+256.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item29),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+     	$oPDF->SetXY($coordX+64.8,$coordY+264);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item30a),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+		$oPDF->SetXY($coordX+64.8,$coordY+270);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item30b),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+275.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item31),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	
+        $oPDF->SetXY($coordX+156,$coordY+51.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item32),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+62.6);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item33),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+70);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item34),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+		$oPDF->SetXY($coordX+156,$coordY+77.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item35),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+156,$coordY+85);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item36),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+92.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item37),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+102);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item38),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+112.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item39),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+126);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item40),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+136);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item41),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+
+    	$oPDF->SetXY($coordX+156,$coordY+154);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item42),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+161.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item43),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+ 		$oPDF->SetXY($coordX+156,$coordY+169);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item44),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+156,$coordY+176);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item45),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+  		$oPDF->SetXY($coordX+156,$coordY+183.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item46),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+		$oPDF->SetXY($coordX+156,$coordY+193);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item47a),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+156,$coordY+200.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item47b),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+209.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item48),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+217.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item49),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+226);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item50),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+234.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item51),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+243);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item52),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+251);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item53),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+262);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item54a),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+268.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item54b),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+275);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item55),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->Text($coordX+117,$coordY+197.5,"Others Regular");
+    	$oPDF->Text($coordX+117,$coordY+204,"");
+    	$oPDF->Text($coordX+117,$coordY+266.5,"Others Supplementary");
+    	$oPDF->Text($coordX+117,$coordY+272.5,"");
+    	
+    	
+    	// Year and Period
+    	$oPDF->Text($coordX+47.8,$coordY+34.6,$gData['year'][0]);
+    	$oPDF->Text($coordX+51.8,$coordY+34.6,$gData['year'][1]);
+    	$oPDF->Text($coordX+55.8,$coordY+34.6,$gData['year'][2]);
+    	$oPDF->Text($coordX+59.8,$coordY+34.6,$gData['year'][3]);
+    	
+    	$oPDF->Text($coordX+145.8,$coordY+34.6,$rsResult->fields['startdate'][0]);
+    	$oPDF->Text($coordX+148.8,$coordY+34.6,$rsResult->fields['startdate'][1]);
+    	$oPDF->Text($coordX+152.8,$coordY+34.6,$rsResult->fields['startdate'][3]);
+    	$oPDF->Text($coordX+155.8,$coordY+34.6,$rsResult->fields['startdate'][4]);
+    	
+    	$oPDF->Text($coordX+185.8,$coordY+34.6,$rsResult->fields['enddate'][0]);
+    	$oPDF->Text($coordX+188.8,$coordY+34.6,$rsResult->fields['enddate'][1]);
+    	$oPDF->Text($coordX+192.8,$coordY+34.6,$rsResult->fields['enddate'][3]);
+    	$oPDF->Text($coordX+195.8,$coordY+34.6,$rsResult->fields['enddate'][4]);
+    	
+    	$tin = str_replace (array(" ","-"), "", $rsResult->fields['pi_tin']);
+    	$oPDF->Text($coordX+47.8,$coordY+45.6,$tin[0]);
+    	$oPDF->Text($coordX+51.8,$coordY+45.6,$tin[1]);
+    	$oPDF->Text($coordX+55.5,$coordY+45.6,$tin[2]);
+    	$oPDF->Text($coordX+63.8,$coordY+45.6,$tin[3]);
+    	$oPDF->Text($coordX+67.5,$coordY+45.6,$tin[4]);
+    	$oPDF->Text($coordX+71,$coordY+45.6,$tin[5]);
+    	$oPDF->Text($coordX+79.8,$coordY+45.6,$tin[6]);
+    	$oPDF->Text($coordX+83.5,$coordY+45.6,$tin[7]);
+    	$oPDF->Text($coordX+87,$coordY+45.6,$tin[8]);
+    	$oPDF->Text($coordX+95.8,$coordY+45.6,'0');
+    	$oPDF->Text($coordX+98.8,$coordY+45.6,'0');
+    	$oPDF->Text($coordX+102.8,$coordY+45.6,'0');
+    	$oPDF->Text($coordX+105.8,$coordY+45.6,'0');
+    	
+    	$oPDF->Text($coordX+18.8,$coordY+55.6,ucfirst($rsResult->fields['fullname']));
+    	
+		$getZip = explode(",",$rsResult->fields['pi_add']);
+		$address = "";
+		foreach($getZip as $key => $value){
+			if($key == count($getZip)-1 && is_numeric($value)){
+				$zip = $value;
+			} else {
+				$address .= $value;
+				$zip ="";
+			}
+		}
+		$lastSpacePosition = strrpos($address, ' ');
+		$address = substr($address, 0, $lastSpacePosition);
+		$zip = trim($zip);
+		if(strlen($address) > 47){
+			$oPDF->SetFontSize(7);
+		}
+		$oPDF->Text($coordX+18.8,$coordY+64.6,$address);
+		
+		$oPDF->SetFontSize(10);
+		$oPDF->Text($coordX+93.8,$coordY+64.6,$zip[0]);
+		$oPDF->Text($coordX+97.2,$coordY+64.6,$zip[1]);
+		$oPDF->Text($coordX+101.8,$coordY+64.6,$zip[2]);
+		$oPDF->Text($coordX+105.8,$coordY+64.6,$zip[3]);
+				
+		$oPDF->Text($coordX+19,$coordY+92.5,$rsResult->fields['bdate'][0]);
+		$oPDF->Text($coordX+23,$coordY+92.5,$rsResult->fields['bdate'][1]);
+		$oPDF->Text($coordX+27.5,$coordY+92.5,$rsResult->fields['bdate'][2]);
+		$oPDF->Text($coordX+32,$coordY+92.5,$rsResult->fields['bdate'][3]);
+		$oPDF->Text($coordX+37,$coordY+92.5,$rsResult->fields['bdate'][4]);
+		$oPDF->Text($coordX+41.5,$coordY+92.5,$rsResult->fields['bdate'][5]);
+		$oPDF->Text($coordX+47,$coordY+92.5,$rsResult->fields['bdate'][6]);
+		$oPDF->Text($coordX+51.5,$coordY+92.5,$rsResult->fields['bdate'][7]);
+		
+		$oPDF->Text($coordX+75.5,$coordY+92.5,$rsResult->fields['tel']);
+
+		if($rsResult->fields['tax_exception'] == 'S'){
+			$oPDF->Text($coordX+35.5,$coordY+101.3,'X');
+		} elseif($rsResult->fields['tax_exception'] == 'M') {
+			$oPDF->Text($coordX+65.5,$coordY+101.3,'X');
+		}
+    	// Company Details
+        $sqlComp = "SELECT comp_name, comp_tin, comp_add FROM company_info WHERE comp_id = {$gData['comp']}";
+    	$rsResultComp = $this->conn->Execute($sqlComp);
+    	$getZipComp = explode(",",$rsResultComp->fields['comp_add']);
+		$company_add = "";
+		foreach($getZipComp as $key => $value){
+			if($key == count($getZipComp)-1 && is_numeric($value)){
+				$zipComp = $value;
+			} else {
+				$company_add .= $value;
+				$zipComp ="";
+			}
+		}
+		$lastSpacePosition = strrpos($company_add, ' ');
+		$company_add = substr($company_add, 0, $lastSpacePosition);
+		$zipComp = trim($zipComp);
+		
+		if(strlen($company_add) > 47){
+			$oPDF->SetFontSize(7);
+		}
+		$oPDF->Text($coordX+18.8,$coordY+175,ucfirst($company_add));
+		
+		$oPDF->SetFontSize(10);
+		$oPDF->Text($coordX+18.8,$coordY+165.6,ucfirst($rsResultComp->fields['comp_name']));
+		$oPDF->Text($coordX+93.8,$coordY+175,$zipComp[0]);
+		$oPDF->Text($coordX+97.2,$coordY+175,$zipComp[1]);
+		$oPDF->Text($coordX+101.8,$coordY+175,$zipComp[2]);
+		$oPDF->Text($coordX+105.8,$coordY+175,$zipComp[3]);
+		
+		$company_tin = str_replace (array(" ","-"), "", trim($rsResultComp->fields['comp_tin']));
+    	$oPDF->Text($coordX+47.8,$coordY+156,$company_tin[0]);
+    	$oPDF->Text($coordX+51.8,$coordY+156,$company_tin[1]);
+    	$oPDF->Text($coordX+55.5,$coordY+156,$company_tin[2]);
+    	$oPDF->Text($coordX+63.8,$coordY+156,$company_tin[3]);
+    	$oPDF->Text($coordX+67.5,$coordY+156,$company_tin[4]);
+    	$oPDF->Text($coordX+71,$coordY+156,$company_tin[5]);
+    	$oPDF->Text($coordX+79.8,$coordY+156,$company_tin[6]);
+    	$oPDF->Text($coordX+83.5,$coordY+156,$company_tin[7]);
+    	$oPDF->Text($coordX+87,$coordY+156,$company_tin[8]);
+    	$oPDF->Text($coordX+95.8,$coordY+156,'0');
+    	$oPDF->Text($coordX+98.8,$coordY+156,'0');
+    	$oPDF->Text($coordX+102.8,$coordY+156,'0');
+    	$oPDF->Text($coordX+105.8,$coordY+156,'0');
+    	
+    	// end of content
+    	
+       		
+ 			//$rsResult->MoveNext();
+ 			$emp += 1;
+ 			//$x++;
+ 			}}
+ 			unset($empid);
+ 			
+ 		} ELSE {
+
+ 		//-----------endif
+ 		
+ 			
+ 		
+ 		
+        // set initial pdf page
+        $oPDF->AddPage();
+        
+		
+//        $oPDF->Image(SYSCONFIG_THEME_PATH."default/images/admin/alphalist.png",0,0,$oPDF->getPageWidth(),$oPDF->getPageHeight());
+        $oPDF->Image(SYSCONFIG_THEME_PATH."default/images/admin/2316.jpg",$coordX,$coordY,$oPDF->getPageWidth(),$oPDF->getPageHeight());
+		
+		
+        $sql = "SELECT (CASE WHEN (emp_hiredate LIKE '%{$gData['year']}%') THEN DATE_FORMAT(emp_hiredate,'%m-%d') ELSE '01-01' END) as startdate, 
+				(CASE WHEN (emp_resigndate LIKE '%{$gData['year']}%') THEN DATE_FORMAT(emp_resigndate,'%m-%d') ELSE '12-31' END) as enddate,
+				CONCAT(pi_lname,', ',pi_fname,' ', RPAD(pi_mname,1,' '),'.') as fullname,
+				CONCAT(pi_fname,' ',pi_mname,' ', pi_lname) as employee_name,
+				DATE_FORMAT(pi_bdate,'%m%d%Y') as bdate, pi_add, pi_tin, COALESCE(pi_telone,pi_mobileone,'') as tel,
+				(CASE WHEN (taxep_code LIKE '%S%') THEN 'S' WHEN (taxep_code LIKE '%M%') THEN 'M' ELSE 'Z' END) as tax_exception,
+				taxep_code, bir_alphalist_prev_emp.*
+				FROM emp_masterfile emp
+				JOIN emp_personal_info p on (p.pi_id=emp.pi_id)
+				JOIN tax_excep taxep on (taxep.taxep_id=emp.taxep_id)
+				LEFT JOIN bir_alphalist_prev_emp on (bir_alphalist_prev_emp.emp_id=emp.emp_id)
+				WHERE emp.emp_id={$gData['emp']}";
+    	$rsResult = $this->conn->Execute($sql);
+    	
+    	// Set footer first
+    	$oPDF->SetXY($coordX+30,$coordY+293.5);
+        $oPDF->MultiCell(70, 3,$rsResult->fields['employee_name'],1,'C',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+125,$coordY+326);
+        $oPDF->MultiCell(60, 3,$rsResult->fields['employee_name'],1,'C',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+30,$coordY+285.5);
+        $oPDF->MultiCell(70, 3,$gData['rep'],1,'C',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+25,$coordY+318);
+        $oPDF->MultiCell(75, 3,$gData['rep'],1,'C',1, 0, 0, 0, TRUE, 0, TRUE);
+        
+        // Part IV-A - Summary
+    	$empList = $this->validateMWE();
+    	$checkMWE = in_array($gData['emp'], $empList);
+    	
+    	/** Variable assignemnt for easy manipulation and update **/
+    	// Non-Taxable
+    	$item32 = ($checkMWE ? $this->getBasicIncome($gData['emp'], $gData['year'])-$this->getStatutoryAndUnionDues($gData['emp'], $gData['year']) : 0);
+    	$item33 = 0;
+    	$item34 = ($checkMWE ? clsBIRAlphalist::getOvertime($gData['emp'], $gData['year']) : 0);
+    	$item35 = 0;
+    	$item36 = 0;
+    	$item37 = $this->getBonus($gData['emp'], $gData['year'],0);
+    	$item38 = $this->getDeminimis($gData['emp'], $gData['year']);
+    	$item39 = $this->getStatutoryAndUnionDues($gData['emp'], $gData['year']);
+    	$item40 = $this->getOtherCompensation($gData['emp'], $gData['year']);
+    	$item41 = $item32+$item33+$item34+$item35+$item36+$item37+$item38+$item39+$item40;
+    	
+    	
+    	
+    	// Taxable
+    	$item42 = ($checkMWE ? 0 : $this->getBasicIncome($gData['emp'], $gData['year'])-$this->getStatutoryAndUnionDues($gData['emp'], $gData['year']));
+    	$item43 = 0;
+    	$item44 = 0;
+    	$item45 = $this->getCola($gData['emp'], $gData['year']);
+    	$item46 = 0;
+    	$item47a = 0;
+    	$item47b = 0;
+    	$item48 = 0;
+    	$item49 = 0;
+    	$item50 = 0;
+    	$item51 = $this->getBonus($gData['emp'], $gData['year'],1);
+    	$item52 = 0;
+    	$item53 = ($checkMWE ? 0 : clsBIRAlphalist::getOvertime($gData['emp'], $gData['year']));
+    	$item54a = $this->getOtherCompensationTaxable($gData['emp'], $gData['year'])-$item53;
+    	$item54b = 0;
+    	$item55 = $item42+$item43+$item44+$item45+$item46+$item47a+$item47b+$item48+$item49+$item50+$item51+$item52+$item53+$item54a+$item54b+$item55;
+    	
+    	$item21 = $item41+$item55;
+    	$item22 = $item41;
+    	$item23 = $item55;
+    	$item24 = ($rsResult->fields['bir_alphalist_year'] == $gData['year'] ? (($rsResult->fields['taxable_basic']+$rsResult->fields['taxable_other_ben']+$rsResult->fields['taxable_compensation'])-$rsResult->fields['nt_statutories']) : 0.00);
+    	$item25 = $item23+$item24;
+    	$item26 = $this->getExemptAmount($rsResult->fields['taxep_code']);
+    	$item27 = 0;
+    	$item28 = $item25-$item26-$item27;
+    	$prev_tax_withheld = ($rsResult->fields['bir_alphalist_year'] == $gData['year'] ? $rsResult->fields['tax_withheld'] : 0.00);
+    	$item29 = $this->getAnnualTaxDue($gData['emp'],$gData['year'],$rsResult->fields['taxep_code'],$item25);
+    	$present_tax_withheld = $this->getTaxWithheld($gData['emp'], $gData['year']);
+    	$item30a = $present_tax_withheld;
+    	$item30b = $prev_tax_withheld;
+    	$item31 = $this->getAnnualTaxDue($gData['emp'],$gData['year'],$rsResult->fields['taxep_code'],$item25);
+    	
+    	$oPDF->SetXY($coordX+64.8,$coordY+212);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item21),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+217.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item22),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+64.8,$coordY+223.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item23),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+229);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item24),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+64.8,$coordY+234.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item25),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+240);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item26),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+		$oPDF->SetXY($coordX+64.8,$coordY+245.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item27),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+64.8,$coordY+251);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item28),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+256.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item29),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+     	$oPDF->SetXY($coordX+64.8,$coordY+264);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item30a),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+		$oPDF->SetXY($coordX+64.8,$coordY+270);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item30b),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+64.8,$coordY+275.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item31),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	
+        $oPDF->SetXY($coordX+156,$coordY+51.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item32),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+62.6);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item33),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+70);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item34),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+		$oPDF->SetXY($coordX+156,$coordY+77.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item35),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+156,$coordY+85);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item36),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+92.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item37),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+102);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item38),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+112.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item39),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+126);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item40),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+136);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item41),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+
+    	$oPDF->SetXY($coordX+156,$coordY+154);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item42),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+161.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item43),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+ 		$oPDF->SetXY($coordX+156,$coordY+169);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item44),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+156,$coordY+176);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item45),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+  		$oPDF->SetXY($coordX+156,$coordY+183.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item46),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+		$oPDF->SetXY($coordX+156,$coordY+193);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item47a),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+    	$oPDF->SetXY($coordX+156,$coordY+200.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item47b),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+209.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item48),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+217.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item49),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+226);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item50),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+234.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item51),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+243);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item52),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+251);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item53),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+262);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item54a),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+268.5);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item54b),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->SetXY($coordX+156,$coordY+275);
+        $oPDF->MultiCell(44, 3,$appCls->setFinalDecimalPlaces($item55),1,'R',1, 0, 0, 0, TRUE, 0, TRUE);
+        $oPDF->Text($coordX+117,$coordY+197.5,"Others Regular");
+    	$oPDF->Text($coordX+117,$coordY+204,"");
+    	$oPDF->Text($coordX+117,$coordY+266.5,"Others Supplementary");
+    	$oPDF->Text($coordX+117,$coordY+272.5,"");
+    	
+    	// Year and Period
+    	$oPDF->Text($coordX+47.8,$coordY+34.6,$gData['year'][0]);
+    	$oPDF->Text($coordX+51.8,$coordY+34.6,$gData['year'][1]);
+    	$oPDF->Text($coordX+55.8,$coordY+34.6,$gData['year'][2]);
+    	$oPDF->Text($coordX+59.8,$coordY+34.6,$gData['year'][3]);
+    	
+    	$oPDF->Text($coordX+145.8,$coordY+34.6,$rsResult->fields['startdate'][0]);
+    	$oPDF->Text($coordX+148.8,$coordY+34.6,$rsResult->fields['startdate'][1]);
+    	$oPDF->Text($coordX+152.8,$coordY+34.6,$rsResult->fields['startdate'][3]);
+    	$oPDF->Text($coordX+155.8,$coordY+34.6,$rsResult->fields['startdate'][4]);
+    	
+    	$oPDF->Text($coordX+185.8,$coordY+34.6,$rsResult->fields['enddate'][0]);
+    	$oPDF->Text($coordX+188.8,$coordY+34.6,$rsResult->fields['enddate'][1]);
+    	$oPDF->Text($coordX+192.8,$coordY+34.6,$rsResult->fields['enddate'][3]);
+    	$oPDF->Text($coordX+195.8,$coordY+34.6,$rsResult->fields['enddate'][4]);
+    	
+    	$tin = str_replace (array(" ","-"), "", $rsResult->fields['pi_tin']);
+    	$oPDF->Text($coordX+47.8,$coordY+45.6,$tin[0]);
+    	$oPDF->Text($coordX+51.8,$coordY+45.6,$tin[1]);
+    	$oPDF->Text($coordX+55.5,$coordY+45.6,$tin[2]);
+    	$oPDF->Text($coordX+63.8,$coordY+45.6,$tin[3]);
+    	$oPDF->Text($coordX+67.5,$coordY+45.6,$tin[4]);
+    	$oPDF->Text($coordX+71,$coordY+45.6,$tin[5]);
+    	$oPDF->Text($coordX+79.8,$coordY+45.6,$tin[6]);
+    	$oPDF->Text($coordX+83.5,$coordY+45.6,$tin[7]);
+    	$oPDF->Text($coordX+87,$coordY+45.6,$tin[8]);
+    	$oPDF->Text($coordX+95.8,$coordY+45.6,'0');
+    	$oPDF->Text($coordX+98.8,$coordY+45.6,'0');
+    	$oPDF->Text($coordX+102.8,$coordY+45.6,'0');
+    	$oPDF->Text($coordX+105.8,$coordY+45.6,'0');
+    	
+    	$oPDF->Text($coordX+18.8,$coordY+55.6,ucfirst($rsResult->fields['fullname']));
+    	
+		$getZip = explode(",",$rsResult->fields['pi_add']);
+		$address = "";
+		foreach($getZip as $key => $value){
+			if($key == count($getZip)-1 && is_numeric($value)){
+				$zip = $value;
+			} else {
+				$address .= $value;
+				$zip ="";
+			}
+		}
+		$lastSpacePosition = strrpos($address, ' ');
+		$address = substr($address, 0, $lastSpacePosition);
+		$zip = trim($zip);
+		if(strlen($address) > 47){
+			$oPDF->SetFontSize(7);
+		}
+		$oPDF->Text($coordX+18.8,$coordY+64.6,$address);
+		
+		$oPDF->SetFontSize(10);
+		$oPDF->Text($coordX+93.8,$coordY+64.6,$zip[0]);
+		$oPDF->Text($coordX+97.2,$coordY+64.6,$zip[1]);
+		$oPDF->Text($coordX+101.8,$coordY+64.6,$zip[2]);
+		$oPDF->Text($coordX+105.8,$coordY+64.6,$zip[3]);
+				
+		$oPDF->Text($coordX+19,$coordY+92.5,$rsResult->fields['bdate'][0]);
+		$oPDF->Text($coordX+23,$coordY+92.5,$rsResult->fields['bdate'][1]);
+		$oPDF->Text($coordX+27.5,$coordY+92.5,$rsResult->fields['bdate'][2]);
+		$oPDF->Text($coordX+32,$coordY+92.5,$rsResult->fields['bdate'][3]);
+		$oPDF->Text($coordX+37,$coordY+92.5,$rsResult->fields['bdate'][4]);
+		$oPDF->Text($coordX+41.5,$coordY+92.5,$rsResult->fields['bdate'][5]);
+		$oPDF->Text($coordX+47,$coordY+92.5,$rsResult->fields['bdate'][6]);
+		$oPDF->Text($coordX+51.5,$coordY+92.5,$rsResult->fields['bdate'][7]);
+		
+		$oPDF->Text($coordX+75.5,$coordY+92.5,$rsResult->fields['tel']);
+
+		if($rsResult->fields['tax_exception'] == 'S'){
+			$oPDF->Text($coordX+35.5,$coordY+101.3,'X');
+		} elseif($rsResult->fields['tax_exception'] == 'M') {
+			$oPDF->Text($coordX+65.5,$coordY+101.3,'X');
+		}
+    	// Company Details
+        $sqlComp = "SELECT comp_name, comp_tin, comp_add FROM company_info WHERE comp_id = {$gData['comp']}";
+    	$rsResultComp = $this->conn->Execute($sqlComp);
+    	$getZipComp = explode(",",$rsResultComp->fields['comp_add']);
+		$company_add = "";
+		foreach($getZipComp as $key => $value){
+			if($key == count($getZipComp)-1 && is_numeric($value)){
+				$zipComp = $value;
+			} else {
+				$company_add .= $value;
+				$zipComp ="";
+			}
+		}
+		$lastSpacePosition = strrpos($company_add, ' ');
+		$company_add = substr($company_add, 0, $lastSpacePosition);
+		$zipComp = trim($zipComp);
+		
+		if(strlen($company_add) > 47){
+			$oPDF->SetFontSize(7);
+		}
+		$oPDF->Text($coordX+18.8,$coordY+175,ucfirst($company_add));
+		
+		$oPDF->SetFontSize(10);
+		$oPDF->Text($coordX+18.8,$coordY+165.6,ucfirst($rsResultComp->fields['comp_name']));
+		$oPDF->Text($coordX+93.8,$coordY+175,$zipComp[0]);
+		$oPDF->Text($coordX+97.2,$coordY+175,$zipComp[1]);
+		$oPDF->Text($coordX+101.8,$coordY+175,$zipComp[2]);
+		$oPDF->Text($coordX+105.8,$coordY+175,$zipComp[3]);
+		
+		$company_tin = str_replace (array(" ","-"), "", trim($rsResultComp->fields['comp_tin']));
+    	$oPDF->Text($coordX+47.8,$coordY+156,$company_tin[0]);
+    	$oPDF->Text($coordX+51.8,$coordY+156,$company_tin[1]);
+    	$oPDF->Text($coordX+55.5,$coordY+156,$company_tin[2]);
+    	$oPDF->Text($coordX+63.8,$coordY+156,$company_tin[3]);
+    	$oPDF->Text($coordX+67.5,$coordY+156,$company_tin[4]);
+    	$oPDF->Text($coordX+71,$coordY+156,$company_tin[5]);
+    	$oPDF->Text($coordX+79.8,$coordY+156,$company_tin[6]);
+    	$oPDF->Text($coordX+83.5,$coordY+156,$company_tin[7]);
+    	$oPDF->Text($coordX+87,$coordY+156,$company_tin[8]);
+    	$oPDF->Text($coordX+95.8,$coordY+156,'0');
+    	$oPDF->Text($coordX+98.8,$coordY+156,'0');
+    	$oPDF->Text($coordX+102.8,$coordY+156,'0');
+    	$oPDF->Text($coordX+105.8,$coordY+156,'0');
+ 		}
+    	// end of content
+ 		
+        // Get the pdf output
+        $output = $oPDF->Output("1604-CF_".$gData['year'].".pdf");
+		
+        if (!empty($output)) {
+            return $output;
+        }
+		
+        return false;
+    }
+    
+    function getEmpid($year_ = null) {
+    	$sql = "SELECT emp_id, CONCAT(pi_lname,', ',pi_fname) as fullname
+    			FROM emp_masterfile emp
+    			JOIN emp_personal_info pi on (pi.pi_id=emp.pi_id)
+    			WHERE (DATE_FORMAT(emp_resigndate,'%Y') IS NULL OR DATE_FORMAT(emp_resigndate,'%Y') = '0000') OR DATE_FORMAT(emp_resigndate,'%Y') = '$year_'
+    			ORDER by pi_lname";
+		$rsResult = $this->conn->Execute($sql);
+		while (!$rsResult->EOF) {
+			$arrData[] = $rsResult->fields['emp_id'] ;
+            $rsResult->MoveNext();
+		}
+        return $arrData;
+    }
+    function getEmployeeList(){
+    	$sql = "SELECT emp.emp_id, CONCAT(pi_lname,', ',pi_fname) as fullname
+    			FROM emp_masterfile emp
+    			JOIN emp_personal_info pi on (pi.pi_id=emp.pi_id)
+    			ORDER by pi_lname";
+		$rsResult = $this->conn->Execute($sql);
+		while (!$rsResult->EOF) {
+			$arrData[$rsResult->fields['emp_id']] = $rsResult->fields['fullname'] ;
+            $rsResult->MoveNext();
+		}
+        return $arrData;
+    }
+    
+	function validateMWE() {
+		$arrData = array();
+    	$sql = "SELECT emp_id FROM period_benloanduc_sched 
+    			WHERE bldsched_period = '2' AND empdd_id = '5'";
+        $rsResult = $this->conn->Execute($sql);
+		while (!$rsResult->EOF) {
+			$arrData[] = $rsResult->fields['emp_id'];
+            $rsResult->MoveNext();
+		}
+		return $arrData;
+    }
+    
+    function getCola($emp_id = null, $year = null){
+    $sql = "SELECT entry_amt+amm_amt AS total
+				FROM 
+				(SELECT COALESCE(SUM(a.ppe_amount), 0) AS entry_amt FROM payroll_paystub_entry a
+				INNER JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				INNER JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				INNER JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				INNER JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				WHERE c.payperiod_period_year='{$year}' AND d.emp_id='{$emp_id}' AND a.psa_id='39') entry_tbl,
+				
+				(select COALESCE(sum(a.amendemp_amount),0) as amm_amt 
+				from payroll_ps_amendemp a 
+				inner join payroll_ps_amendment b on (b.psamend_id=a.psamend_id) 
+				inner join payroll_pay_stub c on (c.paystub_id=a.paystub_id) 
+				inner join payroll_pay_period d on (d.payperiod_id=c.payperiod_id)
+				INNER JOIN payroll_ps_account e ON (e.psa_id=b.psa_id) 
+				WHERE d.payperiod_period_year='{$year}' AND a.emp_id={$emp_id} AND b.psa_id='39'
+				AND a.paystub_id NOT IN (SELECT a.paystub_id FROM payroll_paystub_entry a
+				INNER JOIN payroll_pay_stub b ON (b.paystub_id=a.paystub_id)
+				INNER JOIN payroll_pay_period c ON (c.payperiod_id=b.payperiod_id)
+				INNER JOIN payroll_paystub_report d ON (d.paystub_id=b.paystub_id)
+				INNER JOIN payroll_ps_account e ON (e.psa_id=a.psa_id)
+				WHERE c.payperiod_period_year='{$year}' AND d.emp_id='{$emp_id}' AND a.psa_id='39')) amm_tbl";
+    	$rsResult = $this->conn->Execute($sql);
+    	while (!$rsResult->EOF) {
+    		if ($rsResult->fields['total'] != '' or $rsResult->fields['total'] != NULL or $rsResult->fields['total'] != 0.00) {
+    			return $rsResult->fields['total'];
+    		} else {
+    			return 0.00;
+    		}
+    	}
+    }
+}
+
 ?>
-HR+cPqPxYaBBLt1rYpWUOPcBL1mUJrd59nv7t/2V3+azhZjlgSegLH6ClpcgxIl9tmPcOejK1GSf
-/KcEeSiLvReCp4cnki62KjwoRykKE85Y3e1j59eoH977tT6AGbiwurHikdRS4YXwtYPWCoRa0vTv
-food2tYRAoJ0U28oTxED3+E0J0TayEGTGcyjFkK7EfQhlIFMzctSWdrHI7Ifnl5e+z90X/qguaU8
-RLcSNbKF0zXaJrc5muhj9/C1wPq+dF/Rxd6e28r1CFDComSEXnKisT9wuqWfCZuWyJuOBAw7uV48
-7ZVXUTHdABRl9EOB6StC+ygYH4XqwxTsY6Jrg1QWKZEwi5jo/godxDTfLLaOarvgh6ojuhTCmYMQ
-rAvafPFbDSeGavd6fzjqp08bxEw2QITuGHm1kgDgrKBJRWbwFxZ8sViCAzqlwLzvVUveNSQ7flID
-NcYPNUk4NuffhcZpNZ5qasI8fT2fYSZW0mavbfbihdhNWojWqrvQ6BzCyNxumotaU0idJjG21sGY
-ndil74nSOtinuVuJXGSuJaUFRruXkbf2NWAXHUdHR+7s1ieSJzAjU612w3wzXnyAy/RUlxuMacOS
-uHZ5C6frIpFciDCNmI2w9VQ4FYMmnZHGSOyIU2OFxqRC0SUg1YyZ4cemNHkwPr7k3DEqif4q9iQR
-0TtjlI0CpBTmpnP1uTVkZi2CxSarMXfe6IyPqGCx2vQqyabcxFBiLKyB/0Vurx0olpjI/a46Z0C2
-8YT+ndHM45vehCrNGC8BSYLPiRbpI6QS9ksIwYbm9fEdyutwxHbTBkjkPLghUccHsoxP/oVk2Dxc
-SQf23jbXms6HhQsbZny/ssY8tOBi6ASegczetapLpav27hd/R7pESLZVIBl4/3kyAhQOnAZEt0T8
-lMHiY6DYeMYRdtNSpFT5Q74u1OBYsXKUNnvmUfQvkGtdhsfh23fp1Mz96NnuNPNMiYTc5DW3qbEP
-d7Ool/t4RE3pDWZvq8kvUF33Wul2nf/kMwS5SOcvaBlNVXCZilAdYHoGyC02NJuk3KOQeiTgOylG
-n1QgA1X6JfNkI1s2/EiA8v06+LEIGRcmGaVsar8oZ5b2rmxekGlf3T1rzm4pqU89gC96aGnwP99x
-Os8vzIKiDv3Zcpx3+S8kla9xrTCi6OoAZv5KHt82A1ut3HwjE1rI5J7ZLXEKpaWOS2TKlePxmWxL
-sXbEvAvo6I+nmOgpmuhudTQSTfViZN8Zxlbqdoy0ZfnXhxfFLnEU0OLMecR3oCN6Fzj7yErHPzQ+
-XJ3RNOjf0us/9zHmJqx/THtprE+w035wpB2KcPpCXU/n+I+FO4FYhUt1QX/ddSfPo5+HXDv1IDgI
-6oX8bkdXErSAkQUj8t2l3wtejffwcEKVw7n1ObLlSicQ63RP7WXaLY8u2mzkNBCfLJ4DFI8Bt6W0
-uDKjOTCeAKrx1hSpuIDA3uCOYxI3ISRewyRUjzkEToWO0jiAH06WhoIaecGFOmuIf2P4Q2J+qxVi
-1+2jnaazzL5BbI+6qaYWCiKHzyYpzUxTjRYmSO2KBiDI+24RIDwFv8sjzoQIWjPa8YoMm8YJdkAW
-iLgFTwDhIcMCJYcO46okh9mwIskHMkZLPP6JSyzmlXXcBzFjObRcClq5C/yPy2enh/i4H0a17xEq
-MNDrHeKuFgpRhbBS2L5HgGMieDQPtK8PFkPjbYFOl2ZcThbt9MG5dA18Rh6Az/kAcaaaQLRJBAWQ
-zzuW2PxzR/7sGEfws8ZsNxG06zAIUnb/cBMxk9Fn2AWjKSBYI/gaRAW+1QeE3hSlGsZ/ES8knynk
-JRyePB0QEnEwOswpiuu3nQEd2FtABEA9DL/E4kmltezmzioV1rDwoTJ93Uk8JCHLm7qNWnOPqa7G
-Unat68TzOXJ/hnnZ856E1rSkioe+It8LxUxZonNjWsri7DRU7styRIR4tlq8ccxCT/6D0b7Fe+Uy
-kOjLUnoqLm6sIa4YoD86//9FNOGQOZyphvEceDg39JtjFT2NZEnBMCbpqZkcKhb8aPSXcineT6mi
-RM44coadQ7tlN/skmzMwtYXYCLD14uIzXiz1VZYbJk4CHsFwMBUveB0D/+SswhuKpLtz4XRX4fWw
-1Ei0WfX7Bb04URM+TLZFzciPKjrAbycEZH/mfQaLERg/SiOTVwTngR0WSy2/Jvq5AN/hPzYSPvi6
-2BksMw4UBwV9PlsPCWbvkjA6IdEH5/hL0bDxlBaDYrX7l65WmisBCp3MX2iKT2am8Xv8uiUFudL2
-5s39ccC3DgoGsp+coZNt1LkxPAOHBkX74Id+H/RR2bbJEwpO2NKWY1QFHtN/It4eXa4gIISEFqUW
-LMOzy8HIpb6rz+UnPfX+jkP5J7L0tg5IprdwDT5il6W9xpufXt6CCRX06v9BIMXebrfk0wR3T+2s
-ayX9EDXZaDY21diWOOhy0uxjbslZGacN+ke7u5gaiUUJFsvXzSm+ptzYwHc4EN8OvvLEOYH/xmw1
-NYHt77J4qZ05jza+ngsITy1eB+W8/YAsLeHkTDE3/M6z7+LB8jGhb/Jzhj6Svia5N1SYtn1VBlBw
-9E4+2A/P90NbTxpTgMCEsR5R38EkNdOKu0xuiIT0D9lxbFeuDbFl8bU99LBVdu9+XubktspN7Vuz
-M9N4aZeuX2EiMndPmzuMCVylYC+SlYFB90qGd9iMHKMuAn28IjunwBDaYR/UVA3STzgfrXaCFisN
-Yu8/31e3+UGI2/ruG/7Bdl4WSJDr8XPSZWTg6AjJjdEm75AkqAAFWrzUDdmJFMBGVWuQqf0KVZKi
-SR85zOyZu4+n0knXLcVQwocKDuV4IQqaXACuELjmpk7WNwlgcw4Mc+hNZUppm/Dw4wvz4apJwAru
-E0NS3cLC7Xw80pPx2WlxbpDCkjoW+UH0egqRvpsZt7704TLjaWbC3YDVHCgU1SvoOiyicOlmRb4/
-BgN1ZlZlKU4Ac9QlLggWAA5+LsyrZjE3ZLbPabI0nubqecRbJGdvmhFxVUXqH4Oz8AWpLveEA9Iy
-XVKI5DJhaOwXSGaL0ntXNOS5THgFLGRVgcVgHtGxJxHC3JfpPvEmlXwhSQQN7Ig5RsfaBO3CtV+V
-b2aoPNJVZ0NR+VTmcBVHJ0khcgYpAqjIOqDaduTFfnlojq8KQq+hUNDTGWrrpWn3b0E9XcVxPBOo
-HFPZRKTY40i7251MZYQexSuFJgfa+kExa0EByRtW9gGxHX9yASbMgbWw9/61g4O0ak9TLDZ+y0oU
-S84bOHBy1SkuCxFikGhxvngRJS2mOf2WerrIwTVVhk2G0MdWor1t2swEkU6GyRYXx1SknjSNj62f
-+g1BJzAPMotr0UvZeB+MmPMfDnFjateDYj/euMTTDEx0H40tLPfpPz+aYhaDcAeOtYjRQIs9xvuu
-qREJDYfGfe6YYNXmnmwECKBU99MXvuAoDAax+ILruwy947Oe1tohCYdkfNnLIEbz/a2M8osbTx0s
-NJwPR6xdB45Dna8ur2W/6Jh6zlAxUnX+cooVt7DxKRXaKpKej+BaW86oYgRSLETLch2owkkXltuG
-f1NWDORX6akDkkHYst9HJoBhNVA0FRgIYhPY+rKq9bXMMzCfivBSdToYGTA16c9vX7Xpu5NQyHf4
-ZP6e60KROOTriuV87OSNHoSuysAaPDeq+NRjK2dkZdI/6yrFXqSX4RdRH5xtQ9JeCfhieMkcnJ3X
-PbrOUGHieB6NaAxBuPdjKm14cmkvgtzXYoziEsLZue+7YsrZ2hDEHJhUFbVth4r03SP4VTz+w/Bo
-NBzwSp0x8ehmw1fgwNQe0dX7zmnCRbxlNNZhtDAwtZcKulg5ytE6hJUFfMxXGNjmAa2b4pri8Wwc
-R/bFqUkjz13Ptwi2i2cj72Je7qrADaN7CiPKMrOI/yfb7N2e+kSPcHtz2vThR5msA+3bcz4+Nvj4
-nsE22jiYPFBhufxtLyvsvkr7dB/NaS2pqFs4dIBI54Ukl8LOIo3g1ZQAUvCu3OcT7ddH167i9D7R
-lgO9tx/mScqRZruoUJINgJuBTxwzD9dvSq8+y9gUxYG57SdmRLb1Tr1KCDEheQEGfyVt92Rapqod
-fdK+eaRWuirErubOQ9NiiCZt3BGXX6YoGGtF6S0oOTJu7LpYYMowxYl/0J0CiLCQkFFRDuOx7fjL
-KugCijlE9e53VCARIeumuGLcT+vlcZlRHPgqqcyrZGvfJaIaZt7UVDsXHMw4WVulGqZXDQh7Cgu5
-+cj/zrJQbZBwKNqU70dxrv2ezkxTSWlInzTLvN0QEofudu0XTJsiDwL+1VjIJ4nI4USvZeIYX29V
-UqkFuGv3qYDHa1gmuVJBvpBxWWhAzYpDNU2zBir6ZSGUSPmxEnzQb8OiNxcMERp6+5s7EGUJev2d
-Xmc7xsdWWPkPvY0dRbFtfqp/SWpR/ayTpF6gPfZaahRuM3a9u6UOLjxZI3JHXeG9RLRfx0dgK6SC
-sd5gyPkVXxfwMO9uhB1G9CvESwtccPaqY6LTX8eqetdndX1gG8hOsz+yblPnNtWNqUiOnkSDyQX+
-3D3Zo9m8NV6cQpulxf3ALNq4+6m+GDHJclOcNXpV8Vq5Hh39I+ES6vmIqqzutI/pZdCW6uD1CTpZ
-fC9DhidtCFCB25R9BgqwuV2zHIfLeJj3fZ1t9uJ35qv+55jeIs1fxXYfy8hbs91wd3ZebyjbAAyj
-/10h0ngzUnNB9ZeqrXT7OHlBVunItgziRbTVzUHArRJlw2lYIvP6+xUU5/1rTlzZwJ5S281JOglG
-yIpNdWgkWgDxnKdZ6saQY684n8tg018uDnv1DX+VEsisFXqRVQso7n+L0s9OW+m932vcAIMZ6qF0
-zFeHaNhGqsNpnuEpV83tZLtfAG7iSFQll8USy+OcDl+FcAi3PXTf1BNhb+6/vNG/pOXbru8EX+Uz
-nFGwIE2Hi7CNfggWjwF7yO572rzE6Xd9GFCoSx09xnymtWRLZUcCVLV7SAIyrmqHvNli2bIZg6O/
-A6m4M7JcylQejERp6io9eyiUKf3SEVwcQr39JpHgSl5W+WtwM3uciq/wmMtuEGg4WmAuWHsrNIgY
-OKYBmzGjlj/mgreqSfDXDM0FMg1mFfz3/dHDiLRnj8PyPMWNo2OiW+1vRvFvSO0Wm4VKa3BaAXOt
-5iUAP4oHCw2Ned2bV8c38HH2m2Z4rIXayxekC/G/GG4Mg6yoUZWiOtNGEPPHjrIVtn7K4e/sLQGH
-w7fs5loIouFgZYZzBBAv6Xv1W59ZuSQTh6R/5HvWSmRiPCJFLQYWBdURq4Tj4DboQB9ZDr2fajGb
-e/0Mq77nUOGeowPRvrAeMPQh7g71cPjDFmTo2iRsXwf3QfBV0cZMrFPM3A/H2q/37WMjdjFRZkzO
-Zn9TU0NoxqdVROqAP2z+ZV+3itRtrw6Tzu4Gvbe+rPMiOjEcQ0X7gQAw92458LwUBH50sM7+rQ/1
-2QO69Q4p9ohkgw5qdi6QS15DNicje86GXdxe2kMrgY4CGa3liWEOcgVqtPcI0/QYGVwgPUkMg0EO
-C94E2PP2yOWbfNdZaULOMOv0qevXI72y40o/9ONU2UOVxOXxZfTSGIkVGJgWacg+Z89VGG53hhdg
-RxjItT1ox7lmgr9x1dpo+j8otJ5fMMsVDyXHVdQXtDW6BkLvDKUeIILBO1ObeRA4XA5G7ch/yGBl
-O+dH4aNzIXF9yjv/UBby5U9MSTStXjTXer469xq+faPi4//MQnuCoGk9aWSdBF9+o0KzevBmuZ9F
-Sq7bbA0k2nBul6RQNCX19sbMm6p2N9N1vQjB2buYs2fPy2Ty1f5LaHZgrGO00Qyha71QMBU4HQEz
-oAebOhuJrtoPgxbp9vi+s4HPikRL9A1Cod+eblLM7iHRIjLTodja6+uHAQgHK5s4Xwp4xNtNotsg
-+cYADT1z1d0/Yga0e6prtH8LN6Dv9/YsCXsCLcqlDk5MHgQFKJg79WmvHkBagwlWasiNOn0KKTgm
-IIsNhFAY+c+yCk0jqcYQzCnDI2XjFUV07er7OcOOtc3bcePznfai9bRw4DGavaQpubyMeY9mbsBz
-lt4BVZUJQBzgaglDKCEvHQj4kKxHSpCxEQ/tt1H7hm4/6ihS0iR4k+VfquPHK1K7tqxvJ5MjTWZj
-BKmebwx3ha9LEd5tcmAhGVWwM9RmEceEPtaaWAtTJxVIh+Di9CSWRJMi2WWkiLCgu8wmvnDGmoFT
-r0dTB+mPuUldYjGCBY3vzrf/gfPQ7WL90x6A5+0kaPkRETv0x4Yo5d7+al8uJElY8RGJZ+58mu9j
-VFx0bimWk8IrauSUCe6RiQUZ9Bl0SedI28ieeqr3k9ZfiQyPet2GoHU8tW4OOUMjnnXQGZwjB9oi
-HsNtoiwwLO/pfPk4WSieJX1YA8ji8e1FUJ7DCTCmsyYHKSCCpEI/JcPiUNRlkek1IIwmP8ocaxsD
-NRt4LyZ6sUtwjoljeR1PZjbdPJY0oY0wk41/arWimM7QIjWg4LGWJQ7kSlH6h4NyBXmh5tYfEULi
-T7NQ5XOUSFAvYY00OsEKRcJUxcmsauIwns/xoM5wLQ09XGSR/5YydBwz0WKEgWYhy24phw0KZROV
-ZkYYXKieNSoosYljcLFrLm4qab+q4wW87e3UpesnBP/CFb8QkbZcVXl39nvgeLb0M4AFdAhg06Wc
-qe/eiDfGRlxleqGDdH3kxR8mISgjHtpmBB/95taPNCbuSWQOahbRgkFdLa12Jq2NqQ7piylIdGpn
-iduYfPjdFf6LOFhjCyl4ArO7Xcwz0Pw0BpS4L1R5MWGnyOBEXEEOCk80j85pw2iQTXkRX5l48x4D
-oYARzhNNgXTGCtMCRF/7KRO/ouRlzKggPu6P9AX3hpwEcSWh4Cs9sLNuHpef5IHFOjqov/TioYjZ
-0TEWqPQImLYrA9K0bmp62UQP5znFj2IQ7AvSdZVHMuCRHjOtUvxSYjueRr6RGBKmhIi9sot2rA7A
-2OKBupKlOOmWgiJIK1imyFzKgvgZcuWr1GmkmRmgc8pXEXS018f/zKuWyWXhIGR8KUSJQlt/JM+5
-0+Lz/pvGrK82meG6goFwkQNh5L7lJG8CkL92OVWjEzajLcJTj5R8h6taogNuN1zOhFgbAVgjMM07
-SLXIcbXMlW0TsSRIAv2gskpHTFbI+henlDVNifGSsyx63y0ZzszBzHK1/+vG5d1JjdSEQwJ/uqQq
-fo6xymfRAT/wWLcpDeRUaZrSLmGQJeE0kcSgicbEZjZ+xlRUJJts4v2aDXsVimyNj7BpEK5lCnCw
-kNp1aYqB74co5xBnDn4wFV6A201Zh6KPWXwbSSQzWWB5AUbwvVoYCP2xKl5lwQh6IulfKaGTzf2N
-2Kr8XlCVlA97cQxltrMwxXRWfzqqUWd05lzF1Y+jZe8MjLh3Ryg0DksXu3L5kVyXAlaU5j8l+DzK
-B3cICkq8/MvISjXmcQAdlHi/ro2CsvoQkSnR4qWlMXgsor9Siq85iJZVLGUo9A27hXgVrYzoQU6T
-NfuQS2uJwjV3kT/O87J/vRUSykbi0JjERbuQpxzQ77k8rtvn4iw/sYwxaN7m1FKSY0a1MaqtwGGr
-grAS1ewwcT9D9hrFVzQCr2serCQRgM6KxJIYNniHFzq2eEB0wX39YAyQysRSxn/xW9YgNFIvd9eT
-uW3pI+ZJONTS5JwcFio7ktFDU/Vyc0P04jxJGIrjjvD+R8MfChXqQhV7Gw0/KLnUOrHYabo2Ygpd
-+VgzBNVE03DT1WTycDZpLLGJaJF3rhLx5uYk7AqILk/vXsyD72h9R2qppaiY1+YFZJDBw+57xp3c
-SvT1b9iO0HDPnci7n25VGeJ3aVHsdFFpOoaxG1nFi3Z5pIGt+Yo8XejcTlzuoMpmWuLnfSOrTfGp
-AwkkbklzDlAomob0tiMJHb7/Zhvv8qVm6IHDvfUhvI7q3IbnCf9r49QNrmqpNK0kiL+EwCjMzgB+
-nJ2x4+Vp0riF8psZrRqw9R/6oR+R07Pztwl08izvT2YA1fd4I3ywsi18gDDgucs50DEs/r1ZMpec
-156XbLdI1IUtNwDq/EsW5m/utIXl6U/v6w7hbwKEHLqprLJs/E01s8tqrfPYaIvKqkf3Q9Z2S6hy
-ucY5h6CwOcO8wGfHWzr42BS1TefHHchSLLM8jB9lXaJVVJO+fi9f02zpycRd9IwUprisCMRDoAxG
-hZC9MAACm2paWi91lj0GxssJlFkVJ71dslmCInbJaHAombRm3vOsjlzFpP1d8JZDDYVOEViG3Ly0
-a74wugDj9kaqc7+iQ3H9Q10MguGMGKUdudHbgi2iwa4dnn3G5WFwsYzc9BNFbQOdcuGaH2Lp39UO
-tfA+gFZweGtrriMw3g6FVC+mVujcVPtgNtngjcBgJ3qT7I5TnrLKm5LKnUonAnpaH93mXZ8Z5xfI
-O5hm8YI8fLHX9tNMdLY8puleL5KOnO+CymK08o/R9a4tEkr1gaRk8ehNgnCRraqj9/460RjryTrp
-Ib+zBQ96DtSkXuQIeOUuX1omOhjW40zI65bta0Op3+vSd+iq5mVhOa15VYCG42oz19yERwjq6lt9
-TL60IU5dnMTJ3m2jj5wBerVqJFiE33IxI9nUzOlxvSnYMPSliL8oky0V4UW7zMZT2CQDYlQYZ9bG
-ZFCKHnBzMPDYOj2CuHy00KaWRz2Enk2aW7HtRjUYKWwXGnBRIV+iVKIFwK1sqTCNGG8vRa8wWyuR
-D32BMIUoGc8QqGbjCwE8rk8efRL4nkIdJMdTCi0zwj8pSdrPYF2Lm5ALGyJ9Nrcy14Di/e7brVsM
-65uKcVXUr29BZ3jKEolC+PJ/novJCrrPOewr4XD3wHIVLjrrJuB6jDxxm1DVFLyrfevOIW+kY3sE
-+hEbiPnqQYCkb7ckYnSXA050Y3uq1DoEM+fq/sy8BrVcXAp6fkMYLXPrO9ZFKMLFsO6bT1UarzQ5
-913/8nHU7uDKzg1nleqXrDwYutNJA96HzmneEt2Tnj7XCvHAGF56IEPbpFHyjmBF2FPCtkNZIaNH
-tAb3F/BdUEh8kljJMHd6wjoLkXfdxG/KrzXte0TlLPsJ2a3I0eX6rwO7KtYa2DLLRJ9GWFzqgZM1
-vKb+30VhqUxu4K0Z5QXdCg3RQnI2ZMZ0RRIbdxd0/S5kjUFNvdnXhQNQkzux6f30UmCjt1+NRZY0
-a/ZuxzHX/W35/8B4Dc7yJUPVDYaEyex7Ez4vPWq13cJHBPcKuWMenEUChS+GVyAvsplfP+Vzuo7/
-ZUcxT3Ss/1Wq0PAZ5swk8YNwztYXK9ve0nu7IDRl52bGHoVIwmvEYAU3NmeGgssQrYXgq53AiQrV
-VzrsLEN/6srHqZ2rH5LdsObJpYZBqZtO6mYgqV51o8pRXCuZK7Cjai4LDzNyN/RtkgKMbCho5e2K
-5c7BG2jPxpc0CK5sOrSu5qLh6pReWYK1ZkPcYtj/OTjiWHyf+O+1wfqSyAV1319M3CnDiDbdc6yC
-cqoR5OZ6+YwnPSOxEat4ah/upG0f9fwrfXXIPmOhxngleMkmt74sgzvercSc7cmZdlUP/C+wpYKF
-Rbu6aViUkgPmv74tSt8uph9g8gcGku+qpEy90SAOaaFJmTFG+IFd4VhGSzHqo+YQ9o2nF/I3Wj+G
-zEpKSxpZcBmvtQ/vjmsXq632I02FXsjk/lcKUe+qA/kwc1L4eybKrUXpEBLuAJXznI8a21fKjCqa
-J1OgrHHnB6GwQlsqB8qYuyG4eL0WUehnvaUQ0z98kwFZM2pWaKOj63sH4gxf1MaS/3wwaJGEgiBn
-uDhkncQa69VnmgZGlBcoDZJCPZTpyCc4qAnru9Xf6hXKcaKXcC7fHA9MfxyNqK96KdvWf84k3Wyd
-hGlbWl1vbdDjGTCC99IE5WmicGs6qN1NieL7uNzQqVxiZ8i7XY1wuO4iZdY0l+jYKnHDMtBwAKJf
-JcKo6gn+PS7oVf2uYqP/k+XZptfLi/zX1rms3GUp7xeHzxbDBVgzzgzVgRRZy84Ofcs1LmKvuvSV
-ujU03YS6GmNKC5IpejQTA2IQ+C5dh1yN75XVnZSx2tmLRMTRQPJxrZtp8PDlSBqJ4DJpdkrlcV6f
-1zGMByXytghi9dLXyyaoi2elbWQqMV2svhxYEz585UBwo885TIvBdhgdw9kBAuVJ8ZArWPPATQ/T
-7T9jCu2KtGwP3KFDMfnBRGTABUi5oKNwHqQVy1VN72WIWklx2uKYK0fEEtKt7seoYHAq9Lntbb95
-3horU31zVbeZyJl1takEWapIEHiASsa062IOQ/2o8y7v7/HLRYOl0FgYaE5zVAZPb+rg4hydPGgg
-EU3eH20814PVK5DVXp0lGsP63hxfGtDfig4aFxg6wGRFV+uN/K1SBgkeGRsgAjAruM3lzjh+xw7L
-BAGzbJ67BDsL37S1vuFjsDBR97LlQvc7TaAUFfAipveZn+MhuovO5oTEsqoh/0vCT9oBVDxJhy1H
-xiavT8/SIsvOc0UAC8MqVOVVQKVT5UbLgTd3ngV1uifp3vFZh17K06vNsziv2gCBT6RfXEYqAQ8A
-TWu6xHXbHjC4pRjGjFtz58Mnixgb0eBElK56EaHi7hn/aPZ5fHJb1X68bx+CSxXZZ0wb60SFYBnY
-Z7Zcydzt7Kigerd/C6Iy9KFcj5acTxu7GVz83h2C8SKgvow73wJp38CkveIaFc+Bazbum8tEDEA9
-tNJ4ufKzDhFYwNiWcUybC95G5kdVMyft1CwLpyEU4bt/TzbwE1upKy4+NarVXg2ybzSrZAXodf83
-aFH4cfxNYdBPceTJ+5MrYdTy5U3Od4TiSS7kVt4oE/Uqb29Ipj039AK0VVMeFmITw1jwSNOvhO5E
-lrvfgxICNH3C39RKs3VBxhZXP1usfcVcqMOcLnNZYakR3k2mzMbzeZA1baIjsvJ6P+LOexc+eta1
-JyqevTRTZfJcdhQhzMiiopbIvGxecUF7r6asS2XmrhAM4HZOAG6ZiaGbofHCGX1UElnLfCSoGRd6
-O4UCJTJKDfVaBgJ/Bfnzt1DghFywM/6MYwB71TpIuVI6roE14zDdgjTjHFPYMyQ9BrCXjMsOjOn6
-E6Z/KFaXUGW8D+wttUCj8/Fbs3vYM/GuAMVQKQNXDn68rHk5sz1Kj99b2YybIESj+dfdKgxUv8Uh
-7i/54gEWYYWOZoWQgsClMEL2Qkd37qsAJAtK9DdOk+Hy/unJnEUtkeG4bYlG36MbNfWK6bFJKZ4n
-reIQgZ2i4qcQXioNsbUqg2XgMfIZl56kebohStUGSHcbqJXRl9B0KR8+N4PZ+QHC0FDqJgi9CBaU
-mL8cOYMgcpfqEvUdxld+vlbDPE1RDrd/Oa9WGa7HQ8SeR4Wjv72kYLFm54plnlbugW/0c9IzwEdx
-tyMJ8N0eB2yiZWd4Odn4Vfoty6ljc5jQkS039i3rpnTpHOnXKARXUKLY8vcOlv1AliNIXHJXRByw
-HC2Ll0AvhtKLaCgYbxIc9bjX7GT4yK9SlJWr48RmR2EjBfYbj0Y4MByBZWOM0qtRVcvdSWbGN2EI
-PuyKaa/SP1htJ2mKVhvV/XtY++OoeivnBZEL8kColQpMoWw3nF4pfnREvqCKL0VHqvhbB25USWwV
-PB5qmpuOWHBYPfV1TXy4TEjID5uKDo5Fbxm1wC8TI8L//u2xvmGgtbLsfQoMQEPOHPxDP45KQ7rs
-cVq1CGOAjFQ9XM0oQ1Jav2ivYBNV+5OrmG+T0fZwBvU0XOMAeiRm8zd9TlTvvgncKhQVLOgG9/8l
-fVKAxOJyQnoHSMkFAuYN6rk2QErRYooMKQQz86W+lQd7aHdfYnrQe0nZGA9bb20UyKSJUN2lb3hx
-jGQcuTHAAMVSZf9joMAcQyfx3tsi6rTvQ9+tFK+mVPmvuOJVDouNJRCmAeDJe2mm/bx1zj3tys5q
-ymx039P1j9lEbJWRH0EimNNoo5FyNw/BkUpDgNr66tZDIM3WdlBXiHW9QsxNDuFECZ0MWFpykZyd
-n+3ewaiuQ/ajvyXJkV4F3/r5AJJGlxw0PVSM4IYfkP+1yN//8xftrhcjYcwM+UGpCkkJ60snE0Kj
-YzBkhTP5NsrM0olP39mhKK5ys/gP/KLp2UZXsHGhciFgG/l/k+w6YHkACw1hkYNUlOLdfztiPOUq
-4kDU9s4j6PNyiSKlvTwFPKxXd9grB5QHOXW9jFD5PAQMx2WjGOeLKPhO9Aa1xzfiGT1dOyHNSjKa
-Dr5/rDLNkaeMZSD+4tx2Ptg7tKwB92SDYgtZ0X1XIpVX59CVmRne67YfpEIi6/oUmHwbdpwspEf/
-oXcd/k8qhybXmg/PjWM7D4UaSJctUBQe3OKjnAb4uPYkicKr4OpcUVy8uTi69lf60kHEDpsx0Dcf
-0IIjlYr0Q/+LYv2V+scFGODCcptLXaKibfGaDBQAtJktquDP10fSlsUCuOjTw4cl8XkPuQx+Rzb4
-55gEpjaBrM4Tq4K1aVR+K4GNWYmw8X8KIA1TvchwiPTxI9UKx6MslMMSPcdnOqvOWd5MvdCvbb/K
-QKP7ALYY2Y6nl/24BD1Fw8cfsZaTr8VmtgkieHPPmQ0Kv/zVUpvaEBwpmId0r5ClXqxMja+iJT+M
-SqKzyLZRqP7K8r2B/bt+SDSLaGia33xywihswPuCgPTXaL6S7GJR52SW8tLePocoj0aZ1uXd6XKQ
-vPO4Mnj5oxyXw+q/4TP69QmJuVVeUqx7xR0+xXT8WklM6rrD/rfaFb3Jya0BsRNHYf00/wUJ+IHv
-9j66anJ0K0Wv/fvYb99wHpgpymsv9ANA50VsderEP7g4P9eo5eeR43uiCRAdtYazZXEcYOOP4J5V
-lLI+86nJ9bwJ1AZB3wd6r3PogSr6Tx3iCtldYiS9/Ps4rGgUWOOsB6YADuxnVGJ0Em7DRGbNTDIc
-sM53IASJK7wa+qp/o9v6TeRNt8C9ohcnd/MAqgXX9cGsL99TeMFdydPHRXei1J/P4fNHhiKV714L
-Dcg9wfBJX55hxOk46XKh1blc0yOGRvgDtBitf8t8QERyfaGwlK+jE4sy/LDiGDgid1Dz4wUTcJLQ
-kekBh9Vbb4VMuitKKWmsuezCE3XJFguhwREv0UfJ9qGRLBYY0bwVo6rm8PW0MdAqfF2NdOI9/96W
-LCkJtzHvpNuXHzEzYke9i8jcyqsLJ6q3HnqsVeEzgaYCjscOVIt8ks5qsQMVWDH+82Y+RRKG/Ej9
-elWTmnmC0DKBzDkOT6AGKMCHpkdR88upDrwIcWYvLsiehpzEENP8nzIIQNMh0jlbtSSUZDRCIIUY
-61IYZfqATYix348V0ZHKo+uZ0NUFDSxQP4oINxQeO5h/uifIVuhqJ6qW7+tvNGg1z06UXuTGSYX1
-X+/1mi5qeGC5L1U5fFblij5HpN515tVtH8TvLs2hIQAVFc0JYAaw5VyZgNf0Y/ax8kiCk8hmfXyo
-z9nhGTA72LeYQeIOL6bL+s6ehV39HauX+W9aQ1rSX+gN+Seq/Z8GRQ4qAmzH89ccS5tB80xZKhcr
-ZGByhL04pXZGhNU4o8UKKAgrcHee1UbOGbttqif8qzMVppAvRWwiNJ1FllFABKBG+Xblpcv9ohzI
-QUVDHRNuVIcKZOcObg5iz8IRKKD2Y3EU/2qoGXrqs7gM1hKHQT2Iozu/hLPkDHHkcW2tw74G7hYu
-SbaV/kEAW5GZe8sYtD0Z98Cl507vetFDgTyScAdttjfSkr3StishWzGgHAf893VD11amHgHf95PX
-thfZFPqNUGsITViI2+aOHGsIrTLKZJ4PaXe8bcFWdqMccM2lPr3zwFsBoVfX1XDatj5oKKcxMMPD
-purVzXrX67nHTjjjRbRya5EdeCXEPsH68MwWEFPtC7vUwCL/2h50ZRC0XnkF3CCRz5venwKd6Yp8
-33zf9VNHKJ61yCZk0QikWmoNhA0q5C7qM8/HM6/cqXGZIqFJ3rruXUUjETkAXpUiVcUA5q4izah4
-q5WqXPsWQ8XgFLnk42sNXbc4JF1ha3gR6Je7gO6Fns3tDbNU95NlSxfGme+76SAd1xsncfIHEOK2
-9f6fZXV1b2d6GVdK/ZXCI9JaV1x/e8LbLNGm3FSY0kW48eFphROJErqECoYFimR/ljLT9+L5kUIU
-0aGtjnGBJMlSzGNEcn3y5ygv4Dn12W82LnmJJWHccaKx5Edp4vWNXLusCEKkyPiPWeSfHPt88Dkn
-ymwHZEVLWxpGvjV3Dosgt6OafyF13j8SwTfyqJlzOqpZFzynw4u2lA/ZRDnd8keBmhEmRoCOl7J5
-KYrScyPzOV4aDDg1ZvJoh+EWwreaxjPDBB+CfkVxha5t9augBgMM4i3jBP4tlPUsTzXUcGUlz5w0
-UC4loGOdkQ9pKRNkuwTvROBQ/oou/nw+j59SypswZWRb3OzuXze4C7wuYJbixWfzIf1wP4GWgMo5
-5W93Yf/BfUGgjHkHbhtbjEog9F+suGiXVonqPVrh8MEV3qDwjLaVjbcBwFY3r/DePVfdjEN6H/U0
-G3hme76dI8NxtIFqCk9weCJY65fAq6LwZ+LD7AA9M9eCpbLVuvXrk77KPoGJHt0/N6uqlKkF97F/
-jXzfIxV5XUJs4dUIB/hq12t23lI8onFRtfAQlZZc7b5v0EVl1+RgFoK4Oy+3ZU4MCBZfJnaq77gY
-W8hvJxamIyjdA44ni0DEziy9ThZ/Wdi21YBZmBGgBhUt4keo5EZpFPZFwkduJyHDFgmPEjtdt2vq
-sUzO6sYLB61pC/k+WHb7pvV8NVOLcKri4ZvH9wX2ezceslsymWVe9lgWJffz7BiohgH7voPdMmt8
-pHBajy65aD4LA1yf3OqVKBrLo8FRxdDIr0P8aSqIPu0Q24dhLioJhZy8l10dwtPethfr9Ny+wiSe
-1qGX1KURexevTeu2WEy+CA3TnusyUTwD2rodfT1OyKa40WYfRyaHKiKMhTDuTKP+8ymo+j5eZ26e
-WaHVlXM6UlzbGpPwZbH/VXWKC6WR16wAt6yJMD9NyYJHZkV/srkX3MFx/exBgJNcKU0Wi9Bb6ZjE
-VLQO3+3XpbsounjHuw1VH+xBgAbKy2bIMoEfivwXbTzO/v3Dx3k82EfKakTN6cQl+ileKFybCywx
-/Xa1l9cBFXEVHAkLgByHtpFGFd6LUi7coVX8J9Hhdr26LHdt3g1I4+KHWPYTzOMK1j8YNtmPmpAP
-+lQgDK6WbSClBrNce2EVpwC5VVkfKi1if4um2y4CmfJMtuezEolnyZGAjQEPzPZtRW1vtmM6cscD
-4Y8jm+1Vl9Y94KtW6jios6+blmGkvLa8up3smivdxYl1hKrAgSQ92QD5rzx5beqF9zrfcBXScxQM
-Pvo1LeidZDH2QaiqJYCO9nQqXsjxP7eu8JKw7EL5QgmkYHtBTCv73LhgKEQ1rx10lROwDgxFQ64a
-MwYela78SATARwBZn5UMNUOvYSctfhwVxFxYT3SJT/tGl3MdVSaBD8ZDXxYb0fyGvKLqghaqwHHw
-jdHaVC8LM37ClCW+drH1+Is8KRrOxE/yiTjlNMCBDev+DSGqDemlzqfVKu9EmjNYVIbrsW5FhlkE
-R3PcUBsVmSFlquEJIAiCCS9vbOYdwylVs9Ngy0jDftCvcEDSwzeMP9YFmsrQgLXh3x5DQVWldW5C
-nVV5oURcqK8HCWxM3RM4TLSSdcrFlAaE9LOg7Rg2Zibr2s3ZVHkO5c6wOFTT/vVr2cLhQZzlG+Db
-81MwKdExsrpLnbzEKJ3d7NHHujEWvPEPhe6v77SdgoExBgcg+r/YPQO4CIRI6ORMZBYvfvBpv21o
-T/gLQNj1iFDDiS4NFi0NOibp7dcgvvGXS/FjfC9yAqCJnGipoa9wT//mGkgQe/T2b0UU5A0cimB5
-BnLN7QXE6gPwD1ApUsrl6UbjSi0q8pa7HtnVVMrgde3/HYmAS0+UfFCWrf8oDcifgvz95RfFVyUl
-RMu1ktJAT4TC0tT4bHtyGEvU7/0fOpOGUxqnMwbzcZdqIdX6/88ingat2/TQCOU2xIDFQNPWTA9I
-6Fl3pahhOL34q7swz5y1tRLdfuz9+QqKUEjSMf4geuYAEqxEjJNKUC3pykMG2fqmKXl25TnLdyT/
-EAp5qZ1hnqkKBsG7i6ThK8ECEYiaYaEsWQKsXWhkFbp8d3MOgvbGM04+qBZG9e1nfbJA6EDsOAyL
-VQMiFxlbcc0k238FlpL5nqQZOlz6cDwzYi+wSvAZuHku8kkhYiBIl+J9LWkULgu4yEpXymfBpD15
-Xya1w+bokScEqhwnA2uCMJ7pesOIJB3lsKTs9gnLVMWf4/W+Ck5plTk6L/E5fW3mayTvGqifhDN3
-kzUCxqk1yfRYlG0DrsDYVceTSDla4inAYAsY10pphm+xV/H6iMxM5Yjw8mP8cmXYos0sAn70IpgC
-VIXEKD1lLZvMpqAeSfXCX+7uNKCQpZtDagBiBVuM+l109Tq+kmuMNPgPNWLmlaPZkESliIoijDKR
-nSIDy8wJGaBiZcUY9e2K6pKhkckR9ylsvRlJwG+9AkLZujCkrp72fduAvUqLDQ8c/uAM5PfRlOmf
-xa7GJbIA93xG0GKQzuxCNpl4MUPGCktP9eduMpL/wZqIjxBXARmJ1R2TIo9TtSZ0SNgAbB2BHV3D
-k941Pl0sDMw3oClf9r5rVAtOSOq2d/IKg8L+BdX9Sny4SpJmOlYcCK57d6DK1N4dOik7t4BWUEOo
-BX+OnOumHjEFMKPZ+bI1fb004mSzpWeFQD8+7FWfODJSP0hvxcQ0bz3myo1mqFU/n7tn7Oaa1aQn
-43s/0xgSlPSRZG99Lnf7Yr9GctFxsxBLBWejKVZCG5t9kql+Fyyrns7sY2fzhqHDyUjnR/6xZYaT
-hl1E2mnjGFi271AOh/KxtDXABIB/7fhAQynX5LXq470XNbS4N11HI8oIfFp3kVl9W0+fLBS/O54N
-QMYwU8W8Jbq82G25YykKFV28kzqAZO6uHdHzEZdXS6Zf2tewEUWupapDGwe8iaK+udggg1wej+Bv
-AymsQkUrVMq2a7YdfzZnw0BfCPTOM69rBRrjnbg/69/Eypl5Js7cd7/YENPS5r3KjkWGQXFrRx4U
-l50DIkAB2X6CxUnNqHgzk9DRL28xQRESWuIxd7DqeMcwBeOaFhhEy11+pW71l//RCrusLr1/JOfu
-tVSX6NG1y78WVOcapeLChhVTsAchh34WK3BUZKakpeVbZhDSuiAe2Nb5XUjRGW0I8/zlvkI9CjVe
-9Ntv9a4otps7usTrE2uAnMrG+c7BTYIw6j0Z6w6ZHYhdoL0l6q9TSF6KOvACoP5x0mEtt3HZedmR
-asUZj9U1X/0oP0xY/Wo7Hz1oMiXM4bhtrNEPihVhRtuJg/JXrR4/RnA5nEdTETIutdhxin2f9v6R
-EPeZ7OaeslELau4eVIy1tr2ckUhaW308JSeKhshE9Ne/QUyPLR0egCo9MpSGfMtJtvH1Xr9cpDNU
-kDuJeKTV6NSLdQT3yZH1qe9tpJzUTh1MS60iABAqebhoUYFXW2mZShTcHkwOdUPfu+pryHukubF2
-56Y8wBYt2ttb2d8YV9/0/xld3OTSKnsdMQucmCbdVE4+B0ZspOAnl34fceeX+V6hIw9zj5p6+3C+
-6tIFAEyX1HqDECtfg4iryMUpNIQZHeCwMVSGl97aS4mxAdECt+VDEvm+CCdrhqLXdDPmg/HJ1h8C
-qnerZ25UFtNOmULFax8FT5J2V/zFkET5eDtFwO0gwRIvyA7xeqLfxlhG9U/QkLBw62rPhqNIGxPp
-cTY3JENJcYIBg6o4wIY2nJyzW1FbzpdyYL4pNByVFo569Mw1BYhzhYpZq/AhukmWvvyrvEV1rgwh
-3XCwEIy3DLVB2s26uUAoawVIgfgj5yuq/ixnrFvTPbwOFOQ8sC3WDIIqpibTADZiy7RuftLvj4j2
-Aze0NFZ3zayn3bbqkcRJydMdHDS1sO/jeXonbWaAltpbPDbNXytFQeccBcjGcokHkQLG0okRSG4I
-4mJ/Px0wSEA0ze9+RgikjMCRzyWxA/fFs/SWowteO/sT04UGSZctOzI94/l5txlrJ7081cPaHA9M
-6s3399KsV0GVLNMsd3TiWCRVLydZqMgbdsEK1a1/9VXkx2c5SQFHAsdpIgSPixZKSIerYDtiWa+s
-OWN43UIymLD3sY0EmiVE7+z5qCTofq2ZYai8Bp7/EootVI9g7UA7s1tjiojQmRkAYsMgzx9p8tI8
-mf314k3J4dpLKqnHNOXuSkwko43FhcgoQYHiuHYVIQbFuWHnhxobyBCZj979+FUmzbwQ0JOCcuY4
-6R5ouaSXvT+HfKlgLqqD7jvkRMOPiL0Q079Cpsm3YSHq7N2wVTnglLotazjbUSZjDvoe+Vb3OOVe
-OuVEYOvXpFnry7+rluW6E10SeKmJFQ6RvcGWb/Xfv2i5KoJVyDTA7r1alL0MapY3rycfzp4Zsk5k
-4avcw1qzSrP0NI7BfigvjqPlXYwPv7+XR6IwDKsIYKXGLUHGUVJkDmObZpE11D+wV5G60UHks0Ch
-M5R5ifvvN9ENo0rVTeU6yjP8DmbiFPkmNAsWulS+kPQxPbqRx2NttSmADSXpETo7G8tkCwAcjyUi
-10ATNmXq29XvVO5eENv2bEaYkESn0MXXTOmHJ7Ms7U8Nub7oSdykagHV0UkZdnUwINpm4hK2o/D7
-GeIXBazbz4rFT4k9BnqboQTTgX2unWWcm/F8U8emPw21umYwcksNHOpc7C4oSuuAb0y/zS1fGFEd
-1i9Irqw4O7I4CByYfn5j5UzdyhEem4sPydspgWFl8GfVQ9NBwEdwHfECcANy/s1Gd+8kjU/t31y4
-8gVsPDp03Gdr//NM+2B0j3+Q6CpU0hX0I2oN4AAt+N+2fNqzbX3Z3cAcBHYeJW2iUQvMCMlmbGrw
-j5GFdm1W+ZlqLDo4vFk+RECeoB6nlc/SYLCV2fysa+j9cBzJRm4JILmmLERCkA3j3o2weBhDz8F3
-Kf5kY7G9S13D/M3Y9MeN0zObb2JALhNbhK3tGbn3xg+1d2a+pXSwd86TBSGvtnwN64vkhbbxBh58
-4aCGNr93PH1x3VLxYzOU5P7R38Xuri3YaF/hp1/egIpYGh2NHJITA+q3wZdUTGj65+dBZZCsyAv3
-mE+kszTW/KBBR9BtFJ0rd/DZJyjKumBVnMUwu5X/Vy6V1VA8fCCnp2jjoOME0KKF58L97yF4XrkG
-i1jPgiTpXxR+6XbWRKa794PxrFAQv04XMQpaWyFQaHyNNmpGE3KfmTeerxUeG2VQ3R8kOXoX7uxA
-e9ulWtws2XFFC4vDLmIq1YdBGJZdCr4hyS+150ear38ZGgEuwcUr41YFATK2PWfWEXVzI5mE6TFp
-wuQ0FyAPrjL7Gvl/060bmVN/BgAZhPoRLEgU2/nq5U0TbsPdZj4AtUyzMSdoRZ1WdI5OUSXi8+Wb
-4Bx1YCQDii0cIyBTuI/PlxZ9XQmlJx+qi/IynlCqbYstUx8zXK+Slr2kvT8cKTSnDZDid2AbQLk+
-FgSr85+M/KVxrrxbP1HXhUWsgGNMsTx3TfoOrOS6gLQdyg/pPXBAbb2OI8BKK1OIsqBlgpEmjUEL
-aO/2BMrAk4bn6VIcyZ2X8wDrLtT+UwvR6DTtivy3RH8JSf3ixW5DbgbLi4A7yMMfPJfgK2f9lF9l
-XddTeOE6mF9GuBM2XpjYR3h372hnto90mxtGYNJwQCEVHjKDLK18ML3AqUFT7/WxAZuDDfebNfZs
-Y6dqyc+LdELXFxLy0kzsKkh5Yg4phiSWAqPIypyMA0BBNdqhPjoaUUT6FUkus+iZ8t80INQRD6gj
-kpjsJofxwJ2c4FfUECi1Xii7vQiHxKV1kEOiu/dbFTmNbXD7BDCSjLOVypCpNyH1i7+ZxNSS0VcS
-bEF06nMNzwaqywVJudxgWSYKrVP1whZnv0s0CnRQhq4X+BaQ5lDnL597r6c7AUWYEEatwUuqmnFj
-H6x1cm4tNHOJmaRA8j1Y6WRDJloPZIuBbMW+mPWD30om4cDLtiNOEOX2xOxhvz1HnMuQfY7G5HQn
-y/ZcCgXj6XWRZdNE2ovohZDNWnlCbf8OOdWj5xkeY4Y8XtwPG+bj4YCREGlpbkSRrLbsHGtjtJHp
-3au+dv8jbiHVwYe4evW5GY0tqudRDj/ouw69Vt7M/X/X8tp0rDEJymqvwfTzjFqGMzHgv+b+SYcM
-msRRN5dR2uv1aQK8LEftKrZWQ1jMJ4oz1+7Uzu7K3ksUiOO9+bLuPMO/dXkP6LklzzV8Fx4+7wxs
-lKBEg9oDbiCjE/mKkuhIDT8rdZST9WonQtByQywnQC7bg+vyu1thntcwjvdrdMUeFYTpDAQlUAQk
-+eK/4l/X0IKAPxIwEs/PG4dhW/kkTnUzqypONGX2oW7BONJ2xwqlpctJvMInIaGMXphW9tAvJ4l7
-dyG2Ves1Dnf0i7O4ZsZ+ainajpJcPf1y0gB18/2V1OJJY1CtVecGHFuNvXOchs0ct5GXECbtLPR8
-HsIPH9nL7Gw5jqaKOseFExYSASAZLTCFStzbRd16YbgzCZcj85nbMQpvp0ehM5QRH99bro/ezCkx
-GikizlAgqcAIrIF5dVVQ4lVeAoi/vRXxbeLekI6J01UBdJrIzZM9DnObEBfXAtiUMIKzto24qBez
-tfqrDnv9TSwpTFVX20rTrsaed7LYrQx1bkcCNzDczCfg/xz7XiMw7L47uptDVQfKLx8I9vMUZKZw
-poX9sdOg1/rI0sMsbAyTYxLbgrRBWW3t9D6L4+hjbWmpYfByJn3YY+mAhkeQQC87/RJBU4Rk8AM9
-h2zHerDLmaH2nDWLOyRMaQtPTHYJPSBOB2byHTq6p5+hV22dUMZwLFAv4OF2tG87tRC7DxluNUaR
-5Mg1ldzIWbolrNWtim+lNUMIoChHpsU3ZkyoA1NGRLBVz7JefXFpv/pAwCFtLGrSeUrcNhWbldW1
-VQB90ycFo7A41n9dgYhHxiiJxaEjRBCuaSB6Oci+cSCrZ+HIbj5/LiLrIJFQ2Dm41thW5HA4RdCh
-Cpj6eq3/328qGrjG9KiWPdJ8sfh8PRy0BSNEHAob0IQA/YUH3givtRseG0c0uJQYToBtxm5HP+cZ
-L9NOLWeXq7LH21EBbwykQim2JojvWFBiFbc1up4NmAGCjYtAbAAry0XxHJgWPZxVI3yIjEbNvJvD
-wuzv6KwHZAOs4wNWBhWm2u2IiwoP+DkwC14KxcmMCnDWDauNIqGtcZGnN75S/7AR9uQtR0UWeqnl
-o6jHbdeb1MmTVrSwvfKvdNrK8/X1ezl3KS2kCoH3Rc9RrNV66Y0PwjwnjLlwIWB+yDaODq06U4YD
-6Q3Ohe1uesyR6hntlI3c9gLCqZGVhvitRuMEhUv/GLFC4MkotTefVdm1LYFuKTHgw4jW7qhd9Jr2
-zn/O5EzkDxbFmgzWjLJhypzHDMdCQV5GMufkyJjSWlLZHVMGNjZvc6A7RMNttiJ4S+kZrha80hE+
-W7P9zGTF5qS0+FyHpJXWFe1eAxoqX5NWdiuwvv4P3fCv/6HhtIV/GfTIN4qsPmLtLf2Tl6IkYlB5
-HVgjDDpKynNrAknqLJGjILKboE7hhtWGoLktWCuZLtP+pNecrlxxw/LXt0KTp9IKFhdI4TS9EUMa
-ptqdNp5TBIGkzaUjHlUMBlevigSLaNI9sCgYQvGZWhpsbk3FJT9IWSskuA3wcHXL9FR2zqEcHjhe
-euYOJVksBgHGrIS74RDk6Gy0WmAwU+6EjHsP57tUnmp02QRSagUVqQs3UIVd4RrT/WLB8GeA03/t
-GLDT9s5mANzsE6txzs6uwCQQtWj4a4ONR5U3jo0cyyRx53S5wMRtqPsRUmgk4VoQJuQmmV8ABMxX
-o+jUDf82jWZ8pnAGVrG6S8QyaN/efw4bulkB/k048tvOuvNL+4dCI5qbxsYCGve7ZYLIeD3TwyS0
-Dg9AEUlkVDnBEfnv2+NlZgk2E2g0/6BVG9htWoBqus4SD2udoiGRAm3WmqxveFA9LtGlpv1s6odB
-19Nm0UBhXOjILXO8Vp7rASK3N0qVchbfXyb/qRcb004GlKQvZd5nmq3/mMnmAu0LACvceA+n1MJj
-GO2CmkJ2bHRpN7ak4jQsDocFAXaE8xS3zf1wOQaqKJecvXhKSersPe3QHaJrPYwjI9HH1Q2fx3sj
-B13a8E59a0P1kZtQKArJtCzlvH1Vj5EPufUpUqpkj4p5QL2OUJMuDE+DcCDBr4RZjjuWFJ5+kQPa
-cCF9Gc+IBOjdWU77yH1s0b9V+T5PoIzeglvh5UeI7JfZCP/uit/trVCR5MA9ySVHkubAGCK5M/Rq
-hB+oHGPMwUczhdjmK6ZRa/s8iEyv284gHJPtHAVaUMgoksVIgR6NBjaklZVfptCPGU/Li1gKzLPj
-P0YHKX3FGnQsCeru8bIvv/pJfrRybY9mOggd6AAJw5HovETAZ5b2ynhRCfPHzpOCgJubrfj8XW4X
-Lpu9M8zEMKoe2x8zbbRTu0IZfGEWAUlrGI/ATf+Pf6VBdFta0rP4lsk2EH6gp022NExNIAj5xCKa
-vZ2X1W2iBwtlvDE2fGLlUSeSZAf1k8QpUFSW0zTb9T1OCXMe77xjMEVOqhsuMkVRHm3RWWt9b24Y
-dHXqHvw7UUbGAtPsY61pZbPf0acgJP2KN7SIIGoWlB2X0tLZbyNzbW5vuuLbVjQ76dcEEB82tTyz
-4KTPrqaCS3CLxNqhjF2Vn+F+5ta2cnexxqOvh2XGwjMutEObOmuSABrdPawjFpvMV5AXL2AP9PlT
-8EpaKZi+wYsZ6UnDamLaA4/UoWF82z6DumDROx+gmhEu5050NnO/aqR3w1rNspS9aBj6Cy756+ZA
-9OHd1G5KTaxtqUKDyV/WZWvF6xqQA3dWz+1jb3tOZYDa93ubJBtb1NDvB3BfrLYALcUExKdAzLYj
-xosDdssvzvDok7xMCcpVh+TmTr9VEj8uvWUXKnKzeE3WnNadqKM6+KMIJa1T9ggX/+eZOhEraCDq
-sW4GU1X7aZLaqg/kj30UvHNNCtYkld3hDrpv85e6G+UkI6CrziYccBxdYEEJ4Rve3mYp5hO0dStb
-6CTgZd9ZM0OvCxP/Lukj7oh4bsb5MSUo3w7Oh1yKJJY7r2FNeT33McBOj0mim2uGv1ITVEmhpDJU
-fAIJmdQf6W4Fv+bJCDvJswQGbDO9PsWlQn1TM+TugsWq85pXzuit841gEjaXVHtJKgjtQrhcDk8G
-qCL5ohXBFGWpxnCShPWeuX+NhK8cfxMr1jv6EWepvG35YflvDW9wuHl+Eil/dmiJAumsqkYFmjeQ
-1xREwslT2rnwycYnPNJEsOyX7Lsv3BoSrcwG8Xf1zKNFsz1Obn29SmVIWlgqczmxgXtTqB4lnllp
-KYHJOlwUqjAAAmHc34YemA8iputuXtNRd8uCCU44YQwDaX1ERIQM8oZu761dhfzV0M9GuGzhSArB
-VVuA8gOJHEnChxVVM4IZRch6/MtheWnPw/oPZ8eruqtHd+jwgyRBKTHNyFGQ4D08O23AYCWrqUVG
-Uj7HRIPxZvAYy32IClUjVlADOSvBxf+vpZHKuF7uqVPWLXy4qN9/ubqq4b/dtBZ5lmWvbAWAG8cI
-vlOnCB+4CGUoUqvEYneGWJDiPMfjOL+87Yat+ZddBr0QAZT5nyOZKJXQi4lslcRk0bi3i+SPqhSK
-NtJyV8EoH8F0qhY7vCU4X2+6reu4+s+2xjkcEl8NQ29QYp7EuHNnKPcxfQFvjcmpzIg10/8df2Yt
-KCKWmDi/GfuJyXGKMk0310BkGjnM8zaAGIh6uqH/UrEunEs7EIlDeKGExeZwI99QO8gSv9eHr1jd
-NqmeloF8WIq/6Nt0CS6zZRQS6uqaJ7xXiFBqjSTlmQbj19jEWJBfexqlXtIdTNODI/EfB+bn1j1r
-PoZul+nS6BsVX5o9DSpeI82Ec2fFQmrILt/88fVc3OFcUNR4cgJ7toS923J68VbSkYiugo8gY/Wo
-vNMu/j18NXhRw/NC0Z1Ag5THydGbOAf+eMTj9GgMqPFj+XWeY6mSC/Nk3SPB5fCUMKO8TKhzdTpD
-2IUsfgDVH5aYPAN7PbLuqDh6sCikhdaSG19hE02cU9DxXbVbwMFIZxK3QnL+xQYnspx8xDva4v05
-HNS/Yd8dIFzOZ+EvfBy9XZEWkeqP7FIfmc9wjwaDEkGQkAqe2VfS1VFLxGkkLxgXAhx01NOvJ12R
-7bcbwSmN4ha9kI0A0vRc/uv3J297a2HQzIk9QIbyghU6gxDbMp75DD8Z44luO538Hgf5c132Mll4
-0mskHjyFdjSvtF/nYx4MeW7DGsweiKsQ46TpqSj32OU6hNP2qzIF8pNLyMY66xx477L2UAJtS7AZ
-I5wZIS3/qQRmXH2Bb85wmLXc79X+KMw9dAwcvQussK3hxOZj8qcKx+IB/sO+N2KZ+xV2Pn7DHWgN
-q5vwFKf9N7bbAjX442JLvvRD8E3Vnj6gGXXdDgEfJYuocx8KAy+/fvkF1/rXb9fGhtT6Z2BhAAnS
-sbOqOOAknmpDGbG12dLjmfHhU8lJ4wJKUqe9l9LhvzaHpNz3Ydee8DDuk3kd2fatMTqWzH+Ia0Ce
-NoNDxSB2KEYE2YoRzMEfY4e/42O3zkO0M6TxjJbc4d6HSwQVHLa/FWZiKEzBxHqeKhFOiNdRk3a9
-lvK0mnz7aVlHv3MTfCTZXYL0BcmeoYD0shUqjy5k+yke+3K10+RgHCmCCqvacHvXLza4RPbmmBvL
-hmbVT+4DuPkSvwWiM9Qj3GWeGLXSuJWmh5kajL9a7s7BdNiOpXL9G0kzXwwcqKQt15aHcXaTkI5C
-i5nS8vaWpbkjIoggh42DYSw71wyZpXwhhuWaPfpLNMx7HvHVwikJZg1+1ItegzbTARWNL6lMT+ua
-VemkeiikSi1L+dOmJ2BHf/dwM1PbTiEfR37xPfA4AMCPcqfKvHn1tzUtWLKa4n+ttQWO6OUQnRea
-jDLItQTlivk0fmAGqpRPTsYOJDQ9dlE2RqiF7nZ32lxbI7UuZTXdsA9N3ML+qmLNuqdtIWM4ZcUQ
-YosVyqZryU0PE+Ypg/oKGqr3yumIhnihdgDyK+3zkwI849EXA5gZDUiTC6XVAn+p9upAta5AkUtX
-TANDomq/s0w0jwzybKub39dz9LYhJKo7IUH9RDqIxicEwp0ceV0uNQOwk4VinGsTs1zqrH1G6oXr
-0dX22Kd5sfSVElyT3FQmgswpQkUSkg7Lq6fHhC2IwyFOHpT9QRDLcsnXHrTDtv8ncaKOvl3ke6bj
-U8qf5V8ELepQ2xUfg3eBJQrzAKSrUywiSHzZ1INYmYlOsJ0Z2CFhdX9jSE7QqaorBlitJagR2Vpt
-WRbyZluPXrpRAWlDPIAixIePWc1v7OK521RXUZMb0SNWlX67eIpF2sTgugG4DjOLU8IHqE1bTi7K
-zUNVP9/UkbZa2zz069LAkLY7s/Jxu0U4R5OfUsiGdpN7VzMkk7qVG5CMNoYW9adITHumuH20/rCc
-U9sdsXsDVZXQ3JyaONybQZ5UzPsHYB6rq8di9P7haZeHXTiVMXBtvSkwFI9/lmdEu3w0ZvsQQWSE
-a1UP7nmjZ2ThCt7Xte/sp+bV+jqOwuH+IiH9S1ja3HGlZnZfcxNnI25qQ0DwkGIyVKyAd9APCyxK
-dPZVsf1eqbjvn6d1ZVQziPg41BYrDrObTIOTvNPZ4YXRLrBPllhjn44ba6OH6SaSh7yhdY+Hxozv
-bxnfm2tO/1y/w1AYtm/BA+JzTK9Dsu/gOOvmNRJjf6Aigiim7Sajua9J+M8t1jhb6IyLI0mofMB8
-gboYI7RfEnt6A50eta7FVFkzWUObkgxJIpHZ+6dLr9ARPzjv0455sIsTQF4bOV1AcVN23I4YJipy
-A0wMSxya+pOFzvgWlIEXWhH09LQJPzKSbXDBKqHMZTWZuFrAiNOHlZtd1j+FOutcZeZ1KQDMVgIK
-DqZAjRdfCZwX9WF9LCZeih4cpxUD7rk6fJ4TX/uePJyahejyeW1z5oMaBCmQ6WUeiffdTS+9Y+e1
-c/4lBzaBuzsiULGtSTRC2wL6lqXX8ZjTz0zmvhNSRTY3dL5/AwDlGkDObebXQaJAvgfUdiDGBtw+
-brwaVvFM0NTdSv8cPBGtxwHLEem1TSWjwvz7VdydsxIkj0Wp2CcV16URVd24AwT4fTN09HVweFaV
-cAiIynYKC47e5RVHOVvrrCRf4HbVUDfUzvTbOnpabLO8pb/wHVmujn2vR//GsZ9SVb+czm+8HQE2
-wXuA268qO1KFTpC1aJ+O5FMlqPttotz2jgIG1brbIdAragHRREyI/0I0o/YhoNdmqTg+SgiXsE7V
-RgO4ru+uTPVFzE4chzCxPE5/5U3yGLirLpY5zC4MWwE/g2Z1I84QKtn/KkQhwpqut0kKs9/7I/kZ
-joq0HPFDaGVvgicFWsaX0MxAHkPIdduElJIXOSnhgOut2CQq8MsY9oC3uG5rXA+jNKIDcVv7m2bq
-TjcvCGxAlCvdDD7WomsP8tgFSbcZTQiaR9cRJrNd7bxdkwVqgpuv078QeKm/X1GEiwzFkNth8Fc6
-Yy8rRE3XNedLjWazEzGEOnBkTF0uJIlGyi6J+DfsydguhIeVCLjDfxT+n9irAnTTAOaK0dwJidfB
-f6BwY0prokjm1nYnCgdFsR5csdtjWxyKp85PUQ5ZfKpj1JyplWu2UEdW4gQzELhu4DwjB7tkKprR
-5uxtNPkVhfKhKGALwKCtnygUvIVsCzc3vDqGRIk9EMic5VXesJZ1UYQWW8IZ81FvpadWzYhzdt7d
-WNgrqrCNlpR3NF5AGGNiWgbAp8L7XjLn+8tDQXD8n6HMbq9FfLR3gJxXXnlE4FgigSw21iP0NtIp
-wKbd2bFyb3SKsV6nPjtuVNQvDz0e/0ziMwJOIRQ5NcTJU+PhkOIrVw7419TmtZDMYWOihVv5LLdd
-DNmpdMNRgnBhXXhYZkAGR2kOkliFtJAyINNUeQRUKIzTjltn9fOQknq46HrifxfdejuHph0zOEhe
-nuru25to7QAShuyWT/8G8Nk1I52JhW0E7rYSJLLJfNdW3snXhpc0d3zEMo8VE8dRG5gSNGQoC7qO
-Dobl1pR0BDrg43iGYSa/wvXM5SqF60SZ1AjXMpCd/5MKt4zycE9ciHLbVc4dJeMO+HTy1Sg/HyJ5
-cyK6qYcVdyr9Iac8kmMxaJl1KmA4W55UEeFt0aYzLr1hBkYIuHNZf+7STmLyVNj3B/QhhbVCppxi
-NVk6QG/o1y4iFIQ4TeQ8wjqBvq3Y0jmF3dj/Ol+b43ZGDkpTsE5CPvMgYgCGWOyGDL//YhxaOd/f
-IikAwaJDKJbrnT3izRN59ifX9EcS6JZzK0iTFkaJ+Fl3p9HeYJq/umHDbVYncoH+gLZI2k/3i4XI
-DmSWlDDyULnWR1MNdNKTA83XrsYIKzPHkTpPnv/ExzaicpIAA/uQemWn0X6Xo1UL28wMohs4WU35
-otQrHC6UpN8FeGFZBDU2jF4jrRMMutj2SnxQBnhbLQAcMjf9yKZvEyCji0M96xrmStXowRtGV0gv
-+ep5aPsuAYtubxMSykLXM9NkeEO8x9fkVeD1CWMxpRoRCB+K35hU7FUyTZF0yaUSn7KJlXmR0N0w
-DFEAkX5V2f82NALyNMDOZUCeiRVwuR68TZRcJNgUmxyiD5AMtbNzsC14qM//hfoLCkxyRxkQo7RA
-Y0MvFJ3tra0DWX30KdFTVYYunHqg1zt6hhRP33HNxZYj4QooKCyp0LIxDkNcv9YuUGDgfUKmcLe9
-YOE0Tw0xonBGZwdg/psqqK80xH4UWjkH1+W1Zhqx6meiqQDLJ8eBqxPURmi1PYOXOrCT6lnejZj/
-NqmbVvxmQsych4cDM0/tAcAXd8jABfJZYtEt4956TCL10ogxf8lFi/9nGanRowopktKg0mE6nEZc
-5ZHZ3pIPt7LJChxvM5TTwzzWG+QJCW6Mp++O6lQOG1c+MlT0DYM3vTM0oEh4FUnMgdkm2xg7FVIA
-s0nN7C+sjgNfavlDKTpavXJ1JDGE2RKd5WmiACw9a5rjteuY+G1It9H9pKoVBbiXjYiZKBa9yAei
-WVjh/bbgPCEccBQKRHeYO+qwRs1dyV1OPKj33NgwXO7Xwu6GKYZSqYh4N2xRZAQ/jOksC6uLNZPa
-KrOJDk4EZG8Se8LSmY6UoL4woUrcCd+1aDYPAVxU3YkpGe1pEp1Si0Yloisip3HXIUf6lfaCOa3B
-XFarPnmF2rMQaHUzFicscpBe+bL7gsoUXAgJCiE7ZUoTnK6dSkzlgq4XNkW3K/8W9V1xe/I6ETWV
-eMFp+wjrGoIeUPvmZC50WP22KmmEa4gK1jaJ7Flp3W8BdWGFtv25/PNOkXY35ZxQ4h7M6c8/BiyF
-l/oF75y41NJ5VjDXawRiTEpoYlyAInlMEw6toLuheLTTrGT+Fd7TWX5J/+4M/zvq/2yzDcoBOO32
-0Fv86v+wJ58bAlYVWi0wHeBoSbbuqhoMqA6WZC8DIjnuN8j8qJyFmmjmetk7h/29RR7m9nmq+V7v
-x8j5u9tu4upw+mGWgcg4HG+Z2TY6zY0xGN2/+fVL4mViRcFSzNIVzd4ekeZt8U9KU9b8d10jg0/m
-YXvw6PtXEKbSWmcdOzydm7gv8LpdQGf4lxBDTacnWyBihP9O0HrWzkzrUwDf3Pb59IGc8x7iwumc
-q2YyLmTg+6OTpwvL4cD/pVByKB4YVa7R+wV5qunnpzKV+fEDylTH3wUxsms/Ou2AvwbsI1rudD79
-X/8+9g6o7gPPoL9yCJESfmb2Mxtfw+03a2E5XwTJcvcsDXqAOLnLz5QtQ3ul1i1CJEfsV6Cqb8cX
-PWbl9hkj29JliPXbPSATRTOTrtpyKj4iCjBRgxfFxMOaJsaDXHBlq53tgnP2QrXlJVWKyi+1kSKj
-qqfEV8g2vm88su3HoJf2i3HZLseRpkV+OD6tCBI/I8LL35eYiZZRmdt8xYrO7cwivXBjHS56c045
-oe0HA0XZR/2WdnueBGN/U+ARZ2njs0aC4AvA4npXRFJKBVNo1GftyG0jhvQgcCxRAV3Sa57xoWag
-VOCkPwsgHEYGarcGdssKhr9HGPkEW1ue0FP3Qapvytm3X+cThZfItim6AA+zeP1Y4/Rzk5LFA5e+
-AnmriTqBkFZ3DrEU84qze2lPDUvwvukIuPX0LsY1u8KpcDHQRoaCHeR9y+dZFnYdQtQeFYBBwxr6
-KgwG0ZdBxPcL8lCBI2JVhw8PILi/qTR9So6BXmdtE48hUSkhKJuuBVFqjB2y2ivpJtwn+ZOSy3L0
-2jkJcrGStnFtdqKNXRHo+q2ihCWsLgx38PuR4pSn+j2UUwoqbsAqht4AU/+NWuqbj9gFpoBoOxcv
-tUdvOkJXfyqUzxa4EfXwXcYNSejRfcc9B2iTAPWKC24sSxw3zVjKvDGxOClQyr93LecdR9mdo7g6
-9MShgaGVSG8C73IDKH+aknBrHPcOqpGAMYLyCpHBL5FOgjYB0kTY0OmuKAWb3ctRyd/mZHGULlET
-Jm473e1k3QT6MQU7tNmHKh3dgswxvp3H/uKdN0I1/saMLYGUIbaWtf+fkLeRjlUFmZXFwV1JbPu0
-c/F2f6jr4bdNTAxi/3hy0x0+IGuc2kZ16KsrYgzqOE+hb4XWS8XTC5q5g295EhYtycJVmPfrQlhB
-GIgVCRHSDVWgtetz2BKpE2KW6l6m+3Q+aoNyCVCx5us/3SO+2hy5dDRp1y6UulRNB0iqgpxJVpIH
-on+NxXuDk6REnN/zcBovaxX0ndLPVijxcQ5ft1K0+bf1G6Gpu8bid2reUk+fDxDeUINyJKk2aM4v
-8Q7S4eMxyGrYyD/EqLetpu+RuVQrNy40xRwJ/G7kHW4S9/yBOJbR3LBnnaJci2gBy1eB0X/fI8Ed
-A+JSTv1vGspBX91S3j/hg8cygix7Ueg7Vx431QTIvKMPM7OApj5NVE1QCwHlPyU4nOkrBh2k70tF
-SuCmeBZC7TUHej3iFyU+UanLlZMNqKL6KQ8rW+PAa/ptsDJR5hfAiZZX8a3J64hi4O9XDW54q7pZ
-KBdy2i+qarmQVAWEc3MP/XSMKdITp7/g0kvUcVbvk6SEhu+NNcE05OjUHHfj7TdFj3lRuA7anup1
-KOLAEd1I3ZDDcSZiGcy2t+DKQ0pmLlPxtXwr0/dxTklX93yR/Dg+HXg45XN0B3NG7qq2rgHiTKhn
-8D2MW/p5N2dHgAc0TVn54KGkxXJLkCWfbVU9vEp5pmL3YY70LB127zjTQZA58vkmTcOkvivia544
-pgbNJVWemhvBlTEITdw0ibwdeugdiT9uUE0Js7NzCzaR6oHSoS8sm52iKNS0cR5yfv3GrMV2uu6A
-rs4IKcf0KbiFaYs68FWWc7x9AB7YC7k459H8D51aISYTxGH2UyDz6CnKBw56AsonasQsILJmRXv3
-rucbh9ePuE5PzEdy9GmfEuo8N8jZjvbDamGHyCW9YiKLkcaN/X0EJjjUdcnhgDYn74/4ExzzUAcz
-GZfG7OaH7qVMSk3JyrQqHQ707uTjXfxygoOiHJb7TmYG6ow3qC3u0lDhq9M3tfn8ZOeMpOWPP71f
-1pa7ERnCOXIxGTzP5Htfe+IGVb13OkIoYkdSg+Hg4YJaE0bel4XYBTIOGdlvtxbS3ztfkXM+2ee9
-sBfUuZiw659PDwDf4vZIkuLfO5EPl3thatd6jD5zK7zmlz2PD7EWZVqO74UMKgVg1Vo8731ztHJb
-zlrF1G7ywoDJN7L4RxCq95WlT26cIe98M2moP4GoPHJTooHCu9tXa/kvYTRRXKio7XvcqwYg6hSh
-BAzPiPS9ccg4dryem3IfTSsrWz5fHNE4wTt2vb2cDcyLjhLPqYWNE5pcp9WOAfq29Jq3ubH0VG0K
-hmzyRe8HZihrXPHHTJUmmOGxG+xwS0L+f2TyM9Zk5Ib57muS9NUGjf9Z36kwaIpnqUJYCbu2wnwa
-9IXUfbIUuUkSeSvvNnZaaCzooaPcW3ICYpeZnd/UtC9J8AGQtd6ZZtRfktloaW8ZdRXP8R3dGbk/
-zF3JgF51mKoGnbLCfVWcgVJtWi1OXHLkeXniu7N/z9UXyKnn+UYvxdhSU5ajJgDi3TzE5mfb6tHo
-R6W679WCrIgqq4xXAqDV7zdf//FsokOdM+osE+APELTKfvwbXcbYjop6allR7syWWj8kJ8+IsQuj
-NvcSZY5zMOQ1JGWD9AC46nnf+GQosuWbzCCfXhP5+Xkaq06tinSLbP96GsDeCXfJ1+aqgC6pWdAq
-hJyhelqeLRCClIalgOLwfUYmM2gkuoJUVgCmKJVZUVLjNsOEiSttUl3q8wMjVgoxO4atQCj6xyaf
-+k+nHruLcxIGetd4fwrkDQ/t70NmdQy892YhsMti+rXArisj7DX5Jgb7VPckiAjXzZdhAvw76khi
-4b2UnRNmWavPLVBU4eMmajHXU/lnZzUC3dZloRu0TiMkRNZyJVSpcLSgYRBR5VMPFrDO4HZQlRbJ
-IuufNq+5LDJhyeznc29oY1fcWGaWN6Tl5v9l11YqzzsoeN4L/0hnsn0DxeDZBKPdRmG5BoA4IaGY
-QeFqSWcfqgdABqqn4E12UbxF89/GN+WOcP6X2GrxBk3HMeIMJ7AgI2unOp7R2UgTcY9VqZ3E8oFN
-D8Oi7o+94wkRkJ0Lv1QjdxZiruRYj+FOHn+42SODX8PrPe8MuH4rDQH9TnAttSfA/VPNxpl7FjHZ
-dJTMp2RiUECQDY5ES0m0nPUzTE9dy4e071X2vAAPhTyYSIlLRcv58LawpRiFVv2nRXejt3XA95ql
-RzV9sRmBwxRZqldH4UXR2uKfGjqAvwrrrLzAKfHUyKelriKLO5LFSGDPuPj2QW2ITeC5RDKe2wZ0
-ujSNRMT14t0mwQCx7P+2vkKNUgahsGU8WmSIDVTVwkKok0uFX7JudZ5mndVWSWZGFj+sXYFNbQT4
-wIDZO4ntB5UeQxbo9xZM7zX2tiUigavg8Ted1o/CfkNg5hHfYgwteYLTomhwqCfr+FvUP4lZQIFg
-ZpyZhixKEzPJL6R7DpAwtI3uNGTeiUtLV89VrgcfBgnM63T0peHdP/u0CGI3tC1R20oxufKECtEo
-TTWXi7e1D8/iPQ4mxXy461y5av/UPCp5lWjExow7KGdhnTmBoKii4l8QqFEIeFQlRPMYlV5gM5aM
-WvXeoqNGBOwiaOXWmG0cDBBC4wl9619jYFB10usMvj4cuagl8MO3zNBZWkyOVwksqEXHsJrJU4M4
-RUO0kElNUGrLcDs3M2E1G1hP0HnyvHKKW0PnjL810Eab0fYxiX9tFYJRQe0kJoU2Hc2k3qG+ZUxq
-t9MhnSGVBTifUxdAVZIzGQMOODtS9nDiQ1HuFc+4vRFnuqCGktIHX4YnvBRO09rX8yWacc841iQ4
-X0Kjljn/ltngoEut6HDICCVRmm/mxG1iI8b+P2TWmcLEOho8BmH+PQhvfSkIVbsAOtfSP94A58/b
-EA2MsfjSj9d4gy5tfEXpfTvhmYcFRVF1uKUQhRTFWjjB27UphR2ixaiAAg2c0KHD5AWaxwA5d3BX
-jwx/Myc7+mJmv3B/PcBXOOOF8BCj2RRY+nZFqTWrC+LjcGvx1c8tWzF04tXQfoFXmyU25upAxo4a
-AOCK20bG5/5kq9JwvRc8cLWAjznVCqwFX0aIavZX5MyuMIJf3NyQutvD8wYOacvWJXw945NleH3A
-b9QkdH1uYUOMubKDjHUpaCuYxdZ6OBzsgZlKhHneGxQ6WF0nLNZ0FJLmUFtRbjWj0RDaGZN9vjrQ
-MPJ9IDXa1lcFKzj8G7ZWRpiw/t+FbIDxSdyvUN5S94Fv1Xl7FmE8y2sHrdD1AuPfWvd/iatjrMa+
-EOUjDqI4eztzOPnRKDerruhhXbBE+97dU5T1WZv2NisVNW6GWH4FQnR88u7t1cKXOaLQg4PHk0Io
-de5F/SA63412IFgVjntdMQBLRLahechKZVs9PbaX7+sVeh1Zb/SD+oJs7fYlPJsk1wuAAaM9pXfd
-RiXAY53/Y/C3mKElQNkGntH8yU8CGk/HcTL0fzt0HJdmm/RmTtqXHXjJTbaGePBKCDV5kA5oN0C4
-hSB4q9EO2M+e6us84lM5yB4mWqPvHwntTrgcmZ91Au/sow9NguLU+yIb97vpqpsOFcB6+XSfkxqK
-9Rgs7siGxrVmOdMfKQd7l/bqSTYznujtMnLT6TFnDwFluzNEqemx9RfFIeejOQIRPdjNw8QMx8R0
-OOIYo2CFm5Go59ohY6Lr8PASzX8oO7EuYmrdbidRAeEF0iRcK5FxYutwLE3GtqcTMBDaS6jKEhdm
-raSiwtCWpTxD08DNTZB24P53jmtw8jAZcw4gWF2DA3KYuNgmCN3FSB4G0TPNAbh2TZGk0BnenzU5
-jCi2obvrzCmnxSdJzKJNcCgfaTAIdDDlwl8msEfxoqUhHxi4IKWSy2KDWMXH73OS+bDB3i/KS539
-PQWSosi3yCTEv1NXEbcHBeq/x58JLw8sfXTqfcsgO4oEJjqkoqMfDbtRf2/OtInhy1kgMXeKARFe
-7KkZjZeW0EuWWkFJHiw/uE4ZLKlrbwbyyRgC4d5XFgzQoIIlz+9rBe4/VE/wi+5d+wjXmTnRL5Xy
-I5iCQa9j6nm4tdCkrf/X8e1kGePreGGgVFhoz/2SwDdf6HjZZDnmviB5+sph5zy1LzExzXtdOogl
-wVq2243qOaceD+w6USAimYej3qZExLbJNTa8ZIB2UsyAOhXG2bfkJXVU5bR09GFgGkTjUXFvQ+ka
-VlBJGuGcrw2EyuKDVzFZvzaVJIiLby3i6cOLgmd3mo78HsZkc84aK6lTTfF8WJKu4fJeg51609jl
-N7Kd4OkP3GxKqvTRLvzCPXdHw7zBMmKL/7LWbfCzJSZCzlXcBVr6YH+JXa+PXUrTviChwdjAqGFO
-eUzcsxLe82KjTVOHyrlCsijpcV00BgmKQBuuZKB3zt+QDkfV/jv0MjBwqDcPjbwcUtOpIaRbTKuP
-aR3S9oIKR77uRWHi/393gFAj8p/2Jc3iHks1baY6/hInKYAOQ7AeLPsl+eaeIgPVliTBpAF/rjJX
-sT1fVnkVCpPpZ0v8DIfl3QuruCI/WXpkkg7l5o0ehYNr3hgatCLM4VB8jpdKApedolN2ZB8Z9zeo
-Hs0xbQuAwdA020s6sIP0C6XrOg4i1rxWoYvri5YFD7F/m9qD9CxDD7AQ+pKR6MEzZGvodTLl0XQM
-9Or0gpPXlx1bTngiyLH/1fqKRvn1Mc3i6mk+Up7Ou2mB2htO37qbLwv8NlVRyoe62XLa6oxe+VNN
-OOLhMmykS6s3DG0VTRyJ77TTIbDFB9t5LkilekeCZ0BQa/R25dBy2xMoGA+LHdGFsQdewvUTz2q2
-9pAk0JE0bQkE77Vpc3h3fHyhx5tt1HOw3deuZUc5dIbAGNVpCcuF1skbyvDowBJOtA/sUoDaAigs
-CRXhmogCDFMkl6B9bM8XNdut6rvi/rW/wXxhWq7F6sZ4oP5DCrJUavD4WrXVZHeXn+s9jWWcbQ/O
-KgpPNfJbukg3smtBvuCxkPytnurFYnBeOWJC0oGH2izohKeC2pdrShBsi2sL+kakZAHi4L5U271L
-762vOeoTwb/DGc3CZ2XchZBXaZkT552a0prt+/uMfc5ffKtOasrT9Nsm+VjZlVaAjP4pbAs6IMtQ
-ljG+I9MeH7aN3ivwjrmAfu0Q7XwmUFT/77ZhH3YNInhPyK60hLpaf68csi7pfD97vhq3tMKzjlI4
-uHhFDtu7OvHCL+B3X2CIdQzM3/8bSt3SdHbbR5nccjGJ4xTuMfQXJb+3wRj5c1WLLIF+yxlnJNaK
-6TCxHrOhH/an7rWVo4vugpsrLOQOP3BEadQkKIb6d1nRDVcalmVmYv1KSdrsk1ADcECGzatZlZyS
-FvoGfUM3u+Vu0zSiGEITaY8pbMETDfrEgFA5cv31SmKUKnZQL7Too3AvA+7k0OEZrXo+p6n1BjjT
-Ck4a7UdwNIWH1Z8VWlC74fVTvVIhCJU5AdCmUHZwf1PvfOUTRhYR1NnuKorwmEk618wqaQowc6mW
-7vdxx7N0zinSqdAjtDaWf/q/vWf/vMFZgYq5TRAbToSpgk8s0s3c5N0oaTkPnCB+fhaUhtE4UCkO
-SiHhwOx5re5tktY7+pODucSE8wAVssBkaeM8S0PbdFzbYHN5ElH2NHOKJHXcuqykm+Stc6NYmAqf
-kyuzB/hMMGhsq2JZ5Lx3MQ/3cQazwjT4T4rDhTMklzuxnps6G0bGkmbMgdMMMDRPpQ/S6F/ReqN8
-Na3greOu0fxnItI9nVM1Dbmd0IKorI5ePT0KKTwWHGg4NjwFZY1R7SwB0yYqg6zntYF3zPrUuFrK
-IXDT1IylWBxP+2XOW3Q1siuascP05x9ICMiQGb2Lc3jtsHe5nLqGTs1WAegfVqO+Pev37jEnL8yn
-rkg3NXZKKOK1ji6Kbroj/Nbb6eAnElD5V7gEPX2GZDWkbIe+lHGtg0oOWQhOdXB/5Z8WqfmweWiG
-vAffrOpNLfg3PmI0kYASXlily7aDTrWf2VCdsKUa8QfbwfWhUi5qXAOF78svt0EPhA6Vb+sWYKrZ
-nJzwgnUOd6Z1d1/bsqDmJNXpw2QR7T1LGK7+BNly9kxh4oHns/bPeZ+L1fARUhSmeRPRwZrKOgr2
-Z37eeVBqxsGGzoXp5nEXV83QkedkDut09Tm8n6ebsp00bUjBlRA597ZeQB4OSFqLTlgm7a/oS9Fk
-6Z77SPtDUYiH/AFRuoabRgrWOI7+kpDhY8yC6fhElYVPWiR2kfjQzxRPkLCXY+B4AalIw0J2RhxT
-vaD1YOWsJzHsls3wJ1qBjtWJfn11lW6EwxBsWIRJMSiBfOdJCQwKfcg6Is0gTIcscR5W2rAFNer3
-IHMKjP/esZ3vwfwJxNq1zvBOXCNkmNgXncF82J10gK0ej7hzGNSYI2HxKyukCQRtmUM4KKH6wql/
-Ap15avcTfEqJjfliDaCAPzaSWl/CiJchC/uVvQkGsMbVzomF3Cryvyav22FPEujpgbbTOxOx5NIi
-HvW5dU0pggDb2N1ZQEc0Zu/ZwIzLUzJeel84DBjFtkTjFT62rVKDk+4ubqxt1KR63ZEICtxxv1te
-xG/3DnP+lH2xignOe5R8lX4hxDPS/Oij7cx3hXUmZCjwErTpmnROZgyFAIVlku4f6jj6gUp17sFv
-S9LKiwH3Fild9k0VUzLUiC+tHsPjyevum3TaWwtWa0DAGYHl1CIjBOwoKnfRjLUOkAGzZLy7lTX0
-vZ/L3Mj2ZMspqHwaM0kG/xocJz2wrcagPl8GFrxcLH9GhtMiQQZFB/c905uRYaXSvNi0fL5lnnXa
-uzKSfAqUCwB1oay8oCm88dezeccDAr1Jvzfi5+NqjYbcDujOufJrKf8KLGAMdKRxVohhaI/cQlsZ
-nI5xpBQevDerd+mKeC+/EW7I68wmAWt6K7orUcUgSmJ1eWD8qU42on3wZhS85cs2P3iFCxY7eeCS
-4l/nmOeYiQzeru/lYa1LeSgrVVxLSgxRpNHo0E3yQoGkwrTEUsdy7eGkoyhUshcp++MUeVTVadEG
-hzpYRDB8ihV7W6morTf05c8SSpAQ8WD1lssUIB3BdLiQ3PAE86idZYWR6tfmUiqJlzuscQoiFqJW
-nk9JvnywloubOLKuVtABfMGfYqa+MYTf/iVdkJTk3aQc1Ro7MnoRuTGEjpV5bgsPR1u8CSYuDtHs
-a6ZFff1gFlBlIjGZFp2vhPSCz0Z7C5RAwaLZ1Cjt3gVUi8hHJnUggVb2KlKkKr3SmY2TA7RDGXsc
-jXGRbfgawk0T4I5lDbGiL1NWaO+gD69x2TotTjZXrPGNnEonf5p7VHysvPwY5mkJ5u/GiQae7CxZ
-Ota6nh0bS+UGiJbIYVs1BjtgxmVlQsFppRbftw101MmRpEMabdx9OAhOgVGon6fRbJzxv9okcMR0
-v4CvpyeFYvF/SXUSkBapK4S/JrNzE3DnkBgMMVRs3jkvPaas1SRrSQrM6ExzNLvd1bo2olGMfE1U
-nd6zz057xci7v76PMRCqpX9X8qWBdMAJCMfoDPxb6weNYRTS7ZjYkjSoQzkGES8LXlh6Awnr7W5x
-jBAW8nZasc9y0PmJUAaJZsMV+atUlj9REJBBMCcRqb/rIFO/cleXHYhaYh120wSARQIutLgo6yRq
-nN22OWtYj2SA5G9bu9LSyeBvEJZmZQvlGtHrSlSd85FHodb07MyEh0/piqt7e6XMjSBc/TN/PYqg
-obeofB89yttl0kq4lRndykbTjfzjFs2w6RPer8IoY/JIQp8v+ZKeoU+qsjbwmEat/L/NYqYp/TXH
-tnv9oy7aLkFY8rx9HuBgFR59Jq0MquckR9+FUKcjPp+g6m4lCE9JEbA2/KIjPliji2/HHdx3H+yq
-nH40Cb5Ykv1akwaV+ALUZlXCnsnASWToXXJHUGCnbJIy/UG2uP569UnRRHPXWaqNhFG5AHZKPMQ7
-aAMUrVLF0t8wrH98tFA16/DzhmCuACAt39vTQb0bXxysV4bD2tG0760ZcuiVAliP79LfEjr+nkcN
-8vygFh7S8Rb5RaOsWhudcZQ05IMA+jQFh2B9weMpBWp8S6Kfnjy2IHCz976zHA2p2oYCe2Edjjtj
-m9jGpNkpxrW29Sr+JGOYU/NuN4ii8tr75DB19HfaOF3mxzpn3cSjCTgMofbj8jYJiijHC/gcm/wn
-MV5WVriU96JyPxYh5N8FRxgCsBOfMEADzt1/zAaxRx7x1Hx7+vRkaRjwYlzy6zPe7yKnDv+W3PjX
-RxZjFRLIWI/dJjGrdYV34Gv5Jiie/INRsQhV2aYQ9w8v3YQjuFQow5k1r70dX8Sv9DchJ/drS/lr
-wPzIrTEEnRimQUYcRBE+7JFakC9hYQl+8fVdiZs/TU3uVc+k+3YmT93xFbpEB4h+kKqHmjz13arl
-VUWOHMKMgaGlRDPvt2jAh6LunMBRSsoI1QhMYNpJNuce74lQclvUZtFWjqBPJMjf3d5LlgHSe++J
-c3joHnNCoOjpdQsm4u40du+P9hbP9MF/xY5Ql8Cjg5hbJx5QoPcuw0CbpiiJ+ZAOl3ek9uXx+oej
-6NNx0U2t0qScegg5hmVARdXivmYXrYVNdM1763+cH0Sw2gcbFgcCpKmrb7pOOcJPjBS25JsoECrA
-w88b4+r0Qn0R8d1FR0+REcWMs4VaxkvJqVXPLYb7i82A1jlGQ/HG8sQAwmAj5t0Kw++apXXRLVkb
-BsgEsPUmnaam5qjkBSgaQKspfmutUlwtyUGB8xRgpvW/3nFk/ko6vjdnvQz/mkUgx8c4EbjWWrPQ
-g2JMlK2TBLmkoNxFZh9C2hdtfhWE5vmQLxOFaHtSDsm4DLQKiGJcwSv4zz3QV/pMwitxIXT5GJGU
-il/jU/AJ4n2TPvnDDFWIHhVchef7LHaKd4zY/eShyzNNkQ0XPfX1GDSntGWODXTLbGWqpIgIUM9/
-O6KHpFvUci5eUPmL5+arzAYM0+5Ba3NmSmK586JUlJ26miBOFxuDcJdpC92plfy84p8FpSmbd/l8
-y9U7FeDaeSjk74yrIRQYRDN1v9AMIzOfPB9voAMvIS8zG+qHqIef1/EEkkxXdCtlnyVnyZZ0kVtP
-Rxm7UzrnX03sCeb+FKbRatwO57CFYn3ZeKnjrlsMjXXVGLnBxjlLTDAa14yEO28LZOKnWV9+yMjL
-0fcevwkWpmyUrwzlFldeaT9Y88crix9uv3yhl4eq/t3H1G9ipWFznTFyLm7/3B0ONG4sC3anTTEw
-OPeBw2eNcH0YMkWhzJD3e1z4mjPFcORiqlZLRwy+txctKYGobEuT9k8jN7z45HOP5MlZoDMzXtSR
-guQlVq7PuCX2nhMqgKtKNhVHtBOho+KkucXSxfbd38Fh407C8w6L9A49+5iO2ziupvWG8JVEgCr0
-H4p/N4EPkG0WNHjJ7qUyB6BpCwJSNFRbE+1waHZ8up2li1mBRyMvOr0olqWeokD8Svc4S5BwG0ld
-g1Ymb/FP9P1Qvp0D3EbcVq/cxXq06wJjVEe/fIEv7WGQEu4wnTaVklUipd1YS5dY5rF6cPiCXOpx
-ctLQ39l9A7OYMx+7d7iJA18pAdKEq43w0oFVwBBWrV/qA923IDFGfGK4ngrM0mYB6iqOZJcYo4bt
-YkcYk3gZBTrVXd8EUUTr8eDmQ5qfk43GVSFBnLjv7TYfZYp9bUPMf6DyWg5yBAruhW0jQkMDkdPb
-RBNY5oywINho94hDSV8TIXB8MSKpWqqFiTEujzCF8g5mRnmCsR17dMQOsC9p6Lvyx+bbKSK66AbU
-d0EdfOkX0KWSlHJWaxEMJ22h92A0yljaDcE5aXPBM4+1/cO67IGbXhsnU5DD2jUe9h63RS1zfb9m
-BzcgRfv1bJYptxsWVd3EnIPOJL6Ooht1O5XmzqvaAwOC5LDIB8dP1MyDFlyChDbIiVxvwI5xClxD
-GIGLUSNvsFS5471Wsh0fSy8qxZkG/Rla3DZHfgUQ5BWcYEksow8UpAsdjXU36y0l7mbw87lJtg1E
-NFxLtPK/GbBvnrVvHeBV0rGzGgYfDiawTlgexsEaYB7O3VAfuMAhWP6L8iSEM+A4TAxcEIoYTXLt
-ew6UPV2wXHbas9dl26Hexn3LvXq2+6on6qkT3xGl4yL8WdDOM7NE+iyA8QYjrDLGifFylxXlWSnA
-u5pCb0G/hKYZBPJoHuDZVtnYCEACd3lVldM46FlSZOlcvJzAVl/y7gd6V/nepF4PiAo2WoUk0AYg
-qKy5MguiNbrlJ3DN/zbTuoSEGmOF/qNjxmV10uQRDFLSZ7k0nIPWG8xu35lCqDxIRMhwEqbiJm4k
-x8Cl2DxO/CcYwYIG1MTM/VH65qzXlfbzVQIa7ilzmEyir7vcQX2m/OoZA+C2zs5sTqtIrgx/y5gd
-1C8GDChXaGcJ03AZwIcDV2XX0NQ/6ptysHSj7ggSY4pee3SIeRrlKfdOMLcSPlmoyrpawSai++uP
-Vcs8ng8N9Kjr5IRkblstQ0O7hAGtqrUcfFNnODO6pVN9HrEgVvhvY2UtOuhhOy9fXaMSTr4vzo5R
-+WGT+/HyDci59qBMlwvZgSYci401jHTSqlz0iLnI1X+MPH7wCmgkVH3/dZEmNUFp+jmBGlzpHJWZ
-Dz+Kx3x1tz3d3dMotnxeR2toDIFMR3lOv/Hh7SHFFepotvbzYqRtrEP8W4Ox2Hy7Zwq9D0FbrPJm
-HBnlcZaxMsteV9DxwjBxy1YvGajuqPMQw9utvdYXR+5PFfF8gjyrB0IJjb1Tt6RmFrM2Trrk+7E3
-QQHDYiY8W0I8fo/6y8BxysWIHMWAckGH6KBfaXTL+GDZpx3UlRhNbClhL4iqSyGf6MV2xtm8jSRI
-BEQ8rO1yRINgYAi9BiIZMCmKIZJeaf3/CpyoAIMMLofOyGi1DuQSDsjukgtAx+sR+UPBVribWI52
-ZbxdSFz+yrjfemc30D8A/8/P22j+oC7dn39L+1/ixP68SPvqktoXWDpDzlyeLQvoejsf+D0Ibeh/
-WdtwhpAfYKnN2xsdT/CvzMXgdXiTL/mDzTN8HIs3RDcrk2B3MiqZlDULCkodEma9qjU9jO4mlT9V
-amVgGrs4V3705wIOr1Wm2MqW4uC4pYSukQRWp4G/UKnY7mqImpTvoFQbfReRrp80zIedPXILM5Ha
-hF5iNAXrUt9Soi/Iy/ErkRmVaqQu8ogKMgFkmKdB86ehfv/LfizfRSNbBlg1lm6z1MSMdiZ0Unui
-tkyLWSRKjRENjCTyS7ZVa8ax2fesSJNgY+j0CqAwtwfK0JAVXVYyMWbrflWu/w47uojYqnhwwKUU
-/f9aA/sOm/QGiIVL0EMFp+IqHLL97mGmU4n1X6oNaN3QEKjBmWZSGYNkGY+t8XAHSYmIOrUCi8Ow
-ZvjpdXhtv3GYR/Ck9CHF+eU8cxIp3w4awLbvrOSAfwkUG3Y29wWNpBcpjFVWywTibwprfS1B8JXo
-S5M4W3Atckr3h6uKdn6skDxttQKiY8wv9V2glf+pdm0ayi9Ep/xm96mzMzVEGjr5bg+lEB476P+E
-H4LXTQt5NFKnjIWYvc8oRNLFkBTAj6AOmagKmyQFtc7kCKM+KnAav44/t637nswyioSAcTZiM7sU
-M767CdrTMl2Xpi0/rnPk0NZ//Yps8Sbx6Gz71Crmy//hAR7aHypmV2P00UYN/xOXyn5300Hj/z/N
-Z1+PKrH20zDyyMqfEQGa4docU7giNlsAavJ38dQvchgF+kUGovaZ6JE1Ipfih6R0ghTAI3kSd76D
-Qa6PB7y77gsXbcZdRvyifaUSy+XIyJLalCi0zOgIFOezhR573m4M7GQOpg66p5s7QMZbkVawLIc8
-HysbpeGXP9QxNZREhoqFrNaIejMpu/6uPv+816nAAgaQRZqFSW9P7ylXipsgykZsyGioM/4ax4CY
-J+G43shSYnHEEaJCC7oGQLcgQlUzhH1il5RYEN72pxq7r1w5IL/iQBJTm0V3Slz6nzr4jRiYv2f0
-h2Vru8AsTSVR765LRkcDv4QM1HRivG9zuZQhCO2Q58+ABkrBK1jZQY0A7UZM0NFlcz0VwLg23n5s
-8P2MCw+H46yLLFdqYcZyxUoSd+xZNhnrJkQ3eqJi1Ov2HEAlGTw7+0l8KIwVTbUJTzR9wNHxy9BL
-XIANQGtnIIZCiQfDVVkpJh5pSWGk4N/TnsjRbx7Id3ito8ZJDKgC3O4oxBYbHXzYhpbHVts90Mvf
-HswhNjgVe76PbyuDci1gfDdxug5XeLBCGCPQRk+mwxMUotPoC61wnIHuZ9z94MeXDVfemBpH5RoV
-ijzp+YA0Bq1Sz3xNQVWGLveQqdhRaZsPytek/8fEUtL1HSZqWEapvCUjwD93I9f370+KbUGbleM+
-s54Usg3/ZO7M3EOasY82xXF4ns+gXGFBlk3vc60znz9ZYMezPAqBWrhqUI2QXpPfTfCDeK2jW4OE
-Ojrbas8QK8Gxnd008UiOIiCHDIRCU0Ekhs7hCWoav/AAn3kwD7jeOb9UFLRPXOry6PGXlBcj/5vt
-DXwHbqd/eVHzIQybAm9+2CNrW4l2yNi7kfBlilCI1Xtqx/M9LPQpXZT5uzCLwMQspvwqqCX23XYj
-L9fn2opRx8m1q8luu/boBuDXDHxoit+meL2+AC1w2Gju0sJ9DJYl/1JrYIK3H2Q6b1x/LqwWZ90D
-EnGsUhiSypU+l9wkdPvelesLtfqVlXqe2IOaEN/rkzcoRAxaMNLFJCrUAWOKw2qQCk6K8vmYiFuk
-jk2EmcEw03ebh5of1A38eny34VkOhDfwv5IGqs5wX+BfBWTiU4DT37XI3gCMPwbobR5mjZXo7sjA
-6qIUlYDcZpCU9iqe8NPpzz+JyT7Gx2GzVrZ0bmxyd6bjryu6wfkrQCCT/lZPb4yCcfLogLg+nmYK
-ODjtq6wLmY6cgMTdtVomXTqLuore7zsWGczAkKp7l89bVM+91Rl/DcMtg1qPG9RS/sFJsU4csn/7
-AwYBSj83XJ5ZYGhAwwp98MVqVE5wB/yiuqiiM9Ho2QT3ZwZDCBBJlizZD2jImA72Epj5rN43vm4Y
-fdnRUkeautlZZuxZ9T6qS/Ybpj7uDUpUpZ6tTxI4WnY4i8x+m4aZ6BnWjxZ89QvUiXlwFsG9uaoI
-GwfyEenQ+zcZdn7+zB5TjyGQWlrAVSRsiEhGU4EUc7sls/YbaztxykYBVy7XErfGaIEQo9S7gyU5
-hmhwtXTcTy4tOoXwPQlO8kEdzGg9YEkWYB0L5Q1HcsgmRcj83S1xnwBK0+Xnyp1T+yKwInk0X3JI
-gRgTGPDZu45n7eppdLu6MbouZmHRI+AAWr3INPnXb7z/tq3IyjPe/NvNJP3J7RIsHO9M3zh2Aqn4
-wZtNSRc+iXJhTPPOCk+/hTdq6ldbrRhfG0ksIltiuE1AC5NOTMfliOyp6CCeG+rVxbKQmsoLU1sj
-82ug8k04/jdJYu/wEr3AssMbdSe7lk/G8Y34WGnYVkgLvpxrxSba4SvqcHo512iUbQtu1jzLuESb
-bPAUZZhfwjQ0W9hR3zS2Z2bHy3vw6LE4+dhz7gaOe0YKJxa7EFWh7tb7gNl8fdMgSg8aBwFKwGb3
-RGOLTgaqJh3C031GeKG5H5IT/s4XGLawOMrtlT8+PvASjgTCJIrwvRuFKCk25TvcBsh7D+Hgg1io
-xTKwLDIj0PU70GFA9iD3pQD8wxs94cIOzHzIa3sA3mRVMh4w5kuM8A9a1rWlEGGbhFKJjqemESj8
-DpSq5YiE+eLxPWz5TATFNZ4rHVD/8Mk4YzDyFpN69J5O8AqWJxANTsKQgYUcNp4b+AxZ+9ypPZuV
-9aIRntqQrCb8JJcEE/ntmLdTjRD9JpjS1zOX4ZKX4R5iDEzi8g7uNeEaQPhSlET+3wMsBdrI0WIC
-ylnHSeQO3KJiLiw05wv78mS4eX1EQLC2UcTOHqyK8kBxdqmspgeCRWOF2v7GQNPfg9y8AH3Kr8UU
-x2usLiZfkfulzPBMDwxe1yb7u8qHRIWHqYyGYog5AYW4OV50RNK24msb5ErWp4WpgEv4YD7uG8Z2
-JY8bZHgNM+dTgNitUT1NRvddmB6qB8rod4cXEql4hQewQ+UsyBve/GWPWgJDQWhDHBxa0bo+kHOz
-lME4D1wVi38kyGd2anP0oop8hg7MASwIt0CUXIEVMN17sGk6KmfnLys7Nyugk9OeMhOzvTr8wHNb
-kR99mSvJ+m2o94Ewv8pfbFraRzRbH7XYTyao71/HmOVj7JA/cC++HaiVptEglmV++eid3UXDswQP
-KIlTAeMmO35CFGhVf/epCFVcdrBEhpTs4PShtNeZ5hkjln0vGSexgXHIkAVtfwraADn7Sf7jOPWe
-qKlqPWQ8kerGuN+lJvju11LuQv0+nPJxyCfnfCXBMQ3s06SIluGl/qCWN7Tw7xmfPJ/Wxbv/ArN6
-C/RKc32xPVqA4/BBqTnjCMvFBFsNh74hPp7kamDVWskflAzZVdKx2ffrxLs7s+wvE2olipSc4y/q
-Q1j8UriQ5FNr5s1AZVzXro3nI2NFFLSm740oP12QhzA8KzFHJA+7Q3W+6nnwe4x4aJiUNTrTIkGC
-TxtjEP4MQwvwQH5KfWsDQDmSsNBv9JG80nC74mvLjSvqOljiMrPTDwWRE4rsNLDKGb4hcBiWTzZQ
-MqB23fohlYxf9mKPvn0W47ql4kpKWl/OIAc6CDLt9Yn1ddE+wLn9VOu9vkrGrKF/7FqXsJBzdvwn
-im9dCFkr0mnvbIuDrd5XSc7O73xlJfnD2evBCXT//ZQbVKECuNMYjRmJY+Nh6nlvWkStwf9PepgX
-DLC4sM44uTJ8iw4Gu2I3PIKJA2hyU4dXmroykfwWJE2jV32M+IS+fsn28ewMHq2WmLLVRsi5EetU
-CfPj1vTRdWSJ1wBbML5IGvVd4wRxlZ4ODSXfoKUukS52zeL7TspRAohzcljiilMJXV6ERac5+BQG
-LiuOXSlNVJzPquiMxtf825kL9K0G04VUUaQRHyRmetqZQm2BelF6tyWRfrdocEaWbZTiMOoTg6Is
-9kJR84Re7wxjFY3KBhIqyuT4XkRGOBPsA/oiFyVrVccQN2l2cAUhxlbvgdq0ya9D2Lba9eNwW2QN
-IsW1S1GP3N1y+TV4MLvEx4GJJaqfYQnm3ZGjJd9QIiZMX7iqsAEjqmV0PMenyxqckynjnnfEGqvN
-d0krnQwj0r/uoBYqzNJES+D3kIkgMyIH4MlVtXDclbxE7fEau+oezkGlPNCvrzdd0RkvJEGt1btH
-iaXxUYeI8brOmscu0v1BW0TbbRGPegrFkDU+M7UZVVlvGZZaQcjXRrgbVs+cOqozSbi4JfbzkHrZ
-dHkBLUbA0dfq+4T8Uxk9mzU8PNg95DnghVbRdb1FIpuoM7dJp+RClxSTLRkBIPpM9bbAJ4Gai+r5
-hYrLIR3VdXcGrLFo4wS25s8kV//xcUjnSZN/+cL4evYt9IlWVA6fnlbCc9gUH053OKh1KUX8cNeu
-f3+xldPNyrIQ+V3QAHFYJ0pWhhR9RaDxQnca8DTRbo+gWkRSWr3MRgepetFZI7//ootvXN2x0+Go
-noLK1ACOmS/HVHtHBfjMmZPj93O1jGoKCoGAUiUyCOTfdpqA9LjellUe5B5aRDUw0rwoeh5YJMaq
-JAScC2stUZNAm8mdBqlAeRdPpc73sZgFKvIGY6IfpiHF0GUw0WVc6smFuxoKnvw/eNWM3nZRc51F
-eNVISTMEcpImMLU0frsC276B8+9/6F76LB8Tyjl5/DHPufGXFaIo335n8eBTwhk8afWKIFuZV6Yr
-vP+Ge9JGlIMsWQBCi1R1Lv5fO1fHgq9/xYj8/pTddvXThRBmyaCe7/NrcH2AoiWN2paLUdiQUI9r
-quCHe7Bn5oHAZFZqISjmXvCI8UJu6GMR8rrBMlHizgL60x74JKHBc9QuY+z71PoA7PRmOZKt20zQ
-SNHBff2g2x70K44W37cyvpcPY8GExtI2R+RmBYYTUmDYgtcx/Dcdeo/iooML17ws381Rn/GT0R4E
-fRv3plH/SARxajxdtEy8TDYGvWvtAYuUVJrx992JU64G+Jqi1SvNsLtHn96wj35RHZZg67WLRLto
-+PaWD9LYQhsxyFoJUl/9AnFCKKb7KzV33bYwICDSA9YbiNIISiDjOoBHmbBl9dV2pleRW5svz0Zp
-YEWXgCMT5zFbTDKrCVoSiMpMTmm2aPTaqN85sHW6Qw57N7rshRjp96sTj3ySq0M3Zj1Yyc1XfnQ5
-jPZHIiNClxC1cEphCgz4S/93JVT8Y7V/cqIeCb578W8RiFPqVkQYqXGSpg5F28ZrkVuYDSJJwVlz
-L82Wvmw+J4HXBkZvBYUgdRHrYw9XWW/688zteix+P+V+648KOatCWYMGgjRGwxy/wjB1LxpzntJ6
-IvgOGR6yn26GEi9tLOcxkpbnbK8Tj/ynG/kMYjqWDfaV17VFd90bvrQT+csTeskwxNnobY0/XlZO
-jjak60J/rqcPD4b6xWaBapv2wzU/5izmUh6jWivJOLf0G+cSySQQcDpFR2r0juqNf4OjOzD4YgnH
-bXAqfWhmy9iEYt3KtaBBeQn4a/Bv9wqDco8jgSKG/VecMSMEa+g+ApljvuAdLyoNHFFcjLKHfx9T
-pAFfg6rQSdZtBiJT3J2UirgUvOemW9ftUCHLr476uoP0hzJRHiKI26nVTtSpgQzM/BzK9J3OL/tI
-EwiHpUp6MRvgvXskMyCXECi1tLXkvl6lECxNOeh3bxPN3b6ZA/FSSHsBsWCgDw/rmuyarbbfjz3P
-wVu6Gwf6Q2PyW5ZGTwzPXx+9s6YRKSfLzykbtbfIaUvZFV/PXlUvjUEfygQvE8L34s8a4uBSAFul
-RHTsu1kmM1X90OgMFVSurbrGKJyrAU1OCOWw1BLVCxSmEWcR+XOtNJ594JJDwP7zH3O+KSK9fjbH
-fnIxemODc8cLQ1LhRaLPNXZA7M8aDoSF50vPhJc96jlQxK+i2w/oaKv8AHEdkcJkcPdUgGIC1yzi
-jHiu6hqrIJBYLjNgSxXXPdez1LapkUnyNetusXzM7E0+wO0/0/rpnMCu7v8ONJipTuMKCNE6GseQ
-INq8mDGRaQHXtKEbhjexdsYMjS625ftXbpjNJSp0ISRoPCm1vs0ElfqQL/GE0w0WnFVqDbFGX71e
-PDhYa01rP//yHEUbET+n9nUVvBAwmoM+uGPVzGiLD6suelBa81dUAFxHom0VyD69hk15dKezSiNC
-sXqdnZ/bziUfi+JZ2YgH8MWK4nM6OCm4UG2tk/tYfGXVlKr69V75er13vUQBr6fEPC32FwELp4sN
-gXv6hj2+a5ZSV3RaqGauaPNfitpwC0Z1zYj7tFjBH/ir8e90LfJB9uOsfT8Z1GS+k3hrs5mMWPEs
-jNZHhkrfzaJNgCB678whAEECm9FhV5E8otRc34k/HbcXBocDkV9RvSGkLieS5IcyLcnM6zBqg8PY
-rJGF/HJxmRGM545PoRXVxCv6ZSw7VUkA+C511WubRXED3qtd6tBAA4uNOsPlWzCa63Bb96KPbvje
-x2PawR3+8+NnXDI4/01lEenHLohGpMYSXWH4+QYK4u4z9xDm3/7BNK/VU/pu0i58OXoJD22RwXJj
-tBvjzvrfSKY0OswocTvPNzWD1JiAaoYTFPW03wXb+0mlaYQoMUdZOL9zU5GJ88eBsuzWIEQdRLWv
-xZDIfa5cBvD7UywydOff6cfdGafcBijTkTLDlEmKKdxE5wdx0n975tfMRr4JsHRb3XJr6KIpRFcw
-yet2w14Yij3nFxAkfvA5JYmQbN/pqSKW5zh4OI3Ml67EzDSLASCxw3/+qZ3Fl2A3YNN15ANQyf0H
-FPSIgeuH6mVhnAaNwQwi1dqh0BKKUBFpUotx/sLawwoIziDIHdGtgk9yIHCGNlSQIPUT0nkOH/d0
-bi9uL0I/cBrat8bfy0hSnF9R2I8B+qbdCa8+3gogc9zNsbbquJs02GBYfbzWgE/y1Ifw32QHP8ft
-+tP7BtUowA2tHK5218bwYRvV4Plxp2eDMNPc1eQeNe48d0DR5lie2ehs88tcmTkmpm1p/vI3nkbZ
-Kf5hlDcso9A+rfZFjse08yVrZgbg/WNtSs3eCzJQyUJwznj1EprDK8d/Nk5wZclj+TMvbW7PvzxF
-u3ifa3r5gPtmEHKwNZPp9STYUph9unElLuQABDupABhdGj5cTqxceQmJ8UqujL54HpfTWzj5lX6l
-izPiYT21k9m53m1qYqRFSsip0DKfj3l4wRZhwxFRdxIaBymcUafqUUHmPY1bh1+y7knm0zVOBduO
-KmF7lCbrX8S0fKQxK0TKKfvILcJO0Fg0n7mfq5z71qG2lGCq1RMKt8eQO5wGELI0RoUlmONV2i+h
-V0EmjDh1lSyrPSYXghbBJBidJ63uRasNW6bjVZM5qmXESH9uTeylctaXLKRLS8ktJKbabq9Gf988
-d05VdRyAVLT8qKdQ/i5oKmZJVAcPJLi+SDCKJsWmnHgPvf6DXVkBmj+IR+8Ck35phu8LSXEzVM1L
-vClQqO0EPH7TVSMxDt2NjEHaWPwN55E2vm//hB6T3RMEbDUjPNqDXR0Gu3vb8acJh4N2ytsyH1hi
-710cu6SzpwSIZ9878dE/iS8oyQSIWNGlZID3c+VV3ry6Sjf55I4pnkdUrz2ooVlDZsIi2Mq9/O+q
-N0OLrwhcLehcJIInpNJ9lBu39lSOdiySswfwukjAFYo7/LeqBlBJwtb0/CZmZdCM5lrh/S+nLCep
-1cWzBVRCAWb1W89ID8bvAwqDMvLMZ9YQHdQRUYqgTdX/pR2vFuqHDOq/bQQO3vEOcqOEU67MYSBj
-62z/m3vhQtl7BVS//gOWQuBiRGJH5yIKkSgQHDSrDcdD1H6+f1ehTICoCrEyyMrq7dkwymahMF/O
-LNaJn+GNwURV1RTsMjfDVX8ntOr7ITKeimPaSWnBG+RXQOrJif314gHHAbxK3tqZZudijEjN6jyN
-xPgrlADKsOh+lgURcRiRvEqnhL/WSiEVaPwkw41DC1WYLQD5kna7bnpzR8SGyzugW6pMNZ7ASog3
-2PKRGQqpgcW7VnCUsb6Jo0VBOG8TuaZ7gGwLdEpRBxI/y4XeTx9uBqgebn1rJmL7Wy6Ga0vA+URN
-lTc/c4LUXe0h1y66ak1WylYu27KuZb66KPujFuL4Dk1lppUCEuwukAitixhO3XvXdY6wbM+aO0ug
-XKK0CCg/xOMD4cC8qG/TGeZlv4uVgYiapeed/xSYawRGl0CPwK95x2qt+bcRJPlEbqdPX78MRu0T
-XqijGwHohur9cGoOZwXB2LxWfkTtz5fN/rp+AyFMYQsDovlbCxcthoPVG3RSsn+gQW3KprLlnWsw
-by82usCcLYVZXYoIwflxfb2DfNtqhqSZVUummU5RTYouKhK//sibOxRDAx1UjJJWnHp4pFn1/mNO
-cyX0avJJaPbHw+hH4nkwk5ARm7oxI4nwaKDdqExj+3tY1vLyt1zadkCYmwNJmoxzr8v4foIyIXCt
-A0UM9GB2OYkBLQ4Lz+JaL+3H0+uEeVeD2hHLTwf1neY8TzSN0iNhtRUUp0RlE0CoAwWQNLEeIp9T
-j2N6nfGl+2WEjOP3D+++a0eaqPbZqeABzwwPqLVr92nmXqNl7xvwufNBki2wVChq1FtGjUQbODhF
-wioyUz8UKg8FPgktJHu40q6f2iVTnEhDiZhkleQ7tUv2e0naacCSeHLJhtY1Hfpq8asFPPV2NpVR
-2Qdo9LN9WgDIEYqbf4NgNm3pcnpLXK+Rnf14DMVisqAshcM4CySj5XCztFd+Mnko5TGHgOFo/ZC+
-0yQ/B/MXE1jteEZyByYpAbYYlDatCBRmQ8S8Viz1JVSp8/Fr/APzjl+n06vNXS13rvRXBh3nacBt
-QMcV2R/367hWa15d9GSoWSziBUgmH4axzvuK5K9LO4swI9m9X/akKt7b8iqxbrIlFGdnKOcWzOuM
-WgtIwMFhNEb4Vhz/edbmHBMXZZio92LouggQAsZmw0cTc+zpSt1sVLklbs+ugGWMjTWn5u172B74
-Yc757GbUT3JNIKNHYFgLILPsfVRS09EUaBi1kad+UhRqjvM2sDCc6/FY0BXc/V4VvWdaA6Ae4K5A
-wk5pIBWkt3i51gmVAClv/zqYrDaSRL4EqweSUzuWaRyMtigX30Eeo/6Ro3WFhajVkJOcQK/S5l0n
-uTSSKtgpFQMkxiF2m4VCCBNpYuhxKOI5+1YwaGSV5alfVD0XJfoiuXy2eCVuOwRH4FGBmZxmdV4j
-AY6aVjrg6jvefvH1Y0/FZdmHSotQY0PSq3xTpYiosBvfYZKUvCnLCW60/CwxUfpE0eP5RYywGObf
-utCmEhsl4cLPgwf70DzlGg7DCHkqg7VqViMg0heos7id0qjgLmbyw9NGR3YOR40Ch5d6pRitMRT6
-p0maw1QmgW0BAXsZCYKXTv9elyXBe9LYIG01jgjI9EM79z8sYqBm4HLjsh0ti8Xti4594MV8XXrf
-t0j+6iDuQphvfAlDf0vVMKjfTTW0hnQ6K9V58w+2OQQHT7mG5RlMzaFY9ZdJm+fOKIB+o9SPC+jw
-08Ig6sPKGY3G132tpfCMcczMkRJCGLVjvb/m/pMQB9nZOeiNXHQvnQFcSrv+PgWDBHBLs8sDhWgy
-Rc17WQSjuuUDBIh3LEBlT5AydBzZCGszVbD3WsQB7ygK+unI6zWxriBbf/EJWHnN1ywoBez4l6g+
-3enHgqAZegPt4y18iGJbUCYHHLzGc/SY5u4iGl3mAZdVbo6s4Vi+8k1mRDawgPWkXPioYz5td7Or
-RCqIsMziNkxcXB6cORG0JiBpRHkudFKBAqgMwetqLTbzfzHITICPfMTtQdz+Lq32POzzHrwMCtj5
-7xDB66l4o4jBCDVMb+GTBzH5heoaEd4YPgxplT2zZfmU8y28Qsknf0wqdj+N1r85qKEbRLM3LuAf
-YsNdCZEGoNEXikdC94uSCX0sSJATTENnZmNtQ0G5hH6hlr1WIdaUiJTPXHvDb0d9rc9llOXxzQOa
-e2tRw7mDlYg6cEqP8PvgLTQbzZ5Vxm9ZGqJsqNgjbyAbWrw4772mq9I+geoV1GhWYeQFDiqZ1/ZC
-faouBgIo4615msG7IhngJF9x7hrpFeMTZGoGKow4rkqnXBOg1QcbdfNiqFwxmyks1SI80UhbYLWi
-MWLqdOb1hdvUfd5jCFd5SwCV7+88oguOJWZ8kbNPn4FuB8eCvnKLQYxb07YhslTXeLzB57xCCtxV
-3CNQqqp3kxQyHrWncDJLNnRbS8Jm55KG9hlDe8LoTtPF3XgI6Cum20AMKxir3DbzXej4lI8jqElD
-bfLyS/AkRv3YmNpQbZtwtlG50Yo7tp/ch6O5UxFziQiF6OIMoj96m2tvSN7y9B4Owz5sXDbeCKYt
-f59ZDmRVFiJ/bgO4l2+MMpUFoegj3fxE7s5aZRpz1J1H/MM68zG1PB9uX+wexayWXsYWP5kMv59K
-HuhA04BSWhDALXsuPe6qtQPvNtqHGCFkDbQx+b3LoTJY7C7J9Kqvg98RNYFmfoAinzY4xp+0dgAx
-biciLZFOdFYAyOB2tlMHMc9obNY59WW5IIsDVZD5NDKg0F1fqwl9mRenuDNsQFtHcov83F8Ew97O
-B6ASxta98pHXFubCDC7tVkUCWYh/E+VjA7kO+09dal+P5Ovy0s2xfkAoMheF1g8WcTW8kuo/pmwl
-r4hDxHVAcwbzR0FzucNanzrgdzEP/X0c/t8eOtsyKLTu2UyAS/HSzZdHrkNfxZsnCYJruzqg8yWc
-lIPrPutKikvwswEFUxgQeZZroivgJA0sGMvBmGo5ivY9DpFk4rNPHJxCiu9i8kcOEWUYv9W9odpr
-mT2KDr6Uh+qvFZeghVq6khvZ3xfKaRt7B8UXjy5KWM9wnLUuQxTZyCmBEE0CuSom3VLyxSi9SFCw
-Stak02xfdc6ezJ5NAYTbWWFHsSlv5ye1EwnsuMUkk6XPJ978tMKCfouJvPHee1r1OgfBfIpYDDmB
-pDrqRPtK7Sz9puOcVSYhGdhQtVgpis7gluXtRdjxxfKhaGvsw/YdPWPANxqrg3fLtx1vUaVdXceq
-pMndrqIDTTkKdb9GqQjfCXMrbq3Un+zEQCv8QsLIRgRHccmEBLdr6m8hmk9X5MYqeuOOrIvQ2wif
-6DD4kAvG9/vRaJ+G3NAJObpyIUfs0Nit6ihz1ZNfY6+dRmH3HtxBNu8w997cNry8weAXH1sB381h
-ZRhhdivpBKF1DDnDvmN99tjJSHdbfuGGbOGEAZQP7F19XlE1ThqHKMVux17fy0r7Cdu4UZW+VEsY
-aSlOmSEWNX7nBkGYA2pPAxzttFGs3TKTMLnDqT2UKXBSSJHZNvma3Cr9aoIJ0Ao0pfu3zk15ofc6
-bmxRcztB9lzw9y3eE8B5hbo6KkZAZznNUBClBIvDrVNiPuXk5BOtKpFcbEMBfJVp+A2GrOpeAjtO
-7JHaxHuqQHJ1SRWaFODFAkLogkzFOrke6GR5X8x5H69jzy5R3G0ssx7laK5nO6VezTNOUx5IQL3l
-hydtssG59fjOgOrzekp+zyIWcG5PvyxGUsKB3pVyosFkorPcbmk/SKwSg3riodi/2khBecV6qVr6
-2eM1NZP5V2/nZGCHBMv3Y7egwHqVLX5zG8m8QAA9Sa+tDDtX9/Lv15fH7tPQwwAy2Dyt5SNtor+t
-24N/8ECtL2a0DCqchgeD/PEcS2zg6nnXfqqbv+9+ZOV6RPga48Wcd6NMIj388hHAC1euJ0/NjU4p
-n3U/7804nNg2mQ6yCOV/Wl1ZwSegLewzwLiIBj3DrgBGOHtGctZL7otSbPQyoQMWEiqQ/Mih5zLu
-xwQlkGuigNIduFo+vYTKqQSdsfF28g52QlpA2VbzAoTXlfHvR/lam6xn9anx4FYf8BSHAcDGZW66
-Jaqo+Kl1S8lle3Oe/wnVf2C0zKnEhTFcNc6qZgb5h8TXZ+6j7zaKdWYZJJ/XZx/qRlrAerw2Iy0f
-1Vcn4TcDWVYn2EjyTLfK+ze4KUjlC470ivHJbNdOA68VDSPf/e0fv/D4jP3CaQBUffb2/bdJHG08
-lEdVywKsolH3cu8J71NaMA2bKc633GCYoTCKP+AaX6TNNfhSqb1EFY2obYIXILKwRnwyoFfRXkfB
-nSCCOkfdHr8sTU3IqiHax8YB8vpXe/QlO/9WFex5EBtLMqwl0AXwaJqMAWGO11gLLn7djvaBLN4d
-esl7rP4MH1/LApjM74gluy0JYSCRiIJLI3wwjaKZWQx6ReXj+TE7peOEMCuBEbqaA3Y+LJLcIFCu
-TKoJHnwu3j4JIz59RPj74uYHOzmtyo4gngOHTZNhgMIpJXbDtN45eWdQq06rEvm4PT0/8FGiDPY1
-T+tXmvyh/nWfmm+j2d5E4iuNEYUJlb/x2Ks3z9CiGQD3NAD6lPwGklFuJypcC8kGSpysAjaOdHHF
-sjzHWri3KUKmCmJ+L5bGeU2FOAuG/DlbinkhOk8RtsToy9qJnPKp31NVSYgEqwYWweWBiZ02UQy0
-HsqrdGdZ6IIOJe6YRWqWuBBbbXTZOJU+JHuGsccDURnqsBnI+gom1EZvMLoKP9Ugt4xgdsuk4nEr
-tJWKslxjZOCx2G8Yt0uVuYS6k76NSkNvRopEU2X+nDnhLP4sB035IvxpBI0Te6hIuAR26yyIHYDm
-orseljiSi/z3dp4PWO4e4OUJqQ99ICjdsPtnHKikCaekbtuwmZuugN6btlAExgCpuEu2yPtKcDVY
-BvckeVYUUDfBZWkl3ZV0wweKmftyUFVAtCy2O/YlVUllCcq9cPw73iJyC4K3Q5hLXdCZVo4qYZf7
-krTagIJRPFOHAHc8GjVAVzK7WWBOdeNjmIWAnENgJKZZC4tmd6MLBPSweQGSOt9O7gmYIPpOpuu0
-SoPSJTJGrQn/EkFbTFJc/mGFNnLZ92Ec9Gr2wLbEjxE9ApSofafGWdbJWWFX3XvL9LBBDV5Wuqjr
-wNpABe+7aMyYg4/CDtTShK4/lHwkL6gj7DyWnyorFcUz2sQm7CmarqkhQkN9Fl2AlasJBvXnTPGO
-IIx7/bPwbfrn2/ykf6Fa8EZtiwR1ItJtn6sgc0lHZSCOeP2hVb5ewyzXFMF5XERKsGBUtul/gzJU
-/K4Zn0Qh13tDO5xCleCDcmmzVcvS9zNwnhG0CPtGTRYOcpcLdK33hFXLC+Byzp0ZkyqxsltBXZVV
-oFgB0/n7sW2XojADNE290+YUV7/jnCt2p2n0ROWFXaoGhmGOL3FaG9jhhQWz+UHGUw3tBUNCB34q
-PZzoXykLh8V1VUsoKOcLcuo6U/3kB2JN/aW9/YrvIbIr6RGZ80Fxmg0iVJ11xHCYYNl6Ik1UqVS3
-UM89aL5grMjde1xWc3WMswR9C2ev5miC42XRtkq164qcYlowHkn7I9lcmZ46urCQL1WJlZQVvfaf
-xZ3yG/Hb1K/pY5zowxJOgG2THwpnoDCgVrDdEp0gcbm/V6hTHbyVHZK7IxtFOQYL0UASH4DxAeS7
-IhPIIP6CnjvgSQJSLyUovWTTnHfw2LitSSJjk6QdItYFeNv+0TggsbDNexzB4EQ24XI1XOvrZgQj
-WcukMvYjhdatgcJOMdlftFgR6MzqtR16YQF/9bawY94TOHrrNMRl2QWCHHQV+GdUpQ0JO893csOC
-AKGBxpsi7esDKqTdxPd+0OxkOQZKrBE7j2Ds3HFj6dAikWhDoRAegMOtdh6qDukUYvy326P1Ooke
-NgvFGyzsmW97b1TZP7MFeHPORcTeyDGYy+cHrkvT4B+8yqsresqUXvY/vDhJBAK2aT4RXsZVivDs
-M9Q7oKKmC+eDfupRG/B+QG6eK/rOMduiclNbFGljAeth5h7S85YTDj2I2oU+h+rOL33H6ZwBYcNC
-DTM7lrOwMRn/pJb9WZIzn9w+Jf0mCBQ7lKLB5KtqkOpCZ3frhk0uQ+Q5LVILM1LlSglLTHj+MLqG
-fFEdtUI2gt0gRJkdi4sJRxQzv4M7lqBObf9USrfP8pLHv1uzTIPNZ2DGdt9RXv3jZQPEHXL13VFa
-jzH+jrIvdK+ttLM5a2wQ3/j0TmJa7plgTTtZS1dLj7frfLd+4nnrS50KymcIEVzp8SusjJgUv2UN
-Ior4xgn/cV1E0FU29d3bFq4f3aFR+Zdurzj+OtgdSv7rp7p5nco3N/hnXe/LjflB3hMjqM5oXdNx
-OPZLFffD21BdnUsmXU+NIKJ2iH5N84g0BIcC6zVNdHyiWy+UM37uq9SsRnmqGoLdFb9dqBnvOp2l
-N2pprfvEubZ24cZPzPUeAMtHt+W4AnUyTT3NiypwkPcSYFBbSMYvzR7TK6fJTsP81fnYlwPY5SJc
-lgMGq/plH0DlgVOc1AIJULX6J6OTuBUi+mjnlINT/mhRLz1jH2/vfSrtCcVGbniAgi3c8cgb8KNE
-a13zo0lJuen0LF8jVCqvvLgXsJXQ2d/hkZDO6XeLcsxdKbWo8RAqrphWQL0FV9JbtqWcf74F9sfY
-NschsGJ8RkzRsI2emzFSe4iug29KKiuKVpAbyZ2o8VMO3yBy1Vxwq8g+GEhBak1Wz7OLcawFCPOS
-kvF7Q5ROJYzrjsGPR9SsebKnkkMpagf9R4kn96WoNij51CZlHLN1+HHerI+sZoXf+DahevHp+AYj
-y2H3zJICSYt2l+ANRjrpUUYTlpTYRBGz63l0w7jqRL5VzmoQlryW9euGx+c3wwt/XNBFaf9h5aDr
-M1pxqxttaN+3XEslMSh1vLyIWdtGvQ8CVdkKd1Y3If/jCXDmflPSwUuMFSi+XXiUWxuc7kdUSlz9
-/PwGbBquk7Rj1cPZ7X9D3iyEl42E7yiKRkBky5ah8gCSpKv8dY5C9mEU7fg9UPvq9paQ2ghiCQJW
-vBOH63SnaEPDiisdrzSTdCfu+S2S8lxE3cl836SFrEDs9QN+k6CvYE7ICssepObbrXMElcdhSBRd
-gVNhCYLT3uxI0UCdjLokBvTKu/y5ss63q6s3XHxpZhSRs1F1MNARSQuYk0AiL9oFYuREZMpja8SS
-OI+bH/hqW2P5EvcNSaHajEf53b1OPFKoCfk5GlDXs1WjrNshiun3cdaLA/QRGq1IgeqmFu5WM9xz
-U2vE/zzH1Zwm7T43jdUc2EoxS5v0f40Y8yS1/wpuse0WUPUd/71GfRUmiUhkkLR85p7LetJIUD8s
-8EYEKkU8mNh/mqE7iZsAuflAG/e1xJ0kKyC2jH+H30jakLOp6n+TEWaV7qVLnNWtByIq73QAMX48
-kvKTpdfceXJk1cm1PJMe/iQ0b+YUuZVnGydqN3BIUosF2YeQqfGH6wpepAfiRDqGVgjTRzGm9FTW
-zaq+R1jH2LqtUGgbpI71S6RyBZ7uYO78yvaHKdBb8wKMkDKmU9ktsnB70Z6pOLZ3xR35+f829rvX
-VdEqMaSPGpUQQrY5M4jEd5ZnjwgkSktyjEEWIhrblOfpHgXkGYw0JiTnNVqILGFmMoso+Ac/rIF/
-FNCvGgL+881LHT1sdrhTZHxzNmGQ9kSm8ORYKcG2jH2eudF25aZzDhMCCHiuvJRs2GZPfiuboA/t
-4eRm2AKUEs8quWyx8Urvqz8u1YqREiXsjXhjw7FJ0OI+wevUhoy96Gq2ITuVgoZ2Pk01FQKzATF+
-tgrWYvZiKxIMEX+Ew2RQGr6WBlBwe1hGfYJBKx1ueN7IrcoSygfDU+XXgKcspi6vXLUmEJ3CI8tx
-X9L8CRwOf+vZICwMhKoE3zs9OaP8GxdwHnB163L0NsddGu7BdZ7ddJKBV1yMknl5TDnEsV0hsUAS
-3Md1KQ+iQkWhd1QySQ/offkwa09DJSaGGJ0kNV+0SwTeMKmvvr1oXpTMkg9tS0GK91H/X7Eowfod
-bYnJJPTi3zxI7YCmj2kktnOVC5nmtA3GWBn4hZzRr3c6PDsYKnICScX9hBH+4DGglUUjfflGVzXW
-v3PQKFrWPZjRC1JunNbYFbAnIRxDRFc+8W38MUg0gVDsRjijjVkrEYlVx62jNhCI+l7HWCsWRbgU
-zIfSkfNruHUa7ZgeIUKQUzYbN2yJMT/GgMzCpzpaX5Zzuw9zbVv6pA+s+MwnwrlZk/shTtHkecwE
-uz7RsZjQ5GxmtyyMM3TSzec5v0cOn4QX0ZLltYkBfmxoTm4KRYFJRr57IbjtN4wVguBh+1Qirtic
-/nLgpXw2OAobj4ge7/3rEnblFQl3qgqi9GUv3pqbUuHnNTDBet8X02HMsJgL99SQL/GWwY1eA10c
-yxl7+9n2VlcHnFisq3PyAIOQj3AxVYbAEJlGv8JWh/W3y6Li/iq3pbWMh6UKIn8x1+64YpLjjOib
-Ttg8kgMq1jKDr8XNkK836Ux/GAcOZ6l7rUXFAcF3iYMXPr0/SR1WhNd5yBEtggLodArk4UszaV4H
-1KFKbZeq6vZ0qfvOzBIGBqonojWDw50ZNn1Wy9XvSbJqwvo8cs/Tq4loLFkSd8FjimdgcSq6tERc
-kiPhXbyoLA7VOyw3omw5vnYmp6owiUzxN6YXadtUT4w4iU8ZnKrJ2DURIS2MCKh0GzUpVk+OH/eI
-YRy8U7rwC5v8YSqER+bbgn8a8iAQZtR4qkTHaAdw6Qf6jSWligyecPeG17mSlNUp/28zIE4IKCZn
-JQpp4kXucXpKy6eBtPoal1cfl1Yv8jfG2IrOfB7lokSqnT3TWph60MIhyHBuw+Z0y2ubbwiNJDza
-JxrdZ9YWY7DtuvZe7axesAEhO/3jZq+J0NR/h6aXo1vrSRlV41QJ3d2y3rbKmChXp/2Yya5fUzMA
-tozVDfV9cLSd8dovuJK1B9VS810QniRIdPnO85iGqrWRrsG5ULfnVk3wKxhQaehbZdoC9ORH9qx3
-S4o1Ulz2ki2Z+YSsVgoSyP1OBoqie6cXm1lAkPibzGtGunQONpJU/S/GQAndV5t34g4hafBpClAs
-AGXVXj8MVWOBo1+HkukczPchVAEqrGZ5kKZlj36MFzpdFi9KFIEUu/RRshHzwWOkfw1GpXXQ/MbB
-Va/M80PpgJGeIbZiukTzjfur+3FJqEevmiAR49LEHjpEg4STHxGoEjuKnsREjwHcnzhUDXux/Hhd
-2vWmyC15Zyqb9FSupoJVmHr0oiT5y4WomFzgFUsEoTd+scc9i3rqIMcNJ4b4RwEWSpPqOLkVzHTd
-qUzHmjbrqzzw0kaGSwE95PVk3dp6uOAk/ENomxwphP4x4ScQadaUaprVvjJ/8UkVfzeIcuGmxPGW
-heAu2y19GZT9ns+LBWqsCnWkUwVmkd14OcrJ4FS5rmfCftEcTxQNPoj1nGm26Os6LbD/JP+XXvvA
-Q7M0pvMGXoLrMeBmcbCbZEx2+mIrfvfYD76H7LcQjodrWoCZLNxibRmQnwcn6FL8Han9QlhjJelC
-meCw9QIDJalpz+R8m+Duq6NeSKpUoVkq4YYmxvc7Ab5xijROqR4beNKErn3M7+oRsVJ+nI9tY4xe
-ThwUcK5FXwAYx1P0xQrIbp21yg8u7Isr45ZgLFslh/FOhEWrs6DCeo+SvHmCFj1YK0laHvP+415k
-FsQHOA0rSGR+f759DakU07T7DPBUZuJUeks3L8i7pxryGMoqhk5S72GNZYq7QlpPbn1sYTHuPa7H
-vcwOWK/ZK8fC4zI6gYESn+MUqZty7gB65tX1vfl7uwgt5XQzKMyrILU/GcvOsX9rFZuE+miIL5SZ
-VOBZLCD/UccUQtDICJxslZq2GusZ2+fE/KdfpTgTbciN5qoRJIArIgAwJHHeOOCMH7wvlQIwKlpG
-Tg7AAI0hZBFNfbtYNiWDYR/Pg3NnH2+ErxtFShLRU89LadqcFpQ5OVUx6p5aSsQHWwY10ZJcel1b
-7bOmdo02mLs+pWsL/rm/AgxJLRodsNnDq4mCDsGNllIGOBo6srUFDasLKxbXILIvVpID8o/S+6TW
-RnatvwRkNNk1zQGsAWy7Gef8BieYakSqVQ82es4Wtq9MxRNJKNBfB+C2FJBPI7L8afRnyUNMn77T
-exD2nH7hwbxWw/3ipd6NE6aHmZikcIhvwzDn/Lvgrg25/M63b5aYdVUyVghVy+zVH86OVUSib8oc
-n7bqOgTogM2lFYUNnLnlxzI0INWdX4vg6OZauMPIWULXoXFr97xv313LsFOpX0Jxd03Tnp15lqwy
-U7iLruBGJg8j2gA8ecbBEDmxP+FsFb9/+5VoesVxmMSZz25LpL51gw6Nhmm0GvqD5o+KuY8szPgb
-8vfpDkotX7f5+ke3VFzKzO/kh2uxV/APvRgOVD1rfBy1mr5BDiUhKtJ8EV7zSRodMTwsQd8fx3kN
-WA56ZOx0veHlMzrfZ4/yvoS/AxV1m6piqJV+TyJW0E/VIOv18Abzd5BjKtG9fzH4/blhSbKiwHAT
-UlaPtghfz403IJB2ayCN6eHTiP8hL4fM3wvCPQ+3tQi4inyf/nwJIWtO+tR/wgIQ8CnCjYBhesuw
-a7GmXaPHfLKt5sFS9LnsPrtcO9dGl80hfIQI1GjIP5YNkFajb/nB/6y5fvVgHBTsBdJX6evNyqbT
-SPkbr5Sr+xrW9DkXv7pVBpqlR/JCuJcGo74+I1Nitn+ckyDAQK2cGWyu4kj+w6RgF/ACkFvQvaJs
-ZoyrZfWS9UolACjVyGT2TG3PHQwHNMeMaCkGU2sW0oIU81463hrcOAJ0NVHwwaU+wF8MRkPnCfqZ
-X18NbSMXPG7vVZI5zl3VeG+xDxT6XbxkQ94Wz7UuSgfRQoeJX70wHTvSi/Kq3+EBr3iEvz7v4+WK
-Jk1CNZ81DdWqFTg27k+jTgYqp8YIjMgOfz4JCfp22F0oTf+wUeyVxQov4PprjyztwDYMTWOFqeFL
-7dx0PF8lCe/JSEjKZE+kxnGCcEX9U2bnPZsYtrSlBWgdeBA33GPyt/ybQHuuVH5sAvVQnPUGUDzR
-UUF1UDCmfmr8LvTZmVHx9oflKS0YrpJCBwVC4UWs1acYMl03FeZztG7rAzF1cAGG0KMOxdSe2Tzt
-RVobOe7tHnKU5jP3kopGawbAxQNP1amUGqB7EwECEsDbzcwMa4LK9XoC26cyllgeNzqOXH50gLFk
-TY9r8UZ3KPFxeh54wO2hYXypSd3dZdax1E9kz/kZ5yK6uZrPyl7It46MGbq1CL04o85rqufmdbly
-e/Zv/T758V8Xq9tAgCc3gbpPFyT3hLE4DcBBgy07gZ63zSNBPOEnyI7St07Kccq2wETZ+D8MY28V
-OT4GpbqIAt7+LML7sfxarnBMq9D9Q1oTle3wxJgmZa6v9khOpM1BU8RqwA7EK83TRouP5/yHykJ4
-m18sHKh+AwpjZGv3VlFxRXlSeHFuUVdtV5lvrR58lJ+aRQW90BKYItdVUGXZq97fa5mOeLCi+c35
-Y+A8++WEVR0FVswwwUh2HxjPo0up4ltXQlgKRSIWDVCCeUebH0yCmJI5bo18L+TNUn5vrafIHOcK
-FQzP0+xqG1lQYqcL8I/1PiAoegikyaFdW4FfqGO1Jd4h5fsn8+xz1IFooQotuO09vxu55qria/Et
-iuww+0nvyJvLuSGnCn75GCciRjOzRibEa0rpbXJ6p0dvmN8TyLF7tPzkHDW09cGhKi9RuyP1/y1i
-E8uREkAFhCGFhV+ZKZG0IQaawBK98Bez/vvUWJljCEEabBGaIup4+XW+SGJbQXpfQ5fk4FzbBfQv
-mv/dTUfLzlRsOobtlEkiC3jQRDGKK2WZYGUK/S150VNMCGBITBQQl2LBllBowI8G2/uH8BuIAIRW
-gp2onhgqd2Zj9SgY4dz+1RUFnxHZ5uKLDn6nMk7rfAWUDQZ7aXJoy8P0RpWDSbVM2GiElTBPGd0/
-xS87c75BhtriVykEsDh7ziKvIlId/IJe7S1p31fD8i1EjkYjKG+GHFRW+hLK783DVvccjMqnq8qB
-u8vIvdHU+2TxX3yZn9WBN1wjLeO/FzkB7r6N8fgO4dgr4GQk7UnyGUmdoVC/nS4x1R6hV4nYlRmT
-j3x71eSvUwmEzJbM6g2YqWrjtqQpi2xMNO7zHhuCc6tvKerSbMTjxh2WgBJ+u8h2rLrP+fJ3pSPY
-/cnyvdah3X1pWJW+MqWpW4p0M2LLQolRA1jgKhoG3o2n/Q1pwoQCuIESE0Ut9H1J4FzPjyQi9tUj
-+G2kLxnvml1Rou/umGlRp/D3NQG/tk9O/I5WTPMMKPP3gKQ/bpB03p3mQnO+MLUFSyIVh0GJxpd8
-Zfo+t9JZswgH7RyxaTBTiS5KmXhVShH1YGpFf0vjH2u0PrTbQBaaQZbV25GqG38koXEte9fxKT4W
-rBNAt3UHaFg9sDXCzMhlHKSTQ0UejjGZ1eQWKO9LhxrPhC6QL57XTlI9Z8fv7rKcG/ahrWf0ojw1
-1LsZLi182jns3iI2cOla8Lw1COhgbgd4TM0HBV/RE5scQgOgd7cIbBt+CSnZnjFmPn+9ueaq1C7P
-INGJrGqROgDG1nUH5zn/uVwTqebEqAAGzECoD5SHu2AUgNJRfXbb9qeInCvgaVOqVA8fKWdYkhEt
-vtwzc7E6Kgv2uxT4aYxMJXvoMHd+1xox3njC+psNofq0D8NPmH2Pbgxl0vrs/QYicarTJsv7Gk/E
-DPot03UrKAa1nLTIxiq4+V5v1dNCJ6yspWEYFV5zVNNBJ9kkWEFnXVQEPB6bK77q4wDQsLHEq/0P
-kUab1Rpc8+anXUfcaeCSwuRXvxrd0jhKApGkwo2xrFewCZgcmhCYBQcFSdSQ2215MxKU3jwOGWvu
-Aa5IwClCtfab7shNLRYZMAaFAwo2q8WlJhGE6WhwncCeJytwQ/0bSoh+HWq48A71P37Hj6qCZ3YL
-Hz6fieJl8zMGMt5X0+lcnOF4TLQY2pI5H8K2oSlfLXLp0J1qHqhkoTUbfhQPXavYPjpCfQAg9XYm
-pqRo8K5M5cd/TnR2cvvkrY2j5BVX1PCkS1gzw09nxYIARQV4Bm2OgxAodtRofYvuPegqROCwXFCl
-xGcOC9Fx9gdD0ahPHj8iGRgli5cA6EsgPGnlit4hMixhYqxKv0iJOB+dFQSOYhDQEPN78x9n2Xuw
-N8jhMiiP+P7QuOOrPVClfEjOr06TtxGNKAMRl4FzHd0uruY5f/ywYr2oqwjPl07KroZ/geOEgU78
-SA7l2JsLfU65mmsGixLIpAv5VenuAkkkiIc4n942UvqBtaX9oV4LrN3Xe/OabQuqW0YB57Hk0ARS
-N5Nb6CPW8QGQx7uNg/OB+r2XtbW68kwURTwXt68Ir10KNX1Ro4ymRiyxcp0SjIoGjGx2J6Er+rzR
-ES9LO0QywkdN7bFZI8UyRKxOstnzRifRi4sj4jZZSA4UP+YR/Pf591+CT1F+cyAbA+kVn4UTjoj2
-f3EgZceJIi1mKqWXBq3ZR0pX7SS/QBUKuFpbOrUCbn6yahlf8XPBgAQPEvswFNhUY1K/kWrpuxW3
-wOkKidbIOoNwCcTwH4Wzo58eFwQUjYSoZgIDOxBbubU+WLoGFpL838H3Yb+iJBHjaFhz1dP41Wdi
-Ekax1fSFwVW1Dmp9RMfRcUcNaRkNyeIeW6rizjor3xgGyZNMw3I4IfZsLBi+Cj+hkngGmPcmeGO2
-nkuVJ6iCnn91W1W/XpeIKy95kaVPFeAum5a+i6whiPw49i/Bcryljyh/6uoH59d7A8sHqnOra1Qj
-rVdIX+XG8XhkTCs4/5+elMJiwE3dhrNLX7BxAHN3eoYvXE1H2VzCXRvuzVeGh/l2lgDfiMQa4nHH
-U7EPnyQ1D/tva6EKeUGx6cLikZUxr9FVP0A6Kqrz5JGpfHQRAjQ4w7xkcHHHDmvUtrZzb2d8bphV
-hx2RH+s4q5bKxD65EFiMoZqPfi9TKmWf4E7TD9tZNQK1vs+rnezKK+JwMAaN2/WwwvGRM9apRxAv
-B2DSYEIBwA8SaV//qBr9gurcczwC3WS5VZkSOqFFxqxgnvcchSht0/GOXUa3pDVOJ2UCHxJw1wcs
-eedlEqtpxKcHVAsjIesJ32fPlm/jkPXBdPK0sBUIU1fm3xQhvUY7964hBbFFfgzj4qs8nPS7akNR
-ETGBper8eCDK8zUBxTafxGcG71k7z9H0f6LXc966aVbkaPYex6VN1JiaJjGTrlFxNTmE3TpPazvo
-t8vkQTWtYAqdlFVhWI+nYAwzkW5kdV5Gxi0PS7ZoOKuBkqlL502qWpBc6giHnYiE8ZUJNuTY929a
-9eFtyZHteN3wMeLH1Hvwg1VVjqtlZDpHL6Tf9mlUbQHR4WHRXYlx9C5l4uo5knv+BXWH6d8lt0Rn
-8CbnKT58zlH++luumUSsNErOaK4CMOTqMguCpdnp4hcN5sugFGzZVmvH+hl0trYsYhAc1a84sO+F
-qfEdOq7IeFhUQZ3QxQpkK1PrvwW/N6kq8R95cV/2fHZ86beQzne2wvZQ4Uz22oFcR+OIKUIcTISP
-To3sEl+X/pqlxQpmJf2ZQkGQT2bNtMoYyc9r8Od838f/kkjFWmz1dAWWenbspkTFRxLuPeZtRiQt
-zDn+6MF8zf78KFy7D+btGQc5uk4LonNtn+VZkHGzqLuhZaT6Vdf5VaQ+3R8O9nF1V9FC5AhHwbJX
-yfoGnjzjkOuPaDhkm4P1kgDZ9NzQAqHpm5Wet0LFDFhcTwkp05k9Ay8HP0fCQCcQNvujS00IhJOP
-MtmkEsZktPnsJ/sRKQLxmPFrWhXY6769edqI5WdYDpAySStxVnNN133eAHpEPbMuIJVwtXjtrJ5t
-s5nGXWpRIWdTnSsVdKfoKYXC7Xv2CPj5kurJGwNV6L8e/x/T5MAklqpea05aSeBq6s9dU2Vfb6So
-Jb+tYmIOHHRorvFaqsWz2AftqXNPz+rMip+/BDqfm9zfk8z59BBEH92NaLp/rRGzM8YJ1t25Xkfr
-fvTrwCUiA67WolGb75WK4CqOC/fDzoqhxJLYDfYORooj3hypkJS+75jNgfrAYwCCvJuKKXgXPdkr
-m3jD8D8cHF3iGAXO4sH050OPYWzkIuIF70LCHzZnKKQ4nVzLp6188EsIOWvUj8nvmkQivd9W8I57
-7BxjGCM+GqT6HVfxaatLUj1lWQpD/rp8+8LAj71iUXSSjYRYwnQkYts+KwjUWVdoRReCa+ZRYFQA
-Ze5Wp3B/2o3TGWQkSWO5ZPuoqYmOcGLhSXfc6fbIsoxOhF6Vb0EnJJzJ1/DjK0BwOdn0G1L3aSAG
-8csmlrS+w5O0nBujez7W3eq2QcYHFfFejj4zevD6ngv/xtrAmDt5vxbwaB63u8/KMPx2Y/9vo1l0
-78NvdVUxKVDUmvKZxjfn9v1Prt8NyA/h6ItDoA9CLsDKxnh2EFaRATlg1dSXKo75CDesT34dD4vg
-HwTq2W7f3yu4vwGOXluBfnnFhCNXNmUE9KJ5bac0iEbgT+0Sal89WZ/eZKFyQZDZK1+jwD+7koo8
-zi0SPtcUKkSbaNlw3YWq8ghuK+Aah96apviLp1t7BvBuK//KvXJpPJ9oqmMX6wZZgnQdydr+7t56
-/H++VGeLNO2vXJsq5i5CyY0tNrbveF9p26w08VJbQI8gsuLHZDQkM/qogwGzByjgXLntGFh3AVVa
-wMYwB3TzrZ/d+O8D8blq1WnB/zSRUtf8Q2yKItM5Cd83nf5aZnMTZkOzhseodAh9Rk0qtWo6akgS
-ToHLGBIe6JIdvvUu6i7ggOaIdxSdUTMRB+z5YCv/yyz/31BLrg7eSPZaUmahiB7tmMznXNPd5luG
-CYqUcDq/cSxwwVAClyUS3m7WxMH/zhYWsIzKg/AGtWjrE4xvC0yKaFsGtIdgGpAE1DW/Ew8myy+w
-IHYZrvH4jazuhBaAIbOVSwHvKL2rRPYIcfmnRg50h5DQcP8n19Duz8KCk3Mod54h46j6q+PIW0Gj
-4+659dukXYE95IPalfwkoiJdbLFGd3cpFRkm1iMcvvuKiTjOhGBilK6/KLqMLQOf9NTgOW0mTlNr
-aT445Fo4pWvOYuMZWCiTwKXvQmNyxmEL47Ij1DiemebIwD6XgrShfzoqMbL9HbIuDzNdAlsua60Y
-wemGqMivV7icb8AmvL0dhnu+X8LJI9IGbF1xxcOX2erRURAAW1qHuFWsvpJcY9dAgWMAgYJIgehS
-sn39PES9x+IjfsqZsxiI1XClNVML+Efe2NSQBBbDNyJL3H8fUXsTxTzgxcYyp+cVqmPP9xYsetoq
-YjAo25HJkVD4iKW+oxmhZrRms7K4vAZnUwXcY5y/+xKP88DADy37utYxP4iEG9YzqGtJq9fTgyhf
-uZPiFd7VXGjfcyp+KYBkXNI2ckSbmiJUN51xGXeXbpSHiLDPRXEi+9i++z5Z9LlsM9bpo6BNeCxk
-5wGFqjzYUFxcnIxGFex9wjJP9Ui9TzltgvqJ3c4Qqauq0m9zrcjRTK8G35jQE3/to26adwRmq+J8
-PeOgqBPjpjUK59ny5bn5KNqvrbkZo7xFgrcfyFgCX6p5XMz8fOGnMzFPZHG58inN+WyewKo1oG1M
-WPyXrm3OVcOuzLN5Qcl0avt/+xbKaXWqjZ2RRCxQuiUey2sUNa0Ntd6mA9NsIc0C8aIEm45XiMGO
-u1o+IiTCuBAj/eb3Ae8bXEfrEOolR9S7RN4Yo9vAhiGt8UIDex6pMVqe+wbqaNDtraU2GI5JIewp
-C8iKBsiJpOgxQMlbk0zQDx90YSWI8DS+xplCaFR2l6Sw/Cr6ydBMUNfdsoIOPmWh2jyENO1jf+Cz
-k48Y5kvZmXsmIwv4CxJtvd18cts6K4dk4vOKs+7yyKUBg+Qre/kda4lrPQ3uSrXNpv2fmZgRvbG6
-QtyRguc35YSfDPmZP2KNV5ewVWphAgvMRzWEBOx/phV9o48EJadPw5tvEpsCevC8M5g1/bu+s3sr
-Vu3KALnl2+pRtneEwHtQ8/+IlHa/K/ndOTK98ntTyRWQYyhvLI+wQXi6EyYBxymCz1Cu3WNgOyuT
-f9sVvgHdGtaOH82/9u78PuylFvCJWMQ8Mp+cBOE9E30Y3yBDkUa8Yiklv0joCamb2LmRh8dt6gop
-6Bcg4dvMva7ofkMPT7L6JtyjOX2lCj2/s92sikIqijDg4zhYu4J4ymXvcn0WL7NbTBGGqNL822nd
-IXqZUxKspQ1MgkGfyaCf8idsA360FXkwKwnJHHSE68ygDDYAGJKfrfxtp/4IpS13YBSkU8llJnHN
-bsmZ5IJLLT61KskmQMI2RDUHmmS3VAAI1DmrLvqC7kHn7NKhmow2jb7uBBm5oFo1tzzLrLFbpjqM
-M1MO8jIgqPlJ2CX7g538MW9ZEpXvtmFGRLAFYalDi0fbXbp5zapZ4GCiFZqvDPQHlUdAgYdALAau
-d7l9aN6o5s27XXEkoW65+v9si6sfBulCHfeCQIg1YSWHmOKxtfhekGXzL/SdTBWruHIDTrh1vJz9
-CtY68R02KfkxLOZlMfKIbvGqOLKqHDvfDBi42mkecD12BTPsojqSg1Vxiz5xvzaAgVifJ4K80Q8l
-jqJoRXwaTcPVyhdb3OjPKm2tP7b8IWcS0Y4mcq7hBA9cXVaSQvgKciYQAijFIUapjUbn75fzdQux
-XIfr/rPSlR5D/8zY1YMdpzNnG3OzlgYqbHqRJw7HZHvTRqNkub1bDifQ18WbIWsz0ZKeXVqntHbg
-sXxJownQ+7bYOx6XpONsU4xKUYo1JDAfKMhIr1xS5r/ZpqQm0KIpjCzr/2lqqJrl+d4livW5cCOA
-zN5V30C/aXdfH6AKT4sDK4dN3b8/i0hopoUy5KRrXS3eOfZBtaLMDprzDOaav35J1Hcj5GcIM7AM
-92phyMnnHLvNvAq+aad+zCnFYglnANC/lMZgqVgD0I53N7kDCub+JBz7ovqb01HLv/7IiQhTZhxr
-048o90ddmk6n54vFwPgm8VMNThkQRIB/JtdfRr45+s94s3kN/vJtnIDDBjHbpnxNBhow3Hoj/ugJ
-bszDPqbAnMAVEXlLDFCGS+H8hpDt7nLtz58PzTbRWOXZToeUgxZ+S0NE9aU2StXyFLQAjJVDRdkz
-z09HTSRpDM6efzXb4X6xGddjy3GOroyKVij6SUCUdPqUiQGk2SWG87T9k2AcnVOsVr+W+S4MO8GU
-sjr2nQr7oaccNjsZXWkUFxqgZgVe9kNqgYib0ZlfJZ6g29NpQ+oqAlCs/kuafXf7NABkKCfE4hr0
-7fZ58psgsA1a/FNAuzPEbC3xYgII/nelAVa+UJwI8zbGpCYDXd1fXDZ3MIu20/qpOeQ+oa8LvzFB
-rV3waYFO+F1oIl+Wdf+gA0NcSr1SDPk2kbCpRguYEJlB/5viDVm9du3wmeF9c9gTX+UpVPSHfIef
-hPOYZHSXw/e2ADeSq4hs/+/xrOXWobRWwjaEFbq+Ss5M3ontCLqMgDDSWgxMMWE3OFOu2KWRRPI/
-klzKMUw2efkLY4bsWDcDlrfjsiDvZF3kBa+3uVvel34FGiZwJxyjX8eA5w7KSkARsvwQneb3QdyO
-daLNM2P1VE6Sit0L+aE45YJLNA86I9WVJnqLCYDjWKeOrQfw4LgLWHNRoo8ps86ZaeA4YZJAU1c1
-1REslQicpxpmdQ48TC/vwyVeeEgRxvf9mC3rO8DBZNLdnGHgVQeOrUmMa2vvLuTBTiFF+H1+Rt9V
-DkfmfE3Wb0ijrbHCKc0xA9wvik56i2W5oLuPWYB2BRB288k/ByTVlzCocOQvr109lLa4b3VL5xHk
-Iuz9cLf/rLomI8s+qC4ouA8lYcRkZGyE04xDkTO5Jp0XJXwQpekNR2feUTFGsRxx3eaa7O9c46CU
-up+okUCUKn88P6EkbQySTScIvwtndcUgpn23ajt3WYJnbvsWAOrSRKtcj+OL1b/LnRCvq5M5EqKT
-gY2FfFw28Ruxv7gzDpFv3hiEfjUIJ+cQ89ZgTodwduY7U9crtnWC1cFS6kxBV2SDjGwhRyz2u/eW
-qKj+tvSozZSmYlYAZbtwV7gijERUf3PgMTE7Am9hx95jBiQ7hX2VaGQK4rlbhTVMN7U3c9I5Qql3
-+aCQvGtfm8TTTYF9hIzJp3qTeqcZEhbT1FmLgWoo4b9kZ9sP2EpX4lr3MUdKWiwg6Abm2h5opQ4s
-OaKKzkLI5OO32UkA6BaDxkUyy4tZHnV5Ecf81cCvbGSa9x0GkPZhJuvNjKft9XoeT6IT36rA21be
-T6lV4Hk8ooqXMN/QIKUOMCPQb6GdH4GeYp54wGputRpj4q8ebh5zgjz+mKXsv6T1UYHj2Ida34PN
-OnY9ACcpFI88D9nHaGEtRPCATzdqyv4ZMGXTqvrOGkOnRD4eNftMRGH/YeGvJF+kLsqwWSC61aYr
-2dcVu3dDvpT2wTWbJ+eVE9DXwTVSNLvirGqZfn7F3Pz0z+ua7BQ4H8fHNLxmMqZkzlu/SLzEa3sX
-Qk0wluiGfwEi9vgplYWwadJqAQVOJdjhk+9F9tcgU+kIPka/XypmaZ3ZlBLaCfCb0A+xgVUcVXlj
-gpDIB16KRsvmSSMIDuZUsPVyrrPgci4GmT1K4BmBtLQw1Bcb+UqCrWL511+nuI0OnKk43DUdSp7N
-n4PYlHuxkTYFrLfdPxlUeSWJ6to04LvH8/a3dwxiOdk9SmNqDbvTTrTpIs8EdMv5o6zJQmQJDI9+
-V80xb/TH7/ZM3WV7R3PGNiDD/z406QZEnPszjoSwOCzREXGdZTxJnDVT1ACb+Uc6z3xOmg0zYlwn
-/ALn2w77W+M54AOEMUyMIKM4jiouFbQgy99iDi+fvcMzfnIwc5mG2XCq510GODhj5xmRwZOLOH4q
-HIMI++mgh072wk56+7WuKq7orbTZYY6S6/a3Ttcdlc64HXt3EArkj1MAJsY/XxvNePcHgXC2lbKN
-XpjiIKaLIcS5JN2cJ2wBKrLoG1fdFTKBElRjtE3ivTY9eaBXtEPBWUxrHzgScJJZZHuuwTg0ev2a
-EgOTu/+9+TdGC2HXZjY7VAcjfNU+ivpZdRrBuT0bUIG4geBejCPZTepuX14xiW9MOtr/SBg0z2il
-xJksxcaWhw/T0EV8dCiCCgUR14gWObMRKPpV8JKaU/h4vyxc9mRanNSsNgtzx1fdSuPk698nP+0k
-ykEyi3RNeA2rO0RSq0eT3H/0cEA28LmZnwkK8Iz2bBxoDDj5SS6NfQZ2f4LtO2HhZUruYgGRqMdC
-Oj+SHJT1iP8DUbEXfY8vb/dvvhcmWjImrXYELcJ/WJJ1yAhW5hLFAb0zLFUq4HIQWBEY7/WhP9N3
-mpYBoA/I34GeKtuo+9sN/qn2WF8mf8AIuWcmFHP+rQRupB8OKmGwm7YMicVJgmZmIAGt9aCMMfTT
-DpQdgNr1vVpGxHXimIXR1y5XlnIdM1NX6J5gQJumPYJaK9rtR7zI+H/+yMPnjHWcvVyAa7uFL+oG
-SzyXPtlWRnOeWdz69XgUqxvAS1x8SyETKjkiAGOw1gUSoedUGWy27UPz4FE2smXfwJSsjsU2QHyW
-McIApJuzzdI/XoqiPLaVnRtlvSm4HCRU19eYxlYzyloV77QFZmeFEpFbPX+qlQuWuwTUizWbtLD1
-Bq5O0Ws7XNIp09vQN0t/ebYpuam1o7BPUzMKRRaKvy3Jm51uBNU0QBLQwPgMDPb1nvKkZSfCEZaW
-sXnFeOrdLFbo6pz6PVjMjJbm/ykYpeM+TQUaoVCmoA0twxbhgst4gFg2B+LK7ye8avF4LF8ls77E
-3iA8jLf24YXh/ymZ8utMXcCQl6m/dcWV8+PAVik0Gfpkf8wduw6YSocyvLSgAOJBSCq8PevUmqwl
-2pcs5DREk12gI2HKteGQXe5C7P14pzH3QODxmEpJga7DtdOYihOpsDLiOURD6eM3evUHZ3C7DSRk
-6mjKeKBhPklY9vNoXk35WWy87mpnxXnoOdQ5QKpPxGHRsHwxDnCOodtChxS8RMnvzNI5Tmxj1In/
-FMp9w3r7NO8kObWIugiV8gmJ6+TknX+qha/qi8YKOuujOmhkJ5pIZCLy8lZZiHKPl/8TRcojQYmC
-XIZ8RVxX+sF6+HoecOfCwt5U3MyvbbxNZwQ25MaVS/w9lSD6023/MPjSQ/pZNH+n0mRjXANUAS5s
-Ko3JuJ+jj5vYecqHBGVN22WppjwhzyX8RbMABqIYzqtoLIE7Juo1RfJ2307JSed3hO6xG5PVhCF5
-Ie5Pvcl6asTxiCZGSEZ7GRebmrvrZabESsD19lFnAGrXP31dC06/7p9gV0hFRd8HNrgZPp1wGBMZ
-TO0+ddPoI5nd5krx1Xs+Ryyc4k+ZvMHBvPw+U2JCrZxDvYcA749rM4hU+XsoLbRSyy7FzOr7NU5e
-Q8rp20le1U446rIFJja4EcMg3Epb6PvOO2Y+cJrklmOOLrV04cd40oSMsM930nMsOlP+ONcmyFx6
-2OHridRTV6ygOmmMtCPDPgrh+TLBZyk3dmuWYC4VwPCF1O/Cqo/vH2kyX+j3+NKAFTIz5agMQ5pC
-KAUEMtXP1mLnFHvZ3aM3Z9kAg4TD74Ep4w4k2l38L04Mm7wBnZ7n2oMeVF/gaqQWikOOk5VqK/WL
-fDGMreuH0gbPRq/usons7/kw70NHVO9UtQ5hoP8r8Leen/HIEeAOJnXtD2jVwHOV162CzlKSTCLk
-71c/6K3X/ytQ1Q7OyhN4CWtXyUO96Q68Z89vzCsWBDp+eztf4bHtoei2p11bJX1bNC2d0LAwIxt7
-+4BWnJiHS4zi3KCKwAqzY7gLgYKhx6LmnT8wR1RIZUvvSK43t7eCMg7MFwf8bHzc//Zqj0UNUe8p
-SmEGiIrQTvCNgVorVU+ALlujBcV0PAzWGBW5nFr3PLJMrxtP71lEqOe+uy4fBamroRHBXLYbgeqz
-BOL5pB1PIMeRZtpozLduWmvRTKGitGn2Mma7Up5Z8IhRlmgxt4MHOTy3PaYdW3lAONkzaTxHtiC+
-PnC5B1MfwMSZBG9uhjbdbhDRMTzj0ggpxtEjKSggtH+4LNprfJUttytluOSgqDF5I4QoUpAAYpTv
-facvA0Q5fX5Fwm3KLzsSTJKIX8W3nXLOUdyE6J6BfAHr4/YDP/xpTsNR5hQRCv9PlIAGdF/2wi12
-qcBeJ+nMlMZIa4vTx5EjVzfVHGR/PX4loeJR9OE6SJ+ne/3lpdl1bjrgNrZq7NsCa56dJzsNJsvv
-byjoFTwpvcmQE9Y86SY5l33UuBOGoDTAFcYaql/JMw+SSHNzZ5zKotszQ6uL9M/5EJsewkLDl4PH
-kL/8+HZ8eT90bF8juYbU8gBKuBWstIjFzFvLebJAnLYsUPPxCCmVM7SF/tTYNGDU5UqJ2wwbr6tg
-H/AHUnOZp8MbqZ4U6Mmz/g7N9N8gM7T4dUHrc1mPyCJhNmAfFGO7IPK1avWZRsbAUKcjyP6zZFqM
-tXIa7+PRocFSg1rohZDnFIXkuSBPuZugjUj9p3JEGPnlSfQNCj78rW1qIa0OgDDoC+PqnKsbSmW7
-20gZTTKICu4kokrkRGcVAT4+eN7NqVp1GINWhfl1+QG0O1j4uY9owFIw+bSYt1CIP4QcJdFnVj4h
-hZlh4PZ5r52MPGX+qneAvGrPCQynUGbed6HfCZ37l9lPYdO62dlKKgp7bBIxZ6Rg24aE+vbsblCG
-WRVdkVcrHK8TeW7hA2lpXGMtVNtLl9bPmwRQdp35BE37geY1qoJUxuVB/q5L6p5s8maugV5wtKPE
-veNM3YCFOKpC1pWNSTsTPlR16cxTT1wRiCKSROqXrLmevOKZuB4IRT3szPuwRg4z4YKu0fDs21Yn
-LFJjI7I+crRt9QWbEirQDlNV1fAbvJ5r2feKrUzdCTzbtacLeLY5kkQxqq6PBXW9Zys4akzgOHit
-Ty5Kzqc76vwV1JuWcFaPNGPDFMlIKMAxiBu73Vd5J2GCcE1GoX72zSvzjl96l6g6CeFOimQEl3hP
-kngYGx6FpZzFgxH536JDHrg57U2dG73ZYsUTB87WVfiW6lX+KgELOh7wqkHNI6d1QJE4kL1snybR
-xPYvRcuF6VVWOCyZGea+diA43fYM9PCDSjbP4vNe4vAJmfT0CmLVyEXsiOemIXp3wnetyB6tYIFW
-CgUquePqb9rocNx7WEk+FxMxzWneixUqCFwcocXUmX8379dXUphI1VJHwR9DgAaXtzOOkaBlBQaV
-z4QdQoiqUaMb5RCzbN6JVk5/dTyFegOq80KnUS9oGGvlFkVehEx09/XDl9TZUgP/IvKWtQ0Xja1N
-JQZ0cWbwj0Ap2fn1rib2wEXi/GCjtPhOXyYIZxtuzeidWlzJrmhU/DIl377aKcTZ+vsiIvPqUtYj
-kwogcJh8ct+wM9XI1tpGKQ2DYpVntLoPvTJj61jDabBeOk5SM0jdaSy00CT+MAJwEqVkqUIvlBM6
-6N9NsjyEAOZX+v2zv+cS2Y9N7JZ2J1uCtUnah8DuIZat0c6ybp/tzz0QCb1jvXoC8+5SXGhpuSGt
-GYjyXebyXduwJHLzKCZw65QFAFrsXj3WIF+Rs8z99OdMHFzbyFHsIDQ2p9wuWq6xbSEIcCHalnyF
-2FI9W0c+xw7edhoEtmc/dHKs5/rDDM0zzSa/yz95dQuZM/kArdqOhedGXOZkCVUMCX7Ob0KEixxb
-OnLhWYNjt2YwWCAhJ/EpeblXYMoQVMMsbBtVHphWv8Dz8WvkD916CHnRH5M79SEy9o3mNm7+7XZ3
-UPu00UWkcxSYy8qG1l+PAb6OnO6XIjnHWUxdlzwq9ahNyBSWDwouilDKW8TwIIFfy2nkX4/WqMA4
-P89gX6hpra3i5Yw51DVgKHa3M1u4Tx3NkpufCxPQvAJti1tI32AqBAHpPI/T5YLm9cRJidFrsMPq
-gOedMqyflJMqbrRsQv5lKzZiPHrYyWaGoP1oZx1shzNRZMffEvOQKuF56jGLTXxu398JAjkyqlfs
-IjTrnxRaKzADIzB2XLPP2RfAELaObJCw9RWqh21OX3qPOhXLzJ1rWjIwx3E3CzdqzJ94ZoqKM35P
-0iZU179bSTDB/3Tb4UYJ92t6lwiR/t8fL03XE3ZuiOyKve++ADlbeSwSazyS2f2ki7zdNy1dw5tA
-bAj1QpFlip9Vj0/nOre3qtH1l0Swz/BpTOdX2q62xtyYAmIQeaPdbqAMzYMdeMI6CZxEamOGLdiq
-+ObZ7/p71t7T0CMXKkcwpNfedkAIqSlqtJr74ZHzMuDcMwVkvc7/PdQmdzpqGMZxxHPtPGSCDYe9
-/yOdtbGOyQG8soTW+vRkOzeZkOucHAVrZ796wlV5VRufDNfhe1SOGumrXt712J09X4mSTmP2AmHV
-zrJl/Gal6rv2DgRwl7PQS3zgcthCYxLXLGHWLpL5H08tkMB77tpCg3fYy54vpZgY5iQ5/11awtEJ
-xgQoJOMSlIXK5TsUi2g4B4AIL28C0XlCQKieTI8aMwySZS45hXOoa7S5hjzOuRYfimmUJZT2LqbP
-9gShC7/niuJeD9n54GJue7n03PZjdQja796DppGQs6IhL8ocmNjkLJ2DHqTDad+9Ezytf2/cEy2p
-gCHnWr0qIJRp8SL2O4FVYI7okoK4o4FEXXpLk9lsRTjOuO1t2TTiHQ1Qr/lfkSDg6mUwApwHTb5h
-kkxZVq01wUq87DtlfrMM0wmm421hqcRLfCqLBV9HltGnDLuToqAfUA2Rr4/2M9iF2CPYRlkLoTQ2
-raAkQCtkBCs80RKeLYARBF02ReOGbFsgvaUbiC2KUoFoP0Iz8vTDxLn4l9Nsdxyw0aHhx51odseQ
-DcRKqUUls6CP6eKUa7N8C/A/fNOdATEyqH6+1r4XKT5DwxcI0O4dN3dqn7P/H83F7tAmvM1ps+B0
-KuXzD9T6U61poFv30BVcj8DrUSATtXlWpU5erH8B75kNfp2Ye6BGrbCuXQZCCiEahjJLj7HJg6dH
-CVBNM835XFcQq+xHOk6O/KuZE8npoDqeaqtOfQmzdqeZxe0FGAX3mxOuyW0Y0HJzjiPAwSnypENX
-YyebbKwl2d2SEcqLtouxXM2Xa6yKP1gMus2wpK/5/mvZScOaxcbLKw5466eiu9vg1bDMSM21rzCh
-xp3h+Y6OU5vvFeVbQC0fZuKAXim29LDBPvQxEXgt6Z4IhckQHj7Gp5QgCkPD9jlCaJFDBHDgajmn
-r8IIM0u1mnc2KgBEKCk/fuedZyvthdeXLyO6VIQ+gscfTlKwsqHW96/pUtAEoyosNIm7JxemdIeN
-qzfCRdFMS4w91yCFM7eqNZd/uVl2FGHMNm7jOE9J7oQjPYIlymnp73UItUsbpcVU0Xio+X8rwux2
-SyRuUoPBYOAKI3jKX3zeNoEmk0+xjQ0Jm5tHmfa1e1JGmAntUSGbWeHCNsSeC+9k2VlBPX1R7ssv
-BxkV+rfmSnsKDKnLoaYWUaumlGcNIMjnwku3z1ip0KqSTolR7vhZ7ijUUZCkJ+MhHEszJ6Vz07d6
-l9FF5u1od6cocexdH9D2zh+vGjzVcYct9Jj7aUDAvg5sKJfCLPQ4WsO+HvmKw6jy4C9uhL7OIyaw
-xDuS69OzYgF8S8w1qLw0GFJfIrd0ULDW+6Yi2y7O4ZMlouVonf9TScY2jchGDMqUVQ8GY5ama++S
-7mzjr/emHqRC8PFeknpJsK+Ix9yUu4Kq9tFVOsCEtpWw9/ZM49QfYYn2ybupA12jVWl30jmrHBO6
-iIsQa2FL9o7aINX8Oiaus6CFHr4uFaGzj//xNTqowJRX0qrqls+7Efy+bSznaMkHMf3cQDhb9S99
-9fir+jc7bTlXbFLJSpu0UaRnqDELAvNkt9eL90dPXmwZ4vic6K/ZwUKz+a7upVNBjLZd5HaODBa/
-ExiaP2RVUwWA1tByxoaXrz0AgrYbvH2mzIg8+pXFdH7+wTeCD1fZ/ynoo8n/5FCP6UDDmrgkeO5d
-gp+GeZwlm3FSKPBVnvd2vVj6GpXT2E8O5tWiwC/ydN5DKhdcFGK3bl8Sj+RZzYwd+1yKOAPXUp/o
-Tx+o+AmTGa3maNQU6irRoYtjkwKFK3vsf6cwVEWUqNGpuVs6UfH4Dr4ATt5uio/rbJgY1b7Zjwmk
-OLoDFMYZJxLSv7wYPPBN1Z4xBJuWmelKfCqG36TZtYyi7/X1Vu8D9Oi2YmLLcQkW3u92Ki7JbExg
-960hrJBmHLTx4vRbTFk5DR31CWiafibfThQ+aa3CkOvQqWvQrwyB8D7LnQbvl1zRoP2rXcKeKZhx
-WqMns7TYSiGwk4tPVtNw1HrrQjAk3XzUJyG/nYvI7eJwNwb4iRYbOdQYLjRtK4ELTjwi+OY+wIV/
-JaL4G45fOaRSxd+/Prl5NfP/fDakdmFZNT07oMv+hHdhezmLKygtGCyjtWgq+BeeLfaSiC2RALLl
-AmOkCf2HKvajpzVOEZXzX8XqqfP0/5l0e+GWEq83eRLlDscxGBIjWe/g4P8Wmi3ZDiTUHA7IE6nW
-O22hGs1TDDOshPwrOL2XGe6C3IVpZ/q6efP9Iw8GxzK0zDwih1I+SIjPM1H91uc36jmhPO2lZEDh
-8QaYDIo6JhHOYL14zpzHrDNqut5eDFDjReTk1CqWpQXL87ogtj6rJiGCuWmrX5a8wfK3A8eMjkDg
-2132pKU4R+boCaRRrszdxNqVtgsxsmN14okVDFOqkNmFtCOSQwSmCrpacq/zicwmKUPLKoFneinr
-WVvbrKMlPRmoH424iP5v0hnBgVamoK7r4nD4n+ICdYXKf2oOssodsDCLQP1TaInqGOXBSlNnLyHS
-P0to4DoxVxHHYB2EXgz1tt4tMdkbRCHF1AS+sYptOLfwc4jo5epwf7HZNpVPo/ZPHdI3OlSBhCyr
-jzruPyUFFhrVfioVh49S2MLqqbF7W2g/lk3/lle1kNvV8ayMdtH2nmbX6n++4YItkis6q9y0EZze
-CS34y+1WJc/d2Nki+XfY3IuMkwrGy5k3vkpzHUsp1Ra+Zihcib3cDfAASzwJfnIKw5K8px2msiKX
-K24iLXewM3rbG1c60CbSc0tO8ZIb5445n4EI6wXrVj8a8Hcsv6h87/yufcyiZMgnAOylQ8sCx4q4
-NJx6d3J1Jn7gGcTRm4d0ca93roPMZ+mu49kMoP4HIq51Z31x6f3NmQtq/i4zr+mUXZ1j//zMqjQi
-QpdP4f9Rcv8HZK/ONcafED96u5ykGXLUe80MNQugLrypcU/MZN9iI/8G3DYoS8LhPFTLp+D4+RbW
-HJkCWQG/WIKfkvicwY3NOk4ASz7HH01v/eWhfaXAu+t3QfHIcKzhBh852V/f0pCMzrFoYItvi+BW
-dHpEDKPtABAPoRhoWu1DgaTAkF6r5sEQxygIty0N0nckrQo5r2jXjeQ2c2gYim+kfdhRsM/jS/Gh
-Oj6KvDrvdE9pgDtht2SP8pBTmHZtQ0PnHzXd4XSj3S7S+GLZS3/KCwsewloSVApu1ezjU9rzypju
-hnQCQeIZPctgIGnrmB25RpRY+ikxR8llRfquDM4BLln7AWmTycRxbmKwgg1OUKYm7bCrft+7udZO
-5Jy3X7SakQv9L/rHSsGv2vhM0pblYZPYuWSIciKLqKcGCULy8KVaROKt0beMHHujc/HibpZIj5zS
-pQwz5XEa3L14v0NzozebTe72yafgePClEMb4HOtJyuArO1FK0aH5qvCqaH378aSfRvzAQ1zGIR1D
-C967vR3H91aWGQVVDF+fN1D1QC5wyA6FxjUAujgCrIoludmh7HSYeHW++6TrAIQMJzJ9tt0bXA6+
-jjGRd/RTWwamfwX5SpEG01PeAo1qxuV3u46wEKzTWDl5vte3kjzJPX3uof0Q9Js0AhQbluZbDtDQ
-BMhjZZto2KJqYeWdSToiYTzylOof5DtFeH9BbTx0+HFmViJUwEZzx6Wwst3KBP4NTm/0HXjTso9s
-Wud7FptQf1UBxg6VJy8/vX/jCcVfRqqS5qQ23xaZABPvqHeUak/9kaOmVjtJDGdaUOWeWt4MCflE
-h319yXNavIVkH3WV45rzDeNTfkW0Llvbcbhf74cqV6ziueAshGrgZ0YiD8X1/W7/Iv56ZkdR0ixx
-Fqg/0BDm/smhsNpQOkcz5TJ1BQY4AsbqhX/ZDgNn0KaZBxyMgArRKP9uVx7Y5FONVkyhG24mfSgC
-KO8JvJfmjIFtpr9XLhV79XUwsx3JJRaB85l7Yif0p7zxYp5pVj2Vma60bd7m32OcV98C2Brak5Aa
-l5rypv2VUSWab5xnrzzIAouRe34fkvQ2bkoUd6zmXhLCHQS/v6y1cXDwKT2D69mx4xvecG5teBy7
-1e/7WZrHTIle+QLcwk89Kc3FPVHcplMamCnwJRTd7kGTxtLG8cJBMQRVNzqr9VJaZeMavH256AMc
-37DimPASGXW0z8BRoe7mJJQ4Pfl1c8fOTKrKzEzt+UBPwhiKTl8hv1lj7KCP9KAHtEA6dXObYmWf
-+fkZ/uhWMdcfqXSrfiddvTKJH/5OnSLGfbetViyLmhEWyUG7TIIMjQ4cWjE8OrqakoE4GSJjml/U
-qFtav3eSth5g8wRFok0IeRFJ4jtLaNzQasrhWdn2EJrezzAzry4KbQgPxKr7zCW5dcolPxN0Jcpc
-qoWpJOQcJH5dlk1oNbeW7XHqSazies5kBOtv6L5orko7v7QT083hrSlk6PJhRX36Pc1RuN1fgk3i
-d2dqPrP9akWAIBR6nzwnDxAcJ6ymvxL63IvZG9/KLcmO1yxkDdqi+QS4dz6iCChT6GbZsl1S/pfb
-QVNUo7AM9Vaq6dhrA553oZkQnXt8v3hbwxBZB4QsTLNiOzf6paXRBlBkL7k/icnAVYmHSIALw9Yj
-afSOMSsw4qgFwYeVMVN/vPo/811thX90xZtzHRjuBY6cfcU2Sgtc90VkN+WfkVuFnVDonOGnlSW6
-kh2vGnnWWAnxWQWPLgXn/SKP6oXHA5ePnIyVnA4l5om2lonc++rfccKQF/YTL8o1FJ6uNj1QAezd
-Mr5aMJWPsHjq5t13neEW1mOCav/ZTMwj05Ik7cVTQjT8/+oXKnoHTECeI6chrSYF7+0f3EemEpKt
-0ccMV4uiqXYwymcoHnsDiKAdUWnMaiwxyY//qUw7LZV44DzJStaanmkc39Tf2qsZiSXX3d9trd5S
-VHlwhU0T4w95X2bmMAmJqZl2yQVAviu1VZCmDy0nRP3vlnJoX4anm3Yi1pyOo/jYL9y7KkMFbZBJ
-oRSgogyunTrOl8ml8jo+Cbgm+77ROZxVemA6PQYonIMimHbOsGOzTodepMSNdBx9MwgjQQK/2a23
-TS0ed7gPg/UlLYkbFl7ASRX3aibnDaNGRu0BWEob9cl6W/uv3h/C5lszbcogEiK+5ggki4wivqnK
-SXisUPyxuyGzM5RO9X7Dd/kQJ0DsL9yidTxSCPTGI7GVAcmUGxp7MuGJSfINP0i20k48B6PJ4Zcr
-23HZmCSb4Cpo27Ko7Lc4wAE2mSASy7aZIHtirVxIozrERdMufR2P/vgTZ86zu2YLbsCZqPMnJFcI
-pqeGo37NlWHVjXYVTYxPGojoc8ecKxIr/aNViLnZ9taUqzVkDkRa9MEYo8FdAAb3Z+5U2xeurNaN
-9L84OIuMJzfdtKSblZc35nTOb/i1GvPat4KoWe4lQ0t9gBDxjzSuzvSLGa+/y8yiodZG1FWPwL+j
-51DmPaw7APIysMx92i4r61ggU1bXhqTsX+Mk+oYThRPMKbuQfV3brkItATJNX5g60MgDi1Wpq1jQ
-UE1uzq8XboeG8VSam4bnKbqG4beetCW/+CnW9iaLtar70Gg7oH9/TeQZmpDdWiZz2k3wKSk6oJ9y
-gjxnXSuOcBPhTXypnd6BLyC5Rb0dJn4904fbNkEzhRHMm9ujffK8e4AzVp04DhEpbF1sH7jD7ch8
-oz1kZvseYLv3jRgYVwcr/Ar6n8HOIKJMmCqlHOQA88cxItm5sA4mhBpp73W7PfN9R/5hmfAY8tRj
-QJeVtQ7Ds1Mk5zt+lZywYs59C/AimbZqQech/c1MopLuhsutGOAeyJCZMB3h9jkEpycni3+3ZVL9
-2t2YUvqAGJXRe/jr1dJje43TtisLM5EP8rfZitX31bzVqoqFfHgc9VrmBvPca3ZB80Hwc7YocURD
-f3yWWp8h1gYhLTLtW2xP+fKVCrG8rzFAS+jbbHJnkFKk66ov0H+ksg7TNKz9QHUorxBlw54xK95w
-Tej3CBjTIb3D7bbXfOn4vB4bHuRqdx6DvIk3PSmg+KR4wdAGzaFfxMlUGeqnAgBZk5IhDYSAnEkG
-nXUtyOwvXXXY7lvJzV4nA21gabUXiD02x8QQhkkpJs2XHZFk3j35J07wS0gmCHkytP2NYS7ATIQ7
-UFlL/DF4yz9o+GcCsHUmpNI4+VPFurowt8Naxw6wC/QfY1VPfssUgTl8mvDWQaKG61WGAISlGyYA
-+GuOBOvwHoKqMOMKNKEscQIgEr9B/S9Nv305UrmeaqoRiYHwKqHfIgimYDlw4/z9GceYqQl8XLu1
-egMmTgLyikjV9nPIuNdN2gY+nuOCVzqIPZwLUaxhdbOI1HXMhO+JmGS+GK94ovYZ0VI2i8r3oSMK
-+iK7YlbP+ByC/oyHwMzyQKDPbmTYJkciX93WgpxDf00ilo2LAXPO8KSakNhhhdaVkcUJlGBlJYve
-PkSfKduXLL1mE6F7TKveZjEMn9jCPDredC3FuxjXMFlLHhPG0JgVkvbPzCLuZT7YJ+RIovEyzQbT
-IHm1SlEWi8lOBgmGY+TfK7NtxHh4B8TPqX/6Fgh8ORmXjAkWLd0aZ1dknT5gNkLJnOuszxx7NiJ+
-k2ED77VWnae4Q34I0N4entq4/tPKJzgH8/w/N0e+RORtFMSi/LerNgl0IwZWnEHiX2AFmRAjwSmK
-pLhRU0NEvy8zU6Kk7cJXJhSmVzjjJl+uiHs6w/grrkl8xxHJLhO8vx16BYDzXfy9ZyhVeMhq7/Py
-nnWgjQdgoSa/8KCTquo7jOHJXkK4sfyORiBnOcl935T8teOnYDFui8cuAUJgCaskQvsxUwtIEN72
-sqlrpuq5DT2aI3NlxYqcN6aE/IQV490eVX11SUgW32+yBWP4nFpd5L/4IbRK8Uh2lAFsTYg/ZOF3
-U+XuKa2IBvH3AoCD+nAkt9xm7B4pno6bwvzQemKgAW3ZUPPydepxLX45E0R2BGt/w8wBe9amOX08
-uK7BVQL5vS8GjI2aGKieohK8k59hNGknQBMZY2v3Wce7T+4/vJ11JpU+vO1vQOyNjlk07m/PbJHu
-yomfv7sconVaSwIsxBim6GI3j11fOS87QwzzNI66jpywAyazExHcy5l22R9Pua8Drw1JVdPiarKh
-qba8RfmO93esVkpplZy1L6AsM5Ct7DbGmvHfQ2UMS31mrEUP6qA0rSZc5d/yaAuOjkEFB32DBo0R
-cWI2xRkIzurzbwqAZGu1IrjZTFlBXBFnh/MtKMkS1MtaTbR+MnTa+w+A32CWX3cAI5dK+i5IHJYh
-VtGPNml+0XWOchHY2FVynVdOQlzd+pq/MdSl/Ovj2qVQaMOkNHP/4/mOxJXmKl2UyXp0oOiUi7xx
-rwDgiv/U3/3Ui+KIRAbU3RyCPPmsl5bykqgt4Kv1meyw2WZLXB6Ux/wrJlL3KxrxYnme7Pw3PGex
-J83sGQWGV0M5tskzd4cZ0csuJeKsg2kD48yIY6IIW7VvJ/u9hnV0/Bmn/XeeSPbOOUQdGf4eCm/c
-2v35T5TN4s2XiWTILgT+GE8reahuoUR0V/YuoFsKfAnAuYzBHUIa8q6/CmRkfBoNggekrIMz0fUW
-Xp/7T3WAbeqaq7sbsFb27DcDM5DYhBFXrJhOyFBj1SSAyaTACeev7cwnGgakCXGTLUzYp7V8Vwby
-u76UVRn/zIRI3iT7A3Q6u0HCfK6B59rRBM1rLw7ELKzWRip+ZDh29LxDHJBDHrq+GpNkPACU2eUM
-9WS8vyJRJqbdiXzTr5kA8DHOPyMTcNPupkS14uSpUTBYWq3877UjVAMj2dnFaF+TWl0Xdh7k28BU
-UprXN+F4yZ024vx6jr9UXc++XiLwh/+B/eK9yXFdlcgNZpdZi9ssteedd+GcTWlgJYU0/jGH26nW
-ENfpC7MNdyNqJadmj2mn9sPigCl7mz7KsQBTiV4obdWmC1T2mgegNOl85GkfzxNOs+oVKXtb83MI
-IXr/1B74Zgg4VNsP6um7zbr1QWLmisln6r//3MIf61DihUgaSX5MAruG3OJegMKtOsOjUZ7Q3o6g
-Kmv9Vg9BzVPzALu0W18j5vkt04mQcGaaksEj9XLOB7krlouqySgskBTT40nWL3lvIa4mmQeI0p4P
-BIR0+MXGTmC4zAmKqeGRfpPA5uVMjGKXY98IumV0Sch8u/A3+fshscgPhqSnVqlKedS8RHFe+MFD
-Hg065TnDjdgFPjK7aQ7kg/QJ3qGcmHLicUwKMN839dmaKp7EW2746KDYJdL9M5zyx7I8MuXp8zfV
-wIvwlD4Tho5IuwNjuIL95NbLFviQAAbhudoShdtmfJAKSDW0ZcSTJpObuP49saqYCapNkJkQ4Wma
-dcCAbLVIzUOqCmsIHaZomsdWXzLEhHZkdvip+1lS0eDhR+cc+hvKWymiq6nXNfyCD7jFZk495Spz
-4Z6AWZwRTH+lYu8WUrLUskEnpWZk/tDM6ozHlNcUACHEBxJOGuylPHudJ7+C+AtD9DahC/T1HfRJ
-jai8ugkZI/Dodw/YUN+0zkyJvfHMMUqVI4qGjM9R/qKwRaQ94uUpuxpBxaVI8J5BQRry5ZBhB77/
-Y44601clsP+t0vo03SRP1VnRbyLC1Cnlj9MGPF3KGBQ1MnApRdvipkHSva+7/H4wHHloM/ocRHzM
-H6krmPC1mnzHgTIl838C4s5opyFSflMmR4iYmubk/noahFA94RtgLkrOBjIYeVL8oQdic31EVMvB
-I+EkWSlbPWA/1oDroMZkH85FYuB73hseSC6guUG967+dMjUC3NjuDkDxiwDzPalsAmrCSgxOzLSk
-BCZxMBWzFd4QFoovXpMafcvNxxpwg78zYp+lRsYW8HpxzOEqwnAg5E/u985WG4P38Y0ilKpZBwLv
-QSdJGN+NgW3yXkSsnihpntQyOAKVVWusZmyc+217E8CoNQx+Ztj55uQMCAjlpShocIXLmT6ydsJq
-c4889iNoP9iDfxVbKRbmOnnmm1peY2hT3kmoL+2EWR5RfjbKqIB4FoT4rEopBBtp21f1ONTMDnAt
-BaN/z5PmoO9SCS3FNYCVBziOfFi/aXZaUxnW+febtjc4t6ozWaMcFkBlhJ+edEAjLv0o+u+hpGOs
-FcnCre+oJm7eVlhQEhxUxOU5qBSfk4MWrGgyL+owaEuQIID1oTFOtsjlmLOaVM+D1jEELQuDSUxr
-EZhSKSziaJ2i7GTK62WtKkEkJpMx6KlC7b/HoutojGBmGVwHR+/fZ/47AeNCFICBL6fwAdoddEP9
-BVt0AJB0CZYHCcl0rufDjNMsgwxa8IdVfzB5BKxkQEkY/ooaP3NriNlAKFF9Ru8QeonJ8z9ts/OG
-JIEr7VeCBNU4OB2IDWUH19zABHQHwmXmvdnIMn1O212icrrJgYiBctJ3drryodgGY2alMQTzhrDI
-ErTuYHd82NhF4FpnRym6crDLSflfVHSp/Ld7J6yNCp3wa3P1AC5W6bcVq1KxxTHSWFbAtaW3gzfe
-xUQQ7uhhFsHaDK9u/MmZ98fVsDKEGhxEQ1+OZvXWNAjPAJFIrgbOaMKjxpTje6LZ/D8Pvw10shAU
-s5K15lwLd69ehwfMHFRZOzQgIHci5aHBsD76KkXuDGwNzKUIeTdF2nywMqAxbl8SPpwizTpYXYfe
-dqeeMCGAa+U+W70xDrcmJYBpB4+fwCbGU8a+55j4OqqAqWlUB9m+01Uv8Xbbt01UIar5aXlCpQ6j
-/57iA2WSIiP7/K0v/uFGOX4XmB5boDxyBzvbsOumueGAwnF/NGuv7oJVqhnE5Z4PusjK0iW/KL6g
-8SHcFvSDSNDr3I1mFmKMxOgK6n2gDeX4ua8lesBboQ1JT54hKl5eLjQxUIHqVbK/biL8UQSj+nUD
-4CorovN+fxWGN54MPGB7Q1anMYsuYmJj2mxEW/SvJ0NFDjgiefM3E5G48hNm2DxB+rjVlLvRfOld
-d0tbSCUgvlmQoXzFVO+X7+odgMxbTc+MINm9bZIp8J2MQeLOauLdHouuy7BPX7fuV+uJgpS4nOHK
-COFRbIkJGRfBRrQqXnkEnEx2yDnf43RlzGZ0Rsg/gC+wVTBo5OXxymlltAtE07ZNKl+nXoRzR5Ez
-LpDJjt+NyGUMP0jqmG4fBx+U2xaHLJEXoFDVqfjvZW7M6RL8x3MkL1VDjQNKchYlUn29xmfLAEzl
-N/r07lbxINeVYSyF64xnhOeSIiCoRhbSe2Bu3ZDMq+zTNx4x6NNwKfxHAb9CbUyPX5b/MPeeeqYZ
-TjS5gOtiOpKRkHH2IDW+RlqhpLCQLf3g8uQcvCqTUV4VuM3xw2GZEOfffHVDGqp5bvtEQxHtwZeQ
-i5koeBWp4dYD5ZaHBjLZ+vjh0g/TN2ZKpge19RAbmKdt0MpJlDwVYx7jBC4YbfbpGkWnMt6BD30F
-tBzQyTPVVwZAXNGNNLz9SF+pt4t3YdwjquvPW0QOQ81iYVvI9ErwlQGuv1CbIBVqA6YKibbyffRV
-AfgFwHyDgA3NFKdV4qnEAZ9XY45tixA2vr7CqlloVUF27g7AwRiIqmA5JteikuGfKiNzQuVt+0zr
-V4tEi5XTgKk0KYvU2rG0nWN6owSpZVu+aK/VUWa+GwvZeeRHmyn6H/Z7iXzZUjNYUazBkgH7sG2D
-RT9QH11B/83VJBUWVrW5gS8qYSXyCeKC5dG+DA21nNzmVFZmK4N/K/+97D3lBc7JbgmLMXAAOlb2
-2AFBM2viSrvVEA0Kj5/c+JSfTZ/lQ/34lLsK1OpxDSclJf8RsCSIVYdb3hG9dqnCDKsuTCWgeSmb
-baB7PI1GsgziJaOH8xmkwHWXbaWB5NNdEDd6ojylELcG7dRJ+wbJB6tRu2h/2u7XqvX1lGlPyfu9
-Af46ZwxqHur8nxoEQBUOZAxEn4w6GJbNbthsyR6B150VBbJTZBabEGN6/iUEVKTb0UxbACn/mSIl
-dZxmWqDivoXGlidwVLVkAuVVlTgYdGtApD1zYTkgLrJ2a8c905+tfOPo7tiufNCv2HnzKZ5ItvWc
-JN5AS6NO+RoFdOgHJKmtAwMmY3RxSDnRUdoWfSNzSH7s2flwp5RmF/Km/nGi01TiAvE8ReReCh3a
-cjQpqQwoFlGsV2uQ3AekMjuXiWeHo066zGvg4k8QUcOuZH50CmgAPZfP9ivns50lp1qmJ+XqyjlN
-/2H9kh8Gis1a87HLo12YW6AWLRRjqlfIlX2Ng1R1E8N6ZrNxH7ZBGFlnjSWr8MZ1TYVR1Y5oEytv
-rl5PgBkqa1GtbaD4te2Gtf6Qy0sJDXZi6hFC7ak7TmaIcNxNX/+m4MJiAoFclnjOP7MKMJxEBShO
-4RH4IYF0lrqKE8vFS0mjwJNImIGhn2QrTRZqmvqsk1TPI4yU1W61VAgnMlHYkml5Z8jn5Uf4t4TF
-vlE1rp7+4SJdkowu4OYR5y91eIXkfYAo7vNf5HTZnFiqpAx67GHBkWUGrrDYkkgkN12VnBMtTFyL
-z+g85TIQbjOgjgpBJgI/in3Q/hb6RIK8j/AVws5wSvYCUNNXMGPTz1++GSV6T8rTCDQ0/pzvoPfa
-nP57NliXYTG69XcOXwslkumotV7e5AVGPEqGbVXLO7gvyOZlMvdcmoG0xT2ClnhgS+dAcDt1IenN
-Fvurba0wtjXWVTs5Yo7MW2dTiJkem8UrE5erI2MJMqNHnYJuJkWRC5Ki5QbJ+11nER8Lx4TaCwQ7
-ELJXU7O+mADxMdQCDV3F1UcP6SICfttdSHBt1RkRV/VTJ/0t4OctbUdh/mS5tIWvpnT2i2UDRckr
-pr2pyJeOrkiT0T7iA4mRX/ZNC4oCEGK2th4Yzd8503fkh2Y8SqfNms7vYI/2uFSeOFG/Gw+D07zI
-mflbTsFrisWZ4MCEEItYGcvJgp1O7QMXTvlf3lK53hI2ZX4N7ss9wAXE5qSh/N/5RYaJmJhFcs9G
-O0+WAJ02nyFYjsPqfu7PnSHp34YboUUdoBfQ8/GuIMh8YEABEhpagFXTBaGGCEfjgTMnnT/kPvOF
-zdLdoHELZhHpZlwZUEe+tHw6xyUo8BHom584tATcmVrnNDq3XE7fEub2s3vDkTLxIx3hrTfBAqkb
-aM9RBpWbLXYuxiTRrzXX21kbG7xhHtmC1Z6+dvlW1DC7Gw6eFdOAzL94AvdH488ZGmWmEdPBVaqD
-Z43/hrwu5OXGEkx/2QXHLXAR6Hk/kXm7gnd8WsAf49ewv1ShmtOz741KZRmEmMWxopei1gW6bos9
-jZf9pqnHaCQl0gU5UysL3MtgcWbD7BLbEwi8uLrX8McWkXuQSQn770gzzSU17gmLo2xw+7heV1Je
-3Ub4NztCUQHxhld1wwF8T7UJ5I8Qt1Gm3tzsbYhpPWOPu9PK1RU/y6jtjf6zWGmpBUh4O4I3KeI0
-0WbKfRUhEeYo5bhGeyjczkX8M7Ij5jIiHPHjH8bSTdZadWrITqnRrG9NnOs3UnDVKbanzYpqST6z
-ucimt1ia5IXr+NgWDvWvDMj1zeYROqENyc+OsbsqVFyAoNF4DME5Eh0ETBVaLhXrjQp6KL3xCH+o
-nlPFzsasXcz0QLtjVFzOnt3U3bFW4jaHNQO4MptpMUtgE3ErpqzaPk7+j40JUS0BKI8KAh//CYYi
-/G1FUk4zGz94wE/ZBWu+G4Nva1DypwogduRm2nqlFZfrqDX1h8aDjnNSd5AFV12H4GugacjKx85h
-I4ivv3vA23xcTCWP7daKE/bWeLRjf4rVBgzh+lKWM/gbM16cEHMT0B4TjWKfHiqDoWzLrqoTpEWx
-J6sVw2xHv+4QFuvEvZe7KdRlHvrBT+SEOP2gC1nhTxpmnHUmR955eRqY96XQWdgXjF/wtzwct59i
-aLOa/qCEq7kJRrWip0B4yDj6NWYZPtkZk9/M3dW2hvLcO6ogDygDLJaeQ88/kar8rxYHSQT5807p
-+a8ZiY7j6W2OjoUnqqgaLDw24xRO87rLMCT1rw4mDEw0nbCars4o45BmgpXoNSk4XwNQbubjyhKG
-AaMGRtEKVPak7Q53XImkBbiZ2qfeJ5TsIUYQfmUNe8rpvoXFaSWIADImvCJzXEgjYz+J7UIhTzW7
-a/IOfKEcj67Lrn51avMcyGBGkZduQRFyBD24e1vGNAnWEa4YyYu7tKw3R0nwbQlG8G18iaB9y9YS
-h5zzBhGlqGskt41eKxHXFbHI7DkoJsb0gS0l3g3Q+nR/eRr0jMeVaLiGpAqkBJffR7iXjfWpHxc/
-ddDW0F8fOgHB3nbJuMN3QNsywKYBfdNK5McSqcjatl0qifoyymteCwzH+SURHQRqPAlg+66NwP3Q
-Od4wei34DraFkzlbGZkH6kQTMBFL6MufulCGITgHvXXTxIt7s8Nd7/SYaljfNs/dqmkHnKMDxPpP
-3gzrK2AYrAkBBHRZrYWcMljFJatI7ALtIogoZhMkMDPwExIRv7meUGf5HoW1tdzkbXmK+9pKimYq
-IT/grdye3AbNMS+YWUlXzSVZIbUCw+3IGTE3DuPGyJQb1LLB587aP42j74unQTJgd7JU1d/RDThA
-y9vgB3v4O2vLHp6bpCroVNRlqN2GswefKEBNOfJ9AVxtt4Tro348HL7hmFBoP522c4sV/iDO0I85
-hWyw5cJCCi1uEOp0DpQEI31TBx4ZJQDNysa57KU31GlN8LiYMdfem/JxfoFX6NIHZ+GGa4yXn136
-uEiTjlDAtYkWInQN/6I9usPka/kSUE3ilznWbeK+cKHA7jn0j+Rq2FI6VDfDJ0FGOawPsD7luU6R
-oYz64m75dDbm1vAI5Hxd54A6+w+AOptHmsTEiZHpwbuw8e0M2cdIDdF9ACGM6TZPA1EW3kJ/DzMH
-3zyWnbfSB49cVzDjnbHHuksfEOyjXWnPUPEZvMrDmeqrI35f3XjswyqNBQ4/z9CLVk1gLckrTAh+
-Wn5REE1M1kMugHLY9RXsXpIugkNyf9bDEjRXhvf4qm6zyy+yhs1/PZXi2UrR7twHclvEU/EQX94d
-XZfqDBbO5xXgCrpr4dbb7KHWosaWcY5cSqefj57+9DJZKeOZ0SjWIMeb/SWu/dSQwRVmo6V519v2
-X7Lzm4bLoUw2O25P/jlJy+/fuOXFTFc+fGa+ztdn3GBmxvnCh7XTmCf7/1iwrF41ij1wvj/TcOmu
-kfGGlW5q3eD5H9DFcWnSXkjr8NflbfX4FTtHi8lJd1CwVg/ATjuLY/YcwdSpZ/UM0nKJNILwjjW7
-9Ki3rWFkbO7siPWcDcx/kUh5qyUqErooXYd6L4L/hedXg/iccr6V49STpDdi7dnYYWrUvRF3EMv9
-1//HAQSM6RGYGXIP3gAW5atO8sGXlpRJLILO0OK4LdYnV4gUwJjSeguRWO4xOpRAreyb52zNRJCO
-ol3Xtkz2rRYbR7ynh5yScSR8mLHMtixtZJQ80WTjSWwRgOeMRihGsjMF6Q779M/mtNgqn8yjb1XU
-s84UpDe5DV3wTWESwjs1pYXrvZyCboQFlUMYFi67NIgy+VnUrlXsi+adw53XV1NE7jOkxYgtYAKG
-Ao58qtJgURkwi9p1Y63nbI+hnaGbEAU5VTIFljGR0kVYtnEECzacAzwykx0CiTvN/slHZXtRY7sr
-ipOtmWkfXaORGA1nvpvQkUG9wD2jt+VqshDCf8JLlJGmBJd+tU5a9PcYTycEQ9KfDLRgZ2aLwbAB
-AS76BQPNMplRzc0DwNvTuSEiaQr6MY03EpuuNCuLnnouXA9KRrDkPBXmWmmBpLLK1Yekm1Sx/oMh
-ijfu0ZBls5U7m6MU/lWd2+5RhX6aMJ5M1vq7cudxB1tEvEz5gCm5FVsCK5oLdxSnWZcbOi/q/n+R
-KTsXVpcKTDJid/vymw7n50Q1avUNZYGxY8uqQND2uya/KkXJwq4zVR37mRfpW0Jak1941wmwpGVi
-80X/dJRz4JAiJruVNjwFk2zv9dpDP9ix1iDIGdBvVL/JrV1+siUgFdlLXYc/pNK+tld1xbuviSBi
-cAW+mRHoG5qX+0ElVvYgHR8k83ITyBiZg2WEOQ0z7i7kwt+YSXrNaQSr8o3Y7UOW6uU8V4pR/Yo1
-Lw0EcEU4SH0YQ0t/riN5yUtuAC39tiwKoEUKInSaQr2InoBJApZNG4VDHzFRSDBMD2EGT8nCEC2H
-sfdB+JiPYD+xMoxTxyR/UZYeKtUjB/XKGHEbX+gjho2JccHaxrwc8sqX7O+nZRmckqOAnWzzcfpi
-KJ6dY0vGiQWCoRw3c//B/Ua0TlnMm5qGB+g8Um77i22w1DH2sbVFghjir8ypkKoxSN8L3l+pgL2h
-AwJQ1cYU4eNQt6VV6owAmOStyeEsQOOYa4q0v5+sd230UboSZ4LIBBvn/iIebQBPqCboJ7Q5xFss
-CrqM+eBwPIh2sHusUhCpYkdTbD8n4tILi/qSHz4Fde3/KcA21a2o3lNKV2JMXmuqKR+P7CxnDlb+
-yDpgQW3I7fxJseJzBWWMVMEVdQtdvqwkmTi7gIJNB9HSfecr6zzsRCiqvzsLv1+cnldfvmuKJ/kE
-2EIOhEAlCgXfOweo+WBhY9HNsVq7vMwu88wa5QmaljeACW6T1W4/q7FV5pHvJjGBS1budtPrdOdC
-ok405l24BE2malzuJS2hxtgkVtJcknKYVDyYLlwjQdmdvGJiUZe2wSzauxnAhe43oEK0eKH8fG95
-5nsPoVeMcYsfi3TvYcT3+WHRhH9dII/af5rUCQkpDDQTH8yR7ZZ2lIjWTkxYt1xhPtbubCQavkhH
-UTCXYT7TyDP5g6o6MP8kTqjI3jZwdr5ue/bJsrTa+PJfcEQ21nizr/1R/JEoFTkb5mSc43dFMWAW
-pZw8VHdQtJ6StHjsqby9bm8I81xAtX1ZyAn20HnvHUCPavHENFpA10ih9vjHKmsZigrZqC7LNHSG
-xRo6asLnDeDlnxZw8LXS0iQ8+tujLqcvecCXVexgjTwc4QKlLjaL26qdKahoUJuhyJHQwVuvLWwE
-+O7Us5gGW58XKPpFhzQwZW5CKnGRNjO46EWE7sj5yEh+wjV6GZ39c5BwbKVhFRw4YTgc+X+SARHr
-BbYQoIbzZkNlLZf6aaE0ULEsbI2Gf8gIo20i4yOVvfhG6A+O3WwFsietWoffGG7XOok4ma2jEqHU
-wmiNP77I/fc614V6sw+PBeO1AYq/6EhFykcCjwY4iKTkaCT6cY5nRi8oYPR5JUfuaae9QEADG7zi
-GZxH5g2MMdPG8nVJ3I+hDAz6hckmQSupe8nXqTRAn2n59nnDqcw5S6qkJGq3CLbEsf2s9lRadzSM
-BMw5lfHgWr0I+X/uudwyQUOhk5IyGjhMgin1B895Wwmi+NwJGlzCZSOw7IhR0bKw1/jBKj8zRLBG
-dOJwMEcyPtAGL0ss+yKgu1SWrP5lx0dESIO/hL038W5LcoRGFxp//eXnQN4eV0kXz2SFDhLIHtlF
-rmTlcAZdftTzv7C0m7aO4saCQqfcWvWlt/0PzArfJzVXR5TfjslSEHcUtqkdQ1y5/9re+5tWlOrD
-JPtMkX4HvDLvALd7H7FYZu6yFofLCbbXca8ugy0IT97zTF2IEgEZZLXXPNIPzf9KUyUbWD8JsF9q
-t6doLkxZPqTrodwJ83v3ThQRRkwIuruW/1p8/46N/066FOpCDRvyUtWW7kJqpGWfOOcXzPaHXYpv
-4g0rg092UUCeBHYw9N4FYxTvy+WwfQxYmYHm8TPEnH27oaS4Edk27H3ryYSA2EJZYO9PV0hxG8Yf
-RZliSNq/VWDnyotvdEMktb09MxbQ4YvvcbcT6bWDUIogcu9EygG+igHCokhjbzFJvlHVJnmgaqU+
-201af1e12vg6JcJA1IP96hJboS2vG/yhYxASNz92LFHyiHuHohLzQ/v1nWhrkvpZRfwf9qKc6wQ7
-PvxqH5lVVlEryUGVk3x6BplSx9CXSLcnHinz8Sf//u8UQEOjxXtVlRRErtUzHpraINq7o/63ZWOM
-Bz3jlry45pXMyGH3OL2vGrAZj1pq5PDXRaxj5QDLDTVfjcL8soeOvJys2ema1m242V/OnVCETU0I
-2azj9H3mDI6ZywwNGvbXnM3rfYEXXtCnjHrFoDjCT1N7FjmNTjt/UxaTKOM/WWQ6wxjEGFiDieTy
-vV7mHK3jp8xv00c6YrP2gyiGNtvB/pEWZwlUEimZMJ8IKGdXvWq7Suc+fl5sHb0cM9HwP/hMoqyt
-z5LIMO4BWSFOs4Gn9teKLaK2NIXFn3Km5LZ4C7kdcEI15LyMVzMCivavRcJo+r2dNcs+5xoXcs31
-G4y5UDfeU06/6aziTB+tuUJPgBucuVCjfAxZC+AtyDHDoxuYQZzCCsdVbjbT41yPeBMQ8V1tdB0G
-ujg2UUiQqbpkwBzkPq6L7KoJEhsD9JV+BiGrL5hqg8+G22eRvDE+HgbiB9fLppF0B1S3jXdlNeIQ
-ImeMCJP11e6g1BGULIqEsfuNyG3+e4K18muz+RA9/M0DN2K3grLwKp9bgAwi4IbSt65Nd0DCWmck
-gkaxNUgRMTLMz4x7OLzt22o0M9XzIaPDXkjAiQ/JCXe9gsZXx04aZeP1PTVhTG+LeIxfze02Jb8z
-mgen1Un/+qjr8vxCWc9MMMH3iTt61sUcDUIsIO9tE3kpWDRJDnmDQ8pmWZ0sri3uTBZ572cTMk0L
-JOptH0i2tdWfKquWStuM5TY/+gxO1tQFBLSkuP9qWctsqsQhOp1bLU4hf9VEvDqOexXBBBRWCaoL
-WNUKJn2oIAM7VUBPO7++Bm0LPfpYSKDyIP3g4bWfWW2C2qzDzgo1YpOtqfIZpOqsJ9B/l+ex9B07
-jTt5mDKYZdhpBhXNqPTx/yBkb1pJilI5bxJxfHx1kSSvlkhqBkrYHz6oe7CizaDxu22tA3MbmLOF
-msCiXzQcXYgR+QEIwZu1VOQOILm+v1KXauVGLvk5GmAHRr8bju7dNik1y8JlVEwXoSLQuhkGnGr7
-HQ1UiQR/kW/J1hyJSThPNsCL+frqMcOKDrbAVhD1LYpIG2nbTEVZTF0GuNnw66813mGJuV3RyXS7
-sLOAgdWikP2XzC48nRdwloXwCb1LHPO6jZu84TbkfjLuvf6ULcnx4s0RzDEkzQD9r8OXEsI244bd
-1tCxdiDvcBRbQfTOCt3Gb8NJLn4josA0kMGMTEygPRrsn6qYcUZsLCR7bf6iHGKkAoj4+GqDc/EW
-b0wCcN2iTx64uj10ME96kDWT0ywaYzUmETWGn6mTeApJz/570VkVdcIfzhCsLUX2ZEOSUcej8PWG
-H6+LtbZcalAQkr40KsMZO7q2jFE5BkKhbD64ZxTeW7dWtxjnO8zjmz/qM+8J6uc8iDwMrMmbWyVp
-cG36vxC4dhRFA7JV611JTTbCVOr2x4rQfRSvZAIb2Wb8j5qH+K04KvLWS9lSYuFy3g4Ef2eVKuyF
-/QbjRNu1WFuMKZvHQ0zgC82Vor4YQgG70cJkL+zMjWcxFNF2Yi4DW/3D6FWfpV3K7yQQIf5uhwh0
-qjX7L5a3e9/8oEcLpQ2UGrLMHlcgyt5PTx+VTxNN1o9ziIobSJdlhMjiVm1dtL/Dj0IiycoCwtBg
-f2r3y/FXghVlX/Z2NpippZQDT360WbR7gBtOyIvf1Kf9lcVAFxCoxcaNIWS1CFWkcRYv28Yuxrjn
-KFLCVUJYiGzmyZwJvZSWlmT+tTzS1vJ/NZd9ZFrOrcG2/pDZDyHwHxGPt6kmIJ/scbTHtBGbddWE
-h0N63IwK4WNvX+WodSyEm2eRYANZzarBscnVGyegIsx0tBvnXmHH1UcumM67vpZ2CybKPLquorNv
-EjGxws22JxR4VioDEPLTxmgntpE73oyqC8CqAJvW9ZSmeur0Ea8Tm95PcTl2545+OUDphFXbFnsc
-c8zPuzDVCT75d/YteggiKDD2Cmi3ON+GSvZqLvgXO5XSZNc55hA2lE1uX1QzWQc+EK1zwkqVzYWA
-cf6TDNVsiIaKGIYrG7nz39WaSJ25hQ5idRErzjJJnbk5mwKKNwZshQLg5+u9ad6HUtjh514ppUdv
-44zqo69hWQGu6EzXsqJWuveMcKA0LNnC+R+k9Hbrl3dRjpcFls939S5LypUvo7JBbSPuCJfUGdkx
-1/ZzDw0dn0Hh96v2JFXEJ5jOSjnYUh058xlUdRbOCFYkPkT8tprzIqF6grcx9y52TvJmX0o+ff4D
-WkTeJeGVqHXdmdg/nDeBLJ6pufaPZer79FDTiq7KRcImrQEbCxgAJ0swaOZXp/At7vjvfYk2n0wF
-Hqws4uVq0vSDS2+hIz1JsPCIycz51jDgXHWwUiRaHXAw5quTvtuDHlJnGIxhTflBaKnBdwwxS7yF
-+St5NMiq3kboJdB/GP0BRPNb98tj2EwuIGFQ0n0++QYTg4N/FZcUf88CgfffDrBWeItjbrMam2/Z
-TgIGf3VNvQY9Ye4A6cbPhwKSAgHyEThaWUJGGpwjgnsckENG52BvuvSfsQMUSlysBYe2Fo2qezdX
-5AEqtyw1jRy+81Q4BVXCHmKD8/g4L7bdZRUzgvkQnceC8zdCk8MlMabxjp0IEe2G4tzVWjEK23C9
-b8sWKhEOpQb2ixplpIAdV6vHBa586IHw5NgAUf69rdNzkqeCKNFJ8nZikyXl9m2JXYuoy2EwbkQW
-Bl8uBKc/UPpUw2AIqok/LVINyky/fIU5ampy+0ecmtI95ghOixcI7enoz0amnpMJa7TpYXwnesOo
-RsLevXQCtk2Ic2GU9yzl51EgAP7NE32ix5X0Y6hdDUn1u8sj8OYtRXy1/fT57Fl+zkuPmnE9SpM7
-uuGlbCflDjYJJ6lw/kqJbB8u/t1nV9GznmhUGAL4vEp13kNK5s/9j42eH9a9RJ52aNMIfVGNbVEa
-qdkb3jqp5GOzOW0n4oWq/P6RFjnPGL7xKWvGreRB7b52k1xhtNvDyisqlK1vbYki0pAEGHsilnPs
-fLN+kRoCpPKFt+7dFKaHsNN3ckG433E+f0LYPyGS6dyDGzFcecVl+iV+B3HoAXbONS2T8UVTLE3+
-q5j8WNWfqOvzUAr9HfC2smaWFtygOAeZtaPycrTzpPEjxg1/ncAWCcWAqxlClgtIhaW/YjJI1ch1
-RX5pAIdrCB3PXQEtjGV5FHreS0/8B3Rr4RcM2LnC6PV96M5WitdCBl9oK80vwrV/hKmSMnOIQt2f
-A2PtU1L+GsLZmv+DmgxVrKyWzhJb06ReXm64vfYHJWhORGah3vscTzSS/iKcPgrKw3UA+UojeKeg
-JXzeCc3TrJ6nDwNXqDZXhv/p4Tag+YcECUHq/EO9R0pXCupqaTXfAt/bxmBLCMiqhgFGhHu1E2Fo
-ZS8BG26jVHAjRQmQn6X3Oe/mBeyS9FuHaNOtVjF34E4eRPHhDZygOg8cu1XnSEhNtneEjEKJd6cT
-Igf7GFgG1WcATI0G/6UJee/Bxvfo/zTJMkyw6/mXLvb5fvkeE5klY970UTalawvThCIM62rlxunK
-9FPdEGJQh3IfGGSlAWAZU1fKN/yDqQsRGBekvJrJTozaLW2RoFj+axYIvYuqpwosmGPHpgI0OGik
-nEbqpHhdWkD1PyrAO2TVNvbMrBeoLHHrs1YGQguKPETPSt2N1zoORerDdfM8eGD6ysPQZuxiNWWW
-Efmpuu48We1lj3HmmhVs+iu6EEZaGs6TH4B/DFU+OuZ+lGNUL0392k2KV0AR47ctIPtin60PcOqH
-PFfobXW2OPBfkMwHem0H2MPq5cPfPM5TBQiHPJ2hjTjIFPJqZCy2rHBZfQvCOP2uvEPrHhyS/Ris
-cUdAZy3UmaRbk0Mh6pAylWTmqY8H3OjNlKbzLgvI+DhF78qxC+I47DyJNCFuPe1a8x5O/Snr5h2+
-ej2V1ZGofaCXb3sPImQbqYMWHEmzZwgl75b+X3LwsqxsGRb02X9vAjicfiqeePcExYRnxAA4RO6+
-BwbsgKH39tq/0t5iNAqJX9SAadvkGnNGfGo53v/5ux8JyhDHYsKZdOXXqtt3jYhTHAvKOTkR0pP8
-TQNgjHVv+SK+mcqhG4ZFlzKpW0gidc5jz78L5expNuX0B+xHyKW6fUwDHx20XRWgXZMkU0v1kPqq
-6Z/yFiStFwUC02Hdt6hQET2Lk6WxiPmCtHE1tyQ/tze/YpFo69S5/FDLGPZKYhHVvIPL4ASQBkde
-fkM0p4CKUi4G/V16c/MEAUhQuTBPfc5RBmSUMJYKb7NGxdDQ647+M2q7ZCTTHmjyC9h2PuDvJ+iw
-inhSqqtKC0FuFS+yVg0f18xfWRrfiDTuRcXHfHFPgiCb3gP1rkVuN5QTKo+2+F9SzY72jGb1DOlt
-DO4r1gE+oHtpb4IEN9+f+IvOh80TBlzP3rRfCzpSRz2n4HUkZaKAZhD51oatjOojGtuJfaD4JURN
-G2ZKAiIZwcJbejRLaxNPYk3CKKz0jGJ1pOa7d9LudfK22vdjWNWtl4DIIgH1U1qetkFMzjaeE+gC
-/0OjxwGRVj52pJZpWq6fB1qEzUdh40aknROIcNQV6EfhQTkMw7njCftuVawrQIOKlVlg4FP2L9iH
-1tiZf2NUXJ91Ze6iUH/17LUPcbwmR0WYm7ErpVYNYgV8dSBm/v57QziUOxR5+trY+O/KohBNEex0
-LzmCEuePJRhwYmmTDzRc1eK/wlaVaQADLBBiDBuOgGzuw3bpxyom9ajV/pZR+pdZ0ydL7uqkghpZ
-D3/xST3ENBjEDb+b6f6MYNZOHwJcAsx02wchnv7cmZXFv4iXtTRglPGdCZeTSFFERsAM01B5CVpo
-5lLgfcE1AvIwNvedI8rulS9PKSmf68EFXCB4BofycEnDRZb/hOd2qalDjkgYacGbA4VO33vEUgCY
-TqPmTbQaH8/4O/DEXn6I3UMQh569XwFbuirV64vWDu568iDsT6LSkne9jjGL22YW28g2O0AKFKxy
-CfEguwqUhW+HC8Y6+YDGhy+s7BXD9GeVbN7f0DDajiRIY6cVGQpBrxbMiXUZgus5JelcjLd85re7
-9vSFsKiw4rjzeY22UHPse6Fm28d70FhKPm+rlhWS9ZAdhpAKgtU3lZIBKD3i38hmJpu3akVjSOx1
-ksBCRcmRDIFPBDt+9tOCB1yGcySYLtzG4PhTrH0Aawaj8tXotNZn9p4KJLx8mK/Sf4B1X7b6k0ZN
-3T4xJeHSd81zSC4GxDCFj15a2nQa2ZNom/QhI5ND69JH+eSYQKF/9k2ZvueQgNX+G5uHC45jgf2e
-lSBqAL52dmdWUWa+PBsCyv7fzOZV6+qoFt8vNVcSOD+xmschM3W/2T/2QxiEy9J7t69Fu3+UdmHi
-IPos/JlZXtpE0HS/ri6yot29AIt0nwO/PITlBwbN0k2jHV90d2iKdexXTx5PpBK2PWw4BLD+eEN6
-n4bocHO6QXL2wAQp084fFy5TobhlTyDKfStDFHyqAGX+iVoNnv+LHCmx5mvmeSqhAWx1ewLZMFrz
-TIsmbWn4hqcnvYlg7FetyV5iZxfpEOZn8fwSN1QazpDorXp78xJlrl62m+lfUub7oyJk6v1iWsVB
-ldBDiCKlB9qutHwwg3ZpkZ3AwQC+H6s8/uw2O2+4MQnlh9mxLESuVujmIYH4oJI5S1YkYyFioNsu
-vYzbNmZuv/kK5luAs4FgTghsNdvoug+AQIdQQeEdyaYHTpxExnTttvspJVgOmKurH++2DMaRwtqJ
-8hgYQ8QcJuBPGHqUrPLCioD3yzToNMu9KHd6YaYV3yLiMSp1GPgqezjhtSK+b+7mRzPVsiozCiDq
-mQCUnFnngVOgf9bXNdY1IWbpBRAAVzo4BCqNUYN57k05M+mCV96wtaxMa8wc+NVTwz9x6LHs1jgw
-/DsAIalb1AQwwXt6bwGKYTtfxX5YSoqjhNw7/zLJDQfvaBPt0sKNMPUzO46G5jTTOfytO/wLpcBC
-ChqaAG9t34WLMb0Wh3AmARb4vnjuFl6IWFzFOBSILrpfOWr32mfCrCcdIIrjDDtKB9d6SNh7jFJv
-khZ2zef69o5/ExlBZQOdcRyWFJk/SePXTJ4laq6Oq8HM8tD6obKOmXkYYVKaxbRm/ttTDs/U5Scl
-eeJ1J4d7UDeM5iEiQ9sMuuVFhjPa/o5erB7mqXLa6KJ233M92i09zLbNDZWA0TUpuGy/jChsGK0q
-MXfDWNUA/Qompd5Riapq4RtrusKYqbVL4ocdJUr9fsDRlqdJcf/Rjjb95QVEqjAfK5fU8mkXonGL
-DrfficdddjIGUzA8yLKsT7MQAHGaDeHzD1TTUOgAPdGSfK62v5eUnF6LzqqfiYuu7aXhDTmYvwm6
-vZ4B7n24af+jIAOwG29pHP2C5FoF4jKUs0ty/Y/Gs8JOA/R5kZZLjEv0zp+pfTsVKrfvTfHIb4Cz
-p8hS57uLXIZxY2dUmFRyG6T/9ENmGTjpuVqZ2Ttdq8/czTzx51L9/T03QoA8ObIDZ4rWnXuZyfkl
-RdgsUu1a7rjESsufzxpGarvwjEFRfXSDabtkm2IcRFpcz3NLoBpPiEhbXSjo4VAsLJ4nSNLdazD6
-/YxdxAmofSAdb+pSDgbw4yfostOtE8nGSa77CF5kluoIoIHO4kdOO5+3/YwKMNWv5jhSmti4NFdo
-mwgYQryZk/LLaCGi/cIbxjLPbBq71GrBndYw6VzwEzdR94SAZnE63cSgTXQDJKSg9Pwstj2TQ/ut
-mPq1M5i/MENsSLfCuk5zjIuhZb6Ejxt5DIXKFmjzo/QKHOfrxXTvKqzclKgLsmyjbZbqWdTNAWBT
-zsoMYRbfGwh99Qqb5C0Rx9Ckm0SWvX6Q/pg/LzO/62XNaChEHuj4sIYZXqwo7rtj9ZMMukMmRKuw
-dNTyXDxQ50SZRGFdVnb0d9tqscKljZB3wohBx3Xt59jwlvr9ZkMuXugSdbZvi4xfWTX4az5enwPz
-iknaFSImLOfBd626xM9qXEsHdJH3EYOiXb11lNPQ0d8MyJTLHKzlnYA/i0cS8IyPUt2fcNHAKm4L
-2S32yhzdK6NYcvKsB/NUY62+NUkq9LiPC6zMETFLaDKfmPUEoY+MIxMm6HWFaeCO0J7nyeOcsly3
-d6cR+3Y3K0IXaNvnNFMiLOWKBcjD7dvomD6i4QpaLxpG9zh9Mmu/IjmuieDSMZEq4tKgdf8pJFpJ
-uYleG/Ka3dYytX5PoGcGXWjBcDYCG7O71JGijL6w6e9tEj8V7aL3vqkotRocHqgSYhh0RLSXNOg4
-a0ML7tuZD46jrnzNvjaO+hVj1yo+121DOJXg//4L+XtOdflNgJJKa8i+8yUmBLk9m+feoBrz5OBi
-KHJgSgTOsJeSGSnYy9FbV2qWnWoBEgzDNVFOL2oL73NAkwmM6Yhz7rzZpD+WLOLXCxFn6qsiUZcU
-6idOWl/Oc8JDTKeV9C4vpcFfechnquY9HrG5RsD47tQYmKgLjyjIwF8VFq/YG+9m4lneufLwMMu/
-VyeNnyCdwn4iNmi5fehWJYnRkh48JE2+gPV7tF5okiaeLD7ZWy/6BgMMt+k6jHL7FoNCtn931Ii+
-nQ5RL4ntn0UJ7fHMnQN9nnzWghdVu4p8zHUgZYYE1OXiU3hPsaIgSHtXnF17MAr4tENisGZoPGx8
-Za7ngiQYrPM4A3GBzPxRKxssDrqB/sOsw6VdYIHSSuYWAfJSaJGNMpTu+Tm93KjG1sEAAwifNdpt
-Ur8t+nwaFV+TRcobt/jlvxX6BHnNR7OKwQURGQ3J2iPSNJkgaAJX2zRjpv3qvrlj1z/u7dxv/LQt
-3uu0XmoiwJftIP6OC+/cZvnktvr1BGXgWu7hltrtTnequKnJa3qpsaKH2hIRnFh39dHNP+GL7DCN
-/b2xU8VU2sjWV2/PjHE0hy/uOB8e2tLqffkLoVPcKW89rCRgTMrrjsPc7giZIGMzv3al3t2jexJJ
-tuBj+lok9XmFl/kEgMUXQN1wS9fN+HGX0Lh0GB5jBqI8ujzGQc+ieKDV/J7ycL2qsfqU8tea/vtI
-hRmRhiaYrtaqSqLt/h0jx9t9Zt7V07tmC/gLLIWz7CoZX95frw9MFT5YTQo3RAHzDwFSzXaifefH
-3KeZFa4vZ3vUxRxb7TydNIzRDZNmFL/Z07L8sM7nNHBWfdwTOeRB55xGeij2O1okUI9EECy2BNVE
-56eHAy/cb6WVAQyjUdjLfvJhnArmNm8UgYwkiyeLxRxv2P0Mr1RNXyVc1EG4Ar4P41x8mDilOyAL
-0sqgTtZVhoKrfh50XK2s9UMC/CLU6QwwRCdvVZxL41rOKWVz19AO0H4gTk43CDMxh0Eu9B5e9xe/
-umNif4bWKDsc9ALPoUvcqoOkhQ849Gw0YVu49s0Oc3CrIZvQEfHDuZvvVNIfqu5J5wlZGrpXGc4A
-ZnMDCwfg/NgCatb2eMniZsIuzHbxFT6rcor+wFt0VyrRUzlqYXmAeIYxXzkCf5iSIwBao06IHvSO
-k4g8mMQX9wNhXgnVKVg0bnJcqBNOcVcjEy+0wa6y9Z2oQjzM6Xj6exSLM2/44TxrP/AIo7qm2D9O
-VT6EfmG38blodW5DuSokXch0KmIXvhmwviKz0OU+Po7oJ9EP/0bgXUhhno3QYW+8NtXuzUjPUah5
-s9/E+6gBg7JtIlfT6MmC0xntNA8eD8QBRDIePHdgjTPvVogLDRK9oCI3gkS2qFoVHcg5FNRA2/n+
-eIknnPEQkRx4PR+11ACt7TOTKnmMaMvwkGHXrVcAIDOfgtfCwZXRpN4iKO5CGR90/yhqyLdr8dG4
-+OEuRNtb2Z6oVTaKOBt1IT0CI3M37kM1rQeFGEF5f27ghLigksZE1kokyS3EPXJTfbIt6E+He4i0
-WrgkFIAqu1/23Lr+iZHrHtssmzDmz2T3nO+cd6pVym04RQ4ehmkSHAotiwhZUfELUDyGMD3NqMnD
-qp+Y41mBHPpV2vV6EVfE7zLng/agkv7Tk1+g3JSGViRyMWw8b4J5n05sOuBO0zEOri/PJw7VNkN9
-//wioGKSwPg/DdT+nNhsZojNFWuH6xtWairtPo6MPDmz3+IXlFHpN7nYOvMLWT01r/2lo9At6ulA
-Ty8YEdnSSUCI/lu0qekU+vVHjG//auAqvomgcEgu0j0Z1wfkZRJncZXnDOvFemN3JfBlQKiHSYid
-kfoKNrPwUtB3PvRiXbuVKpEWjfKi9Tdac8uzkhgUOnYp6Wfbm8vOxEuryXAmfH7jTJTcYB7GtUCG
-g8BMk4XpwabdQA42PQ6p2LBUwdKZo06olH50a8aI7l+jzClQyoKM+0mUbslpucFPm/mDJffY6IEI
-52rbDcybIhOw52ImQXBZ1qdbUq/gfkFuyORsssshEukD5NZ4zDv7966KijS61ZVLeepYn6/R+jIO
-edreDV0HtQhIuQJLkRYDB5Z5e0rhPyoZVC9BH/euEH7InXMpvGjWAzNMsBVBZ+jeCFz118MDXNHT
-sQX1aowwa7zYWVPoDOu8WfXAofNoQzhRyW0r30D5BbRPixHIiEIt3jNWKlsxemQmfNduZu6S5bqO
-KUuJ6o8dXOTouGHfxj8Wj1nbl724i11s/WxNCnu9gj2Y+5NbLzFJjs202k0UW9WBMw3I7slkDhOl
-O/PLhyhlRDWOoI9sNGfzcHiMZ45y5SLD3Esrqf1a2BMMjUs/PPeL2zPBzBW2hK6DE6meTBAQftnt
-5IbdQGU+J//l+lUpuESBG5DQ+nm5IngVgIB2XqF/7KJqRJHg3Q+0V+hJeB3VhDUgJqqYS56hpSWQ
-fLyjhPySMyk+6nQ4BMJ14M7oOuWDxxgKv0p4B+EUcwYMHgB/Yx3zKqcDVI3PiyQOpRny7Voy8wm2
-w/urQGVUt2pAs0lIPLI11IhjE4DkbdqM9gpOCWv6xjNVBi8suIS2kpKxvaGlPKdAYCQPjmFMv25y
-PTWpNjUOQeJpwZtH8zfqsW8bspJbgNAltMv+rdXrBPXw8r14+LXmb9YCHYK6vaNmihJWdLbVBEz7
-i/ZRQu9uNbd9dcjpXVsAdAO/ypurZxskNxhKiVGVA0asGRE1Qb7D7DqGSmWkyQ6Kcop1DVJwH8sA
-exMFJVbnfUseW7FECfy08fxnlX1SBajKZp0KrLajI3KFZSyI3xsWxU4c1LwCAX5kcMRxgK3/zz+o
-dkmtdrTtiTR/s8E+x/3nxn/+0OIq5a1ZwuftAWDbc8SELrSIbdpUM1lwdGlJtNO+5aBXjngum/kf
-+5LiUzaGX9059jY5dImcFp/vKG0m0ZfIKJvTYHdcq2KTWchC4PcyrMgMy9zUthFsaY2R22DqPd2p
-POasawdDUgyrtjjOgEqSL+YVPHs9ufvXsaB4kDSk3F/ejLuEPn3VATb5l9W2P/4DlBMiG7Ls0eAO
-cjQaIK3yaSmM3QIbmhpedpDO8CzVZIn7WAQeCpV6CthKComWREpcha3mWXlrPHWzPUtXUUOCqcFV
-qTpIijNbZDzOOBXVImcT3Wsv6rPj2hs5JVzS8nM1TR+d2nNvV7Qzz3Zofx16YT9KAU7+eeILFzU5
-+J49h+Y8r9ecYzChw80zLBLk7JRrOJETamP+9ZhUGzvJsji1QDBP/74m2RMpuamSkp9iJIWglB4L
-5uNKDuT3jZBy/ZR/ApNMKYi55BDqJRjbsiceIJqOAsnxeU9FTShJ9Heu5o9bjJue3YOzN7mMQQJm
-cv/zQ0C+060h/jfPBBu4IjdfoTJjeiSx++3RT4RG+hVaCxuetExBQzd+nG3zp5VF/jWP+y8hY5u5
-Gu9FDGR4jaeuNMuAaQEM5lRO92aUj+VNu1z74NxZYCY9BYd1RKXV74ORUgmX8VdLPRAEyfaH/sBP
-lthN8UiKxDWZo0qP+e6EQLLqKfwLBXLxqKW6xBU76Hfo4h8newIEfWdHsr8D8IC8cChYvgKYW1x5
-mptQitXzt0dz9vJxxbgVPibfLU5zAmLbO8rZj7GPSnftnjWVHg3fHhY4tvVt+nsohNUb2bwWKi/4
-ZcmJis9JLPncPYm5poH4XT41zV09mzQuTTdyyoxTfFK0IAvcennvEwqZ+ZDFH3Xnkth55qVmZtok
-iEZ4SnYZKMCCWmyj2APXJF6iC4DDvQZcn6xH9WAVhsl9NERONXOnxA8Vjlz4E6MGH3JU9wM6jBPL
-QNP3qWGSIoqCRTRr6InnDOpt8zf87rgV5Zl/05A6BQAgCMupCazNuSCpVFJRY+qqoFKp+Eo6076Y
-L6Twlr+EEXnjllJCCobx6yQfnMfL9K7DkoG05l20OBSVOhZIjPC5cs8fZxle2qB7eUKIMnlYYBVX
-/l+O7gWvB4uY71fWDeT/X2cLA3hnUeTH3C+nOzRgZHC3Cxj3AIg0qkQrhq7J2DPQ5rgT6SKmtXZG
-4R+1GbBBC+dLAjozO2JU3oOVtxvK/mp6QCvfyHvs/irihBxUC35Jon/KzsDssZgDYlo12NhhRzzM
-Xoy141ueCeJtCob8yFEpACYmgwe+hj/pG2hvEsuj7bdVLAiFraMmV/dY2XeOje2hxkzioZTsEyBY
-+QmDfRlLpX8Izyy+vIllZ65U22c8xX2bd9CjmJeSeDXg8L1EbI04Vd1Bk05dFaJoMA+20oVGwQfG
-3vI1OTH9kBGDCxfOphVQqhmcQc1+qDzmfPujaG+QOXmmy3KDPO1pdCgbiH3ygJfoHTpl3lUD1Uu2
-k+OFCBsij+ji/OwHM/CI7NzZ6NLz15//0OSRmHARyYGbSZHGKVX0MQawRLWmP8He9j6Y5jCRZ83b
-qYM8TicsyDyoFNjEwf7Kv2t8QJNHsvleTpilSVycI84n+rJt7qblUPUAAj7iaK7ivq+4oL5OdiSa
-/BtTkYpjf4csOQXrcxp8bYyU4hhVG5PhcK5LLMm1VKRqktg4/cDx8dy33eMH3SUUk51+xEEHGsa2
-IH7iXvg9Lv3ZSGtr3BJNYr4VZPDmSq9wrkEWvUJfyYEAapxkcGrcbywaNl7QhOacuPF2bRH9ltxY
-ZdXa8/0girfvjPEbPyiKz314Ne9aggFaK5EE5BpSvHXFBzzNU//uUL68mM/XaRXniCH0rSp9tvM5
-Pe9BP4+yysfH4/o8YhcG3vbHtAHYl/Tq5M03Nrg8Q1iABFsJT+zmhG98wvsVHb8OsbkqoG3kXg9k
-JEOjLzFMk313r82EHuxDGGjHlMc6IafM66EwgT0vFkq5YcmeY2kAqJGJpiuTvU0kfuOH7Wfo0a/Q
-kkM0YjDV6Owy7Q4fwCWnjiSEzilVqR2An8sSCHZkEAnX5whS0gaQO2t4+mZakNTTG9XTp5rwt+hZ
-8uJ9PCMqQ5pyfUXdGgXUAH+lwRKb6LE/jGacCy2ZAX52xM1QZG4aaANcxkruz3seGZ2va5gnoxdb
-VUOMBJzpg/nIlXdkJkAH/QiQ0tCWH8vs3LaQCaeMXnlnH6dLcOKNRieSHEasXcrKhI/pa2JOtNXm
-kTvD/A+06emuNh1TI2y51Pk/I1X4+OHviCgPoQXqyDguPZxcCbig1p1BHJ9Oc4MVXr98RKkRa7ls
-/0IeJe47rP0EYYuiZDBXZjnxr0NwserQ2O4iL1PvxSglI67JboOM0QftGxmrwhckDY9ZFLng/s5A
-o51ZGX+5bCAwQKExUFm8SV4pVgEr3ji6CrDuNXST3yHN6+JSw+Q79UsmR3CWu6OmyQzOjrUNzmeJ
-xKt3puTBisUzhEJWUcmoyF9kvOe3TATOvDponmJ8QOW4kcRTS7ps6WroRSCR+GKjVkf6nD/O/Ko9
-/A0pO0O0u+1yDWYvfTposfX0mGEnAWn9gYbRTA7pzqJdr83anXKxPLntAuTYF/AdT3cju7Tu8Gs2
-hzVEBeTOM3ehyabZNMxH3GfNtX9ZpbhnSQaJ9PL4YwAbJJdhkd8tsWuMDg5nxfmu70S2Jnn+WgBo
-Jzj/U7Gu/Ik2idYxgeLDSXGpH6p/41LNBFTqFsoipStxxa1VbIFnjHvnRMFCTaY/8zXx+It33c/D
-jcWUmVajY4UktpD7tIXLwvI4/LnIMHHSBxFH370jCEq1uK7zkzL6jwUXfexEFT9aFSsLVhujDqyn
-H8xSd8/DS9WoatHaguPuhSErYe4wLFpAT/DkJZ5age7r5POdP7z4zln85H2ZMmxoCnq7aBIM0Tfz
-0cynCpePQfZEULqJ1MwihDLxewQncVa4eNNf89urQZxRGwZj5FoI5u1p4AlMn4EDOJA9WqwM8E72
-vAjaC6NDwauXp+SZGIfg0/XOgt/G8mMSRhDKzZ28PdwfHJXnBWaSJP4X7jgUQYPSEl6dTxMWVUUC
-Sz+jELURym3xJCOjumTziWCYob4n+Iaj7mF5uGiwqDmD+YdqYlWP91L9uzq4s0WkyVwq1KYRD5IU
-l0rlGhW8WbubqI5cXff6CiFNNbYQd2a+5cuWmqfuX3vAse1ucYgVWwPLPbnodcKQGiM/+JKdow/7
-GUQ3Z1OvN2agbdiHVP4h2q9Zf+Xq3nXmwFbki2i7kdQm7+sqnMK34MDCj4aUrBa+POsQepcWrLOC
-Zx48BHS2LeaFZlYmeLxeB9gYUKrYwNFY0C1ob1tvy31HSM++vWRaxm4G9IkJAc/pxqRkdWJIjdV6
-cv5KrO+scluw3OoDx+bQhSMaxxaOdcuhCur0wn9esk/xGvhhK0NoO0VpsA/jXmWUT7VTeRd06aZC
-/3IzGW0XwyCixCWsnnlHhrz0DukHOn8J5qeJec6orCuO9faiwnFrQZY3BJEuZu4nQfKYneKFHPzU
-s8qpYc3YUlxTZnqFKXdpSSFs6aSv+paCql5jmUegOjXaSgChVv+zrtxNLMHNhmvy5dysxbzitmTw
-QvBH9I8qNwIdI0IMIv7X/waCpMGL6PlcRpJOm2p1zVCrBF2zzblrHuGB+1g2FKrgUtjdkrIoVgwO
-5qB7zhh9LUds1KqmD8HVxHK7C+o4eTy449x3fplhedVfWq7LEouB2IRcVL1n+hTojH37pwZOhRm4
-K1iGMGfRnanOr9yzoJx5UYhsGPl91kwBeD1wCexAYbbS/EDulsNqAtnUH/uN0opR/Ujm5RSlTAK3
-fXlIVNwsoZgQsLbmol88EdeWXV+Szg5SkmEwUiRG6moOcIibNJtPwmN7zlHDg8kD62Uc6wvmWzrL
-IkRBYnKcWriS0hSM6IKTnj3PyXrnBprRSYtalxVJecZR210WZD8RDN9BunAsQri6r3P2Iox738DC
-AEx+THQAIBPONF7eV81yI+X62prOG5KxBSn0ao24B/hnbP1QDNf3dITMBONQjHOlSKnoz8Ten3CI
-TOHBl9gjtTF7wuehasN2w+3SZiddxLzHe8kbJ9K7GBUY3I33FLzAqk5mHRbMDi8BQOl9ykexycbT
-OHZA80YTVRTQaOrK4fDFvj8jZ77GzFZuTIVAv045g/RTBH8NarOMbKs6fut4b5K88Jg01R6DM90p
-11L4beNdKqhNIoGhnlESoxaha6rPqP1A3nHL/lxfHD4olfj9Znz4jXKqxpxb/hvEabzTUNcDYlc5
-RNai/ZUzsfWsiq4PH8I7Qc1AMviE2cCHq3vrWLCrkmnrP2ftlrAm/jYWT+HkZTMIId5A15aBTar4
-t2IQ7fwvaEw2lAr1OL0vqiz54a1BZ/VndRlm6sVOhFMtgWomXYLcstO9Hqme4fG6DbCz0rJX2Z6X
-OxNR/rFZdZkHcHaYTEK9EiItqLP20xMlSuF21irUjru4KOnMZpB/+yAwt6icp50jaVU4alNmU5PR
-kmFpK4CPeG60QB5oeo1EEPD2HbdH+3iEJ07SBDb8jXp9CCfqUWDRqA5cVNpdttMDQ/snMJVUQerR
-C0g05T/KA0XyJ+Xn2mLjWY4BYa+uSaP07hc+dXt/GZGBWc3mSJs8gk+FtHHFUvWWP6t2vmOgoq87
-kJa6ABiCuX1Un38OMH50nzHn+jNeVQ2cmN1Gw6CIqkeeq/zusIRQbo0/SQH9pCU8aJdkbqrfi+i/
-DlFMp3lxMaJpkO8Aio5D3F/r9+2ZHONWObCa2pj7IwnDv6WMWeQzFPaLO7d/Wk1bfXpBed9iO50u
-s2y0yyypRkMIUfZ1MXRl+kBJr9Av+VZhhMGKVlA/Ew5sBLYcDxahohZlOQPIKDBZVSInHz+IAWML
-u+iZyLwvYXi55L8+SIdgpe6/gLytAbxxzZ37G7CwJt+BBkiaTJwrojVaVvZLcMB6GPh7/dcb4lUN
-jnr4b2bxKujw7Rw1XPI0YM5/I0IBTGrAgLI5FLxqLmbHcF4kEhcXrhA1+yIaIQmoY+4wgEi40Z5x
-2GoN6UrY8iXi44wOPI9j7OBo7S6wLIr8AHED3MZ/D46fR5E7nvKeCT1kzSB92A0gDgJSYYfQyw3I
-vtbRkQBoPwjQTmum4dNw24zbiXj/t1cDgS6+KQ9YE0JCWIi62xTPjXCH9BNHCdlSd3l/ZUzt10MK
-vnrPDJc134Ige4ken2wXdjK1+D+6+d81i1Z88lOAtEKVCOcMXOMxY20BZpHNUSY/adZgESpe4Qcr
-5a9AaFQ4dZQI8I/bEDh30dj+d0krjjtsRk4/2t3/hJBlV0xhLKSRIh5xpZB+A+hW27/ZPrDpKEMC
-T42sz/SmAws3yywJ9cI14qP6aiI8Jis1nJ0b7bwYBAeMxl4kPbRyeEVN7oM/Tb69PjuuGuLYhO64
-U6KaiNkkslHGrqYuffXhYqOX7ut4Iutm/ahhvjUYy+73RKxmPAPims/uq25DHgshJ7eb/yHWlhZr
-81/hbHUbgAgq0GME1+CH5LOu6bsfB+NQqHXgQTDpM+kM7+6zHyQtdHhXi/2AK0Q8loXSKLUN6S23
-GJYxvwS8SvuGxKcxx2BUA2qukqlVvQBiZwpFNyYuz/jf5ncvJlnSHYkX0B7vPP39hoGqB0h9YeNj
-BMWIT8skV5VPYAAwlCFFw2oaAKeU+o83PzrZZ2NyYhzsQzL3xjifTLs3evtRqKOthAjZ9M4oevDk
-ARI08P2XzDSWWDcM1pvwgqxf2gh6k+RBUuEnh+/v13k+Updwnm9EIbNQRO3H4qtnATe0qZA9n+0T
-4cZnpgvdnZu99XUtLZU2sOVquTjiLMzioZByQeZ9Ch2NLz9LBhwMtsjSrP6rDNc/NI/oV7s600SD
-hT7R38MtvGT9dNib9XHV5QZua5IuHIRwLw9tneqi5RD3nRvtsSybhXhWTE4Ihaxyl0B5tEvY/SKQ
-E8Bbu4UQq6N3egMLk8CDmM8PZvaJCXN6oukuYBDmB4Qr3Ei0mSWFbyRCJ4SLtmv34zMSMGRJdKX2
-u+KXfv86z8uIJHpOTqmRarvlN+hjRXd8+B4/V2hhHAfVpdAmvrMCBB6FZ1ptQ2XOORO8opHOq4/9
-KAMNPTna++ic0AKbGOtnt5uqZgaUylf5OxAFbDEd6qXMliLq3LEi9Vm6eNyxArx+Ayj5Z7AKRhYb
-G859kAM6umgbmwsB0C3W+ndjN6WAYQyfIWaGmwt1PnowgR6D9wEhMC2o06if7XgsEw2XA89iHq90
-Gwa2vv14V7AXCxt75wmuhjCRbC2ibk/8M6gI39bD8ul9+hBbJyPEmnNZQeX21YThrHMz+U2+K+fm
-hZlNvNDcCH0A6y/Iul2ehd20OJruCxZXo2ahFtzXKc7hEibG8bYEZf4LauSGzGxh6kbn57ZyU4do
-fdyqzzLgoMQn8SwKl3cOKq837LilMnotCRXTcE3ysYUdZegTk4BpLSAzamTuywXbYI72WNO0kXQS
-XIcGj6M3+WI/eGtkFjupTG6X01YijriC4ZzHdN0f14gJeTi++hBDQNro1Qv4Q9QpsOag/XnxW/iD
-n0B6CBvVEHGtjN2JDHR2RZlHj/G4HMOTuPXCXgOfhUB7/20fuAleCqnES7UukrJGEMIzJLhPOgsf
-A1LQ2oVq6xw9mZXSZ0xXWqryPBSb60RB/SGY9UpODV3DjMZouNz3VHbEf4wIVfD9RjNb9f5F1vkc
-bD2yAveJ0/FxuErUsil8B8SIRQd/UhGC/rZD2Qqwvkix095X8xYnjFdhCtTtnkRL1KFpcXATB1zx
-8CfKoECpK76gkQHF7sWPKtWDKqRqgfGK4Vdy9TKHVr3cNoS86LP61DJ1l72SvdGnctXB+5zDqhH/
-cycU2qa4brKwrG3/7oy1hfoNe/HpxK3HQxQ3GfkzZbyr32qXmDKtdUv9fRerUHTlnHaolPP9q20e
-9PJjdWP0vQeNKqGLJ7jRxyiWobTosymo8XC6UMncXlUJ5rynGXipVQ7YUDi6y0qYXhrf6n69S0tf
-koZup866qmUGE/cXJlj+71toq2cq+seLatXfffnZE/EDEVy//EagBHBHSs7pN8IQkLjbmvUTcXAI
-mEKAP3+GKoH2SLGqUtS1mGmUhy163XyV6O6QqgE8fpCl7k8XaYnOsNF62kzYwFx7atUuedrGKPfJ
-ketwmOlVmjEO0tRHfiRBA5pDcwCl8PFYbminbThfWNAG7DRYMwA5VsJQMT1ss3bUYIPTu5HPiCJk
-pve8DcXvzRjvNb1Rp2FrRl3DopOQU/05Gy+IkKZioXUdqWkEDxY7GMVuYKStCcwH30jlnyTaWkOQ
-qGQWbCiNk2B6aPerh3hpqJXPHEPr8xrVhNApdznPcZFBuBs1irRJi9nVeSB64mvY9kbU5J0n1zEP
-peVmkjUJb/h1I0hfs47Xaqx/ohTRSkiMl4M5G3OiildDJE1emw9dOwivzzwjSPmde2G00PQlm41d
-4Q1wITAe5oLS9gEtQblg8dPh2zRqzW9W8cee9gadP5vHro9Bg6jsS+hF242s8QytnPFd0l/gmFCb
-/RsANwh2K+w8Q+afArrU/qP5HsPSgXGJ1Iqw/VM7LLDYQYJs37G/ml+Mj4ikRqazsrOh4+1emEB6
-oq1yJVxOgeu54mwVQB3LwiKuh9pFv51R1nJt97zdOBtFfS9IGmqrM0VX+nbBnXeoeJtzDXvhFMsj
-kqrlLWij/iSTt4ZJq7TSrJsQm5wfOL4XRgVA1w79JRn2z9ksX10FcBYS97ZJ2MlIzHKN++32BNk7
-LPV4QP+ttMJl42X6DZvkib4Sws9BcjoZlMBcrBM+zEZtP/QzkjTg2IHbPIz2kBwOki7IP/WEpBVb
-Mv3iPE06pTwc3IM8bhFP1PAId7+9TKyDC+LnA5J4aaz9XxcGZWNDuG+gab6m2SN8JTuoxrwj3Qog
-MWxjQTZCacUUIeQqj3ELpWPApOC0JLauYoPcrD0Hd+GwfvXlFIzuW5JarZf7ZgDzt3QOir/4/nGJ
-pxqV0/GSYX59kCFgKYpNIhtqd1yPZBxHVsLH3Lb0KwOdlAn7Q3LGxcElLKG+VeMuQi0YxKG6b5cx
-3kCfaGarWeKH2Aaa1pZsccn5Gq16YX0LSILbqFgWWs69M1mvg10PBLcQ1yxwb5O+wBMHCmzE6jQN
-OphLgk1JsGe4crJ3wLo/pVJclDoxbQCRnntCX6EMkWM4u2iT2ub6YzCvlbd4J0fvk/JIFkUbe0yb
-RHDTuY4Ixm06U9Ds67E0fZT2OV+JNu/MD8r7q93+Y8hY5wC0zbPBgLQ/JVMTR5dVCJ5nUkx4Uiuf
-H5r2S7YqTLVbxop3MhYNbAgkOMhGW0MRmyTGbm3K4jKYxDR/n/UDPLIRt7N/C4UCBGq1MNXn16If
-1Tu61MtxfUSqQ+BkMB9DZ3l8Fc5GzV23UwkAmbCb3H6UrKfsPDa67pLanf8DTSYGdBQBK/dVKZ7/
-J7d35gCOGWOCWI9oWEWRXPAxhmoKyzPdmitdMtuNnXSi238JTaZ0+Z8Wd//wVUKQk+vjBbC3qsZ7
-MA1JoPBXMRSgtvNXntgxJ2HzyA27Ve9IrQ18zTZOpAC9XBBX/kfH/nQU2/RMjaa6/uEpTlyst2DK
-jluTuSebZePWJcci2SsnTiErrU3XcS+c14cMqkYrLO/+vZtXIdZx7jFhKBU61W8NrHovzQ2qckH5
-06JXKMm+RHC37Jz8mtuBfyKVCP+WPwNCELqobewCFNE3bBC/Rb66TwkTgfHDNFTHdY8+n+BfL+c2
-1Tuptsa+lQcnZ4OtXMHKhBb0O3OTPKZnjJD8biW7BL6NK8yti2mcGyz3pT4mRD/fW1SbTPmrSyKJ
-Kzduz4D0Bn7Dx+DIxCdXElGNg0kh5t2DwFCAR5/2KfxPf11g/cY1+o6L6rMOjrEda/wxyYREHLVn
-hMsUmOFUQ+6moPqecCG9cU01EYGMxAHsXzxio7nuB5S0v29CcQkREF/jn8JgeATJJiX8wDKR7yxp
-54+GiQb0oj6lS9TUXvLAIkLdxNToMiVvYONZh115/yBARZca14VMLhoi7EHB5xSiJWYiJUPr3LDp
-Lf2GVtV4o+Pc44qcxUAUNIDpfbRUoxgHhsVfi5UHyuWGhxHJmNfqCRi5GplxOV7FL8jKfT0LWgob
-pGWgkgNJ1f7bbnZfBGC2jOaTjfqvkBrxUpiD35wO5jgtyjZDVt1UEXd/UT0gi9hHaBjnbTPX8/OX
-XQIMJK9oRe9h83ggeXPinTPuJMY8/dE700KFhZvp1wBjRFcOnvXAhzCdEctk5lDDD2tENE4Dj9qT
-34yviAfUMRRFCz7OT9tTMcg/gUTRrpR61zHJUk6oRrWBBWZ5ky9H1nzDzE8csXZeg9gzNloltoAR
-srCB3NWCWYfS1EdEUe3osgWYGD+3FRO/YgPW/tBf4A0boVz31okvYyvxKve7HFJ5hTPUj7mhpM5f
-pyXI1wzHnsCAccrw59hKoPSEmx4YBVyrehiwFP38aW/+ccicSeLPL0nNWPC8qwB/dHH9yR6Qrq6G
-KnCDK9KCwFVJuwfdwLIOsbxW7WtN55s34yo53rvleRbjX0rBO5Z1iF8D/BT6//RtSSJBn4+qAma6
-RzJCSEAv8NG4rUz7I1cyWCU+sDBafmeq137cRMEj5GV5sc1T0nmbad13kXWXbPJhKPPFi2yiB3KS
-mVLEBK2JKGgvmCa1K1EK3SLBgvnT8zcAzqz4GIJyLriLjB5kcGyYmZrB+u0vy+i0zF9PaK1qdnKs
-5HLP5M5T+p6fBoY6ecFlZPH8KMNOYkp+C5XIHUEmmThOeXHIQEKTxfQ70mgK59eKzQkq2laLbh1+
-RhZb/f2WJ3tIOBqNwgcQ94GuxRabdsRPq+md6Ktk3lt2UhbSWuI46WmVln8Mm/1pX2K7DGs4lpxK
-X28KHbRAIDPrGobOveVJZUomrrO57lcBIb++itRklqGO+FnFXqPcchfRYCXThqLW+e/XYbsg+jnz
-f1J4II8d0Mq7QMIc3V/8rt6lR9Mn/sKzkqbTZeSJZFHdp4cG5TYmXpQrJSVFD09ZrrWhAIIUUIEF
-fEb9DLB17UrFWekgN9p64rv1GBx//7y1CJF++tY/2TXGXWbuVgfVImLsfzmLJ5CdMIWpoV9fiXZw
-yzQ+uj+ADnmOK/p6T32ABOLn/NMkLsnmd8jV+tPuZTDSpTcWwp+dQNXL4KeuV9XMuur58oL1g6zk
-ld3v/4mPseadvxYdDfliG+wGtqI6dAZkdqSoz07l+dDuGegpKjtc3ZKjLzzf5eMX2PNb9g7TaHQn
-lt9qlQC7hlZZTgItqiM5eMCnOcjQcvZjNij7z+Hb0kToxv+7hPEPRVi+cWKNMm6YcqvN9RiOQ3NV
-JgTh6/JuqNB47Bf1ZkPZo5re8CbCLPYGmSvXOVcEivQtW0mw3BCL0Rm6MIVbBhlbK5Vv2FgiUnnx
-fecu1tLpC9T082+WBoSxRIzXA8eF8TtKZZQ5PG3D5px857p+Io+dz0KscIf1EOk6PxJUMamWR1WE
-fEK5T8vy+s2AmpC3dC0NHXGB748AJrSmaHAUsnD0vQyPYz3xwNa5P4DiHM0QygMPGd1FNm/LiUm0
-HHmzaCkHwaMtmYBxvs3yndZBOSYIEzRwSFQohRQAcJ/wrmtm09C6NYDF9At7sC1x24x3n/uJlaUK
-HTSUnAdu2WRVA9c9lPg52OWM/5l/5RLcDpJ35Kvi0UX3HNBTmkkDumTUKrIDrE9FkXIu7ZcEf0XU
-Mz/3hKu+w9RA9zdsHnVFg9F5L/kyo8ZsB9eKEI9ys38PTIKbpV9rc8cErXnSFGE85fWcOchU1V0c
-8ASayy1Ii5ZvjTI/GFU9bk282oyboKKU3DLyyviSbOKMcoOYYAexYW990D4SmzMUeu32glo4GQoi
-IOkRmdc2OY5CkoYbBLJWWo3K+323XEB0f6zIaI7TonNlxwLOEDj/rPh7uEIt1VZsgvN6T103wJLx
-eXJeO2EQ4Oy9jjfLL7C0x57WU5nx6G14pZRGi0GP7KF+RIXe3kHU5PJ16movtVXL4lFt7KmeLARo
-eY+yUL4q8k4JqgfBbruXAmo4tFJvc1c42tOcCHpUxQJ9p13bheKmh7+k5y0pq3Ij4TmOG9pzDumU
-KL1Hecb8P/k6qLMlSCxfWafP3S8Hf0PjGmv3QiAOtdDmNqOfKTCC8wl60pxrVPXe93i+xLLxPENk
-uwESOh3q5/rTk16y/1yfgTNxpPiiKioBqAP9EJvdYcIOgD8P+Y7s5b1mvKpaHSJlvXjP+MVf+eCe
-oYOUy6/kMTHJpYqI4iLs6PnX/TVOy4dEGK2utuQbFKhnVmwoUfYgeDSCOcYe8e2fCd2aMM2n8mWd
-HV87duiANvAIR2OBkuE71HLRJxtucvGgJgPaBmMlL/ZNeD2yX5MYzEY1J+MT3VCXo/eIsXJcnd+f
-rTzpqVIWFMn9c/Vu5mJZ/ud6ABblt9uCnaYQrtPzqOK91ktP61hdUoBlrGHthOhMSB1kKFevS2E6
-+Qgt/GpDrzGTmYWcqAHJmfYcI0j3xPQKe2mlAaWsdIji3r86/I03tu3Aw61wd1XI7RpHeXvjW347
-/Mejubkl9a6X9uh3g8laulYnRRCN12UMLdlTS3s4Pfp8zsKlx/0ioVFX5DRyLtn3hdRmvi+hcv0P
-usNm6K4+n5L8IDV5VR4GOUvJRcFZZ9OtLd/2a1H2414QmLauSf6JgN0srlvkCzL5YMFvhXN4DoVj
-184ijheHLiljYkFWGk6s4XfsiyQVkAZeQitrbSyQQKvZPvO48oVBpvMOaEA50WhT4b5ecb6uMJvc
-zV+BPmu1Bsprvu46JpN8+lubFXuoAMOqRUm9mN3oD3jUqB3WNPB0Bc2QVqf/U0QT1o7coZvdX0ko
-Gn8hr2YDo1+LsfWQHqZrFLIZXTq25K0XhNYNFiRgO0UfABT4sx9DLIN8wCXTY+n3ICNwlhkgYeVV
-C9ksCqg8Lma2Ds5+SzJhqcboEnHmyvA+TSjRdRuKTDml84eOjSoQFPs2xtx3V/eqDuYy9QPY+Kmf
-OfbSEj+Rju5pXoHF4Ig0a9G23YbzhP+PDpEo7lMgDo7HRuLqVawQlV1aSMGcvMvoiV3SJJIk3egj
-EH5mYa0pqxUNz5B3+Nw3zF9YDB2Deu2hksUAyel9q+aEySPVsyfnAg2g8GyT25RwEmEMp1gsi+w5
-bzm4IM5M23V3sGRCeRwZE/fnsymIzBFyrw5gJjKtSpRccljHUfu72cdA4wXreFgLYMJBC+3M6p6Z
-Y51IE23bdF241i8dBiEeuMzmHOv6YhQkoPcEaVZ9kSi0Alj5COCjr5Q4Pcng+aGRmQDqm2VLxlOl
-Ah7NKOm5VrSNCEH4EJ8GTNATPv8hPawDeTGtmSYEvotD9PpcabeP6RP/0TXuH5iritgh6BkJVASf
-r61lpUfpavf71NmocjJBXxyd9R2teeb9SAX5/cetfarq+05VAiMbuzsHIX+RvLthN2WcKPdAESo7
-1NGkqDMNMcANpBUV9aXBJ08KKpsYSWBmS3FcqAYc/RSFecutc07n1kMwcuIJI7oVofHgLwIyIOF2
-CdFFQiOD6QhZsNCiFomG+/PjMismpNUkbol1RyaHXvtRU6mUgbmXAh2TGt5Uqxnq3O+G3xvHBPli
-W/aGK62g28JQy+TfwFpZNzp6XWV+jHToskrCzNj3N7u040jm48M0Ges907kQI9rvdoLZfSUHlx0V
-OGIWeBxnRxK9/CUuQEt0upQdS+CfY5tIpY9KMgbHU6kyUaXcsFw8sdOrfKtTQqh/MUzUklVKAfk7
-/o9kUZbwKMNurylfmPDwP1Da6gwCtKQNPfEVSqoHswA52DFmfhMePGLx92rSVuDeAnVjZlE4N9w0
-t1BjY2dlirBaEx2YI0PGrONUXhkzH/vv07pyTRfYQtzwsFkgMgSTY4v5i6yzJfX/xzwNH79oy39l
-gdtfH8w7IOfdMBTf7b7/+Dz0iz4aKRviOMKWMPLKGgEOF+QyXWWp5GaoPT2hrg0Q5YAzCPi0Pwv1
-U6mB7pGG8S2HExvyEfmWQeok0oZpruD7mylUtoeRjuN9IFOvFST/1ZPwWq8r63DQEWmntrHw97C8
-IT1agJ6WbfwpImFi4O1cGuB3MzKGRGTMH5RDj4zx1ORLlneJCorHIXxwUWUCGQ3ivva7LsADz3B0
-wI/nExUF0Wcgmd7yqz3rIpjCjuNxmS7HfRfjSP65JYhLSzfi86DXwW2EASs0XXIVdYTqP/U2oN0t
-0nqMEpZYm2JNYflkBWZAZhPvwjoCO9KiMm8L8Pcvvx4EFX4mcTYRybJmilCCLSnxmMftuFgqGOrd
-QwgWMu0230yUTNRpVyE+4DPiY40uxDK3WOd4sm+dCWu457HsoDiQqDf+NhWccR5V+G5tRYhw6dPt
-8rieUt2RNtifB3wwdTYJpq/1i3Iwg/gEzCIpawtVozzUzBUonZd//i+ZZ0RXvHUVL0L+PbDJ6yIs
-xKiB2HkmVsVpUNmedWd+jh3YqxT9206au61DLlBEzaiEIxBiDfaL9UBDd5NqhgwDr0x9qw2JPKUF
-2gCp0kRHRYc2gzF6stBKFPATMR58QFF00hXNZuQO/O7AnVS9Ka8D49xm3PXirQhR6VRQa5iFP/pR
-tkO7muaf8ZvwShfZDtr1QYHg2koiaNrEo8Fp84AW4miOTNFws6coB59TPFvNNVRlE0bNhVSMsqKd
-3xsuxPNpGQKuEiX0fO4MUrYeU0VQyp6bkpGWEuh1cjMe4CfGDgZBOThCZZZpTv6wPiMAh7WWOfnd
-ZR5FKZvHlJJcNl/le3MSKc21wUNRkkZXZLd/ntkZ/0nCA4Ui8KKAfPVaOSS65RQvESbz29KEEp6d
-pOEtXeRTveXNSLJxJQJDyULbiyVVwTxdFIpRWxAIYWhBouO60girCHzNqRImwrjlkIcAIiJKkSIu
-OGkz61KA4BEvR3hdDFC4t1LTBx0oPOmD0yzKbUl+yYd8xH6JQW+VWDJrtcHJIu+eqUzUafXiBqjy
-Oln5vqzyxLP/uLjL+iXE4RgMDHyiNidw4RD0JFDD50p3Wx5aBRftFTqWp4TjnYdLL3FtDq1TfyNI
-6NWIUHc9GEijfrImis+HkyOSfkaTiwRV3CxcwB4vyO5+CskKT+36hzV3ySX0/OQi9tnlg0YSSF+V
-ruSrtqcBAElYvQTuZ0hGMVYy2QCeuwiBQhLGdfc5yf0Hw2OnE2pK1Tl9qJsP6Dx0eTKdzbFkXoKi
-pkMlE7FvuajqhOwhmKO4GNuRuszL12Y6IZw8DtQgUAdlHcOtgyMY7d13kRmYE7I0mG7c+cmQa4v3
-SpflZhmiEpSWILJesnZTC3eg8mmRLSWwlWwgrWnEOxzfqGlC/hTOiDSpjTThHKTO4BFcgUDIBrGj
-hI/mtnwxu4LretUUdvdGAQqdfsUaygHHwVBsPVxle9CmOiCSgpbdb95ylg7vIS8+heBq4Ll2fCMk
-QbnNfkgbXtRUJAAHvtTOKtsLRUrIxgxl9fPsawI9jrDFSttDbf6B9s1J+u+IRgZjnCSqEnNzAoeq
-GK9CTl0X5LNJgvybKpGatbtbn7GzGegVLKqBcucSNhe/dMSa63ibDq8DDSrGAGtzKD31aQIF4CG5
-mH8S554NVQNQdgbyOeVzvuM/ksSoKZyumLZMCFFedr1h0BX6/ynrqouYilf6u1WB3Xr1gPWMaaZ2
-otWh7fRqIcjpwv4ViH0fP9FqtFeXify+gTL/wUVOIIN21v+jE7JowSU5BXqUOTOqRu6El66ZWnr0
-0Td4Pj1HT381sbFOAV7ITl62oHPMtPD1xhafjo3pOK0Qmfnrl12k0sFwzI+Ln50uwfAIsQMhLilh
-IN2Bpa1acwzzDkvmnHWzljrvDNvL03M+YIlD9WK96gSIQXlYEQ0tQJB7AOydPdoz8Xy+bKDPPEwy
-Vxtw1GzIesowcKEPvDgv5TTEkx/8dIhhvLNqbyBjmcuIbg7aWQGfVBL+5NWJ0lb/hJKx6ql78CBv
-vsEzGZFVeLV68oD9LbtTZ3VT7zsPSLY92m4GWf3XD1slvrlOGxZ362K40+JhS/VXwBqpt7CTnOS2
-5YnHOvJ3Nm4ld/miKrVvLKPbfeV5/AjY9vSv1qgPO0GXtuHhc+FSXjFkXEIcv7TehAxgosmZYYAX
-1QexEYrRlay/HAId7GxECTdeRDDm1SsnEWGMQYV8Drrkv+5srMmzPWebaZOFt9seQaJMXjf/z7uh
-QxRJEzCCpZwLMuIAlZAV+uSs7aqCoWc9tSXBZsm4HHW+5qWq3ObP9yOpHVJYB9HpSUMgtiM9j6bt
-Pc/yHd0Ht3eJ1oQe4En8GLwQ+CBI+rh4rkmds6UkKOi+b5/e6VMIfP8Jt785SJGTBzGsoA2IHOgq
-zRT1kk4JUV7UJ32luk03gNlETxdGh/1CaxHuROKIDyOmcVwfbLdnV5fzc/SWKWt8S94kHfwBeGto
-lq6byh7O1VoNPXMdoi9UiEh6t7lYSW2to8Stof5ICEvNAaQQna6Teg9+ugvFiS1wgcQ/hvwPYAkW
-m4+R/+PpVeWFba/wLpfW/qoJ1KszXsHlRR0rt15vVxi7PELdElcy2ywmlcZZ1uJW5YyAiMx8TmaV
-nfIb3Y52MrYUttGfyqUQ4AwZXWn2U1ifcl04kHJrE5GKKM69DyO8V7K0arjt/VTMIMXb1ZE2ZmQi
-zctnq7/UmCrL+NDou5MMxp4Z1QbDQ7OVW5QCqvfppjdXql+rUa/SVSSItmafx3lHmbeq7NKKbim1
-ZiF69EUOtkhhjjJqu0+8CwKkY6tX4WZvJ6N9A6k1yJekGIuBoMOBzSTCVKnQv8UCMXuxVNMRemvn
-K7KjApk6+OLEh1Kz/x0+PAuV78dz20dMkwrVBN4R3slMvjd1b72nAZJWfrWeg7dMi7sw3whQy0qZ
-ew59PEKTzvq+HkLb+H4wxabb2uNcvAXaJbBeNfZRFnJnhCETxFidKd1/q7bSozXyEx7fv9+RFy7k
-huwE6oXkgxyUDlGTlWbHcNF1p+Pp4PAhHt0qa/n9+acjWIZsC9Z46Z/4EuAQmwINCbs7fh0HHBmZ
-s+qrv/VyG8werDIYdanXUm7emsq8eX5xMzpxuCGr235LmukkxrmEB7lu2G5bxs2OCRom5obpvu8B
-edg7y54xFf0NbnWBXthsNl+fW1qmpteRJomhnFizqfTysMEtbpgQCPiXCVHxZqunn/XoZAhZtfI1
-rgC43oBPqJL/IE0OwsJvW4RSM0IA8jeeo10jdDKoL3s1PMiJ4Z0zG9pFFxY9YPpq+xfWNBgJSYBy
-Jz4ISo7bn3Z1hKDr8qwPn1B1QC7yTxQaeY6nXNbACULqUBB6lrchOBTYueHjFKKYqVzCtGFFR4qi
-0dlDymo7+hYPZyQ3iFuY45/iFxlu+nlmaZqeIeyzXCRl1mwrQgJiekV4202+f8b9gvWBnhFdMsJg
-XSI2D/Rq568p6mC5o0NM1FYFSwKvtNU726DqtGI3wKP6G4zY6Not9Ew1LpkWyW3p0TAVVhPvmq15
-MZ2xtls5pb1ON31Hou91HIId5u3eEBgSv5B4E4DLvCkycs31DC4L54GpH3D3PXB1XE4F1kji/tb9
-0sfer27bxDEh5qN+rvFFDWwom4xEBoHEvq6tn4O1HdwBY5Ny/v8hfmG0Tta8KgTeOX5QTzWkxleX
-ScdX66dAwxfRdVfNW1mBGo/h4EyNnKqm1GAcTaOnvW0z3SboEJOjW8OFaR/TaimfrdZrO9vdm7Ij
-DS4KMKYodLl4M0FGqshXufvqf7sgyHPEEZFeZcpcIQGIvt9oTngc7gFZQiLb/pIZn4d7OTvyStQs
-A/bzaImHYhQuiujW/VUC9B1uIFov4RcGfBaGlu8imScaeFL9sMCcVCdTILsfnl5j2mu/FYo34L47
-frhFyaJaKOLKg4U7Qehp6+wgL2i6MsHES1N/ZOfw0uGPHJFHBHK9nx5UWlq41XH1wCW/53wcSArp
-02W5C1Jg8fajry15+AbcaX+FQBEV/kaTrqW1LIEQe5B3NFnlYEUEidLI9lsBl3y+Y2ORsmpv5N8P
-hlAiSMh0PLbsvmtcd/eJkSQyCl/DtpRnCAuRja6QOrAoc3uJMW6S9rJ+MaOpHsOOA3veqQB3szpP
-WAtZb5QALWBPcXXNyPRkxYsdLYfk3i8HMkjBerQhBV54RZfWUdfQEmdnfbaCCQuLw8uGknjjrrmB
-HDvezm6eZRj5AJHUU2WjcE2WLLq5bQ67O5po7co9Rfe2vtWBQ7bfAxvhwoDsnsWaINgqwxkrTsDG
-dSnZrBL9B7QF9R0N6egjQ6wxZzDUz/J3Vp1UuLY373xIE/CxrxAI0pgO7+RUOMK85XdzSznZO0/p
-xOVk9nryuxmoInX9s2Id09yXz22u/TQOvi9US6WdjznjpSrpjPnb9TINI4O3Y1YeXlnpbrfg2E09
-Q9O7w5lawWJXXEw3nQva6lRDiKYrSn9h6XR5vYwmsfpmQgGSGMp146EF46F9tjgmN6EmEwup7BKS
-AWkikEeBEjKF3WVIjB807Tfm2vJiu2STsYiOgKvAYL9FJ1y0CCMZjfZgLFBt8OHqdFH9Hq6GlITy
-zxxiHINHQmaBIiKOLyARSxlW0y+VNQUdCy4uLihuanG//wDsNHJ7wZ8uVjRuQcwfcYgK2WQWc56h
-cMhjcm19VjVOX5knxDE+OMMYbB2i8b0HSMhlvVcjLiRYAj8HWHELb00JH+OvE4EwPgxkTLOk+a1C
-UwyeSvhiuNoeTmjHsqAIP9ZYgWWiJo3dfrsL7PRt/C+NinfKWSOjuhFlo/a07C/XUfbuamSY145u
-GpVs1x9jazO1gZl54RxYualKMF2UCsjLFT9TMJfnvjL5WFR2bb+j7q5YUepC8k2pfYTBOUPkEJfg
-JrfA5z0TVLhjK6+FeloBU+/CQ//WRLnBFnlNQ+SDZrCql65lUKquUTuqiNKO4cM0ufjwhTVp51ty
-WJXen33/GPU+tdLFDv4mdNOhxVd2V3he1oWlsY8LXBbtAdHLDM69LicHsSAoqkurKIVZql5szywj
-E8ga96aFn5oWmoJYxnbXAs3KA03eWLL73/b0pC3fSeR6AaCJnnQ9yNvpLp5JeHLgqut4AkN3Jqlp
-LakE2nNkmdyqCLHh63WjcZf1us83qoXJD2OvY3RNTqPpwkGgZ01TkTMttrxu55PWsQbm66+vxN35
-asH+leD4jbDxnbJWjpyEc3yWG+mejlwR2Exe2dXMzGIrD196hQ0Lvn6Hb7inzDb3vpePtOa0aRwz
-di/4QWDAgtl8/Xej1mU/Xn4Ofwwyea/J3UzPSpuvJfkD8FzD3dF4TsFT4/9qjvmpvY9gm+76lW6Q
-hRvsczrulDoQ0gT3F/k3azHiWK1x2MlWWukon1B4VYG2pryRung7NfBSGNrHw5HEI9mYzR+clt9G
-Y908AHk+tX51aj/HsiKqltUKj7sDPt/EuKovkqXx8Gg65pymkSFf1nTyAczLvI8tJ/n6NA7R4xQF
-adQHJgj3SSBegVnxkjJvv42o5AMemOIiAN02CUOtOWdDKeZiHa1a1hVzvOtkFw3XBCoZeFQAtTGs
-g+MUSdvBBf4oP0FW8kP0+nggPVlz90MOzo/fUpQtEYpnZF7wRUhkMb+0MaZ6Lz+sipbG9jYHIUbM
-aGxiNxDLM0vGc9aB0cSdDN3u53uQVa1JZTf5xsycWD7p53t4DewPKbXIP/0hUKJLPrekZTxxUvGY
-25yV/iNnbEhy0OqnplxbR+rAWszWfctqQMRGPWGzT1gPtqm3KmULjWH0Es3iVEHtW6iamDYFNAdN
-6xQw0YJLd3IEu9WlDLgArrp8+Q/f+EGG//ZrdeAU+b1yXeXNJCqH6o8ls3OIN6lc88JWVcNaXpHP
-wXn3vylBCX3N76W1Ehp7zquc9+854DLfq7Ga97fc1ZvppO77nxhCvXiSdhvK2k+2+qL+IINM1080
-apT0ggn4AuAfuMj/p7a7xPuOOuDFV+1+YVpu0/rVsANtDwd4uGLjct//AVqk9v1pFULRUHPyeRYP
-lBsYbOfiDiIvIdogIkh+0+6+DcBSR3l6Rh28Q6JlQoX0wt5w471Fu+PZ8gSejG280jOkZYXs7KG8
-UCrjuScpfTrdTyuqgVQEyELwoTAYK9seV7h7mRj/i+DJwGUfyUhAJa0ssRpaD34K1RQy7VigkQcT
-N8bEFiHw6qVmVFCjUnlSIutHGpaY4UBY8Og1PReQ3TbEi7P22ni/o35VsSf6jCBsS8pSBAdmoDxR
-h97QrBPvae4a+V44bo2Kje4OOE8PE52t+56XGUJCRIiYuRm1vlmSK/z4gOzKeuWcgNNnMZG/fhri
-Cusim9uILm0WTrAbAoMcnRAyt6VfUz2cgda8ZAx/kMZ1Fx3hIJtM+a9mEqx7LzmtD0DYY+rVZjU0
-CNazVbIoKmLQ02jhr9ywH4WjlI/AiAS4eDI7jMmaYRKX1vcUMFTtXOGPFJxJBNhvKKNREsLNCXb8
-ZXhoidLbQUOKaSr5LPsEEoBSZtbg9uc+b1PXKxDl3FPJzCKpUcdCcqm705f3SyYGykYraeErm22T
-FT97h0g0ieEI6MRk3FJsrq6Z8jhYJUrcIIoVwpDAuBGP9cAMvovfC9s519PtO5fh2x7Wdh06zm0G
-lcCg/5/otqisY8A+UFNinF/+zWthQJG6anqfBcY6LTU1dIueSrmsyVrQyqAGjsy51hSHr6ydl8Nw
-fVRqz9uNpwjdU/Uy1SFDYZwnW8unyIpKwtT9xp3YhmTjSFufp+2066aX+0TuDuLNFucUfSzO1xwE
-IZJNw+naYJVj8Jfq9aHxP1KBXgyLAZiMbPhJE80L93JWcHXjWWXqT2nS+IO0paAROyM/ZALO38m0
-y9E7tjXPX9Riu3YOdxVrHz9K5zlGvQUX08hCg+3MWbKfT7ezRjfGN58z7NYG2mIsrr3TZF2qz5pt
-e6r8ywo8uXlUiA+V+wZsKLJG6UYT7YYQDM/SD1ylWSBb4A4XXPlpkKGzGvVl5IX0rln1YFBkt9yI
-oFB0sMGM5OVhaBXy271DsWdiaU5DhEtBL7k2iz53JF/+v/K5lSBeTYMo7+xroK7UDgk1+9RtMBWu
-hFrLgTr/qAvEIgsFSUyOCcaBdeHj+/SRU/j3VlZFKyJmlolPIOOmp7ia/a5vf/CXAyZImNEC+2ed
-Pvbg2MCrUKZDXZyj5d5UOtrTG/lVo9yYxeHF3nJb5T4C3hw40M561Aoua1Xqn88MmcdXaXhw1ijl
-mBjvbn2kL/XKN7H//OUWlVevHjw4SfTWJforI87NM6Pt8y/tpR0q6VMAQIzi22YrDoQVrbUoipFb
-OJrt17+T0rBSzEG+JXLtoEihQcwOTv5h0DaQ1V/THBAoAI9TTO7qxLCj6Bm34nz8/07K+rxoqPDp
-Pwi9OovdElodCriMhKcEL5bJQ/93bsvdpzTzGB8oriLLBLynzZQNJsZ2zhZ769i8Ugmub4+0jrFH
-7kbgLZf07p2ySrc7PtCjxVeQGONCO/KS7LJXZEGnvXeSutg7T+Z/3dBTfxzRsOdZA8JULJzCYnnX
-1jNiz6pOiGjYqGIbwBGXT98Zc6dvtLVHFoYYhVyiIQCPCkN2IYhNkfELqv+yK59nGUZDYMm/QXyF
-b8ZARjYWEQe1YeyKfo633SwF8AmmsToIKpG8mTdTKpTxm4fK7ZMO/Ksn8ruPk/fBGHOdnsnjZnyv
-SHxeE+FDYkpA0UQ8uo8MxuAByK14N86Q/GL8nkvYvwLNhevKObav89l8m6zyIYuuU4rRQLk8tGxF
-U4g2PUmEwshUlxnjHkhDKsABIEneQD8zuvM4H0ysKE3tHL1V6cAacJqJ5OYdYzG6XuN9ANY6gt9x
-Pyzxwaqx29CDU1nnJkY8HD+Vw0YStoyOtE4NPyBrlPBAYqUuqHMmc2Gt5gSNDzSorEHWZntp9vZv
-zw6EzodDtCMNGnrxc+L3r9l2fxBSIcNH+SXqq8HV6/EQ2wuw1JdEXusj1BYvsAmUdkkzTxqMSGYG
-loB5uhl8EC5+VMqgbfuwiiwgv9etc35SaSin+88mCyw9WmT9nr6qY611gHPl5IXDJBl6y0rRIVcn
-v2PMDDbg8uMrOE8cnof7i/EiXhzQDFzTLw1utVnTbvYvAWnh6P+qyg+aPkOeDgaIu3iTQ2xoKi+f
-VcOL5JC/vA+GvvlFVuhLEwhXjnUmvC3uYoAPVjH+i9ZxFKA1rqSDn/h6ZS2t/Tku9mCStiOdH3lT
-yA2yExcgFYT99aXk1/jJ/KYK/FApZECYd2Cft4FPAP7+mRQArwSRyYjsGIeGQk9wbgT4eJUOChfF
-IQ+9dgwDGmVXXkW7OKWCOkcwnjvaHxg8SohMpH4Js8Jj8RJzxEVaK5Qh+lsTYE3eQ8ptkO8lolpf
-SeCc/0cq49Urbeh731Bq9MdOYwM0PKcq8WUqNR4AkDqEhIeBBsK1RYLf1bX0CdsJTwvQ/qJW7ekH
-8L0FM2awIrtqCc2xoGcXWFPv9AKpWwqrRSRvI6SrjRYcQ3DfhrViVBIUCFzAwrU/YHOHgbmP9Qg/
-jJBHgEMrB8hS9UQsDdNdyV/hHJOEm36K+H4H8UIycQHOG25LGCQeFnqEzl0Tr5Thkt4mCPkcIPdi
-aYoHIKKWqkOJZ238ygnoTK+ZYxFlXUk+4KfeKRTFonktPSXlW+uGcUWTgVRsP8bUNix5K//E2P5j
-ip8X3IK2Ch83hGTPVq092T0c8kI6TwAQLsv08NjsGMRtD5eVs14qrTkX4JS9tv5WLts7/rMmt2t9
-5ix74gAquU5vfPiqXfjEi5kno/YWKZuDtIHo7z/NDgx5URysIfvvDUw+OrnxLVaHqL6yLCD5+Mcs
-OG0BR7hXFMt8/K9Y0wSmbuFuqgXeQVCYFl5fDeJx3393r69S0hbQZPF6tOOiu/eXkzuNnGWagRWV
-JKnn3+g7SMNMK7P/2zpQjLMIEzKDZ20aTWlfq7hgDNtnf0guIfrQarV5lFBbSPXe2+xDxZffg6RI
-VCA3BIiONj2MXdK1sTyuZ0xSpPQ/fyXzutwqId1h8o9uopK0G5Ix32m732QQgzbWGGgNNwvJa5Hi
-wHwDavkF32hiwLUzJKMNrl+ZwdtbimtI1Gzj0rSg0r5D0VWXCaGwsING0S2Fogy2KJQbbO0M0i4A
-5e8xFXnlQW1Nt+dlHlCohAfA/CHvY+Q48n26nPZ2WdcaDjdUZICpjhDVm/J2kEwsC8nufkulSVev
-Wfh9YHX71lRZxEFkLQzqBh8SwWZ/EwbaJhao+TyG/KeZMzWml38VJioxzVGPx0fsvxagVmP45DVK
-V+nPcaoHQwVFwRLO+WOg2BYKbhDcIhEpGVwdeXWSRzeOaTOeznuPiJfV+XJocmeaLxcrwJ86j+lr
-cBC/lQugBrXrZP1tuItOqP4a4j9W/2UqJGEUtoQUkadpUWw70htGXgf2CJd/cac8AwMOnR7fAd/F
-GJ5S2tdGBHysC6UsjARvwTZtK9cmVBqPXZwXxF4ks3rR/Fic/pxSiQzKvR0i4vwoH3l6K/hgDjoF
-ViHMFh6z8GEN0mIw/oq7GIAUKJ7+eOdcFqZY+lbitV5s9gUzmm/CrzQC5L4/HbnPHwabkyKNV9A+
-4Vml0KWL/1RzsytWgWVORw6e8Ts7p5hGyNzBVVRHpvZliWvDTzUA8GSbcKvMeuuMW7IyYiPoZV0G
-cQs+2rKahtj5EzhlrrGA53PlJb42jRCb0L6h4mYSg2giM4s8veG4M5S11yQ5HaODHc1eN9Ru6H1T
-zH07L8o37hEp0MdyUVggLRH2BduFskwxz1ZUywFys1r4OHnUYnwG/FbkG+qD9eGAhJshhnLw7S/y
-/c7xVA5pqMF/RjyB51Al1q+edkgo6oyWlYCZXxfAVYYSGsKErckR9HCHJawAt/XAMsOc4nIwtCWo
-8suWHNKky8E1AeO+qMWOKd+0ou31kiQaJeOiAa2zzyzZUP+L5ac073RFk0i1iepqo4EyvNjchzX/
-Yd/Q1Hdiy4Cn7pWd8YPeETjzBEtHrh+/iM2IQE7X9Qpa568s3EszC+N0q0FmP5Jv7oHfIuXybQef
-X7qdZz3VTp1D8EAx2m5zUYDwQPkdRm9LlpkDfMWjWv8jJQ/aePqnZMUrCloxMLy9YSLbpwd3Sh/I
-7uCG94mpGYGGBpMxWFn3aSwWaXHGyDkZGEp5/lvGnGuOkr/V0/yWrz9pTLL7ZUo4kOxMsYrSY5W5
-W0kCa08/ogGixTdiz+uEj5GGEqEfp+SRTseB29r4GYjE6QsFIXFT89OWhdKoBXq8SAPUiy79aYCc
-D9D8CfH1Cy0QZbhSIO5YmvJ7b4Gho3THrPRGFkAdSYpF2AZJB9aZHeSrZAu7hC/ErA7NXciKxV7Y
-IXAIcsfw5FRNJNZ+rKm2P77HDvUzQ8IS98XUnVIHgRchwV/OXFE5N9FNoMqcx3ZPcFb1QmyFjIC6
-bur9NeDIdbk9L2LpdfXqTVlSnOvZQnZO0nzRQBfNyD+Diy7VnFx1zpSs1QNJmBGdh2wbGQEUd85y
-MWRJSBxTUQrRbappOlFM6h6zlxfH9Ei+nuA1XklCEXpIscNKIMmhZTzFrLGosS756gFbbX8t2sfF
-+laNk1dOSOe8ouEljgRblDsUVOaWaCVIz72/lFf7IFawei1BZkPdvUbGqqv9+MWoEkD3ixSXN5/o
-DryaxjPvX5YQJ6IPRCWagufqHkRDD8lD/hrkeq/0E+gymefvb4OX2MJG3q5Nrfja5sWqkGPbNOq8
-BcSZFL0MDpYe6tX/6O1rAWg6/xDNoD30lJSArrQm6jFCAYH4rSvh77Q5PYJ591aYqBbKOW8wXbMF
-+sjo4/Y9u56kqu/uOUH203PSssJtVdJ0yu/MozeYQBWSoLH7jiBdP7d/8tBFJPhFlTjT49e0mrqA
-CkEnRF0a2Wdhhca/5TM1TzP2n+8+zL4njDXK6Cu48y3Fh50desbHp+mGXPtpxtQe7nhBc88q0ApN
-PVLWv8CR1FS2BsRMZARb15EfMYihsyypsI9Rs9G0g2D//MVBpgQZvWMRIkHtdujYfUMjWglhzm92
-a9b/xWX9m5qMw8VMiwBKgqOCWH+uoLTwonNcsz9G5d/kevP60SDAy1yKi5GkiWQd8EGA8E1gVnVE
-UrVEWNtWSr1JjujpS07nh+SqCFg9xapy4TzVLF3pg2mj6KyGM80YwC8jCnC70tWYbz+CyLOpngl4
-aJCb3CuUqS09h1qfO2yb9JJUek4ca8j9Znou6237eVpCScT3oZ2yqGOUzZ0IhQT3APShFgQp2v91
-eZ6VGe2tO0JUwRLIWASaokNT4uEG5aWRBrrgk6hP9i+K3jaOCcSG5t8wY+zkVxYTjm50lX0cMP3p
-sNCNUqKtimzQCzWYDG42AdzQnM5TDSAONjCtj1znjBLG/JK3jBMyiRYD4jyYUVzClTmSomZXEAkI
-uWogbtX2hyX4Pt7nJq20uq5Cd2ms4Xtctnywp/QwVg5TCc1gaCwkQNwOesO/S8oeGzUKevf7UgX5
-uEoiV5shQcJIgI9swzeqYujsr0SwpqmjJ7TjtPTaLb26bu8aIakP3NssqODIN3f+dS4AxIc90PKn
-6a6KTsZL5gLWXCFAgk/1fKszfjdJ5ndDYmVQFag/5IXugp1NK2D+PHRsRzpvHjak8EessunjrDyA
-5a+5SUfL5AW8qjoz7ZJjDvnTUdh4IXiL/Vm27pQ51+vHoX27gdurd6OEhA7Vy1Tu9MOpRLfh7h8C
-vuvvzWpxWdrzAg1yWcYaAbvh36ojJlHefvwi23bbr3MUDIQUS2jX7gwPApkwxECdLRQaxtj8Penm
-HnVbjQIfWyPwixT9y0wImQW70QIbvkW+NYGsIVsbsm+21Y4/wVNwC2xzaUlOsv+o1Cpt30N3XGid
-/om6c3ZKCjYPOsVy2KjVcd5h1MzBuMTUaXZs2qgbZaiomCWXxYHQCVVm8LbFM6N1dtB0o7iC4Qq4
-R+IjfExneMFcu65YjhqNYEFocpGW2f1rP9EXk2dCoEpGZLL2GDa0fgFGzAx83STV2RJ/EICaZdHV
-VYrGbeUNRw2eZ8W/EI2+kaYxnz1kcTcJwOm6CB5vfXk2RnyZD6MRXYipDVUAZUB6OkmQrRCYRkn1
-1kj6lM5an6U1VhokjzkHlXnk97dl3IEUpJkZ1PVO35vlcrbnTSDr0O0w2JVeMcbnG4m/1Ygdf3Xz
-phW+2jRSenoSL7mv8tCd+YI+jDUrKlTjOK98GW+ZdTP463bvIYqTMsdw9y1t+E5rKgrZXldWQMB8
-RSy4VgUWZJGHct1d0FJMsMX2HRmUWdLOA+wxYYjZXh/RnFm/JVq0BUtj7BxP6Bun24rULOLMmnFy
-y81Wi13tinX86Vn7H65AfD+KPrd8JI8bACdjdIUxpQXddpWKgWcC08ab6Pjngkr1i2TGFSflRtfV
-Y5I/lER+kbydqOc1Kx+FUBQksI2PlpzSg0kUp1JmDQkxo4qNRYR1NbK2Vr7ZBxMIPWYwhICcPAfz
-mEYkG0nKdeuh6tDi78mEA3/BNUW51386ATaUEorx1xudeuja2LBmYiaol5OVbVxIJHPM0/oUttNz
-hjP4cPKtee8LTBA1FsGEIty36ExcIZz8+zyTHPb979Q8NqhPc0Ps2JlEI3Zl8I7w1h9ieDkcrxDJ
-8+0dBGdTVZYrTiQjapHtMO1T49uzxfikUMdaQDyhhr1lzkNTFxR4VbRUFLVSGITsskNMlDSAHKdx
-UKH1QzKPBm6X9g/nimQQ33He9xYrPjEAjdGff5wcRUqDjJkQXBM7eXFcXDtcveYlgB+YdDw3Jxeu
-RxQYZMOkSEEVuLwSVZPehVFCroczPwoNfy3voEQVnsOepFn1EosnRVuzob1cjHAdJWVS15LpVDIO
-JB1DjdHRIylBXSU3dpN4mbGcwLSlyRoz8DD1CXWjCVlbZoiOjYRR2onlSrJ9gCyxmk140dJaPwWf
-+t0LtbD7/peiuIpRbWpcuFYXkmQqPUZrusZuWBr7qlcF4LeViqg4UYDRuOIODVmRkxUQpCtj9oDc
-p1mGkduEr5kvYyUNAYPuakBQFdEDx4IizfWmRsg5nwnXwdAKaHZpR5DFmwvyfWpBger0lh9Ymf4z
-6NXlwRoFCrRlUax9IlSY9IhYQvchRhKlWz08vUqg7Si+TcLzlMOJL75h/QjLj+9F9eqvhFdS/k6t
-FyBdbDLBdTbGH61Rk6pcyJxwFdeIZ6dtu+Fq8G2W/vwBip5KB1Nk3vuuVRhMdrFxil63e6Hzpp57
-n6616DUgZHKodM/ykSmdYFT4kZsC2Me3Z91dFZjADdcaasGgaqF5jVsawIMl3C4ahjeLTKiGHUOo
-j4YH1BtpGQsuB3+5Btx3FujQdMnRX6ufZYFvZacJZ5FXMoLY9866mCPtEs3eFbsTyCYZKm9j6J50
-YgkMSxbIo9qjpMQtnhPfwdImjSgKrQsmFjsNCYdwkDnqQUPJ6Gq39PImlET1YljFTzcukjU1h5zj
-pkoimj9BEvxQaGbV4rOBc+uvpKfPLr/vXY2WJfN9Tn8WHu5P7G7uCPrAtQcxx5cRiIgLwhk9xnz5
-BLWnpi6Fl+P5XDZUJOFtvDmaeR/kpY/G1ph/WON81Xui8QAUuWSRnUMU0u6vpGP5cnwk0ZbkuOTk
-nzcJ6e2IuqWDRRhePPvxq9yDHjy21r6r8DnUBioBgK400VU7mK4vNz2L6wB0eBlldYW6zBQLkKWm
-zq7yzMtEqKC7/QjY62+vcQ+LNWjciQRhvrg5M+0f1lqZJvm5o2V4nrJXJCwhhYgb8KLt6nF808EX
-M+4DoP5MbHzhszWVeLa6jMY5tasYPSgx/epkcLHKNTeJ8cDLHEG64tbu98smtipOkr7WZFeKbP0J
-R8N4Us0PoI1e3iF44cRmKmla58xU9SuJrOwPOBA4JlKDyPfNIrGPXNF4c3IihjC7PeqHyiBfxH/Z
-oWJNfI9rzbC4+Y2/s/PoDl1cDtasOm4TUd5mlGMc9DIfNkB1etXo89gA7nAADrV+WXEdPxpI2pT7
-xlXGQCVEwZ+PcqUN0SioBhhutsSpkoN9rS+KdsQgWQgoFRwRQmMfhYn+GFkZREBxasVYDpWdVUXr
-ntR3q1ENoezRcjATwlwLgW9nvXmfbNG0vGyYt4AzX4NuVAr6p3g6lWYIvKFoIGX4WuK/uCHPGb45
-JbKmC0nTVDhQ70PN8h9RqKWtd0ZqZHl3GsjiOrrQ2AV2oMVtjLoyo8EDQ9XpWG0Z3qNy4vg48aYK
-+eIM6Dzgpk5SyPlWa5V8nMxim9qPxKVk1C40j1eFmDq6T9ZnzdXQFUH3x1tcNYj/6U15AyCC/pzP
-rFTkSD6DX+hKNUmbsFmxbmTC311fxc0cQJAcJZD+deorFlAuMf6hrWBpoGcwtx4nons3xQ7tFIF0
-j8FfckurCcvvSNRUHSdbDPhvqRVlqg0aoEkMc0I0q5CKn+oGGwa8y0aTSt5u7KGA7tLHVhdLdH69
-2pls8IA6uwFydrxXPlqep3Vh6ObGpUMCSGGd07TVM1uKO/umTMVHOYFFm2OaVXMLWY4RP2Pcobmk
-SxQsnD2DJQcWXDP8FKekaJOTCzueIJO7QCHDfCWEfEnOMGpYzrJfWyntegoG5GMBjj+S1tigI2iP
-B/vFfqp3JmjkQHIq96ufFP671LPqGi1bD9H/XZYjtIxjwQOAMVf2Ra7xGf2s0xfDPHl/KQKVDwVd
-BXWtx41+ZJQ5N5tq37NEJi0RgR+Wse3sNBIfnuR9i3saH3bx/YniYUG8ydoJmH6NvNJ6qhvxYMvL
-zcJe810K3SFC8Avf5j4JAJNR6m2gCUbuOONM4LZQb3sC3NPgeO943Xmadf5M6CSCUNBV8KQl++qV
-q32qZuEMP0OOGgyXWRPjQ2ry7OdO5fDGup7aeM/GWyAQcwp/2fRhNPrR32L+kOGIywl+wNuCZB7W
-jZCiP0QDKjxeX8+RC0kPJH0HpidqeLZPpszWwoI6ckDmfADE47rH4zjrVASoTtughWxTkxf7o5GG
-ga/fkGFR6CdfFwfGimPnARpJPsZbUYrznA6BnVZbk9Ns2nBJH0NCanAHO07urWUyTcRAYRlyZxXL
-wEFSbmCVGdOHgzcQBWRHzTukYZj6XnI2U7O5WI7DUtqmBbVFOrF8T0oheGHP8n4lvVC4oy1WI5Zb
-eDaKNftESK0xLeyN4jOjXxzQobI5Jotc4ywdds7iX6j7810Dm41AQ4PMzChMkUrt3Djo+lG37qSV
-J6YiQF7uSKnIUV4aNmFD8AIx7OarBGwdgEKIta06LZYLMjZ/e0ICRQMsdZgOKIe5u585xOKqxu26
-ghogRVdpAXTaYAqHfMvz1XeADKIHh+0VhweslFEQHOcbkKDzvpN+CrLZ0NoZVd4UvvD1UZO9/qoX
-hx3MFasMZlflNBw/Voyf42H2++3ftYjZ+biVHO6xM0agOV4+uDMHoI4vlTy0LJy1Ga8eQZ4AAZ7v
-ewvJGHMCbpORT885bzXwz7XMjluSAsDS1AHPB+bwi4SoxTVkr4f0bvYohng+IpJKl8OI28q36kCl
-8NsvfZGZioeRcKSpaDeB5KaxW0dCxcz1tPuEBe6B0P0RXXpcl6DibLPgZdQ8c3jQ9JIhExQeTGaI
-PjCpWmvtZlc24rnvr7Dnp3YNRfwLJYcnOm0NcyUoaMVIjOVDdIhxwfU/wUa3UwwFPIPIyODZeot5
-Wbkj1MXL2FLIJ57xHIctPQ7MYGxnH7VEf0Z/uQfbq99lzUu4yidktGSHRn4ieyd7vISdOQnanBDz
-1YUvoD4cwW2THCldXNy2+FNzmigPFMSQN9QN9tziO9/CNlgtamzImP4fpmV2ttJisxnUgAl/mWbz
-plsnD6g9qSgEgNK33RCPEQY8XLRRrCW2/7TlelKEwNjnp2jY5cPKJ9PZr5DYl3Dovj2t8dSS2vr5
-aai//OnrcH5mfzgFKWgKXxSuHnMxpjR3f5SlaG+nmGyIrWUnnw+shgwLD158f1G9yma4aQzkbrTJ
-OAI6mbjpzXcKsPK6e59oJvomTl1fZDNmsaFyQZ388EiBBlKMD+ypE2KeGTWmjYUt3f96VI40Jngm
-VuUo35FgefathR/wpxQxwjb+BxWVqdxPB8zxOdP+yRFs3sFl+a8DKISP8cvR3mtv5ZTJoRs35es0
-iHVO/fXjjIzZNUdLPDiq6oYER9IEAzAMYiM4ackc9p7BBIpNH5enOV9sjVCEetirphMgBUpTR2TG
-M+5GnYAI6JLOs5lGAH+I8spaNZVfhuzeJE+xB3bR9I64WfqsRMBW2JT4u/eStwsgrMYFqeSZo0TX
-hy6BWhz+tMkcJfTFCT6X87GUfe08YDOGmp/y5dgWfLDdM94DwTrO2x+7H5LcMlSUTiR1hp5/N/pN
-pMnxmtJopmr3KwV0T8NBPD+xontTQjpjtmC0+6nwqNnSTC8bNJCMrGSCkk+qBC9uThhW0gaBmTY/
-+yjCkL7S6cXBqAozjjT+4nUEXEa8okxF6UbHXcN5ULXCi+0kFHrFrnb3vmm8EGgm24/EAxWpbrBY
-SEHz9arUNQeDXHA4ZsH9rxhB/tZngaVaTEg00HtBcmBQryYod2S7WV7rZvkjzrk1ax3zqimDWis4
-EhC/Fd6S2Nt9kAGrxPATKBRUdP6pV+tu3acOXXrl/LC/b/VWaZygE/zl7nSjUE3Z7v23C4TiLftB
-u7wdS6z1FI7VIn/Xuv0MRfCdEo4VufU1Rh4rm6kAFV7Or46UVAYIMaRGG7kTPFD4Yuw68pMrjOSA
-KGZSZQkafzPnb13/orzjLwTEiTXGoVTFkkDMFk5Rd7MCnB8sXimoABEiz2cG6fhXY/WRiuV9lcJX
-3qPeeD420XIkl4lS2dfr6og1ugpltrXzVjfnA6xF78fnVSpENSP+R5eamwt6LnSwofBva1fOFIni
-CG3Z26Kbpg06CcIL1l1TEsVxUes9zVFOV8SLdo/dff9FeTtnRvZs9z8j/c5GnSKO+VqJXUA1mE5v
-jcCzWlWNUmX3GaVnL38J892q4N+oDB+wyTmFWhLXwpJSIJuGx0Mn/DoCD6x8WnlDylxgUIycfGl4
-oVzQOvQ22ED9LNCbJeeJob7pwsD5P1/QlBY1SqA7FVfxUjweyAoXUJjrFhQnhKNuyOld5SAWbPAV
-8tm+C7qv9eHNIKa6kBYsfQtfiMN6rumib3AOv0K8KU3Ziqr+2ijpklElQvd9IiCreL7XFNCkLv7s
-Lbe++cQ5KYI/DAGka2TiZh/dusefg3Kz0IIKVvg+Z5gXSDtm5Pr0vJ9gbyDHZHvhM1ABMv81ZOxR
-LeV1ymybV3ST5vutVoFEc9jE9Hu9OahGuhDbuUZ/mx6MevNJV3KQ8Cvu1iiNCvviPGWkJNPJOMO5
-RLYjQP6yqQNAI+AU1IFgQj75XibI9XWlOlgl0J3qJYFRWHrPd+Hqey3fh4zakk6CnO2k4qrS+66w
-0t9Nx+XLG8rWE0Wu4Y5FOPmWBgeEooLyh70irWeV9Xo6Ydxnr3wsOHm9QbZDiC9asG5lwo1euUTU
-Xxk5xJTTOZWVr+GVNVePL8gV9sxfWdK5HKvpEn+44/3Px7cQIyqSFy+JmndyaBZwQm2EBYDCCwIF
-3x9SjwenTPtppdHg5wRoLT6xP+9u4xLOvgJrMfc2Chh+i/ULO3/qmwLWlKBi06aeEkVewOaUVjOQ
-MSzC8zhx0LcRbp7xVBBo/NmuSQAjyGGnIfo7g8lvPEgySVjYG35u5dSBiWyD9JNkx9TLxpGnOF8X
-Z42HutWss7InbSWGG4D9NHdhD6zczPF56v6msHcxR4mAAJ1+0fIrEkfD4fK3Qv80DRg47GnNLPgU
-O1H424pWJEQT4Y+eoHjGjNRtnRJaukSrXj84kjrYOcA8JGiBQpDNgbfNS7TdCIFPlJUSPk90X7A6
-WH4+bGrAuXFIuTL9Wqy3SJcbXyxFKYb/6HgzZyIZbrjE5UhnabTEYkVmYhP760FkWq29/wd7pxeg
-CkL2GI6nFNPFCutRMCNiCnlWIDwzpbsC07EP780lXNTH83SZgxd9FVD/SmM3fpGSLTohdggChy4f
-XDBRwtvExqewZpeCDetNROI0Mjd7QDMazeyGd13ZwPGxJVOkU/0jXs0RJ4K/NYyzzAufdiqa6Qe7
-oATy4PU6Z2LGoOoLG1B4jT+G7fEK4vK8DckT4s9tKrDY/xqkOtqTq3YV1KABCtevtZuvf4n/dtRy
-2bwoxvtM6v33GoOnEshdMa9FNvzx/UF67gqVClnSxst6jw3HkmUYyvBClIkMADW70Wa7xhjqZLlu
-VW55Df8bUoNRW8hjZl6pzG+FHSSrwPmfRE09gxB7WmUVQZevrmcEUtlZZXzfGKuB6tFwGAyul1GO
-Qq7nvGwf298gkdKZYg5KeLn6AxDb6CRhNm2STTVwwXsS/pAo34gDe9x3DA7qMKDtRpjjgabEHrfF
-eCffKELJ1Fiwmqt/HfLC3H34l2bWzRtPkoffa3fgoVTpnp3n/vk4N8tbPs+4VZH5ovl3zLq/Y3F8
-OAqAdpV/dmEO3c8OCnlxhXeaYXG4Qred1G+iAqY11X0x26y+fYns0obwaHrTcgK635bvfnDk6Abf
-iq7N8v7JxyYZkXfQFV1lhXdOjziqznxiFzt6HVoJZwFfoLDr+0LnXQO2e1+x1tPiVsVk8o1nEz1S
-9jPvVPh7CDhXqew/n1MBWbtB/NWcQNI4V9GUc3QCVFRMM+5RC7tyqDJA0VoP05/FAgG775Zaq7q7
-ZKqz7sWSTRntt6D/0YWlvQ/BX9GD4yexZRaqhgZZ/cEt9uNbkorh0prqvSYx0Ul1pNH6qsMTX0Mr
-LPPcZ9z1dUXnQJvxyDNQMJFrPbT7uLuHYQKdFinDf2CJJ/+nUjyHvYf7ac6eanWgr/87EkVgk7Ux
-Fzpmij8C2N43aHPjlQnPFJJwTvIV+8PFdlQFR+NKmWofaY+ajrwuhI7JPuG5IMWIp6XBu0EpTYRT
-tSHCxNgF5X/cpv8lSVz3og+QKwUS+mas7n6WUHj9vbMAnfXK3nRlrquBfswOBJX+XG13rZ7PtOMj
-UYXOBvCOJcoP/8F/EzCoFlqp8Hon3sNAc7QNlSzD5hvFJBw2HXn7Tcznn79BwhsDl8KK/Y8FXJNs
-cIT7bfYz7B8AQVK9gM/hkfq+yStpMq3Bxmj8+PBfhA4OXKbk+hZE2jlWo6GbHkqlWONU8bw1CaZw
-GJ3Goj4O/vAGcdBtgB4OVUV0Tc6ZJiqEf8zzdU0aYz9ppWj5sWIw9s98MMp+eQTcfgN7F+/R1yoi
-cnRpgLGUJqBBt2PxmpaYaHx3LoDjIniDVQ9AG5HBp3KHo7LgwEd3NQ5rvnnyVlPNotEw43uOmlOt
-G+p9GA1qyINuHvBYJoIuGb8UPg6Tx7YyglxAXsf3swlrwoLDEsgxPE9JrLVYjjaQftxF9dPEgkaB
-0R0VRN818yuLUSTjeaegCmJOrjZ/sV8N50muZfDesDcpbcPnRDUzVqdTLLERUrvuHRC8fl13Rt7N
-659tXUjOz1svW/Z2gKjP45fTj2YdH0mXjVn8bTgr5k3QAn7/746Tqg2a1dH2f9Ql63XjihVU9GPo
-qT4f5I5/Fc3ww+eqirFQmRCzH65MVv5lBm2K64Qf2EXpMZejAQUe7a4PAIJwSIoLZU9roCenYDj2
-CM31NDnBrjm6hJ28zIXGvPu9Q/2hXwBTthsYvbuvf05VnBjn3kTe+E00FOdbBqqj0USAXNVA04Ha
-WLs0BPAXAJQMLRJ4xqQGqUAe5xZLyA70wkg0HqFFm0cGeLKK3eB7d4VHvq3ncwFJ9QNwJ6BWpQ1t
-Q+TDlIrA199XKMiKfnCbk+rAUol5FfvG2e/1AHw76z61+A5i84qxu2rqiaZVExYrnvGORNMlTANg
-lZ03uNwVTVySlBABqGbeU0kgCMS+SYEN8Hb6vwXUimZAN0Q+JBwW7ndd3h6PQTGa+9sz0K2CKlXi
-A4PRvgYLNXL0U3deztWAbgy5x6g01+aUH+eTzA4wJfY1+ugoWVH26O4BjpigBeK5XbAhRSMBhc23
-62wwJYJtO5BfpJYjMTabgA3RGqFC6b6fj8yT5fq1WKZaEucANkGB4jFo/kSVcNVDOjiRj+BmXZ5G
-A6CTegtUNPKCJkMYJ7HpaISuyHKvY4lQxW9RkNTY5Wqec5MoKtTohgk/cVdcuncnhx1+GCXgrB9D
-ImQZNStRPtyKYJ84BjAqbGj7zmfUnfjiNg9wme+K8cQIuCfdMTGeyq+F8Oh/aTOqSQWPclK1TNrc
-T8Z3BVN02RPdR7mbAj40nA85AaAJN5kiwyQr521vQzgVDZfIIFWD7SQSQe40s/zE2GRquvbojZ7G
-ySZDv7+ILgGX7Pu3Xsr3RKneRXBLBEQQrzbbyhFmrsqVr3viU2jM964KZJ3vnjACRM9FdInbUvLU
-qCeKmi56lx/47eX9Ckr/esOckN7KpbHiw9IC6eFzC+ui01//v8Mw4oEr3ucK/yllJ7dMa/yfYc9j
-xqa4JTuk/HrJsSk3LpaRbgeGihxx7aU1flH1fbuPUJqMb/upD8yXBwB+cHTI6t2nnd0cSrMqZt7T
-G4gIQr8HKkiN1US8D349Zdp/pwiHy5ibPm5Qzvr+KskyP+qjLhY05BBl3yOMD/y3CAenITLy/AqZ
-LAjmwL8tYjmvwtftVzngZb4QdAh54p2awQf+WaA58t6/x8aQPtbGUR6r+Q3G1cJqsiU6ju82IErJ
-Cw6k+2BG50Z7aVHzVaI6yKUiAa7wLPM/5XMzzy7KO2jbRUkeUnzaH9h5XYVzEv9AeEmAwqK0BJVc
-zdONtujNRMndDtjjWMTnzfI/PlgTL8VkeCetgCPNlMvwMcn4mYCdNVyHBIj/OGiH+s4mTX42ojTf
-hSWppzqb8FB2R/eY8WRq50czOVh3TBF0g58xUelKnVhP0wxO5xB4JJwiYlcCPlzlR/4GMLKcuRvA
-t8RAyqGChW36XFJpYh64vWSdz7zyNUXhWrYnqe1vkd5BIiKAZkZD+FY/iZyZEmkL5g9wRG+6h0CK
-d4f/WF/eZZvEv0lkCbCvq6UyQ0J5n9CGcs3qjbC9lprY4gEo8+h+WeQ9+OXF5WVnyXIK6BXo/a9S
-GjwHvW+fEG0dwCbMmH7xX+Gr/weV2kk+38Rnjsj7MvdL5cfsca0wNjycOGmLJHai9jlnerB8hGHD
-CdoykTojAjpQt1cXYKHt+s1jfuzaGzVg97gcJG1GpamUCLsEyillmbJs7Y1z3gjB7gDVDVWoXK/C
-TVD7oldwYLgVTzllY+dq8Xej6j30uzrQPj+S4A1h1E3fWII+ZbxTrfzaMV0ZZVzq2Vm+dkIvQxrV
-qfHjBjgjT/iCX7h5yTFEn4avg/BcWXYgcdS1TmyEHpKArBt5SygsoaQwdi9ZQehncxKmTtdkc7sH
-qTpTokjjn3i2Vm0Gj2eVhkI4B9kA/iUoXgz5iAgcg2fUyQAwC0GsZMG7OooNJRba4osVcCLPXoSR
-4ow2RSaP86yHK6bnCvhlo+wLEcppm8UbyUunEY+MzU36bryGzyMb7eWKQt6p5VelpJNvKYys6szF
-Qni3aZHSh1kg6trF6VUrBbjUMVst25/mykMzrL3JI0ZvUxzRE5oRU0WRsjZCyADNdaPHuHY+jqu+
-Ya+BLsAum/4K9oGCDjixdagDqhT41JKE1MAQeD7NQ1dkQIvT12QdKxwPN38fNCZCNX5QbZ6dD1Ne
-JJC5EmgIgqskAvrTmxaql62PLkRDb7A5Det8DwsPj+F9OmzUp92ZQ021Dx/9Hz1qB6v52Z/PYIbr
-4kW6BYvb3nGr6oX4AvAznwwgadeWVNK86nQDOnDUrwhXeyLP0cgu7U4zmQh+g8iaOyO+PBD7Sb8B
-HL7/l0slNkF+vcWpMEBbNfY6La3VQuR4BHYKVg/yMF0fDO3N+RrG2ln1Q8mG7RIfd5Gf7nv/YYzu
-NwEA90kZmSILKf5ERzILQ2k5KRC1njiN0I4c5ZEUp05p6sQskPhHG2FbVWSbnl8CHM+xNjG+mlhy
-9Xc5pvUtegjFjZUlOq/XE8UQN7r8ZwkMb3JBb+l+LdlMcydox6POjBrhhIxm5zyEIWdhmj/0MsdE
-QcTe8RsaKOP1NkD1aq1aQRb/EPbf8bT5cqFL6kYljLPRWu5UqHLt51r6H88lfoRJS4wB73kUp0d+
-vbYdnMWWEeqKp9hgO2cnS9t2OzkW68O20WvJ5D+ZZz96D8Afh79ghRiKmYgHo+K7Hx6BgRIpOcjb
-MPsOmPG6GpSIGeGem+gkC5pdUny/YN6+1cv5OW6ViPQI3M2tBJkLy4aweBjYtyliUVt3YCs+mbPb
-495v/voziWSsam0oqRdvtR+BhOS+JwnSLcUkN2FAK42Z9+COKqLQqQvy80VjNwJH1gNjhNEIv7R/
-qf6Q/i5L4u5nFu7SJ82IaMJD7gpmrjkZ76OfxhQ+e3hmezqlw0fyxwcAymllSCiu6/wrE/j4FvO9
-Ys8ckdewoce/K5PS1WCu+Dq15122kKGgUDr9svEU+FoLkhfjSse/PxX0ZT6tn9OcQOFkUf7yDdMZ
-xlwvUPPVeohK4W8t7A5oLwdDRsMbZsUOHHWQ9u/jcTkBtNbakFtEIUZrLaukuuk6xugym0Q4GUzD
-y6f/eIFsLDwBdrrrH3vKrgqRpKV9fdfXMLWYFNFPk2OKSfrDAp7lVYrjjGQyl5smv4975aA6j1IM
-qV0Ua5Gazfx8+zjgkVpl6klfNfNOrXIZg05rokfHa/6mpf2EemG0FLly5+BJ26PPPZ5bSrw8moXR
-LPX3d3Blev2GNl82FKxDzlJom2XzCJs9M6BUHgE89Ra8kA7nxd7eZ2XG61D3ArvyHStNmBgvP/ZL
-ZJ7MQi1UaBkE5eBVxy8r6HFe+HLRMeQvoUjPDc0eTe0FmQgfbEykKsXYJnUr3gRRTopa/VgIyAl8
-4lkBgZ+0Ov2gGxlAx1Q14VwSIajcp7CiApcvowHFJVVaP7ypAayIoDSaQDrdLh0xgHf92AMvjyBM
-2HaSZ1qBxMeA1xI75RL/HEPcaR/B7SWEra1aBS5boUFmoKinVlS2qEks7V1eMxhZkNuVgFJ4YVWZ
-4LFmoyfCjGirpRdryeiMSWiocUnuueJXdYpFVaT+P9t3PEZiW5A+ro9ZPONC31vfvoqgSPtkSANE
-GBy5kV7nfnDcv8Kne0egOIYdvTGJ+hAZrBA2XHoCgHAvgfBqpA9cXw9hBAf59VMC8kfGSlRJWjD3
-KYx3jrIAievgJY+Iy6DjeQW/vlM7IGXAxuKa9Vd9038jD2RwC1SMVdYFtDhZu5yKIxCxfIaRi/1H
-Uy1vQUf2iuVVJzL2SAQm3qS7rduT+/ql2oFU6uADCWNkSlYHTEmrI4zsfrT8CAgeMEf8CUZLNTPO
-WqyVtjGg+jbmIA9cJHDmzUtmUO6CrhlJ3r9L/9TNH4caBDyzgoS2XfTKpwptu/NqbgJ4+YXwnGU5
-Stb68fpyKOf3JDhnVkBddRcFZhNC7eg9ykpxoiq1OKbg5MRV0FPb3G7tVBDH9imMCMsP3mBMRDe8
-7kL+UgIa/EnPdYQt9U/v/rz2L8momjDNppPBin7eWARM8+6wriKkbXSJ4EAWmQdzpwYx1rQIydQA
-Rt2JoZz6vsjwMmBA29FZEO2ZAxkW7sgsY+Z3G3iXObGXSJxEIXWAlGwgTavrLU+SEqPaBeW6260X
-2EJAVed59WMAQsLzGwRwV52jQthKNBr1Z1I00UtMBVCjELaEEdFPHh1OqBaxP0wln1wX/7Xa3Ug8
-ri1IRSgb8PPlxSWXZEEpPKofpa7CeWXzP12yIhZ97vMLUX3wpto2NG/9mnjD9SKPsu0FHEwkVYrS
-jsmBICtKjC7GkTRr3xZPCTixg/cXg86ik5DseApL6gPefgi9W80v/DwmPbxEte75XvNBnUMrJqjP
-x3RIodN0eI0BIhhXxPIvADK90Gg/KjfWVTGjXbUKDZWbXLN/f23T3J4PJm8jocIq4ICBeYZSYWCl
-30q96RoQhMmgNjoFVDOpIucbrV1716yJPfmxvVOUVIJ7W9kYhj06TChNztphS1o87S4SClzWMg9Y
-tEpZczbWjbkXyAji9IzCumBDo7TE8tyFcnsIrSYx/2WOfeQav6I8Gj3bE5F6ZLb7lTNND5iwQ7d2
-VsybhLPAjVe4AKzo8JXhmIRpNvQshvZPZ6xiZWU44KoAjRyn8SKHLTzX2OzHKY2QCK3sbvUUX+oV
-swT86r964I8gDf6wAh6YiyAm7iouBQnX3wNdbgvHOcAHV3aeozaJ/eblf7hj1vbKSDIgbHyrazjw
-EjBJBH7MRVoTVTrq82exAGRAQSjpiJrSBDo618jWgIBMnclLQGqbSXC2q97wS43dtkJKTZeCc9cD
-9xcLLuz+idWCD0+8lgqrTVRPSUfO4TCI1RNKVi4UaZ0k0cUbZduzJIpbWmJINGdh1xdKlMdfjPGa
-V5ShaFBs7DSXee/L2Mz7nGJOD/haTMq/qPtpCRsuxmpnmrBZBhPI9KUObWFvAyTlNQ/GS1IzIBq7
-biUydJWaUxHRQBmHPfsMih4EQaMRee+wr6jFXKb7rqRgB3yaPi+EgYtpIP7Um5xthB+WqTk+nK5a
-PMVjZ6+6u6mW+HO5Fdwp5QlcaNTxBhsuiO/Sxpt0diy93JwrPPPb0L3EXWYCdqc4enPtVwguYRC7
-qX3m0+zavoACVh40x+qJjeIt6YptFXFlZZNA0SEJ6UlP0BwlPyaDM9z+3GYAU033DPKTojj8VpO5
-NP6KrZLTL1x/gcgsHWHCwKsqi4NoMEgwfgmwGuEwS0CqKSGUkJ1VRtOkEilXmOw6Gk+371+A0s7T
-V5TRSh2M8pd9KvkRWhCv6hTj2i9r2fF4MQlQDmdGV2x5MJAxDsLgUvFnWukQECovndo0cC+mk+V9
-sHjxUnJ1hj/S2DSbQSrG6uD/hfm+NupBiprvh/EqVMAsiN6MgkNx+u2AGLvciplJg86cVk9ZUWuh
-uM3JstqjmAn4ZmerC1XQlUELol7KCxrFat5hwyKajUPON1rVYAUEjM8jASZjPla1lJ9n19kwwpuW
-Xl/hjPeIqC3awpEUvNNElKLZBKrRDW5enMaFcWWgxRMpCdnZTF+mwNzhMgwrNtCDxssQIVs0OGdv
-72nHo3Jf1j2aDDEs/FmE4rM3piHNu/J43Yxkmn+WYaSbe/Jrkkfqye+o9miZqCSFzfLk0jMvuCK+
-CKsKU001YmpkS7nNeqik5cS1YwgkwJBGLX9blVRkS+abSdIAChbvu9PByNgnfb8+Cvm6BvV4X219
-ui8T8/x4/rOVvA7TcSlewmeZnljdIFNDrUIjD4MNyxOvpdNUkdy1eS03klxYY5ysCPJYqwlOslky
-Nzxag7gWwTjh/xfGtUU83hSFTB8VEJEAUQAof1zDMK0lMF+RSLUPKM4VEq+EvdKfMILTqIlCPJTm
-10XN/CtDaf9X/oMs0ka8bRBK1TgvswAVd0gmI65tm7BfKCjK2MnJYo42NM9cX56VDpuLe+tupsq6
-akUDIyveTKR8acW+GHDtb6naICW+g1r6CsCZSBTQ2AHsBjSaJ2ZzYZxyz0NhZrCC9QT80RxLHhhh
-zxlrtVy2JIslzm790OB+dCOc4EJ73iVXzUi9E2jJEDpXg/S4+Eib50KzNgURoNrzQRToq1QVo/A9
-gazhnMyFQAEJjtMn67wsc7at1EODJhvKGPKqPXBt5mYr2zFcqNrXJcb05YzyDybsAxcCIdnZ7sbW
-YlfdCFS1+gm/0VKZEJ3dCaQbpE1IK4vIePo06kXl4AXe4h/TaoN/yHLQfabjiT+1bR3jU5QibsZA
-dKELabJTAd5lO/YN9jJrW9p1mnG5EGc+XD7lywh3uUA3yMKuGilVhNQ4hJCWpjrxXYihGHuPWjpC
-3jS1HbiDlnreaUjl8iCKq+IwmsXvq69j33Jc4m5IDzECTpx0I2kfwliZlHX6HS5Vkd26oPNns5S5
-F/wRTwOSCXh4I2WbiuM8lVhJ083laJk0v61ZHd5qagb20pvujoW1ENQiOiohdpqHH5nHM+9yOSWN
-TzOGXwEJDiqCM5L6tR3BITUSSyUFlacbwreprE6i5PVUQzjFszPObbtv4YdwDbaSpHgQ74f6mDwU
-HPL9YWxIo3BPR7loJ2gh1GfUj9qsJV5ADsMyPI/fzAOLdqH+Qf84Y5nwfFj+XM0VB6x68JraOgyS
-wRbEs8LmsXrsTC6dd5dup8lg/a3Q5f/pQlckA3d34kdvH86n6sJk1w8nZ4ENB+dLWCACNYRFLXOx
-XOUO9VpDWSfkvTWiE+EYpDCnlXoCm5nnmltxUecO+6fi8AYVavZNWnGi8KjAmfBdsG9v7f+BgcdZ
-ci+DQplDgmUm/mNaxjif7AagBI82lQIkV47812PJwZ7P0TBO+5Sd/tOZvXax23T768EO4wiPU6bb
-QqGYkAcTPbi1H0jXs6tc3R5t8aWhpWwSAYWHy2T7NRnKHGlb1u5RshX46W1Z/+8syiGRC452XZKf
-Mad8pmQIjEe+qnp88va7ysPy0i3T2AMxbKEPNoxX3VdYgp3A3kXNW+kT/Q56fFm7qxCiSw03NCiN
-3Hq7gvO8vdpzOjTlWXuewnx6/UEzmFBlW1OOFSoHUR2wgwvNMMtBYNdBEbbNWv7Sk27FCpu/j0I2
-QGin9+QfoqE7zFoOz88iJT/3+QVdZvYhG3OPuWibwZdQvYK7aAK8LG0zYurNLySkk5UPGI7MtkRe
-puN0jg59tX0t81j9u0PWRi6qH3MeWCkWkbj0kz+VTJ1bm2djIDNTlVEaXCnQCunjEfsPkSCg2ant
-9MrREA1fbijHfKs0tocS01ZBeBXxH1G1xqHVFRKp3JBblwDibYbEDKlWVmGa6uHObSPFNDljzRtg
-9El5U6j+kR0RUHhxtLaI1LWzcDq/A602540X6PNshg7eCb1FOLnYC1TYGig3ZWT+3pucAtnZPqEa
-npg+hU7q34sc7lvKMJlIgiyIkdfeNNTaikk2seK2nBEOw2o6NO8AUePWdRp/HVOKHP1brD/8HuPU
-Y3Zp8D3wHbJYpybR+jVVTp0VdubiNtrwYGlybXGm6OSCmHeHH0rImv0MhCL6uq4fus6hgthy30==

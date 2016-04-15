@@ -1,112 +1,211 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-Emyp50Ebeh2ER8AUi7VfR7S=
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Allows customization of Messages on-the-fly.
+ *
+ * @package    Swift
+ * @subpackage Plugins
+ * @author     Chris Corbyn
+ * @author     Fabien Potencier
+ */
+class Swift_Plugins_DecoratorPlugin implements Swift_Events_SendListener, Swift_Plugins_Decorator_Replacements
+{
+    /** The replacement map */
+    private $_replacements;
+
+    /** The body as it was before replacements */
+    private $_originalBody;
+
+    /** The original headers of the message, before replacements */
+    private $_originalHeaders = array();
+
+    /** Bodies of children before they are replaced */
+    private $_originalChildBodies = array();
+
+    /** The Message that was last replaced */
+    private $_lastMessage;
+
+    /**
+     * Create a new DecoratorPlugin with $replacements.
+     *
+     * The $replacements can either be an associative array, or an implementation
+     * of {@link Swift_Plugins_Decorator_Replacements}.
+     *
+     * When using an array, it should be of the form:
+     * <code>
+     * $replacements = array(
+     *  "address1@domain.tld" => array("{a}" => "b", "{c}" => "d"),
+     *  "address2@domain.tld" => array("{a}" => "x", "{c}" => "y")
+     * )
+     * </code>
+     *
+     * When using an instance of {@link Swift_Plugins_Decorator_Replacements},
+     * the object should return just the array of replacements for the address
+     * given to {@link Swift_Plugins_Decorator_Replacements::getReplacementsFor()}.
+     *
+     * @param mixed $replacements Array or Swift_Plugins_Decorator_Replacements
+     */
+    public function __construct($replacements)
+    {
+        $this->setReplacements($replacements);
+    }
+
+    /**
+     * Sets replacements.
+     *
+     * @param mixed $replacements Array or Swift_Plugins_Decorator_Replacements
+     *
+     * @see __construct()
+     */
+    public function setReplacements($replacements)
+    {
+        if (!($replacements instanceof \Swift_Plugins_Decorator_Replacements)) {
+            $this->_replacements = (array) $replacements;
+        } else {
+            $this->_replacements = $replacements;
+        }
+    }
+
+    /**
+     * Invoked immediately before the Message is sent.
+     *
+     * @param Swift_Events_SendEvent $evt
+     */
+    public function beforeSendPerformed(Swift_Events_SendEvent $evt)
+    {
+        $message = $evt->getMessage();
+        $this->_restoreMessage($message);
+        $to = array_keys($message->getTo());
+        $address = array_shift($to);
+        if ($replacements = $this->getReplacementsFor($address)) {
+            $body = $message->getBody();
+            $search = array_keys($replacements);
+            $replace = array_values($replacements);
+            $bodyReplaced = str_replace(
+                $search, $replace, $body
+                );
+            if ($body != $bodyReplaced) {
+                $this->_originalBody = $body;
+                $message->setBody($bodyReplaced);
+            }
+
+            foreach ($message->getHeaders()->getAll() as $header) {
+                $body = $header->getFieldBodyModel();
+                $count = 0;
+                if (is_array($body)) {
+                    $bodyReplaced = array();
+                    foreach ($body as $key => $value) {
+                        $count1 = 0;
+                        $count2 = 0;
+                        $key = is_string($key) ? str_replace($search, $replace, $key, $count1) : $key;
+                        $value = is_string($value) ? str_replace($search, $replace, $value, $count2) : $value;
+                        $bodyReplaced[$key] = $value;
+
+                        if (!$count && ($count1 || $count2)) {
+                            $count = 1;
+                        }
+                    }
+                } else {
+                    $bodyReplaced = str_replace($search, $replace, $body, $count);
+                }
+
+                if ($count) {
+                    $this->_originalHeaders[$header->getFieldName()] = $body;
+                    $header->setFieldBodyModel($bodyReplaced);
+                }
+            }
+
+            $children = (array) $message->getChildren();
+            foreach ($children as $child) {
+                list($type, ) = sscanf($child->getContentType(), '%[^/]/%s');
+                if ('text' == $type) {
+                    $body = $child->getBody();
+                    $bodyReplaced = str_replace(
+                        $search, $replace, $body
+                        );
+                    if ($body != $bodyReplaced) {
+                        $child->setBody($bodyReplaced);
+                        $this->_originalChildBodies[$child->getId()] = $body;
+                    }
+                }
+            }
+            $this->_lastMessage = $message;
+        }
+    }
+
+    /**
+     * Find a map of replacements for the address.
+     *
+     * If this plugin was provided with a delegate instance of
+     * {@link Swift_Plugins_Decorator_Replacements} then the call will be
+     * delegated to it.  Otherwise, it will attempt to find the replacements
+     * from the array provided in the constructor.
+     *
+     * If no replacements can be found, an empty value (NULL) is returned.
+     *
+     * @param string $address
+     *
+     * @return array
+     */
+    public function getReplacementsFor($address)
+    {
+        if ($this->_replacements instanceof Swift_Plugins_Decorator_Replacements) {
+            return $this->_replacements->getReplacementsFor($address);
+        } else {
+            return isset($this->_replacements[$address])
+                ? $this->_replacements[$address]
+                : null
+                ;
+        }
+    }
+
+    /**
+     * Invoked immediately after the Message is sent.
+     *
+     * @param Swift_Events_SendEvent $evt
+     */
+    public function sendPerformed(Swift_Events_SendEvent $evt)
+    {
+        $this->_restoreMessage($evt->getMessage());
+    }
+
+    // -- Private methods
+
+    /** Restore a changed message back to its original state */
+    private function _restoreMessage(Swift_Mime_Message $message)
+    {
+        if ($this->_lastMessage === $message) {
+            if (isset($this->_originalBody)) {
+                $message->setBody($this->_originalBody);
+                $this->_originalBody = null;
+            }
+            if (!empty($this->_originalHeaders)) {
+                foreach ($message->getHeaders()->getAll() as $header) {
+                    if (array_key_exists($header->getFieldName(), $this->_originalHeaders)) {
+                        $header->setFieldBodyModel($this->_originalHeaders[$header->getFieldName()]);
+                    }
+                }
+                $this->_originalHeaders = array();
+            }
+            if (!empty($this->_originalChildBodies)) {
+                $children = (array) $message->getChildren();
+                foreach ($children as $child) {
+                    $id = $child->getId();
+                    if (array_key_exists($id, $this->_originalChildBodies)) {
+                        $child->setBody($this->_originalChildBodies[$id]);
+                    }
+                }
+                $this->_originalChildBodies = array();
+            }
+            $this->_lastMessage = null;
+        }
+    }
+}

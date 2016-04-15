@@ -1,60 +1,30 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-7qv/bYiSUqL9MOiMaXsYZ246WG==
+<?php
+
+require_once 'Swift/Tests/SwiftSmokeTestCase.php';
+
+class Swift_Smoke_HtmlWithAttachmentSmokeTest
+    extends Swift_Tests_SwiftSmokeTestCase
+{
+    public function setUp()
+    {
+        $this->_attFile = dirname(__FILE__) . '/../../../_samples/files/textfile.zip';
+    }
+
+    public function testAttachmentSending()
+    {
+        $mailer = $this->_getMailer();
+        $message = Swift_Message::newInstance('[Swift Mailer] HtmlWithAttachmentSmokeTest')
+            ->setFrom(array(SWIFT_SMOKE_EMAIL_ADDRESS => 'Swift Mailer'))
+            ->setTo(SWIFT_SMOKE_EMAIL_ADDRESS)
+            ->attach(Swift_Attachment::fromPath($this->_attFile))
+            ->setBody('<p>This HTML-formatted message should contain an attached ZIP file (named "textfile.zip").' . PHP_EOL .
+                'When unzipped, the archive should produce a text file which reads:</p>' . PHP_EOL .
+                '<p><q>This is part of a Swift Mailer v4 smoke test.</q></p>', 'text/html'
+            )
+            ;
+        $this->assertEqual(1, $mailer->send($message),
+            '%s: The smoke test should send a single message'
+            );
+        $this->_visualCheck('http://swiftmailer.org/smoke/4.0.0/attachment.jpg');
+    }
+}

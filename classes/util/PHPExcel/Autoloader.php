@@ -1,58 +1,85 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-dfuYOz42fhs+Z7uJuhkLpNA1EiULfoNteia=
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+PHPExcel_Autoloader::Register();
+//    As we always try to run the autoloader before anything else, we can use it to do a few
+//        simple checks and initialisations
+//PHPExcel_Shared_ZipStreamWrapper::register();
+// check mbstring.func_overload
+if (ini_get('mbstring.func_overload') & 2) {
+    throw new PHPExcel_Exception('Multibyte function overloading in PHP must be disabled for string functions (2).');
+}
+PHPExcel_Shared_String::buildCharacterSets();
+
+
+/**
+ * PHPExcel_Autoloader
+ *
+ * @category    PHPExcel
+ * @package     PHPExcel
+ * @copyright   Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Autoloader
+{
+    /**
+     * Register the Autoloader with SPL
+     *
+     */
+    public static function Register() {
+        if (function_exists('__autoload')) {
+            //    Register any existing autoloader function with SPL, so we don't get any clashes
+            spl_autoload_register('__autoload');
+        }
+        //    Register ourselves with SPL
+        return spl_autoload_register(array('PHPExcel_Autoloader', 'Load'));
+    }   //    function Register()
+
+
+    /**
+     * Autoload a class identified by name
+     *
+     * @param    string    $pClassName        Name of the object to load
+     */
+    public static function Load($pClassName){
+        if ((class_exists($pClassName,FALSE)) || (strpos($pClassName, 'PHPExcel') !== 0)) {
+            //    Either already loaded, or not a PHPExcel class request
+            return FALSE;
+        }
+
+        $pClassFilePath = PHPEXCEL_ROOT .
+                          str_replace('_',DIRECTORY_SEPARATOR,$pClassName) .
+                          '.php';
+
+        if ((file_exists($pClassFilePath) === FALSE) || (is_readable($pClassFilePath) === FALSE)) {
+            //    Can't load
+            return FALSE;
+        }
+
+        require($pClassFilePath);
+    }   //    function Load()
+
+}

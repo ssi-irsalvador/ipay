@@ -1,76 +1,58 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php 
+if(isset($eMsg)){
+	if (is_array($eMsg)) {
 ?>
-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
-fEMC+pUi+zNYY0==
+	<div class="tblListErrMsg">
+	<b>Check the following error(s) below:</b><br>
+	<?php
+	foreach ($eMsg as $key => $value) {
+	?>
+	&nbsp;&nbsp;&bull;&nbsp;<?=$value?><br>
+	<?php		
+	}
+	?>
+	</div>
+<?php		
+	}else {
+?>
+	<div class="tblListErrMsg">
+	<?=$eMsg?>
+	</div>
+<?
+	}
+}
+?>
+<div class="themeFieldsetDiv01_pop">
+<fieldset class="themeFieldset01">
+<legend class="themeLegend01">Employee Type Form</legend>
+<form method="post" action="">
+<table width="100%" border="0" cellpadding="1" cellspacing="1">
+    <tr>
+      <td width="30%" class="divTblTH_">&nbsp;</td>
+      <td width="70%" class="divTblTH_">&nbsp;</td>
+      </tr>
+    <tr>
+      <td class="divTblTH_"><div class="style3">Tax Exception &nbsp;&nbsp;</div></td>
+      <td class="divTblTH_"><input name="taxep_name" id="taxep_name" value="<?=$oData['taxep_name']?>" type="text" size="30"></td>
+    </tr>
+    <tr>
+      <td class="divTblTH_"><div class="style3">Order &nbsp;&nbsp;</div></td>
+      <td class="divTblTH_"><input name="taxep_order" id="taxep_order" value="<?=$oData['taxep_order']?>" type="text" size="10"></td>
+      </tr>
+    <tr>
+      <td class="divTblTH_">&nbsp;</td>
+      <td class="divTblTH_">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="divTblTH_">&nbsp;</td>
+      <td class="divTblTH_"><input type="submit" name="Submit" value="Save & Exit" class="buttonstyle">
+        <input type="reset" name="Submit2" value="Back" class="buttonstyle" onclick="javascript:history.back(0);"></td>
+    </tr>
+    <tr>
+      <td class="divTblTH_">&nbsp;</td>
+      <td class="divTblTH_">&nbsp;</td>
+      </tr>
+  </table>
+</form>
+</fieldset>
+</div>

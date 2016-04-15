@@ -1,1163 +1,2473 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ * Initial Declaration
+ */
+require_once(SYSCONFIG_CLASS_PATH."util/export-xls.class.php");
+
+$emptype = array(
+    1 => 'Officers',
+    2 => 'MTC/Additional',
+    3 => 'High School'
+);
+
+/**
+ * Class Module
+ *
+ * @author  Jason Mabignay
+ *
+ */
+class clsPayrollRegister{
+	var $conn;
+	var $fieldMap;
+	var $Data;
+
+	/**
+	 * Class Constructor
+	 *
+	 * @param object $dbconn_
+	 * @return clsPayrollRegister object
+	 */
+	function clsPayrollRegister($dbconn_ = null){
+		$this->conn =& $dbconn_;
+		$this->fieldMap = array(
+		 "mnu_name" => "mnu_name"
+		,"mnu_desc" => "mnu_desc"
+		,"mnu_parent" => "mnu_parent"
+		,"mnu_icon" => "mnu_icon"
+		,"mnu_ord" => "mnu_ord"
+		,"mnu_status" => "mnu_status"
+		,"mnu_link_info" => "mnu_link_info"
+		);
+	}
+
+	/**
+	 * Get the records from the database
+	 *
+	 * @param string $id_
+	 * @return array
+	 */
+	function dbFetch($id_ = ""){
+		$sql = "select ud_name from app_userdept where ud_id = ?";
+		$rsResult = $this->conn->Execute($sql,array($id_));
+		if(!$rsResult->EOF){
+			return $rsResult->fields['ud_name'];
+		}
+	}
+    
+    function dbFetchPaystubPerEmp($emp_id_ = null,$payperiod_id_ = null){
+		$qry = array();
+		if (!is_null($emp_id_)) {
+			$qry[] = "a.emp_id =$emp_id_";
+		}
+		if (!is_null($payperiod_id_)) {
+			$qry[] = "b.payperiod_id ='$payperiod_id_'";
+		}
+        $qry[] = "a.ppr_isdeleted = 0";
+        $qry[] = "a.ppr_status =1";
+		$criteria = (count($qry)>0)?" where ".implode(" and ",$qry):"";
+		$sql = "Select *
+					from payroll_paystub_report a
+					inner join payroll_pay_period b on (a.payperiod_id=b.payperiod_id)
+					$criteria";
+		$rsResult = $this->conn->Execute($sql);
+		if (!$rsResult->EOF){
+            $rsResult->fields['paystubdetails'] = unserialize($rsResult->fields['ppr_paystubdetails']);
+			return $rsResult->fields;
+		}
+	}
+
+    function dbFetchHeadDepartment(){
+        $sqlparent = "select ud_id from app_userdept where ud_parent = 0 and ud_id != 1";
+        $rsResult = $this->conn->Execute($sqlparent);
+		if(!$rsResult->EOF){
+			$parent_id = $rsResult->fields['ud_id'];
+            $sql = "select * from app_userdept a
+                    where a.ud_id != 1 ";
+            $rsResult_ = $this->conn->Execute($sql);
+            while(!$rsResult_->EOF){
+                $arrData[$rsResult_->fields['ud_id']] = $rsResult_->fields;
+                $rsResult_->MoveNext();
+            }
+            return $arrData;
+        }
+	}
+
+    function genReport($gData = array(), $ud_id_ = null){
+        $emp = $this->getEmployee($gData, $ud_id_);
+        if(count($emp)>0){
+         foreach($emp as $key => $val){
+         		$paystub[$key] = $this->dbFetchPaystubPerEmp($val['emp_id'], $gData['payperiod_id']);
+//         		printa($paystub[$key]);
+         		$emp[$key]['salaryinfo_basicrate'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['earning']['basic'];
+	            $emp[$key]['gross_semi'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['earning']['Regulartime'];
+	            $emp[$key]['cola'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['earning']['COLA'];
+	            //TA
+	            $emp[$key]['TA']['ot'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['earning']['OT']['SumAllOTRate'];
+	            $emp[$key]['TA']['Absences'] = $this->getSemiMonthlyTUAPerEmployee($val['emp_id'],$gData['payperiod_id'],1);
+	            $emp[$key]['TA']['LateUT'] = $this->getSemiMonthlyTUAPerEmployee($val['emp_id'],$gData['payperiod_id'],3) + $this->getSemiMonthlyTUAPerEmployee($val['emp_id'],$gData['payperiod_id'],4);
+	            $emp[$key]['TA']['totalLateUT'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['TUA']['TotalLeave'];
+	            //start of contribution
+	            //government
+	            $emp[$key]['cont']['sss'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['deduction']['SSS'];
+	            $emp[$key]['cont']['phic'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['deduction']['PhilHealth'];
+	            $emp[$key]['cont']['hdmf'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['deduction']['Pag-ibig'];
+	            $emp[$key]['cont']['tax'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['pstotal']['W/H Tax'];
+	            //earnings
+	         	$psa_amendment = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['amendments'][0];
+				//for dynamic amendments use psa_id as key, earnings
+	         	$amm = $this->getAmendments($gData['payperiod_id'], 1);
+	         	for($a=0;$a<count($psa_amendment) ;$a++){
+						for($f=0;$f<count($amm);$f++){
+							if($psa_amendment[$a]['psa_id']===$amm[$f]['psa_id']){
+								$keyID = $psa_amendment[$a]['psa_id'];
+								$emp[$key]['earnings'][$keyID] = $psa_amendment[$a]['amendemp_amount'];
+							}
+						}
+	         	}
+	         	/*for($a=0;$a<count($psa_amendment) ;$a++){
+	            	if ($psa_amendment[$a]['psa_type']==1) {
+		                if ($psa_amendment[$a]['psa_id']==24) {
+			                $emp[$key]['earnings']['Incentive'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==41) {
+		                	$emp[$key]['earnings']['otadj'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==43){
+		                	$emp[$key]['earnings']['SSSPremadj'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==47){
+		                	$emp[$key]['earnings']['HDMFPremadj'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==45){
+		                	$emp[$key]['earnings']['PHPremAdj'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==42){
+		                	$emp[$key]['earnings']['SLConvertion'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==3){
+		                	$emp[$key]['earnings']['MgtParticipation'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==38){
+		                	$emp[$key]['earnings']['UniAllow'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==19){
+		                	$emp[$key]['earnings']['SalaryAdj'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==49){
+		                	$emp[$key]['earnings']['ThirteenthMonth'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==50){
+		                	$emp[$key]['earnings']['TaxRefund'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==40){
+		                	$emp[$key]['earnings']['EDO'] = $psa_amendment[$a]['amendemp_amount'];
+		                }
+	            	}
+	            }*/
+	            //benefits
+	         	$psa_benifits = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['benefits'];            
+	            if(count($psa_benifits)>0){
+	                for($v=0;$v<count($psa_benifits);$v++){
+	                	if ($psa_benifits[$v]['psa_type']==1) {
+	                		if ($psa_benifits[$v]['psa_id']==36){
+	                			$emp[$key]['earnings']['comallow'] = $psa_benifits[$v]['ben_payperday'];
+	                		}
+	                	}
+	                }
+	            }
+				$totalearnings = ($emp[$key]['gross_semi'] + $emp[$key]['cola'] + $emp[$key]['TA']['ot'])
+								-($emp[$key]['TA']['Absences'] + $emp[$key]['TA']['LateUT']);
+         		if(!empty($emp[$key]['earnings'])){
+         			foreach($emp[$key]['earnings'] as $valEarnings => $earn){
+         				$totalearnings += $earn;
+         			}
+         		}
+				$gross = ($emp[$key]['gross_semi']+$emp[$key]['cola'])
+	                    -($emp[$key]['cont']['sss']+$emp[$key]['cont']['phic']+$emp[$key]['cont']['hdmf']+$emp[$key]['cont']['tax']);
+	            //deductions
+	         	$psa_amendment = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['amendments'][0];
+		        $amm2 = $this->getColumns(2);
+			    for($a=0;$a<count($psa_amendment) ;$a++){
+					for($f=0;$f<count($amm2);$f++){
+						if($psa_amendment[$a]['psa_id']==$amm2[$f]['psa_id']){
+							$keyID = $psa_amendment[$a]['psa_id'];
+							if($keyID == 51){
+								$emp[$key]['deductions']['TaxPayables'] = $psa_amendment[$a]['amendemp_amount'];
+							} else {
+								$emp[$key]['deductions'][$keyID] = $psa_amendment[$a]['amendemp_amount'];
+							}
+							
+						}
+					}
+			    }
+			   
+	           /* for($a=0;$a<count($psa_amendment) ;$a++){
+	            	if ($psa_amendment[$a]['psa_type']==2) {
+		                if ($psa_amendment[$a]['psa_id']==18) {
+			                $emp[$key]['deduction']['overpay'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==44){
+		                	$emp[$key]['deduction']['SSSPremadj'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==46){
+		                	$emp[$key]['deduction']['PHPremAdj'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==48){
+		                	$emp[$key]['deduction']['HDMFPremadj'] = $psa_amendment[$a]['amendemp_amount'];
+		                }else if($psa_amendment[$a]['psa_id']==51){
+		                	$emp[$key]['deduction']['TaxPayables'] = $psa_amendment[$a]['amendemp_amount'];
+		                }
+	            	}
+	            }*/
+	         	$loan_info_ = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['government_regular'];
+	         	for($b=0;$b<count($loan_info_);$b++){
+					for($f=0;$f<count($amm2);$f++){
+						if($loan_info_[$b]['psa_id']==$amm2[$f]['psa_id']){
+							$keyID = $loan_info_[$b]['psa_id'];
+							$emp[$key]['deductions'][$keyID] = $loan_info_[$b]['loan_payperperiod'];
+						}
+					}
+			    }
+	         	/*for($b=0;$b<count($loan_info_);$b++){
+					if ($loan_info_[$b]['psa_id']==11) {
+						$emp[$key]['loan']['cashadv'] = $loan_info_[$b]['loan_payperperiod'];
+					}else if($loan_info_[$b]['psa_id']==13){
+						$emp[$key]['loan']['hdmf'] = $loan_info_[$b]['loan_payperperiod'];
+					}else if($loan_info_[$b]['psa_id']==9){
+						$emp[$key]['loan']['sss'] = $loan_info_[$b]['loan_payperperiod'];
+					}
+	            }*/
+	            $totaldeduction = 0;
+	          	//$totaldeduction = ($emp[$key]['cont']['sss']+$emp[$key]['cont']['phic']+$emp[$key]['cont']['hdmf']+$emp[$key]['cont']['tax'] + $emp[$key]['deduction']['overpay'] + $emp[$key]['loan']['cashadv'] + $emp[$key]['loan']['hdmf'] + $emp[$key]['loan']['sss'] + $emp[$key]['deduction']['SSSPremadj'] + $emp[$key]['deduction']['PHPremAdj'] + $emp[$key]['deduction']['HDMFPremadj']);
+         		if(!empty($emp[$key]['cont'])){
+         			foreach($emp[$key]['cont'] as $valCont => $cont){
+         				$totaldeduction += $cont;
+         			}
+         		}
+         		if(!empty($emp[$key]['deductions'])){
+         			foreach($emp[$key]['deductions'] as $valDed => $ded){
+         				$totaldeduction += $ded;
+         			}
+         		}
+	            //totals
+	            $emp[$key]['totalearning'] = $totalearnings;
+	            $emp[$key]['totaldeduction'] = $totaldeduction;
+	            //net
+//	            $emp[$key]['net'] = $emp[$key]['totalearning'] - $emp[$key]['totaldeduction']; @note: modify jim 20120502: to correct netpay in excel.
+	            $emp[$key]['net'] = $paystub[$key]['paystubdetails']['paystubdetail']['paystubaccount']['pstotal']['Net Pay'];
+         	}
+         }
+        return $emp;
+    }
+
+    function getSubstitution($emp_id = "", $payperiod_id=""){
+        if($emp_id == ""){ return 0.00; }
+        if($payperiod_id == ""){ return 0.00; }
+        $sql = "select b.ppe_amount,d.psa_name,hem.emp_id
+                from payroll_pay_stub a
+                inner join payroll_paystub_entry b on (a.paystub_id = b.paystub_id)
+                inner join payroll_paystub_report c on (a.paystub_id = c.paystub_id)
+                inner join payroll_ps_account d on (d.psa_id = b.psa_id)
+                inner join payroll_pay_period e on (e.payperiod_id = a.payperiod_id)
+                inner join emp_masterfile hem on (a.emp_id = hem.emp_id)
+                where e.pp_stat_id = 3 and c.ppr_status =1 and c.ppr_isdeleted =0 and a.emp_id = $emp_id
+                and b.psa_id =39 and hem.emp_status=1 and a.payperiod_id = $payperiod_id 
+                group by a.emp_id";
+        $rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+             return $rsResult->fields['ppe_amount'];
+		}else{
+             return '0.00';
+        }
+    }
+
+    function getOtPerEmp($emp_id_ = "", $payperiod_id = ""){
+        if($emp_id_ == ""){ return '0.00'; }
+        if($payperiod_id == ""){ return '0.00'; }
+        $sql = "select b.*
+	            from payroll_pay_stub a
+	            inner join payroll_paystub_entry b on (a.paystub_id = b.paystub_id)
+	            inner join payroll_paystub_report c on (a.paystub_id = c.paystub_id)
+	            where c.ppr_status = 1 and a.payperiod_id = $payperiod_id and a.emp_id = $emp_id_ and b.psa_id in (
+	                    select a.psa_id
+	                    from payroll_ps_account a
+	                    inner join azt_hris_db.hris_policy_ot b on (a.psa_id = b.psa_id)
+	                    where a.psa_type = 1)
+	            and c.ppr_isdeleted = 0";
+        $rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+             return $rsResult->fields['ppe_amount'];
+		}else{
+             return '0.00';
+        }
+    }
+
+    function getTranspoBenefitsPerEmp($emp_id_ = ""){
+        if($emp_id_ == ""){ return '0.00'; }
+        $sql = "select  amount
+                from azt_hris_db.hris_emp_master_ben_rel
+                where emp_id = $emp_id_ and ben_id = 1";
+        $rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+            if(!empty ($rsResult->fields['amount'])){
+                return $rsResult->fields['amount']/2;
+            }else{
+                 return '0.00';
+            }
+		}else{
+            return '0.00';
+        }
+    }
+
+    function getSemiMonthlyOtherDeductionsPerEmp($emp_id_ = "", $payperiod_id_ = "", $psa_type_ =""){
+        if($emp_id_ == ""){ return '0.00'; }
+        if($payperiod_id_ == ""){ return '0.00'; }
+        //fix me: static paystub sccounts
+        //since pede p magdagdag ng client ng unlimited ps accounts
+        //finilter n ko n lng bases sa existing
+        //reference payroll_ps_account table
+        if($psa_type_ == 1){
+            $not_in = "(1,23,24,6,35,3,39)";
+        }else{
+            $not_in = "(28,27,29,12,15,16,17,18,33)";
+        }
+
+        $sql = "select sum(b.ppe_amount) as ppe_amount from payroll_pay_stub a
+                inner join payroll_paystub_entry b on (a.paystub_id = b.paystub_id)
+                inner join payroll_paystub_report c on (a.paystub_id = c.paystub_id) 
+                where c.ppr_status = 1 and a.payperiod_id = $payperiod_id_ and a.emp_id = $emp_id_ and b.psa_id in(
+                    select psa_id
+                    from payroll_ps_account
+                    where psa_type = $psa_type_ and psa_id not in $not_in)
+                and c.ppr_isdeleted = 0 group by a.emp_id";
+
+        $rsResult = $this->conn->Execute($sql);
+        if(!$rsResult->EOF){
+            return $rsResult->fields['ppe_amount'];
+        }else{
+            return '0.00';
+        }
+    }
+
+    function getProvidentPerEmp($emp_id_ = "", $payperiod_id_ = ""){
+        if($emp_id_ == ""){ return '0.00'; }
+        if($payperiod_id_ == ""){ return '0.00'; }
+        $sql = "select sum(b.pd_amount) as pd_amount
+				from payroll_provident_header a
+				inner join payroll_provident_detail b on (a.ph_id = b.ph_id)
+				inner join payroll_provident_loan_type c on (a.plt_id = c.plt_id)
+                inner join payroll_pay_stub d on (d.paystub_id = b.paystub_id)
+                inner join payroll_paystub_report e on (d.paystub_id = e.paystub_id)
+				where d.payperiod_id = $payperiod_id_ and a.emp_id = $emp_id_ and e.ppr_isdeleted = 0 and e.ppr_status =1
+                group by a.emp_id";
+		$rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+            return  $rsResult->fields['pd_amount'];
+		}else{
+            return '0.00';
+        }
+    }
+    
+    function getSemiMonthlyLoanPayment($emp_id_ = "", $rlt_id_ = "", $payperiod_id_ = ""){
+        if($emp_id_ == ""){ return '0.00'; }
+        if($rlt_id_ == ""){ return '0.00'; }
+        if($payperiod_id_ == ""){ return '0.00'; }
+        $sql = "select sum(b.rd_amount) as rd_amount
+				from payroll_regularloan_header a
+                inner join payroll_regularloan_detail b on (a.rh_id = b.rh_id)
+				inner join payroll_regular_loan_type c on (c.rlt_id = a.rlt_id)
+                inner join payroll_pay_stub d on (d.paystub_id = b.paystub_id)
+                inner join payroll_paystub_report e on (d.paystub_id = e.paystub_id)
+				where a.emp_id =$emp_id_ and a.rlt_id = $rlt_id_ and d.payperiod_id = $payperiod_id_ and e.ppr_isdeleted = 0 and e.ppr_status =1
+                group by a.rh_id";
+		$rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+            return $rsResult->fields['rd_amount'];
+		}else{
+            return '0.00';
+        }
+    }
+
+    function getSemiMonthlyDeductionPerEmployee($emp_id_ = "", $payperiod_id = "",$psa_id_ =""){
+        if($emp_id_ == ""){return '0.00';}
+        if($payperiod_id == ""){return '0.00';}
+        if($psa_id_ == ""){return '0.00';}
+        $sql = "select b.*
+            from payroll_pay_stub a
+            inner join payroll_paystub_entry b on (a.paystub_id = b.paystub_id)
+            inner join payroll_paystub_report c on (a.paystub_id = c.paystub_id)
+            where c.ppr_status = 1 and a.payperiod_id = $payperiod_id and a.emp_id = $emp_id_ and b.psa_id = $psa_id_ 
+            and c.ppr_isdeleted = 0";
+        $rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+             return $rsResult->fields['ppe_amount'];
+		}else{
+             return '0.00';
+        }
+    }
+	
+    /**
+     * @author jim
+     * @param $emp_id_
+     * @param $payperiod_id
+     * @param $psa_id_
+     */
+	function getSemiMonthlyTUAPerEmployee($emp_id_ = "", $payperiod_id_ = "",$tatbl_id_ =""){
+        if($emp_id_ == ""){return '0.00';}
+        if($payperiod_id_ == ""){return '0.00';}
+        if($tatbl_id_ == ""){return '0.00';}
+        $sql = "select b.*
+            from payroll_pay_stub a
+            inner join ta_emp_rec b on (a.paystub_id = b.paystub_id)
+            where a.payperiod_id = '".$payperiod_id_."' and a.emp_id = '".$emp_id_."' and b.tatbl_id = '".$tatbl_id_."'";
+        $rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+             $psa_tua =  $rsResult->fields['emp_tarec_amtperrate'];
+		}
+        return $psa_tua;
+    }
+    
+/*    function getSemiMonthlyTUAPerEmployee($emp_id_ = "", $payperiod_id = "",$psa_id_ =""){
+        if($emp_id_ == ""){return '0.00';}
+        if($payperiod_id == ""){return '0.00';}
+        if($psa_id_ == ""){return '0.00';}
+        $sql = "select b.*
+            from payroll_pay_stub a
+            inner join payroll_paystub_entry b on (a.paystub_id = b.paystub_id)
+            inner join payroll_paystub_report c on (a.paystub_id = c.paystub_id)
+            where c.ppr_status = 1 and a.payperiod_id = $payperiod_id and a.emp_id = $emp_id_ and b.psa_id = $psa_id_
+            and c.ppr_isdeleted = 0";
+        $rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+             $psa_tua =  $rsResult->fields['ppe_amount'];
+		}
+        return $psa_tua;
+    }*/
+
+   
+    function getAdvisoryPerEmpoyee($emp_id_ = ""){
+        if($emp_id_ == ""){ return '0.00'; }
+        $sql = "select sum(amount) as  amount
+                from azt_hris_db.hris_emp_master_ben_rel
+                where emp_id = $emp_id_ and ben_id != 1";
+        $rsResult = $this->conn->Execute($sql);
+		if(!$rsResult->EOF){
+            if(!empty ($rsResult->fields['amount'])){
+                return $rsResult->fields['amount']/2;
+            }else{
+				return '0.00';
+            }
+		}else{
+            return '0.00';
+        }
+    }
+
+    function getEmployee($type = array(), $ud_id_ = null){
+        $qry = array();
+        if($type['type'] == 1){
+            $qry[] = "c.emp_isconfidentail = 1";
+        }elseif($type['type'] == 2){
+        	$qry[] = "c.emp_isconfidentail = 0";
+        }
+    	if($type['sbydpart'] == '1'){
+    		$qry[] = "g.ud_id='".$ud_id_."'";
+			$strOrderBy = " order by g.ud_name,e.pi_lname";
+		}else{
+			$strOrderBy = " order by e.pi_lname";
+		}
+		$qry[] = "preport.payperiod_id = ".$type['payperiod_id']."";
+		$qry[] = "pps.pps_id = ".$type['edit']."";
+//        $qry[] = "c.emp_stat in ('1','7')";
+        $qry[] = "j.salaryinfo_isactive='1'";
+        $criteria = (count($qry)>0)?" where ".implode(" and ",$qry):"";
+        $sql = "select c.emp_id, c.emp_idnum, CONCAT(e.pi_lname,', ',e.pi_fname,' ',concat(RPAD(e.pi_mname,1,' '),'.')) as fullname, 
+				c.taxep_id,k.taxep_code,k.taxep_name, f.post_name, g.ud_id,g.ud_name, j.salaryinfo_id, j.salaryinfo_basicrate
+                from emp_masterfile c
+                inner join emp_personal_info e on (e.pi_id=c.pi_id)
+                inner join emp_position f on (f.post_id=c.post_id)
+                inner join app_userdept g on (g.ud_id=c.ud_id)
+                inner join salary_info j on (j.emp_id=c.emp_id)
+                inner join payroll_pps_user pps on (c.emp_id = pps.emp_id)
+                inner join tax_excep k on (k.taxep_id=c.taxep_id)
+                inner join payroll_paystub_report preport on (preport.emp_id=c.emp_id)
+                $criteria
+                $strOrderBy";
+        $rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF){
+			$arrData[] = $rsResult->fields;
+            $rsResult->MoveNext();
+		}
+        Return $arrData;
+    }
+
+    function getDeptChildrenperHeadDept($dbconn_ = null,$arrMenu_ = array(), $isChild_ = false, $level = 0){
+//        printa($arrMenu_);
+        if(count($arrMenu_) > 0){
+			$arrCtr = 0;
+			foreach ($arrMenu_ as $key => $value) {
+				$sql = "select a.* from app_userdept a where a.ud_parent=? order by a.ud_name";
+				$rsResult = $dbconn_->Execute($sql,array($value['ud_id']));
+				$arrMenuIn = array();
+				while(!$rsResult->EOF){
+					$arrMenuIn[] = $rsResult->fields;
+					$rsResult->MoveNext();
+				}
+				if(count($arrMenuIn) > 0){
+                    $mnuData .= clsPayrollRegister::getDeptChildrenperHeadDept($dbconn_, $arrMenuIn, true, $level+1);
+                }
+                if($level == 0){
+                    $mnuData .= $value['ud_id'];
+                }else{
+                    $mnuData .= $value['ud_id'].",";
+                }
+			}
+		}
+        return $mnuData;
+	}
+	/**
+	 * Populate array parameters to Data Variable
+	 *
+	 * @param array $pData_
+	 * @param boolean $isForm_
+	 * @return bool
+	 */
+	function doPopulateData($pData_ = array(),$isForm_ = false){
+		if(count($pData_)>0){
+			foreach ($this->fieldMap as $key => $value) {
+				if ($isForm_) {
+					$this->Data[$value] = $pData_[$value];
+				}else {
+					$this->Data[$key] = $pData_[$value];
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Validation function
+	 *
+	 * @param array $pData_
+	 * @return bool
+	 */
+	function doValidateData($pData_ = array()){
+		$isValid = true;
+//		$isValid = false;
+		return $isValid;
+	}
+
+	/**
+	 * Save New
+	 *
+	 */
+	function doSaveAdd(){
+		$flds = array();
+		foreach ($this->Data as $keyData => $valData) {
+			$valData = addslashes($valData);
+			$flds[] = "$keyData='$valData'";
+		}
+		$fields = implode(", ",$flds);
+		$sql = "insert into app_modules set $fields";
+		$this->conn->Execute($sql);
+		$_SESSION['eMsg']="Successfully Added.";
+	}
+
+	/**
+	 * Save Update
+	 *
+	 */
+	function doSaveEdit(){
+		$id = $_GET['edit'];
+		$flds = array();
+		foreach ($this->Data as $keyData => $valData) {
+			$valData = addslashes($valData);
+			$flds[] = "$keyData='$valData'";
+		}
+		$fields = implode(", ",$flds);
+		$sql = "update app_modules set $fields where mnu_id=$id";
+		$this->conn->Execute($sql);
+		$_SESSION['eMsg']="Successfully Updated.";
+	}
+
+	/**
+	 * Delete Record
+	 *
+	 * @param string $id_
+	 */
+	function doDelete($id_ = ""){
+		$sql = "delete from /*app_modules*/ where mnu_id=?";
+		$this->conn->Execute($sql,array($id_));
+		$_SESSION['eMsg']="Successfully Deleted.";
+	}
+
+	/**
+	 * Get all the Table Listings
+	 *
+	 * @return array
+	 */
+	function getTableList(){
+		// Process the query string and exclude querystring named "p"
+		if (!empty($_SERVER['QUERY_STRING'])) {
+			$qrystr = explode("&",$_SERVER['QUERY_STRING']);
+			foreach ($qrystr as $value) {
+				$qstr = explode("=",$value);
+				if ($qstr[0]!="p") {
+					$arrQryStr[] = implode("=",$qstr);
+				}
+			}
+			$aQryStr = $arrQryStr;
+			$aQryStr[] = "p=@@";
+			$queryStr = implode("&",$aQryStr);
+		}
+
+		//bby: search module
+		$qry = array();
+		if (isset($_REQUEST['search_field'])) {
+			// lets check if the search field has a value
+			if (strlen($_REQUEST['search_field'])>0) {
+				// lets assign the request value in a variable
+				$search_field = $_REQUEST['search_field'];
+				// create a custom criteria in an array
+				$qry[] = "pps_name like '%$search_field%' || date_format(am.payperiod_start_date,'%Y-%m-%d') like '%$search_field%' || date_format(am.payperiod_end_date,'%Y-%m-%d') like '%$search_field%' || date_format(am.payperiod_trans_date,'%Y-%m-%d') like '%$search_field%'";
+			}
+		}
+        $qry[] = "am.pps_id = '".$_GET['pps_id']."'";
+//        $qry[] = "am.pp_stat_id = 3";
+		// put all query array into one criteria string
+		$criteria = (count($qry)>0)?" where ".implode(" and ",$qry):"";
+
+		// Sort field mapping
+		$arrSortBy = array(
+		 "pps_name"=>"pps_name"
+		,"paysched"=>"paysched"
+		,"payperiod_trans_date"=>"payperiod_trans_date"
+		,"viewdata"=>"viewdata"
+		);
+
+		if(isset($_GET['sortby'])){
+			$strOrderBy = " order by ".$arrSortBy[$_GET['sortby']]." ".$_GET['sortof'];
+		}else{
+			$strOrderBy = " order by am.payperiod_trans_date DESC";
+		}
+
+		// Add Option for Image Links or Inline Form eg: Checkbox, Textbox, etc...
+		$viewLink = "";
+		$editLink = "<a href=\"?statpos=payroll_register&edit=','".$_GET['pps_id']."','&payperiod_id=',am.payperiod_id,'\"><img src=\"".SYSCONFIG_THEME_URLPATH.SYSCONFIG_THEME."/images/admin/zoom.gif\" title=\"View\" hspace=\"2px\" border=0></a>";
+//		$delLink = "<a href=\"?statpos=payroll_register&delete=',am.mnu_id,'\" onclick=\"return confirm(\'Are you sure, you want to delete?\');\"><img src=\"".SYSCONFIG_THEME_URLPATH.SYSCONFIG_THEME."/images/admin/trash.gif\" title=\"Delete\" hspace=\"2px\"  border=0></a>";
+		// SqlAll Query
+		$sql = "select am.*,b.pps_name, CONCAT('$viewLink','$editLink','$delLink') as viewdata,
+                        CONCAT(date_format(am.payperiod_start_date,'%b %d'),' - ',date_format(am.payperiod_end_date,'%b %d, %Y')) as paysched,
+                        date_format(am.payperiod_start_date,'%Y-%m-%d') as payperiod_start_date,
+                        date_format(am.payperiod_end_date,'%Y-%m-%d') as payperiod_end_date,
+                        date_format(am.payperiod_trans_date,'%b %d, %Y') as payperiod_trans_date
+						from payroll_pay_period am
+                        inner join payroll_pay_period_sched b on (b.pps_id = am.pps_id)
+						$criteria
+						$strOrderBy";
+		// Field and Table Header Mapping
+		$arrFields = array(
+		 "pps_name"=>"Pay Period"
+		,"paysched"=>"Cut-offs"
+		,"payperiod_trans_date"=>"Pay Date"
+		,"viewdata"=>"Action"
+		);
+		// Column (table data) User Defined Attributes
+		$arrAttribs = array(
+		"mnu_ord"=>" align='right'",
+		"viewdata"=>"width='50' align='center'"
+		);
+		// Process the Table List
+		$tblDisplayList = new clsTableList($this->conn);
+		$tblDisplayList->arrFields = $arrFields;
+		$tblDisplayList->paginator->linkPage = "?$queryStr";
+		$tblDisplayList->sqlAll = $sql;
+		$tblDisplayList->sqlCount = $sqlcount;
+		return $tblDisplayList->getTableList($arrAttribs);
+	}
+	
+	/**
+	 * @note: xlspayrollregisterreport
+	 * @param unknown_type $gData
+	 */
+    function generateXLSPayrollRegisterReport($gData = array()){
+        $filename = "payroll_register_".date('Y-m-d').".xls"; // The file name you want any resulting file to be called.
+        $objClsSSS = new clsSSS($this->conn);
+        $oDataBranch = $objClsSSS->dbfetchCompDetails();
+        #create an instance of the class
+        $xls = new ExportXLS($filename);
+
+        $xls->addHeader($oDataBranch['comp_name']);
+        $xls->addHeader($oDataBranch['comp_add']);
+        $header = "Payroll Register"; // single first col text
+        $xls->addHeader($header);
+
+        if($gData['type'] == 1){
+            $empdept_type = "Confidential";
+        }else if($gData['type'] == 2){
+            $empdept_type = "Non-Confidential";
+        }else{
+        	$empdept_type = "All Employee";
+        }
+        $xls->addHeader($empdept_type);
+        
+//        $objClsTimekeeping = new clsTimekeeping($this->conn);
+        $payperiodstatus = $this->getPayperiodDetails($gData['payperiod_id'],null,null);
+        $header0 = "for the period: ".date('F d, Y',dDate::parseDateTime($payperiodstatus[0]['payperiod_trans_date']));
+
+        //get earnings and filter if amendments then check if 0 total
+		$earn = $this->getColumns(1);
+		$earningsPSA = $earn;
+		$amendments = $this->getAmendments($gData['payperiod_id'],1);
+		for($eCount=0;$eCount<count($amendments);$eCount++) {
+			$earningsPSA = $this->removeElementWithValue($earningsPSA, 'psa_id', $amendments[$eCount]['psa_id']);
+		}
+		
+		//check non-amendments if zero total
+		for($psaCount=0;$psaCount<count($earningsPSA);$psaCount++){
+			//type 1 => psa, type 2 => amendment
+			if($this->checkEarningColumnIfZero($earningsPSA[$psaCount]['psa_id'], '1', $_GET, $payperiodstatus[0]['payperiod_trans_date'])){
+				$earnings[] = $earningsPSA[$psaCount];
+			} else {
+				continue;
+			}
+		}
+		
+		//check amendments if zero total
+		for($amCount=0;$amCount<count($amendments);$amCount++){
+			//type 1 => psa, type 2 => amendment
+			if($this->checkEarningColumnIfZero($amendments[$amCount]['psa_id'], '1', $_GET, $payperiodstatus[0]['payperiod_trans_date'])){
+				$earnings[] = $amendments[$amCount];
+			} elseif($this->checkEarningColumnIfZero($amendments[$amCount]['psa_id'], '2', $_GET, $payperiodstatus[0]['payperiod_trans_date'])){
+				$earnings[] = $amendments[$amCount];
+			} else {
+				continue;
+			}
+		}
+		if(count($earnings) > 0){
+			$earnings = $this->sortByPsaOrder($earnings);
+		}
+		//get deductions and filter if loan
+		$deduct = $this->getColumns(2);
+		for($dCount=0;$dCount<count($deduct);$dCount++){
+			if($this->checkDeductionColumnIfZero($deduct[$dCount]['psa_id'], $payperiodstatus[0]['payperiod_trans_date'], $_GET)){
+				$deductions[] = $deduct[$dCount];
+			} else {
+				continue;
+			}
+		}
+        $xls->addHeader($header0);
+        
+        $header = null;
+        $xls->addHeader($header);
+        $header1[] = "";
+        $header1[] = "";
+        $header1[] = "";
+        $header1[] = "";
+        $header1[] = "Earnings";
+        $header1[] = "";
+        $header1[] = "";
+        $header1[] = "";
+        $header1[] = "";
+        $header1[] = "";
+        for($eCount=0;$eCount<count($earnings);$eCount++){
+        	$header1[] = ""; 
+        }
+        $header1[] = "";
+        $header1[] = "Deductions";
+    	for($dCount=0;$dCount<count($deductions);$dCount++) {
+			$header1[] = "";
+		}
+        $header1[] = "Salary to Pay";
+        $xls->addHeader($header1);
+        
+        $header2[] = "";
+        $header2[] = "Emp ID";
+        $header2[] = "Employee Name";
+        $header2[] = "Tax Stat";
+        $header2[] = "Basic Salary";
+        $header2[] = "Basic Semi";
+        $header2[] = "UT/Tardy";
+        $header2[] = "Absences";
+        $header2[] = "Over Time";
+        $header2[] = "COLA";
+    	for($e=0;$e<count($earnings);$e++){
+			$header2[] = substr($this->getPayrollAcountNameByPsaID($earnings[$e]['psa_id']),0,20);
+			$earnArr[] = $earnings[$e]['psa_id'];
+		}
+        $header2[] = "Total Earnings";
+   		for($d=0;$d<count($deductions);$d++) {
+			$header2[] = substr($deductions[$d]['psa_name'],0,20);
+			$dedArr[] = $deductions[$d]['psa_id'];
+		}
+        $header2[] = "Total Deductions";
+        $header2[] = "Net Pay";
+        $xls->addHeader($header2);
+		
+        if($gData['sbydpart'] == '1'){
+        	$varDepart = $this->getDepartment();
+        	for($c=0;$c<count($varDepart);$c++){
+        		$emp = $this->genReport($gData,$varDepart[$c]['ud_id']);
+        		if(empty($emp)){
+        			continue;
+        		} else {
+	        	if(count($emp)>0){
+				$seq_np2 = 0;
+		            $basic2=  0.00;
+		            $gross2= 0.00;
+		            $ot2= 0.00;
+		            $Absences2= 0.00;
+		            $LateUT2= 0.00;
+		            $cola2= 0.00;
+					for($ea=0;$ea<count($earnings);$ea++) {
+						$deptTotal[$earnings[$ea]['psa_id']] = 0.00;	
+					}
+		           // $commallow2= 0.00;
+		            $totalearning2= 0.00;
+		            $taxpayables2 = 0.00;
+		            //static gov contributions		            
+		            $tax2 = 0.00;
+		            $sss2 = 0.00;
+		            $phic2 = 0.00;
+		            $pagibig2 = 0.00;
+		            //loan
+	        		for($l=0;$l<count($deductions);$l++) {
+						$deptTotal[$deductions[$l]['psa_id']] = 0.00;	
+					}
+						            
+		            $totaldeduc2= 0.00;
+		            $net2 = 0.00;
+		            /*$seq_np2 = 0;
+		            $basic2=  0.00;
+		            $gross2= 0.00;
+		            $ot2= 0.00;
+		            $Absences2= 0.00;
+		            $LateUT2= 0.00;
+		            $cola2= 0.00;
+		            $otadj2= 0.00;
+		            $commallow2= 0.00;
+		            $incentive2= 0.00;
+		            $ssspread2= 0.00;
+		            $phicpread2= 0.00;
+		            $hdmfpread2= 0.00;
+		            $slconv2= 0.00;
+		            $mgtpart2 = 0.00;
+		            $uniallow2 = 0.00;
+		            $salaryadj = 0.00;
+		            $thirteenthmonth = 0.00;
+					$taxrefund2 = 0.00;
+		            $taxpayables2 = 0.00;
+		            $edo2 = 0.00;
+		            $totalearning2= 0.00;
+		            $tax2 = 0.00;
+		            $sss2 = 0.00;
+		            $phic2 = 0.00;
+		            $pagibig2 = 0.00;
+		            $sss_loan2 = 0.00;
+		            $pagibig_loan2 = 0.00;
+		            $cashadv2= 0.00;
+		            $oversal2= 0.00;
+		            $ssspreaddec2= 0.00;
+		            $phicpreaddec2= 0.00;
+		            $hdmfpreaddec2= 0.00;
+		            $totaldeduc2= 0.00;
+		            $net2 = 0.00;*/
+		            
+		            $row3 = $varDepart[$c]['ud_name']." - ".$varDepart[$c]['ud_desc'];
+		            $xls->addRow($row3);
+		            foreach($emp as $key => $val){
+					 $basic2 += $this->moneyFormat($val['salaryinfo_basicrate']);
+		                $gross2 += $this->moneyFormat($val['gross_semi']);
+		                $ot2 += $this->moneyFormat($val['TA']['ot']);
+		                $Absences2 += $this->moneyFormat($val['TA']['Absences']);
+		                $LateUT2 += $this->moneyFormat($val['TA']['LateUT']);
+		                $cola2 += $this->moneyFormat($val['cola']);
+			            for($ea=0;$ea<count($earnings);$ea++) {
+							$deptTotal[$earnings[$ea]['psa_id']] += $val['earnings'][$earnings[$ea]['psa_id']];
+							if($earnings[$ea]['psa_id'] == 36 and $val['earnings'][$earnings[$ea]['psa_id']] == 0){
+			           			$deptTotal[$earnings[$ea]['psa_id']] += $val['earnings']['comallow'];
+			           		}
+						}
+						//$commallow2 += $this->moneyFormat($val['earnings']['comallow']);
+			            $totalearning2 += $this->moneyFormat($val['totalearning']);
+			            $taxpayables2 += $this->moneyFormat($val['deductions']['TaxPayables']);
+			            
+		                $tax2 += $this->moneyFormat($val['cont']['tax']);
+		                $sss2 += $this->moneyFormat($val['cont']['sss']);
+		                $phic2 += $this->moneyFormat($val['cont']['phic']);
+		                $pagibig2 += $this->moneyFormat($val['cont']['hdmf']);
+		                //loan
+		            	for($l=0;$l<count($deductions);$l++) {
+							$deptTotal[$deductions[$l]['psa_id']] += $val['deductions'][$deductions[$l]['psa_id']];
+						}
+		                $totaldeduc2 += $this->moneyFormat($val['totaldeduction']);
+		                $net2 += $this->moneyFormat($val['net']);
+		                $seq_np2++;
+//		            	printa($val);
+		               /* $basic2 += $this->moneyFormat($val['salaryinfo_basicrate']);
+		                $gross2 += $this->moneyFormat($val['gross_semi']);
+		                $ot2 += $this->moneyFormat($val['TA']['ot']);
+		                $Absences2 += $this->moneyFormat($val['TA']['Absences']);
+		                $LateUT2 += $this->moneyFormat($val['TA']['LateUT']);
+		                $cola2 += $this->moneyFormat($val['cola']);
+		                $otadj2 += $this->moneyFormat($val['earnings']['otadj']);
+			            $commallow2 += $this->moneyFormat($val['earnings']['comallow']);
+			            $incentive2 += $this->moneyFormat($val['earnings']['Incentive']);
+			            $ssspread2 += $this->moneyFormat($val['earnings']['SSSPremadj']);
+			            $phicpread2 += $this->moneyFormat($val['earnings']['PHPremAdj']);
+			            $hdmfpread2 += $this->moneyFormat($val['earnings']['HDMFPremadj']);
+			            $slconv2 += $this->moneyFormat($val['earnings']['SLConvertion']);
+			            $mgtpart2 += $this->moneyFormat($val['earnings']['MgtParticipation']);
+		            	$uniallow2 += $this->moneyFormat($val['earnings']['UniAllow']);
+		            	$salaryadj2 += $this->moneyFormat($val['earnings']['SalaryAdj']);
+		            	$thirteenthmonth2 += $this->moneyFormat($val['earnings']['ThirteenthMonth']);
+			            $taxrefund2 += $this->moneyFormat($val['earnings']['TaxRefund']);
+		           		$taxpayables2 += $this->moneyFormat($val['deduction']['TaxPayables']);
+		           		$edo2 += $this->moneyFormat($val['earnings']['EDO']);
+						$totalearning2 += $this->moneyFormat($val['totalearning']);
+		                $tax2 += $this->moneyFormat($val['cont']['tax']);
+		                $sss2 += $this->moneyFormat($val['cont']['sss']);
+		                $phic2 += $this->moneyFormat($val['cont']['phic']);
+		                $pagibig2 += $this->moneyFormat($val['cont']['hdmf']);
+		                $sss_loan2 += $this->moneyFormat($val['loan']['sss']);
+		                $pagibig_loan2 += $this->moneyFormat($val['loan']['hdmf']);
+		                $cashadv2 += $this->moneyFormat($val['loan']['cashadv']);
+		            	$oversal2 += $this->moneyFormat($val['deduction']['overpay']);
+		            	$ssspreaddec2 += $this->moneyFormat($val['deduction']['SSSPremadj']);
+		            	$phicpreaddec2 += $this->moneyFormat($val['deduction']['PHPremAdj']);
+		            	$hdmfpreaddec2 += $this->moneyFormat($val['deduction']['HDMFPremadj']);
+		                $totaldeduc2 += $this->moneyFormat($val['totaldeduction']);
+		                $net2 += $this->moneyFormat($val['net']);
+		                $seq_np2++;*/
+		                
+		                $row = array();
+		                $row[] = $seq_np2.".";
+		                $row[] = $val['emp_idnum'];
+		                $row[] = $val['fullname'];
+		                $row[] = $val['taxep_code'];
+		                $row[] = number_format($val['salaryinfo_basicrate'], 2, '.', '');
+		                $row[] = number_format($val['gross_semi'], 2, '.', '');
+		                $row[] = number_format($this->toNegative($val['TA']['LateUT']), 2, '.', '');
+		                $row[] = number_format($this->toNegative($val['TA']['Absences']), 2, '.', '');
+		                $row[] = number_format($val['TA']['ot'], 2, '.', '');
+		                $row[] = number_format($val['cola'], 2, '.', '');
+		                if(count($earnArr) > 0){
+			            	foreach($earnArr as $key => $earn) {
+								for($am=0;$am<count($amendments);$am++) {
+									if($earn === $amendments[$am]['psa_id']){
+										$earnVal = $val['earnings'][$earn];
+									}
+								}
+			            		if($earn == 36 and $val['earnings'][$earn] == 0){$earnVal = $val['earnings']['comallow'];}
+								/*if($earn == 36){
+									$earnVal = $val['earnings']['comallow'];
+								}
+			            		if($earn == 3){
+									$earnVal = $val['earnings']['MgtParticipation'];
+								} elseif($earn == 24){
+									$earnVal = $val['earnings']['Incentive'];
+								} elseif($earn == 36){
+									$earnVal = $val['earnings']['comallow'];
+								} elseif($earn == 38){
+									$earnVal = $val['earnings']['UniAllow'];
+								} elseif($earn == 41){
+									$earnVal = $val['earnings']['otadj'];
+								} elseif($earn == 42){
+									$earnVal = $val['earnings']['SLConvertion'];
+								} elseif($earn == 43){
+									$earnVal = $val['earnings']['SSSPremadj'];
+								} elseif($earn == 45){
+									$earnVal = $val['earnings']['PHPremAdj'];
+								} elseif($earn == 47){
+									$earnVal = $val['earnings']['HDMFPremAdj'];
+								} elseif($earn == 19){
+									$earnVal = $val['earnings']['SalaryAdj'];
+								} elseif($earn == 49){
+									$earnVal = $val['earnings']['ThirteenthMonth'];
+								} elseif($earn == 50){
+			                		$earnVal = $val['earnings']['TaxRefund'];
+			                	} elseif($earn == 40){
+			                		$earnVal = $val['earnings']['EDO'];
+			                	} else {
+			                		$earnVal = 0.00;
+			                	}*/
+					   			$row[] = $this->moneyFormat($earnVal);
+							
+							}
+			            }
+		                $row[] = number_format($val['totalearning'], 2, '.', '');
+		            	foreach($dedArr as $key => $ded) {
+							for($lo=0;$lo<count($deductions);$lo++) {
+								if($ded === $deductions[$lo]['psa_id']){
+									$dedVal = $val['deductions'][$ded];
+								}
+							}
+							
+							if($ded == 7){
+								$dedVal = $val['cont']['sss'];
+							} elseif($ded == 14){
+								$dedVal = $val['cont']['phic'];
+							} elseif($ded == 15){
+								$dedVal = $val['cont']['hdmf'];
+							} elseif($ded == 8){
+								$dedVal = $val['cont']['tax'];
+							} elseif($ded == 51){
+		                		$dedVal = $val['deductions']['TaxPayables'];
+		               		}
+							/*if($ded == 7){
+								$dedVal = $val['cont']['sss'];
+							} elseif($ded == 14){
+								$dedVal = $val['cont']['phic'];
+							} elseif($ded == 15){
+								$dedVal = $val['cont']['hdmf'];
+							} elseif($ded == 8){
+								$dedVal = $val['cont']['tax'];
+							} elseif($ded == 11){
+								$dedVal = $val['loan']['cashadv'];
+							} elseif($ded == 9){
+								$dedVal = $val['loan']['sss'];
+							} elseif($ded == 13){
+								$dedVal = $val['loan']['hdmf'];
+							} elseif($ded == 18){
+								$dedVal = $val['deduction']['overpay'];
+							} elseif($ded == 44){
+								$dedVal = $val['deduction']['SSSPremadj'];
+							} elseif($ded == 46){
+								$dedVal = $val['deduction']['PHPremAdj'];
+							} elseif($ded == 48){
+								$dedVal = $val['deduction']['HDMFPremadj'];
+							} elseif($ded == 51){
+		                		$dedVal = $val['deduction']['TaxPayables'];
+		               		} else {
+		               			$dedVal = 0.00;
+		               		}*/
+				   			$row[] = $this->moneyFormat($this->toNegative($dedVal));
+							
+						}
+		                $row[] = number_format($this->toNegative($val['totaldeduction']), 2, '.', '');
+		                $row[] = number_format($val['net'], 2, '.', '');
+		                $xls->addRow($row);
+		            }
+	        	}
+        		$row4[] = "Department Total";
+		        $row4[] = "";
+		        $row4[] = "(".$seq_np2.")";
+		        $row4[] = "";
+		        $row4[] = $basic2;
+		        $row4[] = $gross2;
+		        $row4[] = $this->toNegative($LateUT2);
+		        $row4[] = $this->toNegative($Absences2);
+		        $row4[] = $ot2;
+		        $row4[] = $cola2;
+		        if(count($earnArr) > 0){
+	        		foreach($earnArr as $key => $earn) {
+						for($eaDept=0;$eaDept<count($earnings);$eaDept++) {
+							if($earn === $earnings[$eaDept]['psa_id']){
+								$earnValDept = $deptTotal[$earnings[$eaDept]['psa_id']];
+							} 
+						}
+						//if($earn == 36){
+						//	$earnValDept = $commallow2;
+						//}
+	        			/*if($earn == 3){
+							$earnValDept = $mgtpart2;
+						} elseif($earn == 24){
+							$earnValDept = $incentive2;
+						} elseif($earn == 36){
+							$earnValDept = $commallow2;
+						} elseif($earn == 38){
+							$earnValDept = $uniallow2;
+						} elseif($earn == 41){
+							$earnValDept = $otadj2;
+						} elseif($earn == 42){
+							$earnValDept = $slconv2;
+						} elseif($earn == 43){
+							$earnValDept = $ssspread2;
+						} elseif($earn == 45){
+							$earnValDept = $phicpread2;
+						} elseif($earn == 47){
+							$earnValDept = $hdmfpread2;
+						} elseif($earn == 19){
+							$earnValDept = $salaryadj2;
+						} elseif($earn == 49){
+							$earnValDept = $thirteenthmonth2;
+						} elseif($earn == 50){
+			             	$earnValDept = $taxrefund2;
+			            } elseif($earn == 40){
+			             	$earnValDept = $edo2;
+			            } else {
+			            	$earnValDept = 0.00;
+			            }*/
+					   	$row4[] = $this->moneyFormat($earnValDept);
+					}
+        		}
+		        $row4[] = $totalearning2;
+		        foreach($dedArr as $key => $ded) {
+					for($dDept=0;$dDept<count($deductions);$dDept++) {
+						if($ded === $deductions[$dDept]['psa_id']){
+							$dedValDept = $deptTotal[$deductions[$dDept]['psa_id']];
+						} 
+					}
+					if($ded == 7){
+						$dedValDept = $sss2;
+					} elseif($ded == 14){
+						$dedValDept = $phic2;
+					} elseif($ded == 15){
+						$dedValDept = $pagibig2;
+					} elseif($ded == 8){
+						$dedValDept = $tax2;
+					} elseif($ded == 51){
+		            	$dedValDept = $taxpayables2;
+		            }
+	        		/*if($ded == 7){
+						$dedValDept = $sss2;
+					} elseif($ded == 14){
+						$dedValDept = $phic2;
+					} elseif($ded == 15){
+						$dedValDept = $pagibig2;
+					} elseif($ded == 8){
+						$dedValDept = $tax2;
+					} elseif($ded == 11){
+						$dedValDept = $cashadv2;
+					} elseif($ded == 9){
+						$dedValDept = $sss_loan2;
+					} elseif($ded == 13){
+						$dedValDept = $pagibig_loan2;
+					} elseif($ded == 18){
+						$dedValDept = $oversal2;
+					} elseif($ded == 44){
+						$dedValDept = $ssspreaddec2;
+					} elseif($ded == 46){
+						$dedValDept = $phicpreaddec2;
+					} elseif($ded == 48){
+						$dedValDept = $hdmfpreaddec2;
+					} elseif($ded == 51){
+						$dedValDept = $taxpayables2;
+		            } else {
+		            	$dedValDept = 0.00;
+		            }*/
+		        	$row4[] = $this->moneyFormat($this->toNegative($dedValDept));
+		        }
+		        $row4[] = $this->toNegative($totaldeduc2);
+		        $row4[] = $net2;
+		        $xls->addRow($row4);
+		        
+		        $row5[] = "";
+		        $row5[] = "";
+		        $row5[] = "";
+		        $row5[] = "";
+		        $row5[] = "";
+		        $row5[] = "";
+		        $row5[] = "";
+		        $row5[] = "";
+		        $row5[] = "";
+		        $row5[] = "";
+		        for($eCount=0;$eCount<count($earnings);$eCount++){
+        			$row5[] = ""; 
+        		}
+        		$row5[] = "";
+        		$row5[] = "";
+		    	for($dCount=0;$dCount<count($deductions);$dCount++) {
+					$row5[] = "";
+				}
+        		$row5[] = "";
+        		$row5[] = "";
+        		$xls->addRow($row5);
+				
+        		$basic += $basic2;
+                $gross += $gross2;
+                $ot += $ot2;
+                $Absences += $Absences2;
+                $LateUT += $LateUT2;
+                $cola += $cola2;
+                $commallow += $commallow2;
+        		for($eaGrand=0;$eaGrand<count($earnings);$eaGrand++) {
+					$grandTotal[$earnings[$eaGrand]['psa_id']] += $deptTotal[$earnings[$eaGrand]['psa_id']];
+				}
+	            $totalearning += $totalearning2;
+	            $taxpayables += $taxpayables2;
+	            //static gov contributions
+                $tax += $tax2;
+                $sss += $sss2;
+                $phic += $phic2;
+                $pagibig += $pagibig2;
+        		for($dGrand=0;$dGrand<count($deductions);$dGrand++) {
+					$grandTotal[$deductions[$dGrand]['psa_id']] += $deptTotal[$deductions[$dGrand]['psa_id']];
+				}
+                
+                $totaldeduc += $totaldeduc2;
+                $net += $net2;
+                $seq_np+=$seq_np2;
+        		/*$basic += $basic2;
+                $gross += $gross2;
+                $ot += $ot2;
+                $Absences += $Absences2;
+                $LateUT += $LateUT2;
+                $cola += $cola2;
+                $otadj += $otadj2;
+	            $commallow += $commallow2;
+	            $incentive += $incentive2;
+	            $ssspread += $ssspread2;
+	            $phicpread += $phicpread2;
+	            $hdmfpread += $hdmfpread2;
+	            $slconv += $slconv2;
+	            $mgtpart += $mgtpart2;
+	            $uniallow += $uniallow2;
+	            $salaryadj += $salaryadj2;
+				$thirteenthmonth += $thirteenthmonth2;
+				$taxrefund += $taxrefund2;
+				$taxpayables += $taxpayables2;
+				$edo += $edo2;
+	            $totalearning += $totalearning2;
+                $tax += $tax2;
+                $sss += $sss2;
+                $phic += $phic2;
+                $pagibig += $pagibig2;
+                $sss_loan += $sss_loan2;
+                $pagibig_loan += $pagibig_loan2;
+                $cashadv += $cashadv2;
+            	$oversal += $oversal2;
+            	$ssspreaddec += $ssspreaddec2;
+            	$phicpreaddec += $phicpreaddec2;
+            	$hdmfpreaddec += $hdmfpreaddec2;
+                $totaldeduc += $totaldeduc2;
+                $net += $net2;
+                $seq_np+=$seq_np2;*/
+        		
+        		unset($row5);
+		        unset($row4);
+        	}
+        	}
+        }else{
+        $emp = $this->genReport($gData);
+        if(count($emp)>0){
+			$seq_np = 0;
+            $basic=  0.00;
+            $gross= 0.00;
+            $ot= 0.00;
+            $Absences= 0.00;
+            $LateUT= 0.00;
+            $cola= 0.00;
+            //$commallow= 0.00;
+        	for($eaGrand=0;$eaGrand<count($earnings);$eaGrand++) {
+				$grandTotal[$earnings[$eaGrand]['psa_id']] = 0.00;
+			}
+           
+            $totalearning = 0.00;
+            $taxpayables = 0.00;
+            $tax = 0.00;
+            $sss = 0.00;
+            $phic = 0.00;
+            $pagibig = 0.00;
+        	for($dGrand=0;$dGrand<count($deductions);$dGrand++) {
+				$grandTotal[$deductions[$dGrand]['psa_id']] = 0.00;
+			}
+            
+            $totaldeduc= 0.00;
+            $net = 0.00;
+            /*$seq_np = 0;
+            $basic=  0.00;
+            $gross= 0.00;
+            $ot= 0.00;
+            $Absences= 0.00;
+            $LateUT= 0.00;
+            $cola= 0.00;
+            $otadj= 0.00;
+            $commallow= 0.00;
+            $incentive= 0.00;
+            $ssspread= 0.00;
+            $phicpread= 0.00;
+            $hdmfpread= 0.00;
+            $slconv= 0.00;
+           	$mgtpart = 0.00;
+	        $uniallow = 0.00;
+	        $salaryadj = 0.00;
+			$thirteenthmonth = 0.00;
+			$taxrefund = 0.00;
+			$taxpayables = 0.00;
+			$edo = 0.00;
+            $totalearning = 0.00;
+            $tax = 0.00;
+            $sss = 0.00;
+            $phic = 0.00;
+            $pagibig = 0.00;
+            $sss_loan = 0.00;
+            $pagibig_loan = 0.00;
+            $cashadv= 0.00;
+            $oversal= 0.00;
+            $ssspreaddec= 0.00;
+            $phicpreaddec= 0.00;
+            $hdmfpreaddec= 0.00;
+            $totaldeduc= 0.00;
+            $net = 0.00;*/
+            foreach($emp as $key => $val){
+				$basic += $this->moneyFormat($val['salaryinfo_basicrate']);
+                $gross += $this->moneyFormat($val['gross_semi']);
+                $ot += $this->moneyFormat($val['TA']['ot']);
+                $Absences += $this->moneyFormat($val['TA']['Absences']);
+                $LateUT += $this->moneyFormat($val['TA']['LateUT']);
+                $cola += $this->moneyFormat($val['cola']);
+               // $commallow += $this->moneyFormat($val['earnings']['comallow']);
+           	 	for($eaGrand=0;$eaGrand<count($earnings);$eaGrand++) {
+					$grandTotal[$earnings[$eaGrand]['psa_id']] += $val['earnings'][$earnings[$eaGrand]['psa_id']];
+					if($earnings[$eaGrand]['psa_id'] == 36 and $val['earnings'][$earnings[$eaGrand]['psa_id']] == 0){
+			    		$grandTotal[$earnings[$eaGrand]['psa_id']] += $val['earnings']['comallow'];
+			   		}
+				}
+                
+	            $totalearning += $this->moneyFormat($val['totalearning']);
+	            $taxpayables += $this->moneyFormat($val['deductions']['TaxPayables']);
+                $tax += $this->moneyFormat($val['cont']['tax']);
+                $sss += $this->moneyFormat($val['cont']['sss']);
+                $phic += $this->moneyFormat($val['cont']['phic']);
+                $pagibig += $this->moneyFormat($val['cont']['hdmf']);
+            	for($dGrand=0;$dGrand<count($deductions);$dGrand++) {
+					$grandTotal[$deductions[$dGrand]['psa_id']] += $val['deductions'][$deductions[$dGrand]['psa_id']];
+				}
+                
+            	$hdmfpreaddec += $this->moneyFormat($val['deduction']['HDMFPremadj']);
+                $totaldeduc += $this->moneyFormat($val['totaldeduction']);
+                $net += $this->moneyFormat($val['net']);
+                $seq_np++;
+//            	printa($val);
+                /*$basic += $this->moneyFormat($val['salaryinfo_basicrate']);
+                $gross += $this->moneyFormat($val['gross_semi']);
+                $ot += $this->moneyFormat($val['TA']['ot']);
+                $Absences += $this->moneyFormat($val['TA']['Absences']);
+                $LateUT += $this->moneyFormat($val['TA']['LateUT']);
+                $cola += $this->moneyFormat($val['cola']);
+                $otadj += $this->moneyFormat($val['earnings']['otadj']);
+	            $commallow += $this->moneyFormat($val['earnings']['comallow']);
+	            $incentive += $this->moneyFormat($val['earnings']['Incentive']);
+	            $ssspread += $this->moneyFormat($val['earnings']['SSSPremadj']);
+	            $phicpread += $this->moneyFormat($val['earnings']['PHPremAdj']);
+	            $hdmfpread += $this->moneyFormat($val['earnings']['HDMFPremadj']);
+	            $slconv += $this->moneyFormat($val['earnings']['SLConvertion']);
+	            $mgtpart += $this->moneyFormat($val['earnings']['MgtParticipation']);
+	       		$uniallow += $this->moneyFormat($val['earnings']['UniAllow']);
+	       		$salaryadj += $this->moneyFormat($val['earnings']['SalaryAdj']);
+				$thirteenthmonth += $this->moneyFormat($val['earnings']['ThirteenthMonth']);
+				$taxrefund += $this->moneyFormat($val['earnings']['TaxRefund']);
+				$taxpayables += $this->moneyFormat($val['deduction']['TaxPayables']);
+				$edo += $this->moneyFormat($val['earnings']['EDO']);
+	            $totalearning += $this->moneyFormat($val['totalearning']);
+                $tax += $this->moneyFormat($val['cont']['tax']);
+                $sss += $this->moneyFormat($val['cont']['sss']);
+                $phic += $this->moneyFormat($val['cont']['phic']);
+                $pagibig += $this->moneyFormat($val['cont']['hdmf']);
+                $sss_loan += $this->moneyFormat($val['loan']['sss']);
+                $pagibig_loan += $this->moneyFormat($val['loan']['hdmf']);
+                $cashadv += $this->moneyFormat($val['loan']['cashadv']);
+            	$oversal += $this->moneyFormat($val['deduction']['overpay']);
+            	$ssspreaddec += $this->moneyFormat($val['deduction']['SSSPremadj']);
+            	$phicpreaddec += $this->moneyFormat($val['deduction']['PHPremAdj']);
+            	$hdmfpreaddec += $this->moneyFormat($val['deduction']['HDMFPremadj']);
+                $totaldeduc += $this->moneyFormat($val['totaldeduction']);
+                $net += $this->moneyFormat($val['net']);
+                $seq_np++;*/
+
+                $row = array();
+                $row[] = $seq_np.".";
+                $row[] = $val['emp_idnum'];
+                $row[] = $val['fullname'];
+                $row[] = $val['taxep_code'];
+                $row[] = number_format($val['salaryinfo_basicrate'],2,'.','');
+                $row[] = number_format($val['gross_semi'],2,'.','');
+                $row[] = number_format($this->toNegative($val['TA']['LateUT']),2,'.','');
+                $row[] = number_format($this->toNegative($val['TA']['Absences']),2,'.','');
+                $row[] = number_format($val['TA']['ot'],2,'.','');
+                $row[] = number_format($val['cola'],2,'.','');
+                if(count($earnArr) > 0){
+		            foreach($earnArr as $key => $earn) {
+						for($am=0;$am<count($amendments);$am++) {
+							if($earn === $amendments[$am]['psa_id']){
+								$earnVal = $val['earnings'][$earn];
+							} 
+						}
+		            	if($earn == 36 and $val['earnings'][$earn] == 0){$earnVal = $val['earnings']['comallow'];}
+						//if($earn == 36){
+						//	$earnVal = $val['earnings']['comallow'];
+						//}
+		            	/*if($earn == 3){
+							$earnVal = $val['earnings']['MgtParticipation'];
+						} elseif($earn == 24){
+							$earnVal = $val['earnings']['Incentive'];
+						} elseif($earn == 36){
+							$earnVal = $val['earnings']['comallow'];
+						} elseif($earn == 38){
+							$earnVal = $val['earnings']['UniAllow'];
+						} elseif($earn == 41){
+							$earnVal = $val['earnings']['otadj'];
+						} elseif($earn == 42){
+							$earnVal = $val['earnings']['SLConvertion'];
+						} elseif($earn == 43){
+							$earnVal = $val['earnings']['SSSPremadj'];
+						} elseif($earn == 45){
+							$earnVal = $val['earnings']['PHPremAdj'];
+						} elseif($earn == 47){
+							$earnVal = $val['earnings']['HDMFPremAdj'];
+						} elseif($earn == 19){
+							$earnVal = $val['earnings']['SalaryAdj'];
+						} elseif($earn == 49){
+							$earnVal = $val['earnings']['ThirteenthMonth'];
+						} elseif($earn == 50){
+			            	$earnVal = $val['earnings']['TaxRefund'];
+			            } elseif($earn == 40){
+			            	$earnVal = $val['earnings']['EDO'];
+			            } else {
+			            	$earnVal = 0.00;
+			            }*/
+					$row[] = $this->moneyFormat($earnVal);
+					}
+            	}
+                $row[] = number_format($val['totalearning'],2,'.','');
+	            foreach($dedArr as $key => $ded) {
+					for($lo=0;$lo<count($deductions);$lo++) {
+						if($ded === $deductions[$lo]['psa_id']){
+							$dedVal = $val['deductions'][$ded];
+						}
+					}
+					if($ded == 7){
+						$dedVal = $val['cont']['sss'];
+					} elseif($ded == 14){
+						$dedVal = $val['cont']['phic'];
+					} elseif($ded == 15){
+						$dedVal = $val['cont']['hdmf'];
+					} elseif($ded == 8){
+						$dedVal = $val['cont']['tax'];
+					} elseif($ded == 51){
+		            	$dedVal = $val['deductions']['TaxPayables'];
+		            }
+	            	/*if($ded == 7){
+						$dedVal = $val['cont']['sss'];
+					} elseif($ded == 14){
+						$dedVal = $val['cont']['phic'];
+					} elseif($ded == 15){
+						$dedVal = $val['cont']['hdmf'];
+					} elseif($ded == 8){
+						$dedVal = $val['cont']['tax'];
+					} elseif($ded == 11){
+						$dedVal = $val['loan']['cashadv'];
+					} elseif($ded == 9){
+						$dedVal = $val['loan']['sss'];
+					} elseif($ded == 13){
+						$dedVal = $val['loan']['hdmf'];
+					} elseif($ded == 18){
+						$dedVal = $val['deduction']['overpay'];
+					} elseif($ded == 44){
+						$dedVal = $val['deduction']['SSSPremadj'];
+					} elseif($ded == 46){
+						$dedVal = $val['deduction']['PHPremAdj'];
+					} elseif($ded == 48){
+						$dedVal = $val['deduction']['HDMFPremadj'];
+					} elseif($ded == 51){
+		            	$dedVal = $val['deduction']['TaxPayables'];
+		            } else {
+		            	$dedVal = 0.00;
+		            }*/
+				$row[] = $this->moneyFormat($this->toNegative($dedVal));
+	    		}
+                $row[] = number_format($this->toNegative($val['totaldeduction']),2,'.','');
+                $row[] = number_format($val['net'],2,'.','');
+                $xls->addRow($row);
+            }
+        }
+        }
+        $row1[] = "";
+		$row1[] = "";
+		$row1[] = "";
+		$row1[] = "";
+		$row1[] = "";
+		$row1[] = "";
+		$row1[] = "";
+		$row1[] = "";
+		$row1[] = "";
+		$row1[] = "";
+		for($eCount=0;$eCount<count($earnings);$eCount++){
+        	$row1[] = ""; 
+        }
+        $row1[] = "";
+        $row1[] = "";
+		for($dCount=0;$dCount<count($deductions);$dCount++) {
+		$row1[] = "";
+		}
+        $row1[] = "";
+        $row1[] = "";
+
+        $xls->addRow($row1);
+
+        $row2[] = "Grand Total";
+        $row2[] = "";
+        $row2[] = "(".$seq_np.")";
+        $row2[] = "";
+        $row2[] = number_format($basic,2,'.','');
+        $row2[] = number_format($gross,2,'.','');
+        $row2[] = number_format($this->toNegative($LateUT),2,'.','');
+        $row2[] = number_format($this->toNegative($Absences),2,'.','');
+        $row2[] = number_format($ot,2,'.','');
+        $row2[] = number_format($cola,2,'.','');
+        if(count($earnArr) > 0){
+	    	foreach($earnArr as $key => $earnTotal) {
+				for($grandAm=0;$grandAm<count($earnings);$grandAm++) {
+					if($earnTotal === $earnings[$grandAm]['psa_id']){
+						$earnGrand = $grandTotal[$earnings[$grandAm]['psa_id']];
+					} 
+				}
+				//if($earnTotal == 36){
+				//	$earnGrand = $commallow;
+				//}
+	    		/*if($earnTotal == 3){
+					$earnGrand = $mgtpart;
+				} elseif($earnTotal == 24){
+					$earnGrand = $incentive;
+				} elseif($earnTotal == 36){
+					$earnGrand = $commallow;
+				} elseif($earnTotal == 38){
+					$earnGrand = $uniallow;
+				} elseif($earnTotal == 41){
+					$earnGrand = $otadj;
+				} elseif($earnTotal == 42){
+					$earnGrand = $slconv;
+				} elseif($earnTotal == 43){
+					$earnGrand = $ssspread;
+				} elseif($earnTotal == 45){
+					$earnGrand = $phicpread;
+				} elseif($earnTotal == 47){
+					$earnGrand = $hdmfpread;
+				} elseif($earnTotal == 19){
+					$earnGrand = $salaryadj;
+				} elseif($earnTotal == 49){
+					$earnGrand = $thirteenthmonth;
+				} elseif($earnTotal == 50){
+			    	$earnGrand = $taxrefund;
+			    } elseif($earnTotal == 40){
+			    	$earnGrand = $edo;
+			    } else {
+			    	$earnGrand = 0.00;
+			    }*/
+				  $row2[] = $this->moneyFormat($earnGrand);
+			}
+    	}
+        $row2[] = number_format($totalearning,2,'.','');
+    	foreach($dedArr as $key => $dedTotal) {
+			for($grandD=0;$grandD<count($deductions);$grandD++) {
+				if($dedTotal === $deductions[$grandD]['psa_id']){
+					$dedValGrand = $grandTotal[$deductions[$grandD]['psa_id']];
+				} 
+			}
+			if($dedTotal == 7){
+				$dedValGrand = $sss;
+			} elseif($dedTotal == 14){
+				$dedValGrand = $phic;
+			} elseif($dedTotal == 15){
+				$dedValGrand = $pagibig;
+			} elseif($dedTotal == 8){
+				$dedValGrand = $tax;
+			} elseif($dedTotal == 51){
+		    	$dedValGrand = $taxpayables;
+			}
+			/*if($dedTotal == 7){
+				$dedValGrand = $sss;
+			} elseif($dedTotal == 14){
+				$dedValGrand = $phic;
+			} elseif($dedTotal == 15){
+				$dedValGrand = $pagibig;
+			} elseif($dedTotal == 8){
+				$dedValGrand = $tax;
+			} elseif($dedTotal == 11){
+				$dedValGrand = $cashadv;
+			} elseif($dedTotal == 9){
+				$dedValGrand = $sss_loan;
+			} elseif($dedTotal == 13){
+				$dedValGrand = $pagibig_loan;
+			} elseif($dedTotal == 18){
+				$dedValGrand = $oversal;
+			} elseif($dedTotal == 44){
+				$dedValGrand = $ssspreaddec;
+			} elseif($dedTotal == 46){
+				$dedValGrand = $phicpreaddec;
+			} elseif($dedTotal == 48){
+				$dedValGrand = $hdmfpreaddec;
+			} elseif($dedTotal == 51){
+				$dedValGrand = $taxpayables;
+			} else {
+				$dedValGrand = 0.00;
+			}*/
+			$row2[] = $this->moneyFormat($this->toNegative($dedValGrand));
+    	}
+        $row2[] = number_format($this->toNegative($totaldeduc),2,'.','');
+        $row2[] = number_format($net,2,'.','');
+        $xls->addRow($row2);
+        $xls->sendFile();
+    }
+    
+	function getPayperiodDetails($payperiod = null,$startdate = null, $enddate = null){
+		if ($payperiod !="") { $qry[] = "pp.payperiod_id = $payperiod"; }
+		if (!is_null($startdate)) { $qry[] = "pp.payperiod_trans_date >= '$startdate'"; }
+		if (!is_null($enddate)) { $qry[] = "pp.payperiod_trans_date <= '$enddate'"; }
+		$criteria = count($qry)>0 ? " where ".implode(' and ',$qry) : '';
+		$sql = "select pp.payperiod_id,pp.payperiod_trans_date,pp.pps_id, pp.payperiod_start_date, pp.payperiod_end_date , pp.payperiod_status_id, pp.pp_stat_id ,
+							concat( DATE_FORMAT(pp.payperiod_start_date,'%b %e, %Y'),' - ',date_format(pp.payperiod_end_date,'%b %e, %Y')) as pdate
+							from payroll_pay_period pp
+							inner join payroll_pay_period_sched ppps on (ppps.pps_id = pp.pps_id)
+							$criteria";
+		$rsResult = $this->conn->Execute($sql);
+		$arrData = array();
+		while(!$rsResult->EOF) {
+			$arrData[] = $rsResult->fields;
+			$rsResult->MoveNext();
+		}
+		return $arrData;
+	}
+	
+	function getDepartment(){
+		$sql = "Select * from app_userdept order by ud_name";
+		$rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF) {
+			$arrData[] = $rsResult->fields;
+			$rsResult->MoveNext();
+		}
+		return $arrData;
+	}
+	
+    //function that will create PDF
+	function createPDF($content, $paper, $orientation, $filename){
+		$dompdf = new DOMPDF();
+		$dompdf->load_html($content);
+		$dompdf->set_paper($paper,$orientation);
+		$dompdf->render();
+		$dompdf->stream($filename,array('Attachment' => 0));	
+	}
+	
+	function moneyFormat($param){
+		if($param == 0 or $param == ''){
+			return "0.00";
+		} else {
+			return number_format((float)$param,2,'.','');
+		}
+	}
+	
+	function generatePDFPayrollRegisterReport($gData = array()){
+		$paper = 'legal';
+		$orientation = 'landscape';
+		$objClsSSS = new clsSSS($this->conn);
+		$oDataBranch = $objClsSSS->dbfetchCompDetails();
+		if($gData['type'] == 1){
+            $empdept_type = "Confidential";
+        }else if($gData['type'] == 2){
+            $empdept_type = "Non-Confidential";
+        }else{
+        	$empdept_type = "All Employee";
+        }
+        $payperiodstatus = $this->getPayperiodDetails($gData['payperiod_id'],null,null);
+        
+		$filename = 'PDFPayroll.pdf';
+		$content = '<style type="text/css">
+						@page { margin:1.3em 1.8em;}
+						.leftmost{
+							border:1px solid black;
+						}
+						.rightside{
+							border-top:1px solid black;
+							border-bottom:1px solid black;
+							border-right:1px solid black;
+						}
+						.bolditalic{
+							font-style:italic;font-weight:bold;
+							vertical-align:top;
+							font-size:10px;
+						}
+						.righttop{
+							border-top:1px solid black;
+							border-right:1px solid black;
+							font-size:10px;
+						}
+						.inside_tbl{
+							border-collapse:collapse;
+							vertical-align:top;
+							border-bottom:1px solid black;
+							font-size:10px;
+						}
+						.right_only{
+							border-right:1px solid black;
+							font-size:10px;
+						}
+					</style>
+					<table style="border-collapse:collapse; font:10px Helvetica;" width="100%">';
+		//get earnings and filter if amendments then check if 0 total
+		$earn = $this->getColumns(1);
+		$earningsPSA = $earn;
+		$amendments = $this->getAmendments($gData['payperiod_id'],1);
+		for($eCount=0;$eCount<count($amendments);$eCount++) {
+			$earningsPSA = $this->removeElementWithValue($earningsPSA, 'psa_id', $amendments[$eCount]['psa_id']);
+		}
+		//check non-amendments if zero total
+		for($psaCount=0;$psaCount<count($earningsPSA);$psaCount++){
+			//type 1 => psa, type 2 => amendment
+			if($this->checkEarningColumnIfZero($earningsPSA[$psaCount]['psa_id'], '1', $gData['payperiod_id'], $payperiodstatus[0]['payperiod_trans_date'])){
+				$earnings[] = $earningsPSA[$psaCount];
+			} else {
+				continue;
+			}
+		}
+		//check amendments if zero total
+		for($amCount=0;$amCount<count($amendments);$amCount++){
+			//type 1 => psa, type 2 => amendment
+			if($this->checkEarningColumnIfZero($amendments[$amCount]['psa_id'], '2', $_GET, $payperiodstatus[0]['payperiod_trans_date'])){
+				$earnings[] = $amendments[$amCount];
+			} else {
+				continue;
+			}
+		}
+		if(count($earnings) > 0){
+			$earnings = $this->sortByPsaOrder($earnings);
+		}
+		//get deductions and filter if loan
+		$deduct = $this->getColumns(2);
+		for($dCount=0;$dCount<count($deduct);$dCount++){
+			if($this->checkDeductionColumnIfZero($deduct[$dCount]['psa_id'], $payperiodstatus[0]['payperiod_trans_date'], $_GET)){
+				$deductions[] = $deduct[$dCount];
+			} else {
+				continue;
+			}
+		}
+		if((count($earnings)+4)>count($deductions)){
+			$maxEarnings = 4;
+			$maxDeductions = floor(count($deductions)/(ceil((count($earnings)+4)/4)));
+			$maxWidthEarn = '200px';
+			$maxWidthDed = '250px';
+			$cellWidthEarn = '57px';
+			$cellWidthDed = '80px';
+		} else {
+			$maxDeductions = 4;
+			$maxDeductions = floor((count($earnings)+4)/(ceil(count($deductions)/4)));
+			$maxWidthEarn = '250px';
+			$maxWidthDed = '200px';
+			$cellWidthEarn = '80px';
+			$cellWidthDed = '57px';
+		}
+		$header = 	'<tr><td colspan="11"><strong>'.$oDataBranch['comp_name'].'</strong></td></tr>
+						<tr><td colspan="11"><i>'.$oDataBranch['comp_add'].'</i></td></tr>
+						<tr><td colspan="11"><strong>Payroll Register</strong></td></tr>
+						<tr><td colspan="11"><strong>'.$empdept_type.'</strong></td></tr>
+						<tr><td colspan="11"><strong>for the period: '.date('F d, Y',dDate::parseDateTime($payperiodstatus[0]['payperiod_trans_date'])).'</strong></td></tr><tr style="font-weight:bold;">
+							<td colspan="4">&nbsp;</td>
+							<td colspan="4" align="center" class="leftmost">Earnings</td>
+							<td colspan="2" align="center" class="rightside">Deductions</td>
+							<td class="rightside" align="center">Salary to Pay</td>
+						</tr>
+						<tr style="font-weight:bold;">
+							<td class="leftmost" width="10px">&nbsp;</td>
+							<td align="center" class="rightside" width="60px">Emp ID</td>
+							<td align="center" class="rightside" width="130px">Employee Name</td>
+							<td align="center" class="rightside" width="10px">Tax<br>Stat</td>
+							<td align="center" class="rightside" width="50px">Basic Salary</td>
+							<td align="center" class="rightside" width="50px">Basic Semi</td>
+							<td class="inside_tbl" width="'.$maxWidthEarn.'"><table style="border-collapse:collapse;" width="100%"><tr>
+							<td align="center" class="right_only" width="'.$cellWidthEarn.'">UT/Tardy</td>
+							<td align="center" class="right_only" width="'.$cellWidthEarn.'">Absences</td>
+							<td align="center" class="right_only" width="'.$cellWidthEarn.'">Over Time</td>
+							<td align="center" class="right_only" width="'.$cellWidthEarn.'">COLA</td></tr>';
+						$ctr=1;
+						$max = $maxEarnings;
+						$traceEarn=1;
+						for($e=0;$e<count($earnings);$e++){
+							if($ctr==1){
+								$header .= '<tr>';
+								$traceEarn++;
+							}
+				   			$header .= '<td class="righttop">'.substr($this->getPayrollAcountNameByPsaID($earnings[$e]['psa_id']),0,10).'</td>';
+							if($ctr>=$max){
+								$header .= '</tr>';
+								$ctr=0;
+							}
+							$ctr++;
+							$earnArr[] = $earnings[$e]['psa_id'];
+						}
+						if($ctr <= $max && $ctr != 1){
+							$span = ($max - $ctr) + 1;
+							$header .= '<td colspan="'.$span.'" class="righttop">&nbsp;</td></tr>';	
+						}
+						$header .= '</table></td>
+							<td align="center" class="rightside" style="font-weight:bold;" width="50px">Total Earnings</td>
+							<td class="inside_tbl" width="'.$maxWidthDed.'">
+							<table style="border-collapse:collapse;" width="100%">';
+						$ctr=1;
+						$max = $maxDeductions;
+						$trace = 1;
+						for($d=0;$d<count($deductions);$d++) {
+							if($ctr==1){
+								$header .= '<tr>';
+							}
+						
+							if($trace<=ceil(count($deductions)/($traceEarn))){
+								$class = "right_only";
+							} else {
+								$class = "righttop";
+							}
+				   			$header .= '<td class="'.$class.'" width="'.$cellWidthDed.'">'.substr($deductions[$d]['psa_name'],0,10).'</td>';
+							if($ctr>$max){
+								$header .= '</tr>';
+								$ctr=0;
+							}
+							$ctr++;
+							$trace++;
+							$dedArr[] = $deductions[$d]['psa_id'];
+						}
+						if($ctr >= $max){
+							$span = ($max - $ctr) + 2;
+							$header .= '<td colspan="'.$span.'" class="righttop">&nbsp;</td></tr>';	
+						}
+				$header .=	'</table></td>
+							<td align="center" class="rightside" style="font-weight:bold;" width="50px">Total<br>Deductions</td>
+							<td align="center" class="rightside" width="50px" style="font-weight:bold;">Net Pay</td>
+						</tr>';
+			if($gData['sbydpart']){
+        	$varDepart = $this->getDepartment();
+        	for($c=0;$c<count($varDepart);$c++){
+        		$emp = $this->genReport($gData,$varDepart[$c]['ud_id']);
+        		if(empty($emp)){
+        			continue;
+        		} else {
+	        	if(count($emp)>0){
+		            $seq_np2 = 0;
+		            $basic2=  0.00;
+		            $gross2= 0.00;
+		            $ot2= 0.00;
+		            $Absences2= 0.00;
+		            $LateUT2= 0.00;
+		            $cola2= 0.00;
+					for($ea=0;$ea<count($earnings);$ea++) {
+						$deptTotal[$earnings[$ea]['psa_id']] = 0.00;
+					}
+		            //$commallow2= 0.00;
+		            $totalearning2= 0.00;
+		            $taxpayables2 = 0.00;
+		            //static gov contributions		            
+		            $tax2 = 0.00;
+		            $sss2 = 0.00;
+		            $phic2 = 0.00;
+		            $pagibig2 = 0.00;
+		            //loan
+	        		for($l=0;$l<count($deductions);$l++) {
+						$deptTotal[$deductions[$l]['psa_id']] = 0.00;	
+					}
+							            
+		            $totaldeduc2= 0.00;
+		            $net2 = 0.00;
+		            
+		            $deptDetails = $varDepart[$c]['ud_name']." - ".$varDepart[$c]['ud_desc'];
+		            $main .= '<tr><td colspan="11" style="page-break-before:always;">'.$deptDetails.'</td></tr>';
+		            
+		            foreach($emp as $key => $val){
+//		            	printa($val);
+		                $basic2 += $this->moneyFormat($val['salaryinfo_basicrate']);
+		                $gross2 += $this->moneyFormat($val['gross_semi']);
+		                $ot2 += $this->moneyFormat($val['TA']['ot']);
+		                $Absences2 += $this->moneyFormat($val['TA']['Absences']);
+		                $LateUT2 += $this->moneyFormat($val['TA']['LateUT']);
+		                $cola2 += $this->moneyFormat($val['cola']);
+			            for($ea=0;$ea<count($earnings);$ea++) {
+							$deptTotal[$earnings[$ea]['psa_id']] += $val['earnings'][$earnings[$ea]['psa_id']];
+			           		if($earnings[$ea]['psa_id'] == 36 and $val['earnings'][$earnings[$ea]['psa_id']] == 0){
+			           			$deptTotal[$earnings[$ea]['psa_id']] += $val['earnings']['comallow'];
+			           		}
+						}
+						//$commallow2 += $this->moneyFormat($val['earnings']['comallow']);
+			            $totalearning2 += $this->moneyFormat($val['totalearning']);
+			            $taxpayables2 += $this->moneyFormat($val['deductions']['TaxPayables']);
+			            
+		                $tax2 += $this->moneyFormat($val['cont']['tax']);
+		                $sss2 += $this->moneyFormat($val['cont']['sss']);
+		                $phic2 += $this->moneyFormat($val['cont']['phic']);
+		                $pagibig2 += $this->moneyFormat($val['cont']['hdmf']);
+		                //loan
+		            	for($l=0;$l<count($deductions);$l++) {
+							$deptTotal[$deductions[$l]['psa_id']] += $val['deductions'][$deductions[$l]['psa_id']];
+						}
+		                $totaldeduc2 += $this->moneyFormat($val['totaldeduction']);
+		                $net2 += $this->moneyFormat($val['net']);
+		                $seq_np2++;
+		                $main .= '<tr>
+							<td align="right" class="leftmost" width="10px">'.$seq_np2.".".'</td>
+							<td align="left" class="rightside" width="60px">'.$val['emp_idnum'].'</td>
+							<td align="left" class="rightside" width="130px">'.$val['fullname'].'</td>
+							<td align="center" class="rightside" width="40px">'.$val['taxep_code'].'</td>
+							<td align="right" class="rightside" width="50px">'.$this->moneyFormat($val['salaryinfo_basicrate']).'</td>
+							<td align="right" class="rightside" width="50px">'.$this->moneyFormat($val['gross_semi']).'</td>
+							<td class="inside_tbl" style="border-top:1px solid black;" width="'.$maxWidthEarn.'"><table style="border-collapse:collapse;" width="100%">
+							<tr>
+								<td align="right" class="right_only" width="'.$cellWidthEarn.'">'.$this->moneyFormat($this->toNegative($val['TA']['LateUT'])).'&nbsp;</td>
+								<td align="right" class="right_only" width="'.$cellWidthEarn.'">'.$this->moneyFormat($this->toNegative($val['TA']['Absences'])).'&nbsp;</td>
+								<td align="right" class="right_only" width="'.$cellWidthEarn.'">'.$this->moneyFormat($val['TA']['ot']).'&nbsp;</td>
+								<td align="right" class="right_only" width="'.$cellWidthEarn.'">'.$this->moneyFormat($val['cola']).'&nbsp;</td>
+							</tr>';
+						$ctr=1;
+						$max = $maxEarnings;
+						if(count($earnArr) > 0){
+							foreach($earnArr as $key => $earn) {
+								if($ctr==1){
+									$main .= '<tr>';
+								}
+								for($am=0;$am<count($amendments);$am++) {
+									if($earn === $amendments[$am]['psa_id']){
+										$earnVal = $val['earnings'][$earn];
+									}
+								}
+								if($earn == 36 and $val['earnings'][$earn] == 0){$earnVal = $val['earnings']['comallow'];}
+								//if($earn == 36){
+								//	$earnVal = $val['earnings']['comallow'];
+								//}
+					   			$main .= '<td class="righttop" align="right" width="'.$cellWidthEarn.'">'.$this->moneyFormat($earnVal).'&nbsp;</td>';
+								if($ctr>=$max){
+									$main .= '</tr>';
+									$ctr=0;
+								}
+								$ctr++;
+							}
+		            	}
+						if($ctr <= $max && $ctr != 1){
+							$span = ($max - $ctr) + 1;
+							$main .= '<td colspan="'.$span.'" class="righttop">&nbsp;</td></tr>';	
+						}
+							$main .= '</table></td>
+							<td align="right" class="rightside" style="font-weight:bold;" width="50px">'.$this->moneyFormat($val['totalearning']).'</td>
+							<td class="inside_tbl" style="border-top:1px solid black;" width="'.$maxWidthDed.'"><table style="border-collapse:collapse;" width="100%">';
+						$ctr=1;
+						$max = $maxDeductions;
+						$trace=1;
+						foreach($dedArr as $key => $ded) {
+							if($ctr==1){
+								$main .= '<tr>';
+							}
+						
+							if($trace<=ceil(count($deductions)/($traceEarn))){
+								$class = "right_only";
+							} else {
+								$class = "righttop";
+							}
+							for($lo=0;$lo<count($deductions);$lo++) {
+								if($ded === $deductions[$lo]['psa_id']){
+									$dedVal = $val['deductions'][$ded];
+								}
+							}
+							
+							if($ded == 7){
+								$dedVal = $val['cont']['sss'];
+							} elseif($ded == 14){
+								$dedVal = $val['cont']['phic'];
+							} elseif($ded == 15){
+								$dedVal = $val['cont']['hdmf'];
+							} elseif($ded == 8){
+								$dedVal = $val['cont']['tax'];
+							} elseif($ded == 51){
+		                		$dedVal = $val['deductions']['TaxPayables'];
+		               		}
+				   			$main .= '<td class="'.$class.'" align="right" width="'.$cellWidthDed.'">'.$this->moneyFormat($this->toNegative($dedVal)).'&nbsp;</td>';
+							if($ctr>$max){
+								$main .= '</tr>';
+								$ctr=0;
+							}
+							$ctr++;
+							$trace++;
+						}
+						if($ctr >= $max){
+							$span = ($max - $ctr) + 2;
+							$main .= '<td colspan="'.$span.'" class="righttop">&nbsp;</td></tr>';	
+						}
+					$main .= '</table></td>
+							<td align="right" class="rightside" style="font-weight:bold;" width="50px">'.$this->moneyFormat($this->toNegative($val['totaldeduction'])).'</td>
+							<td align="right" class="rightside" width="50px" style="font-weight:bold;">'.$this->moneyFormat($val['net']).'</td>
+						</tr>';
+		            }
+	        	}
+        		$main .= '<tr>
+							<td colspan="4" style="vertical-align:top;"><strong><i>Department Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;('.$seq_np2.')</i></strong></td>
+							<td align="right" class="bolditalic" width="50px">'.$this->moneyFormat($basic2).'</td>
+							<td align="right" class="bolditalic" width="50px">'.$this->moneyFormat($gross2).'</td>
+							<td width="'.$maxWidthEarn.'"><table style="border-collapse:collapse;" width="100%">
+							<tr>
+								<td align="right" class="bolditalic" width="'.$cellWidthEarn.'">'.$this->moneyFormat($this->toNegative($LateUT2)).'</td>
+								<td align="right" class="bolditalic" width="'.$cellWidthEarn.'">'.$this->moneyFormat($this->toNegative($Absences2)).'</td>
+								<td align="right" class="bolditalic" width="'.$cellWidthEarn.'">'.$this->moneyFormat($ot2).'</td>
+								<td align="right" class="bolditalic" width="'.$cellWidthEarn.'">'.$this->moneyFormat($cola2).'</td>
+							</tr>';
+						$ctr = 1;
+						$max = $maxEarnings;
+						if(count($earnArr) > 0){
+							foreach($earnArr as $key => $earn) {
+								if($ctr==1){
+									$main .= '<tr>';
+								}
+								for($eaDept=0;$eaDept<count($earnings);$eaDept++) {
+									if($earn === $earnings[$eaDept]['psa_id']){
+										$earnValDept = $deptTotal[$earnings[$eaDept]['psa_id']];
+									} 
+								}
+								//if($earn == 36){
+								//	$earnValDept = $commallow2;
+								//}
+					   			$main .= '<td class="bolditalic" align="right" width="'.$cellWidthEarn.'">'.$this->moneyFormat($earnValDept).'&nbsp;</td>';
+								if($ctr>=$max){
+									$main .= '</tr>';
+									$ctr=0;
+								}
+								$ctr++;
+							}
+        				}
+						if($ctr <= $max && $ctr != 1){
+							$span = ($max - $ctr) + 1;
+							$main .= '<td colspan="'.$span.'">&nbsp;</td></tr>';	
+						}
+							$main .= '</table></td>
+							<td align="right" class="bolditalic" width="50px">'.$this->moneyFormat($totalearning2).'</td>
+								<td width="'.$maxWidthDed.'"><table style="border-collapse:collapse;" width="100%">';
+						$ctr=1;
+						$max = $maxDeductions;
+						$trace=1;
+						foreach($dedArr as $key => $ded) {
+							if($ctr==1){
+								$main .= '<tr>';
+							}
+							for($dDept=0;$dDept<count($deductions);$dDept++) {
+								if($ded === $deductions[$dDept]['psa_id']){
+									$dedValDept = $deptTotal[$deductions[$dDept]['psa_id']];
+								} 
+							}
+							if($ded == 7){
+								$dedValDept = $sss2;
+							} elseif($ded == 14){
+								$dedValDept = $phic2;
+							} elseif($ded == 15){
+								$dedValDept = $pagibig2;
+							} elseif($ded == 8){
+								$dedValDept = $tax2;
+							} elseif($ded == 51){
+		                		$dedValDept = $taxpayables2;
+		               		}
+				   			$main .= '<td class="bolditalic" align="right" width="'.$cellWidthDed.'">'.$this->moneyFormat($this->toNegative($dedValDept)).'&nbsp;</td>';
+							if($ctr>$max){
+								$main .= '</tr>';
+								$ctr=0;
+							}
+							$ctr++;
+							$trace++;
+						}
+						if($ctr >= $max){
+							$span = ($max - $ctr) + 2;
+							$main .= '<td colspan="'.$span.'">&nbsp;</td></tr>';	
+						}
+					$main .= '</table></td>
+							<td align="right" class="bolditalic" width="50px">'.$this->moneyFormat($this->toNegative($totaldeduc2)).'</td>
+							<td align="right" class="bolditalic" width="60px">'.$this->moneyFormat($net2).'</td>
+						</tr>';
+        		
+        		$basic += $basic2;
+                $gross += $gross2;
+                $ot += $ot2;
+                $Absences += $Absences2;
+                $LateUT += $LateUT2;
+                $cola += $cola2;
+                //$commallow += $commallow2;
+        		for($eaGrand=0;$eaGrand<count($earnings);$eaGrand++) {
+					$grandTotal[$earnings[$eaGrand]['psa_id']] += $deptTotal[$earnings[$eaGrand]['psa_id']];
+				}
+	            $totalearning += $totalearning2;
+	            $taxpayables += $taxpayables2;
+	            //static gov contributions
+                $tax += $tax2;
+                $sss += $sss2;
+                $phic += $phic2;
+                $pagibig += $pagibig2;
+        		for($dGrand=0;$dGrand<count($deductions);$dGrand++) {
+					$grandTotal[$deductions[$dGrand]['psa_id']] += $deptTotal[$deductions[$dGrand]['psa_id']];
+				}
+                
+                $totaldeduc += $totaldeduc2;
+                $net += $net2;
+                $seq_np+=$seq_np2;
+        		
+        	}
+			}
+        }else{
+        $emp = $this->genReport($gData);
+        if(count($emp)>0){
+            $seq_np = 0;
+            $basic=  0.00;
+            $gross= 0.00;
+            $ot= 0.00;
+            $Absences= 0.00;
+            $LateUT= 0.00;
+            $cola= 0.00;
+            //$commallow= 0.00;
+        	for($eaGrand=0;$eaGrand<count($earnings);$eaGrand++) {
+				$grandTotal[$earnings[$eaGrand]['psa_id']] = 0.00;
+			}
+           
+            $totalearning = 0.00;
+            $taxpayables = 0.00;
+            $tax = 0.00;
+            $sss = 0.00;
+            $phic = 0.00;
+            $pagibig = 0.00;
+        	for($dGrand=0;$dGrand<count($deductions);$dGrand++) {
+				$grandTotal[$deductions[$dGrand]['psa_id']] = 0.00;
+			}
+            
+            $totaldeduc= 0.00;
+            $net = 0.00;
+            foreach($emp as $key => $val){
+//            	printa($val);
+                $basic += $this->moneyFormat($val['salaryinfo_basicrate']);
+                $gross += $this->moneyFormat($val['gross_semi']);
+                $ot += $this->moneyFormat($val['TA']['ot']);
+                $Absences += $this->moneyFormat($val['TA']['Absences']);
+                $LateUT += $this->moneyFormat($val['TA']['LateUT']);
+                $cola += $this->moneyFormat($val['cola']);
+                //$commallow += $this->moneyFormat($val['earnings']['comallow']);
+           	 	for($eaGrand=0;$eaGrand<count($earnings);$eaGrand++) {
+					$grandTotal[$earnings[$eaGrand]['psa_id']] += $val['earnings'][$earnings[$eaGrand]['psa_id']];
+           	 	    if($earnings[$eaGrand]['psa_id'] == 36 and $val['earnings'][$earnings[$eaGrand]['psa_id']] == 0){
+			    		$grandTotal[$earnings[$eaGrand]['psa_id']] += $val['earnings']['comallow'];
+			   		}
+           	 	}
+                
+	            $totalearning += $this->moneyFormat($val['totalearning']);
+	            $taxpayables += $this->moneyFormat($val['deductions']['TaxPayables']);
+                $tax += $this->moneyFormat($val['cont']['tax']);
+                $sss += $this->moneyFormat($val['cont']['sss']);
+                $phic += $this->moneyFormat($val['cont']['phic']);
+                $pagibig += $this->moneyFormat($val['cont']['hdmf']);
+            	for($dGrand=0;$dGrand<count($deductions);$dGrand++) {
+					$grandTotal[$deductions[$dGrand]['psa_id']] += $val['deductions'][$deductions[$dGrand]['psa_id']];
+				}
+                
+            	$hdmfpreaddec += $this->moneyFormat($val['deduction']['HDMFPremadj']);
+                $totaldeduc += $this->moneyFormat($val['totaldeduction']);
+                $net += $this->moneyFormat($val['net']);
+                $seq_np++;
+				
+                $main .= '<tr>
+							<td align="right" class="leftmost" width="10px">'.$seq_np.".".'</td>
+							<td align="left" class="rightside" width="80px">'.$val['emp_idnum'].'</td>
+							<td align="left" class="rightside" width="130px">'.$val['fullname'].'</td>
+							<td align="center" class="rightside" width="40px">'.$val['taxep_code'].'</td>
+							<td align="right" class="rightside" width="50px">'.$this->moneyFormat($val['salaryinfo_basicrate']).'</td>
+							<td align="right" class="rightside" width="50px">'.$this->moneyFormat($val['gross_semi']).'</td>
+							<td class="inside_tbl" style="border-top:1px solid black;" width="'.$maxWidthEarn.'"><table style="border-collapse:collapse;" width="100%">
+							<tr>
+								<td align="right" class="right_only" width="'.$cellWidthEarn.'">'.$this->moneyFormat($this->toNegative($val['TA']['LateUT'])).'&nbsp;</td>
+								<td align="right" class="right_only" width="'.$cellWidthEarn.'">'.$this->moneyFormat($this->toNegative($val['TA']['Absences'])).'&nbsp;</td>
+								<td align="right" class="right_only" width="'.$cellWidthEarn.'">'.$this->moneyFormat($val['TA']['ot']).'&nbsp;</td>
+								<td align="right" class="right_only" width="'.$cellWidthEarn.'">'.$this->moneyFormat($val['cola']).'&nbsp;</td>
+							</tr>';
+						$ctr=1;
+						$max = $maxEarnings;
+						if(count($earnArr) > 0){
+							foreach($earnArr as $key => $earn) {
+								if($ctr==1){
+									$main .= '<tr>';
+								}for($am=0;$am<count($amendments);$am++) {
+									if($earn === $amendments[$am]['psa_id']){
+										$earnVal = $val['earnings'][$earn];
+									}
+								}
+								if($earn == 36 and $val['earnings'][$earn] == 0){$earnVal = $val['earnings']['comallow'];}
+								//if($earn == 36){
+								//	$earnVal = $val['earnings']['comallow'];
+								//}
+			                	
+					   			$main .= '<td class="righttop" align="right" width="'.$cellWidthEarn.'">'.$this->moneyFormat($earnVal).'&nbsp;</td>';
+								if($ctr>=$max){
+									$main .= '</tr>';
+									$ctr=0;
+								}
+								$ctr++;
+							}
+            			}
+						if($ctr <= $max && $ctr != 1){
+							$span = ($max - $ctr) + 1;
+							$main .= '<td colspan="'.$span.'" class="righttop">&nbsp;</td></tr>';	
+						}
+							$main .= '</table></td>
+							<td align="right" class="rightside" width="50px">'.$this->moneyFormat($val['totalearning']).'</td>
+							<td class="inside_tbl" style="border-top:1px solid black;" width="'.$maxWidthDed.'"><table style="border-collapse:collapse;" width="100%">';
+						$ctr=1;
+						$max = $maxDeductions;
+						$trace=1;
+						foreach($dedArr as $key => $ded) {
+							if($ctr==1){
+								$main .= '<tr>';
+							}
+						
+							if($trace<=ceil(count($deductions)/($traceEarn))){
+								$class = "right_only";
+							} else {
+								$class = "righttop";
+							}
+							for($lo=0;$lo<count($deductions);$lo++) {
+								if($ded === $deductions[$lo]['psa_id']){
+									$dedVal = $val['deductions'][$ded];
+								}
+							}
+							
+							if($ded == 7){
+								$dedVal = $val['cont']['sss'];
+							} elseif($ded == 14){
+								$dedVal = $val['cont']['phic'];
+							} elseif($ded == 15){
+								$dedVal = $val['cont']['hdmf'];
+							} elseif($ded == 8){
+								$dedVal = $val['cont']['tax'];
+							} elseif($ded == 51){
+		                		$dedVal = $val['deductions']['TaxPayables'];
+		               		}
+				   			$main .= '<td class="'.$class.'" width="'.$cellWidthDed.'" align="right">'.$this->moneyFormat($this->toNegative($dedVal)).'&nbsp;</td>';
+							if($ctr>$max){
+								$main .= '</tr>';
+								$ctr=0;
+							}
+							$ctr++;
+							$trace++;
+						}
+						if($ctr >= $max){
+							$span = ($max - $ctr) + 2;
+							$main .= '<td colspan="'.$span.'" class="righttop">&nbsp;</td></tr>';	
+						}
+					$main .= '</table></td>
+							<td align="right" class="rightside" width="50px">'.$this->moneyFormat($this->toNegative($val['totaldeduction'])).'</td>
+							<td align="right" class="rightside" style="page-break-after:always;" width="60px">'.$this->moneyFormat($val['net']).'</td>
+						</tr>';
+            }
+        }
+        }
+				
+				$footer = '<tr><td colspan="11">&nbsp;</td></tr>
+						<tr>
+							<td colspan="4" style="border-top:2px solid black; vertical-align:top;"><strong><i>Grand Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;('.$seq_np.')</i></strong></td>
+							<td align="right" class="bolditalic" style="border-top:2px solid black;" width="50px">'.$this->moneyFormat($basic).'</td>
+							<td align="right" class="bolditalic" style="border-top:2px solid black;" width="50px">'.$this->moneyFormat($gross).'</td>
+							<td style="border-top:2px solid black;" width="'.$maxWidthEarn.'"><table style="border-collapse:collapse;" width="100%">
+							<tr>
+								<td align="right" class="bolditalic" width="'.$cellWidthEarn.'">'.$this->moneyFormat($this->toNegative($LateUT)).'</td>
+								<td align="right" class="bolditalic" width="'.$cellWidthEarn.'">'.$this->moneyFormat($this->toNegative($Absences)).'</td>
+								<td align="right" class="bolditalic" width="'.$cellWidthEarn.'">'.$this->moneyFormat($ot).'</td>
+								<td align="right" class="bolditalic" width="'.$cellWidthEarn.'">'.$this->moneyFormat($cola).'</td>
+							</tr>';
+						$ctr=1;
+						$max = $maxEarnings;
+						if(count($earnArr) > 0){
+							foreach($earnArr as $key => $earnTotal) {
+								if($ctr==1){
+									$footer.= '<tr>';
+								}
+								for($grandAm=0;$grandAm<count($earnings);$grandAm++) {
+									if($earnTotal === $earnings[$grandAm]['psa_id']){
+										$earnGrand = $grandTotal[$earnings[$grandAm]['psa_id']];
+									} 
+								}
+								//if($earnTotal == 36){
+								//	$earnGrand = $commallow;
+								//}
+					   			$footer.= '<td class="bolditalic" align="right" width="'.$cellWidthEarn.'">'.$this->moneyFormat($earnGrand).'&nbsp;</td>';
+								if($ctr>=$max){
+									$footer .= '</tr>';
+									$ctr=0;
+								}
+								$ctr++;
+							}
+						}
+						if($ctr <= $max && $ctr != 1){
+							$span = ($max - $ctr) + 1;
+							$footer .= '<td colspan="'.$span.'">&nbsp;</td></tr>';	
+						}
+							$footer .= '</table></td>
+							<td align="right" class="bolditalic" style="border-top:2px solid black;" width="50px">'.$this->moneyFormat($totalearning).'</td>
+							<td style="border-top:2px solid black;" width="'.$maxWidthDed.'"><table style="border-collapse:collapse;" width="100%">';
+						$ctr=1;
+						$max = $maxDeductions;
+						$trace=1;
+						foreach($dedArr as $key => $dedTotal) {
+							if($ctr==1){
+								$footer .= '<tr>';
+							}
+							for($grandD=0;$grandD<count($deductions);$grandD++) {
+								if($dedTotal === $deductions[$grandD]['psa_id']){
+									$dedValGrand = $grandTotal[$deductions[$grandD]['psa_id']];
+								} 
+							}
+							if($dedTotal == 7){
+								$dedValGrand = $sss;
+							} elseif($dedTotal == 14){
+								$dedValGrand = $phic;
+							} elseif($dedTotal == 15){
+								$dedValGrand = $pagibig;
+							} elseif($dedTotal == 8){
+								$dedValGrand = $tax;
+							} elseif($dedTotal == 51){
+		                		$dedValGrand = $taxpayables;
+							}
+				   			$footer .= '<td class="bolditalic" align="right" width="'.$cellWidthDed.'">'.$this->moneyFormat($this->toNegative($dedValGrand)).'&nbsp;</td>';
+							if($ctr>$max){
+								$footer .= '</tr>';
+								$ctr=0;
+							}
+							$ctr++;
+							$trace++;
+						}
+						if($ctr >= $max){
+							$span = ($max - $ctr) + 2;
+							$footer .= '<td colspan="'.$span.'">&nbsp;</td></tr>';	
+						}
+					$footer .= '</table></td>
+							<td align="right" class="bolditalic" width="50px" style="border-top:2px solid black;" width="50px">'.$this->moneyFormat($this->toNegative($totaldeduc)).'</td>
+							<td align="right" class="bolditalic" style="border-top:2px solid black;">'.$this->moneyFormat($net).'</td>
+						</tr>
+						<tr><td colspan="11" style="font-size:12px;">Date Printed: '.date("M/d/Y h:i A").'</td></tr>
+				</table>';
+		$content .= $header . $main. $footer;
+		$this->createPDF($content, $paper, $orientation, $filename);
+	}
+	
+	function getColumns($psa_type){
+		$sql = "select distinct psa_clsfication from payroll_ps_account";
+		$rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF) {
+			$psa_clsfication = $rsResult->fields['psa_clsfication'];
+			$sql2 = "select psa_id, psa_name, psa_type, psa_clsfication from payroll_ps_account 
+			where psa_type='$psa_type' and psa_clsfication='$psa_clsfication' and psa_status='1' and psa_id!='52' order by psa_order";
+			$rsResult2 = $this->conn->Execute($sql2);
+			while(!$rsResult2->EOF){
+				$arr[] = $rsResult2->fields;
+				$rsResult2->MoveNext();
+			}
+			$rsResult->MoveNext();
+		}
+		return $arr;
+	}
+	
+	function getAmendments($payperiod_id = null, $psa_type){
+		//if($effect_date === null){
+		$qry[] = "b.payperiod_id = '$payperiod_id'";
+		$qry[] = "c.psa_type = '$psa_type'";
+		$qry[] = "a.psamend_effect_date <= b.payperiod_end_date";
+		$qry[] = "a.psamend_effect_date >= b.payperiod_start_date";
+		$criteria = (count($qry)>0)?" where ".implode(" and ",$qry):"";
+		$sql = "select a.psa_id from payroll_ps_amendment a
+				inner join payroll_pay_period b 
+				inner join payroll_ps_account c on (c.psa_id=a.psa_id)
+				$criteria
+				order by psa_order";
+		$rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF) {
+			$arr[] = $rsResult->fields;
+			$rsResult->MoveNext();
+		}
+		return $arr;
+	}
+	
+	function removeElementWithValue($array, $key, $value){
+	     foreach($array as $subKey => $subArray){
+	          if($subArray[$key] == $value){
+	               unset($array[$subKey]);
+	               $array = array_values($array);
+	          }
+	     }
+	     return $array;
+	}
+	
+	function checkEarningColumnIfZero($psa_id, $type_, $gData = array(), $trans_date){
+		$payperiod_id = $gData['payperiod_id'];
+		$checkSql = "select psa_id from payroll_ps_account where psa_id='$psa_id' and psa_type='2'";
+		$checkResult = $this->conn->Execute($checkSql);
+		if(!empty($checkResult->fields['psa_id'])){
+			return false;
+		} else {
+			if($type_ == '2'){
+			$sql = "select sum(c.amendemp_amount) as total from payroll_ps_amendment a 
+					inner join payroll_pay_period b
+					inner join payroll_ps_amendemp c on (c.psamend_id=a.psamend_id)
+					WHERE b.payperiod_id='$payperiod_id' and a.psa_id='$psa_id' and a.psamend_effect_date <= b.payperiod_end_date and a.psamend_effect_date >= b.payperiod_start_date";
+			} else {
+			$sql = "select sum(ppe.ppe_amount) as total from payroll_paystub_entry ppe
+					left join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+					left join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+					WHERE ppp.payperiod_trans_date LIKE '$trans_date%' and ppe.psa_id='$psa_id'";
+			}
+			$rsResult = $this->conn->Execute($sql);
+			while(!$rsResult->EOF) {
+				if($rsResult->fields['total'] !=0 or $rsResult->fields['total'] != NULL){
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+	}
+	
+	function checkDeductionColumnIfZero($psa_id, $trans_date, $gData = array()){
+		$payperiod_id = $gData['payperiod_id'];
+		$sql = "select psa_id, psa_name, psa_type, psa_clsfication from payroll_ps_account 
+				where psa_id='$psa_id' and psa_status='1' order by psa_order";
+		$rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF) {
+			$sqlAm = "select psa_id from payroll_ps_amendment where psa_id='$psa_id'";
+			$rsResultAm = $this->conn->Execute($sqlAm);
+			if(!empty($rsResultAm->fields['psa_id'])){
+				$checkSql = "select sum(c.amendemp_amount) as total from payroll_ps_amendment a 
+				inner join payroll_pay_period b
+				inner join payroll_ps_amendemp c on (c.psamend_id=a.psamend_id)
+				WHERE b.payperiod_id='$payperiod_id' and a.psa_id='$psa_id' and a.psamend_effect_date <= b.payperiod_end_date and a.psamend_effect_date >= b.payperiod_start_date";
+				$rsResult2 = $this->conn->Execute($checkSql);
+				while(!$rsResult2->EOF) {
+					if($rsResult2->fields['total'] != 0 or $rsResult2->fields['total'] != NULL){
+						return true;
+					} else {
+						return false;
+					}
+				}
+			} else {
+			//psa_clsfication => 5; for loan
+				if($rsResult->fields['psa_clsfication'] == '5'){
+					$checkSql = "select sum(a.loansum_payment) as total from loan_detail_sum a
+									inner join loan_info b on (b.loan_id=a.loan_id)
+									left join payroll_paystub_report ppr on (ppr.paystub_id=a.paystub_id)
+									left join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+									WHERE ppp.payperiod_trans_date LIKE '$trans_date%' and b.psa_id='$psa_id'";
+				} else {
+				//psa_clsfication != 5; not loan
+					$checkSql = "select sum(ppe.ppe_amount) as total from payroll_paystub_entry ppe
+									left join payroll_paystub_report ppr on (ppr.paystub_id=ppe.paystub_id)
+									left join payroll_pay_period ppp on (ppp.payperiod_id=ppr.payperiod_id)
+									WHERE ppp.payperiod_trans_date LIKE '$trans_date%' and ppe.psa_id='$psa_id'";
+				}
+				$rsResult2 = $this->conn->Execute($checkSql);
+				while(!$rsResult2->EOF) {
+					if($rsResult2->fields['total'] != 0 or $rsResult2->fields['total'] != NULL){
+						return true;
+					} else {
+						return false;
+					}
+				}
+			}
+		}
+	}
+	
+	function getPayrollAcountNameByPsaID($psa_id){
+		$sql = "select psa_name from payroll_ps_account where psa_id='$psa_id'";
+		$rsResult = $this->conn->Execute($sql);
+		while(!$rsResult->EOF) {
+			return $rsResult->fields['psa_name'];
+		}
+	}
+	
+	function toNegative($num){
+		$new = -$num;
+		return $new;
+	}
+	
+	function sortByPsaOrder($arr = array()){
+		$tempEarnings = $arr;
+		unset($arr);
+		for($tempCtr=0;$tempCtr<count($tempEarnings);$tempCtr++){
+			$storeVal[] = $tempEarnings[$tempCtr]['psa_id'];
+		}
+		$tempPsaID = implode(",",$storeVal);
+		$sqlOrder = "select psa_id from payroll_ps_account 
+						where psa_id in ($tempPsaID) 
+						order by psa_order, psa_name;";
+		$rsResultOrder = $this->conn->Execute($sqlOrder);
+		while(!$rsResultOrder->EOF) {
+			$earnings[] = $rsResultOrder->fields;
+			$rsResultOrder->MoveNext();
+		}
+		return $earnings;
+	}
+}
 ?>
-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

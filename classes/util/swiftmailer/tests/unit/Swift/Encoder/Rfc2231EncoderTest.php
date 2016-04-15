@@ -1,114 +1,143 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+require_once 'Swift/Encoder/Rfc2231Encoder.php';
+require_once 'Swift/CharacterStream.php';
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+
+class Swift_Encoder_Rfc2231EncoderTest extends Swift_Tests_SwiftUnitTestCase
+{
+    private $_rfc2045Token = '/^[\x21\x23-\x27\x2A\x2B\x2D\x2E\x30-\x39\x41-\x5A\x5E-\x7E]+$/D';
+
+    /* --
+    This algorithm is described in RFC 2231, but is barely touched upon except
+    for mentioning bytes can be represented as their octet values (e.g. %20 for
+    the SPACE character).
+
+    The tests here focus on how to use that representation to always generate text
+    which matches RFC 2045's definition of "token".
+    */
+
+    public function testEncodingAsciiCharactersProducesValidToken()
+    {
+        $charStream = $this->_mock('Swift_CharacterStream');
+        $seq = $this->_sequence('byte-sequence');
+
+        $string = '';
+        foreach (range(0x00, 0x7F) as $octet) {
+            $char = pack('C', $octet);
+            $string .= $char;
+            $this->_checking(Expectations::create()
+                -> one($charStream)->read(optional()) -> inSequence($seq) -> returns($char)
+                );
+        }
+        $this->_checking(Expectations::create()
+            -> atLeast(1)->of($charStream)->read(optional()) -> inSequence($seq) -> returns(false)
+            -> one($charStream)->importString($string)
+            -> ignoring($charStream)->flushContents()
+            );
+
+        $encoder = new Swift_Encoder_Rfc2231Encoder($charStream);
+        $encoded = $encoder->encodeString($string);
+
+        foreach (explode("\r\n", $encoded) as $line) {
+            $this->assertPattern($this->_rfc2045Token, $line,
+                '%s: Encoder should always return a valid RFC 2045 token.');
+        }
+
+
+    }
+
+    public function testEncodingNonAsciiCharactersProducesValidToken()
+    {
+        $charStream = $this->_mock('Swift_CharacterStream');
+        $seq = $this->_sequence('byte-sequence');
+
+        $string = '';
+        foreach (range(0x80, 0xFF) as $octet) {
+            $char = pack('C', $octet);
+            $string .= $char;
+            $this->_checking(Expectations::create()
+                -> one($charStream)->read(optional()) -> inSequence($seq) -> returns($char)
+                );
+        }
+        $this->_checking(Expectations::create()
+            -> atLeast(1)->of($charStream)->read(optional()) -> inSequence($seq) -> returns(false)
+            -> one($charStream)->importString($string)
+            -> ignoring($charStream)->flushContents()
+            );
+        $encoder = new Swift_Encoder_Rfc2231Encoder($charStream);
+
+        $encoded = $encoder->encodeString($string);
+
+        foreach (explode("\r\n", $encoded) as $line) {
+            $this->assertPattern($this->_rfc2045Token, $line,
+                '%s: Encoder should always return a valid RFC 2045 token.');
+        }
+
+
+    }
+
+    public function testMaximumLineLengthCanBeSet()
+    {
+        $charStream = $this->_mock('Swift_CharacterStream');
+        $seq = $this->_sequence('byte-sequence');
+
+        $string = '';
+        for ($x = 0; $x < 200; ++$x) {
+            $char = 'a';
+            $string .= $char;
+            $this->_checking(Expectations::create()
+                -> one($charStream)->read(optional()) -> inSequence($seq) -> returns($char)
+                );
+        }
+        $this->_checking(Expectations::create()
+            -> atLeast(1)->of($charStream)->read(optional()) -> inSequence($seq) -> returns(false)
+            -> one($charStream)->importString($string)
+            -> ignoring($charStream)->flushContents()
+            );
+        $encoder = new Swift_Encoder_Rfc2231Encoder($charStream);
+
+        $encoded = $encoder->encodeString($string, 0, 75);
+
+        $this->assertEqual(
+            str_repeat('a', 75) . "\r\n" .
+            str_repeat('a', 75) . "\r\n" .
+            str_repeat('a', 50),
+            $encoded,
+            '%s: Lines should be wrapped at each 75 characters'
+            );
+
+
+    }
+
+    public function testFirstLineCanHaveShorterLength()
+    {
+        $charStream = $this->_mock('Swift_CharacterStream');
+        $seq = $this->_sequence('byte-sequence');
+
+        $string = '';
+        for ($x = 0; $x < 200; ++$x) {
+            $char = 'a';
+            $string .= $char;
+            $this->_checking(Expectations::create()
+                -> one($charStream)->read(optional()) -> inSequence($seq) -> returns($char)
+                );
+        }
+        $this->_checking(Expectations::create()
+            -> atLeast(1)->of($charStream)->read(optional()) -> inSequence($seq) -> returns(false)
+            -> one($charStream)->importString($string)
+            -> ignoring($charStream)->flushContents()
+            );
+        $encoder = new Swift_Encoder_Rfc2231Encoder($charStream);
+        $encoded = $encoder->encodeString($string, 25, 75);
+
+        $this->assertEqual(
+            str_repeat('a', 50) . "\r\n" .
+            str_repeat('a', 75) . "\r\n" .
+            str_repeat('a', 75),
+            $encoded,
+            '%s: First line should be 25 bytes shorter than the others.'
+            );
+
+    }
+}

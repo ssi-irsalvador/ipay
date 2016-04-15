@@ -1,59 +1,67 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Handles Quoted Printable (Q) Header Encoding in Swift Mailer.
+ *
+ * @package    Swift
+ * @subpackage Mime
+ * @author     Chris Corbyn
+ */
+class Swift_Mime_HeaderEncoder_QpHeaderEncoder extends Swift_Encoder_QpEncoder implements Swift_Mime_HeaderEncoder
+{
+    /**
+     * Creates a new QpHeaderEncoder for the given CharacterStream.
+     *
+     * @param Swift_CharacterStream $charStream to use for reading characters
+     */
+    public function __construct(Swift_CharacterStream $charStream)
+    {
+        parent::__construct($charStream);
+    }
+
+    protected function initSafeMap()
+    {
+        foreach (array_merge(
+            range(0x61, 0x7A), range(0x41, 0x5A),
+            range(0x30, 0x39), array(0x20, 0x21, 0x2A, 0x2B, 0x2D, 0x2F)
+        ) as $byte) {
+            $this->_safeMap[$byte] = chr($byte);
+        }
+    }
+
+    /**
+     * Get the name of this encoding scheme.
+     *
+     * Returns the string 'Q'.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'Q';
+    }
+
+    /**
+     * Takes an unencoded string and produces a QP encoded string from it.
+     *
+     * @param string  $string          string to encode
+     * @param integer $firstLineOffset optional
+     * @param integer $maxLineLength   optional, 0 indicates the default of 76 chars
+     *
+     * @return string
+     */
+    public function encodeString($string, $firstLineOffset = 0, $maxLineLength = 0)
+    {
+        return str_replace(array(' ', '=20', "=\r\n"), array('_', '_', "\r\n"),
+            parent::encodeString($string, $firstLineOffset, $maxLineLength)
+        );
+    }
+}

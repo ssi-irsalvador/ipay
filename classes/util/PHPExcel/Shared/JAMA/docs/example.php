@@ -1,139 +1,166 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+include_once "includes/header.php";
+include_once "includes/navbar.php";
 ?>
-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
+<h2>Magic Square Example</h2>
+<p>
+The Jama distribution comes with a magic square example that is used to 
+test and benchmark the LU, QR, SVD and symmetric Eig decompositions.  
+The example outputs a multi-column table with these column headings:
+</p>
+
+<table border='1' cellpadding='5' cellspacing='0' align='center'>
+  <tr>
+    <td><b>n</b></td>
+    <td>Order of magic square.</td>
+  </tr>
+  <tr>
+    <td><b>trace</b></td>
+    <td>Diagonal sum, should be the magic sum, (n^3 + n)/2.</td>
+  </tr>
+  <tr>
+    <td><b>max_eig</b></td>
+    <td>Maximum eigenvalue of (A + A')/2, should equal trace.</td>
+  </tr>
+  <tr>
+    <td><b>rank</b></td>
+    <td>Linear algebraic rank, should equal n if n is odd, be less than n if n is even.</td>
+  </tr>
+  <tr>
+    <td><b>cond</b></td>
+    <td>L_2 condition number, ratio of singular values.</td>
+  </tr>
+  <tr>
+    <td><b>lu_res</b></td>
+    <td>test of LU factorization, norm1(L*U-A(p,:))/(n*eps).</td>
+  </tr>
+  <tr>
+    <td><b>qr_res</b></td>
+    <td>test of QR factorization, norm1(Q*R-A)/(n*eps).</td>
+  </tr>
+</table>
+<p>
+Running the Java-based version of the matix square example produces these results:
+</p>
+
+<table border='1' align='center'>
+  <tr>
+    <th> n </th>
+    <th> trace </th>       
+    <th> max_eig </th>   
+    <th> rank </th>        
+    <th> cond </th>      
+    <th> lu_res </th>      
+    <th> qr_res </th>
+  </tr>
+  <tr>
+    <td>3</td><td>15</td><td>15.000</td><td>3</td><td>4.330</td><td>0.000</td><td>11.333</td>
+  </tr>
+  <tr>
+    <td>4</td><td>34</td><td>34.000</td><td>3</td><td> Inf</td><td>0.000</td><td>13.500</td>
+  <tr>
+    <td>5</td><td>65</td><td>65.000</td><td>5</td><td>5.462</td><td>0.000</td><td>14.400</td>
+  </tr>
+  <tr>
+    <td>6</td><td>111</td><td>111.000</td><td>5</td><td> Inf</td><td>5.333</td><td>16.000</td>
+  </tr>
+  <tr>
+    <td>7</td><td>175</td><td>175.000</td><td>7</td><td>7.111</td><td>2.286</td><td>37.714</td>
+  </tr>
+  <tr>
+    <td>8</td><td>260</td><td>260.000</td><td>3</td><td> Inf</td><td>0.000</td><td>59.000</td>
+  </tr>
+  <tr>
+    <td>9</td><td>369</td><td>369.000</td><td>9</td><td>9.102</td><td>7.111</td><td>53.333</td>
+  </tr>
+  <tr>
+    <td>10</td><td>505</td><td>505.000</td><td>7</td><td> Inf</td><td>3.200</td><td>159.200</td>
+  </tr>
+  <tr>
+    <td>11</td><td>671</td><td>671.000</td><td>11</td><td>11.102</td><td>2.909</td><td>215.273</td>
+  </tr>
+  <tr>
+    <td>12</td><td>870</td><td>870.000</td><td>3</td><td> Inf</td><td>0.000</td><td>185.333</td>
+  </tr>
+  <tr>
+    <td>13</td><td>1105</td><td>1105.000</td><td>13</td><td>13.060</td><td>4.923</td><td>313.846</td>
+  </tr>
+  <tr>
+    <td>14</td><td>1379</td><td>1379.000</td><td>9</td><td> Inf</td><td>4.571</td><td>540.571</td>
+  </tr>
+  <tr>
+    <td>15</td><td>1695</td><td>1695.000</td><td>15</td><td>15.062</td><td>4.267</td><td>242.133</td>
+  </tr>
+  <tr>
+    <td>16</td><td>2056</td><td>2056.000</td><td>3</td><td> Inf</td><td>0.000</td><td>488.500</td>
+  </tr>
+  <tr>
+    <td>17</td><td>2465</td><td>2465.000</td><td>17</td><td>17.042</td><td>7.529</td><td>267.294</td>
+  </tr>
+  <tr>
+    <td>18</td><td>2925</td><td>2925.000</td><td>11</td><td> Inf</td><td>7.111</td><td>520.889</td>
+  </tr>
+  <tr>
+    <td>19</td><td>3439</td><td>3439.000</td><td>19</td><td>19.048</td><td>16.842</td><td>387.368</td>
+  </tr>
+  <tr>
+    <td>20</td><td>4010</td><td>4010.000</td><td>3</td><td> Inf</td><td>14.400</td><td>584.800</td>
+  </tr>
+  <tr>
+    <td>21</td><td>4641</td><td>4641.000</td><td>21</td><td>21.035</td><td>6.095</td><td>1158.095</td>
+  </tr>
+  <tr>
+    <td>22</td><td>5335</td><td>5335.000</td><td>13</td><td> Inf</td><td>6.545</td><td>1132.364</td>
+  </tr>
+  <tr>
+    <td>23</td><td>6095</td><td>6095.000</td><td>23</td><td>23.037</td><td>11.130</td><td>1268.870</td>
+  </tr>
+  <tr>
+    <td>24</td><td>6924</td><td>6924.000</td><td>3</td><td> Inf</td><td>10.667</td><td>827.500</td>
+  </tr>
+  <tr>
+    <td>25</td><td>7825</td><td>7825.000</td><td>25</td><td>25.029</td><td>35.840</td><td>1190.400</td>
+  </tr>
+  <tr>
+    <td>26</td><td>8801</td><td>8801.000</td><td>15</td><td> Inf</td><td>4.923</td><td>1859.077</td>
+  </tr>
+  <tr>
+    <td>27</td><td>9855</td><td>9855.000</td><td>27</td><td>27.032</td><td>37.926</td><td>1365.333</td>
+  </tr>
+  <tr>
+    <td>28</td><td>10990</td><td>10990.000</td><td>3</td><td> Inf</td><td>34.286</td><td>1365.714</td>
+  </tr>
+  <tr>
+    <td>29</td><td>12209</td><td>12209.000</td><td>29</td><td>29.025</td><td>30.897</td><td>1647.448</td>
+  </tr>
+  <tr>
+    <td>30</td><td>13515</td><td>13515.000</td><td>17</td><td> Inf</td><td>8.533</td><td>2571.733</td>
+  </tr>
+  <tr>
+    <td>31</td><td>14911</td><td>14911.000</td><td>31</td><td>31.027</td><td>33.032</td><td>1426.581</td>
+  </tr>
+  <tr>
+    <td>32</td><td>16400</td><td>16400.000</td><td>3</td><td> Inf</td><td>0.000</td><td>1600.125</td>
+  </tr>
+</table>
+<center>Elapsed Time =        0.710 seconds</center>
+
+<p>
+The magic square example does not fare well when <a href='../examples/MagicSquareExample.php'>run as a PHP script</a>.  For a 32x32 matrix array 
+it takes around a second to complete just the last row of computations in the above table.  
+Hopefully this result will spur PHP developers to find optimizations and better attuned algorithms 
+to speed things up. Matrix algebra is a great testing ground for ideas about time and memory 
+performance optimation.  Keep in perspective that PHP JAMA scripts are still plenty fast for use as 
+a tool for learning about matrix algebra and quickly extending your knowledge with new scripts 
+to apply knowledge.
+</p> 
+
+<p>
+To learn more about the subject of magic squares you can visit the <a href='http://mathforum.org/alejandre/magic.square.html'>Drexel Math Forum on Magic Squares</a>.
+You can also learn more by carefully examining the <code>MagicSquareExample.php</code> source code below.
+</p>
+
+<?php
+highlight_file("../examples/MagicSquareExample.php");
+include_once "includes/footer.php";	
+?>

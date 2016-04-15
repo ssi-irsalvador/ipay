@@ -1,98 +1,83 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<br />
+<br />
+<div class="themeFieldsetDiv01">
+<?php 
+if(isset($eMsg)){
+	if (is_array($eMsg)) {
 ?>
-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
-Vvn/wDLrp90MW6CPqEWqYpyJlnacu4a=
+	<div class="tblListErrMsg">
+	<strong>Check the following error(s) below:</strong><br />
+	<?php
+	foreach ($eMsg as $key => $value) {
+	?>
+	&nbsp;&nbsp;&bull;&nbsp;<?=$value?><br />
+	<?php		
+	}
+	?>
+	</div>
+<?php		
+	} else {
+?>
+	<div class="tblListErrMsg">
+	<?=$eMsg?>
+	</div>
+<?
+	}
+}
+?>
+
+<script src="../includes/jscript/jquery.js"></script>
+<script src="../includes/jscript/jquery.validate.min.js"></script>
+<style>
+label.error{color:#E42217; float:none;}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#201status").validate(
+		{
+			rules:
+			{
+				emp201status_name:{
+					required:true
+				},
+				emp201status_ord:{
+					number:true
+				}
+			},
+			messages:
+			{
+				emp201status_name:"Please enter 201 Status.",
+				emp201status_ord:"Please enter a valid Order number."
+			}
+		}
+	);
+});
+</script>
+
+<fieldset class="themeFieldset01">
+<form id="201status" method="post" action="" onsubmit="return validform();">
+<table width="100%" border="0" cellpadding="1" cellspacing="2">
+    <tr>
+      <td width="30%" class="divTblTH_"><div align="right"><span class="style3">201 Status </span> &nbsp;&nbsp;</div></td>
+      <td width="70%" class="divTblTH_"><input name="emp201status_name" id="emp201status_name" value="<?=$oData['emp201status_name']?>" type="text" size="30" /></td>
+    </tr>
+    <tr>
+      <td class="divTblTH_"><div align="right"><span class="style3">Order</span> &nbsp;&nbsp;</div></td>
+      <td class="divTblTH_"><input name="emp201status_ord" id="emp201status_ord" value="<?=$oData['emp201status_ord']?>" type="text" size="10" /></td>
+    </tr>
+    <tr>
+      <td class="divTblTH_">&nbsp;</td>
+      <td class="divTblTH_"><input type="submit" name="Submit" value="<?php if(isset($_GET['edit'])){ echo 'Update & Clear'; }else{ echo 'Save & Clear'; } ?>" class="buttonstyle" />
+        <?php if (isset($_GET['edit'])){ ?>
+        <input type="button" name="Cancel" value="Cancel" class="buttonstyle" onclick="javascript:window.location='setup.php?statpos=201status'" /><?php }else{?>
+		<input type="reset" name="Reset" value="Reset" class="buttonstyle" /><?php } ?></td>
+    </tr>
+	</table>
+</form>
+</fieldset>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td colspan="2"><?=$tblDataList?></td>
+   </tr>
+</table>
+</div>

@@ -1,70 +1,218 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-2nCLxpIYJYlvb0==
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_DocumentSecurity
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_DocumentSecurity
+{
+	/**
+	 * LockRevision
+	 *
+	 * @var boolean
+	 */
+	private $_lockRevision;
+
+	/**
+	 * LockStructure
+	 *
+	 * @var boolean
+	 */
+	private $_lockStructure;
+
+	/**
+	 * LockWindows
+	 *
+	 * @var boolean
+	 */
+	private $_lockWindows;
+
+	/**
+	 * RevisionsPassword
+	 *
+	 * @var string
+	 */
+	private $_revisionsPassword;
+
+	/**
+	 * WorkbookPassword
+	 *
+	 * @var string
+	 */
+	private $_workbookPassword;
+
+    /**
+     * Create a new PHPExcel_DocumentSecurity
+     */
+    public function __construct()
+    {
+    	// Initialise values
+    	$this->_lockRevision		= false;
+    	$this->_lockStructure		= false;
+    	$this->_lockWindows			= false;
+    	$this->_revisionsPassword	= '';
+    	$this->_workbookPassword	= '';
+    }
+
+    /**
+     * Is some sort of dcument security enabled?
+     *
+     * @return boolean
+     */
+    function isSecurityEnabled() {
+    	return 	$this->_lockRevision ||
+		    	$this->_lockStructure ||
+		    	$this->_lockWindows;
+    }
+
+    /**
+     * Get LockRevision
+     *
+     * @return boolean
+     */
+    function getLockRevision() {
+    	return $this->_lockRevision;
+    }
+
+    /**
+     * Set LockRevision
+     *
+     * @param boolean $pValue
+     * @return PHPExcel_DocumentSecurity
+     */
+    function setLockRevision($pValue = false) {
+    	$this->_lockRevision = $pValue;
+    	return $this;
+    }
+
+    /**
+     * Get LockStructure
+     *
+     * @return boolean
+     */
+    function getLockStructure() {
+    	return $this->_lockStructure;
+    }
+
+    /**
+     * Set LockStructure
+     *
+     * @param boolean $pValue
+     * @return PHPExcel_DocumentSecurity
+     */
+    function setLockStructure($pValue = false) {
+		$this->_lockStructure = $pValue;
+		return $this;
+    }
+
+    /**
+     * Get LockWindows
+     *
+     * @return boolean
+     */
+    function getLockWindows() {
+    	return $this->_lockWindows;
+    }
+
+    /**
+     * Set LockWindows
+     *
+     * @param boolean $pValue
+     * @return PHPExcel_DocumentSecurity
+     */
+    function setLockWindows($pValue = false) {
+    	$this->_lockWindows = $pValue;
+    	return $this;
+    }
+
+    /**
+     * Get RevisionsPassword (hashed)
+     *
+     * @return string
+     */
+    function getRevisionsPassword() {
+    	return $this->_revisionsPassword;
+    }
+
+    /**
+     * Set RevisionsPassword
+     *
+     * @param string 	$pValue
+     * @param boolean 	$pAlreadyHashed If the password has already been hashed, set this to true
+     * @return PHPExcel_DocumentSecurity
+     */
+    function setRevisionsPassword($pValue = '', $pAlreadyHashed = false) {
+    	if (!$pAlreadyHashed) {
+    		$pValue = PHPExcel_Shared_PasswordHasher::hashPassword($pValue);
+    	}
+    	$this->_revisionsPassword = $pValue;
+    	return $this;
+    }
+
+    /**
+     * Get WorkbookPassword (hashed)
+     *
+     * @return string
+     */
+    function getWorkbookPassword() {
+    	return $this->_workbookPassword;
+    }
+
+    /**
+     * Set WorkbookPassword
+     *
+     * @param string 	$pValue
+     * @param boolean 	$pAlreadyHashed If the password has already been hashed, set this to true
+     * @return PHPExcel_DocumentSecurity
+     */
+    function setWorkbookPassword($pValue = '', $pAlreadyHashed = false) {
+    	if (!$pAlreadyHashed) {
+    		$pValue = PHPExcel_Shared_PasswordHasher::hashPassword($pValue);
+    	}
+		$this->_workbookPassword = $pValue;
+		return $this;
+    }
+
+	/**
+	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
+	 */
+	public function __clone() {
+		$vars = get_object_vars($this);
+		foreach ($vars as $key => $value) {
+			if (is_object($value)) {
+				$this->$key = clone $value;
+			} else {
+				$this->$key = $value;
+			}
+		}
+	}
+}

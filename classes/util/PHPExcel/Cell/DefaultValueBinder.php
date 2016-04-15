@@ -1,76 +1,106 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-j/V5Tempz5TgEqBK+w3xKLRABQjxiA3d0Ea=
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Cell
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
+
+/**
+ * PHPExcel_Cell_DefaultValueBinder
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Cell
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
+{
+    /**
+     * Bind value to a cell
+     *
+     * @param  PHPExcel_Cell  $cell   Cell to bind value to
+     * @param  mixed          $value  Value to bind in cell
+     * @return boolean
+     */
+    public function bindValue(PHPExcel_Cell $cell, $value = null)
+    {
+        // sanitize UTF-8 strings
+        if (is_string($value)) {
+            $value = PHPExcel_Shared_String::SanitizeUTF8($value);
+        }
+
+        // Set value explicit
+        $cell->setValueExplicit( $value, self::dataTypeForValue($value) );
+
+        // Done!
+        return TRUE;
+    }
+
+    /**
+     * DataType for value
+     *
+     * @param   mixed  $pValue
+     * @return  string
+     */
+    public static function dataTypeForValue($pValue = null) {
+        // Match the value against a few data types
+        if (is_null($pValue)) {
+            return PHPExcel_Cell_DataType::TYPE_NULL;
+
+        } elseif ($pValue === '') {
+            return PHPExcel_Cell_DataType::TYPE_STRING;
+
+        } elseif ($pValue instanceof PHPExcel_RichText) {
+            return PHPExcel_Cell_DataType::TYPE_INLINE;
+
+        } elseif ($pValue{0} === '=' && strlen($pValue) > 1) {
+            return PHPExcel_Cell_DataType::TYPE_FORMULA;
+
+        } elseif (is_bool($pValue)) {
+            return PHPExcel_Cell_DataType::TYPE_BOOL;
+
+        } elseif (is_float($pValue) || is_int($pValue)) {
+            return PHPExcel_Cell_DataType::TYPE_NUMERIC;
+
+        } elseif (preg_match('/^\-?([0-9]+\\.?[0-9]*|[0-9]*\\.?[0-9]+)$/', $pValue)) {
+            return PHPExcel_Cell_DataType::TYPE_NUMERIC;
+
+        } elseif (is_string($pValue) && array_key_exists($pValue, PHPExcel_Cell_DataType::getErrorCodes())) {
+            return PHPExcel_Cell_DataType::TYPE_ERROR;
+
+        } else {
+            return PHPExcel_Cell_DataType::TYPE_STRING;
+
+        }
+    }
+}

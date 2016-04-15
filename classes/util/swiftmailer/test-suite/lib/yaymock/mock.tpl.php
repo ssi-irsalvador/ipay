@@ -1,93 +1,69 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-4i1ayB8HWKZfNonNM8baPL20RDThkFof4De=
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ */
+ 
+?><?php ob_start(); ?>
+
+class <?php echo $className; ?>
+ <?php if ($extends) echo 'extends ', $extends; ?>
+ implements
+ <?php foreach ($interfaces as $interface) echo $interface, ', '; ?>
+ Yay_MockObject
+{
+  
+ private $_yayInvocationHandler;
+ 
+ public function __construct(Yay_InvocationHandler $invocationHandler)
+ {
+  $this->_yayInvocationHandler = $invocationHandler;
+ }
+  
+ <?php foreach ($methods as $method): ?>
+ <?php echo $method['access']; ?> <?php echo $method['modifiers']; ?> function <?php
+ if ($method['returnReference']) echo '&'; ?><?php
+ echo $method['name']; ?>(<?php
+  foreach ($method['parameters'] as $i => $param): ?>
+  <?php if ($i > 0) echo ','; ?>
+  <?php if ($param['hint']) echo $param['hint']; ?>
+  <?php if ($param['byReference']) echo '&'; ?>$arg_<?php echo $i; ?>
+  <?php if ($param['optional']) echo '= null'; ?>
+ <?php endforeach; ?>)
+ {
+  $value = null;
+  if (isset($this->_yayInvocationHandler))
+  {
+   $args = array();
+   for ($i = 0; $i < func_num_args(); ++$i)
+   {
+     $argName = 'arg_' . $i;
+     $args[] =& ${$argName};
+   }
+   $invocation = new Yay_SimpleInvocation($this, __FUNCTION__, $args);
+   $value =& $this->_yayInvocationHandler->handleInvocation($invocation);
+  }
+  return $value;
+ }
+ <?php endforeach; ?>
+ 
+ public function __clone()
+ {
+  $this->_yayInvocationHandler = null;
+ }
+
+}
+
+<?php return ob_get_clean(); ?>

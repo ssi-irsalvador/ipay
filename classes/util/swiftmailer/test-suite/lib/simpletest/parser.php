@@ -1,293 +1,760 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for SimpleTest
+ *  @package    SimpleTest
+ *  @subpackage MockObjects
+ *  @version    $Id: parser.php 1786 2008-04-26 17:32:20Z pp11 $
+ */
+
+/**#@+
+ * Lexer mode stack constants
+ */
+foreach (array('LEXER_ENTER', 'LEXER_MATCHED',
+                'LEXER_UNMATCHED', 'LEXER_EXIT',
+                'LEXER_SPECIAL') as $i => $constant) {
+    if (! defined($constant)) {
+        define($constant, $i + 1);
+    }
+}
+/**#@-*/
+
+/**
+ *    Compounded regular expression. Any of
+ *    the contained patterns could match and
+ *    when one does, it's label is returned.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class ParallelRegex {
+    private $patterns;
+    private $labels;
+    private $regex;
+    private $case;
+    
+    /**
+     *    Constructor. Starts with no patterns.
+     *    @param boolean $case    True for case sensitive, false
+     *                            for insensitive.
+     *    @access public
+     */
+    function __construct($case) {
+        $this->case = $case;
+        $this->patterns = array();
+        $this->labels = array();
+        $this->regex = null;
+    }
+    
+    /**
+     *    Adds a pattern with an optional label.
+     *    @param string $pattern      Perl style regex, but ( and )
+     *                                lose the usual meaning.
+     *    @param string $label        Label of regex to be returned
+     *                                on a match.
+     *    @access public
+     */
+    function addPattern($pattern, $label = true) {
+        $count = count($this->patterns);
+        $this->patterns[$count] = $pattern;
+        $this->labels[$count] = $label;
+        $this->regex = null;
+    }
+    
+    /**
+     *    Attempts to match all patterns at once against
+     *    a string.
+     *    @param string $subject      String to match against.
+     *    @param string $match        First matched portion of
+     *                                subject.
+     *    @return boolean             True on success.
+     *    @access public
+     */
+    function match($subject, &$match) {
+        if (count($this->patterns) == 0) {
+            return false;
+        }
+        if (! preg_match($this->getCompoundedRegex(), $subject, $matches)) {
+            $match = '';
+            return false;
+        }
+        $match = $matches[0];
+        for ($i = 1; $i < count($matches); $i++) {
+            if ($matches[$i]) {
+                return $this->labels[$i - 1];
+            }
+        }
+        return true;
+    }
+    
+    /**
+     *    Compounds the patterns into a single
+     *    regular expression separated with the
+     *    "or" operator. Caches the regex.
+     *    Will automatically escape (, ) and / tokens.
+     *    @param array $patterns    List of patterns in order.
+     *    @access private
+     */
+    protected function getCompoundedRegex() {
+        if ($this->regex == null) {
+            for ($i = 0, $count = count($this->patterns); $i < $count; $i++) {
+                $this->patterns[$i] = '(' . str_replace(
+                        array('/', '(', ')'),
+                        array('\/', '\(', '\)'),
+                        $this->patterns[$i]) . ')';
+            }
+            $this->regex = "/" . implode("|", $this->patterns) . "/" . $this->getPerlMatchingFlags();
+        }
+        return $this->regex;
+    }
+    
+    /**
+     *    Accessor for perl regex mode flags to use.
+     *    @return string       Perl regex flags.
+     *    @access private
+     */
+    protected function getPerlMatchingFlags() {
+        return ($this->case ? "msS" : "msSi");
+    }
+}
+
+/**
+ *    States for a stack machine.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleStateStack {
+    private $stack;
+    
+    /**
+     *    Constructor. Starts in named state.
+     *    @param string $start        Starting state name.
+     *    @access public
+     */
+    function __construct($start) {
+        $this->stack = array($start);
+    }
+    
+    /**
+     *    Accessor for current state.
+     *    @return string       State.
+     *    @access public
+     */
+    function getCurrent() {
+        return $this->stack[count($this->stack) - 1];
+    }
+    
+    /**
+     *    Adds a state to the stack and sets it
+     *    to be the current state.
+     *    @param string $state        New state.
+     *    @access public
+     */
+    function enter($state) {
+        array_push($this->stack, $state);
+    }
+    
+    /**
+     *    Leaves the current state and reverts
+     *    to the previous one.
+     *    @return boolean    False if we drop off
+     *                       the bottom of the list.
+     *    @access public
+     */
+    function leave() {
+        if (count($this->stack) == 1) {
+            return false;
+        }
+        array_pop($this->stack);
+        return true;
+    }
+}
+
+/**
+ *    Accepts text and breaks it into tokens.
+ *    Some optimisation to make the sure the
+ *    content is only scanned by the PHP regex
+ *    parser once. Lexer modes must not start
+ *    with leading underscores.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleLexer {
+    private $regexes;
+    private $parser;
+    private $mode;
+    private $mode_handlers;
+    private $case;
+    
+    /**
+     *    Sets up the lexer in case insensitive matching
+     *    by default.
+     *    @param SimpleSaxParser $parser  Handling strategy by
+     *                                    reference.
+     *    @param string $start            Starting handler.
+     *    @param boolean $case            True for case sensitive.
+     *    @access public
+     */
+    function __construct($parser, $start = "accept", $case = false) {
+        $this->case = $case;
+        $this->regexes = array();
+        $this->parser = $parser;
+        $this->mode = new SimpleStateStack($start);
+        $this->mode_handlers = array($start => $start);
+    }
+    
+    /**
+     *    Adds a token search pattern for a particular
+     *    parsing mode. The pattern does not change the
+     *    current mode.
+     *    @param string $pattern      Perl style regex, but ( and )
+     *                                lose the usual meaning.
+     *    @param string $mode         Should only apply this
+     *                                pattern when dealing with
+     *                                this type of input.
+     *    @access public
+     */
+    function addPattern($pattern, $mode = "accept") {
+        if (! isset($this->regexes[$mode])) {
+            $this->regexes[$mode] = new ParallelRegex($this->case);
+        }
+        $this->regexes[$mode]->addPattern($pattern);
+        if (! isset($this->mode_handlers[$mode])) {
+            $this->mode_handlers[$mode] = $mode;
+        }
+    }
+    
+    /**
+     *    Adds a pattern that will enter a new parsing
+     *    mode. Useful for entering parenthesis, strings,
+     *    tags, etc.
+     *    @param string $pattern      Perl style regex, but ( and )
+     *                                lose the usual meaning.
+     *    @param string $mode         Should only apply this
+     *                                pattern when dealing with
+     *                                this type of input.
+     *    @param string $new_mode     Change parsing to this new
+     *                                nested mode.
+     *    @access public
+     */
+    function addEntryPattern($pattern, $mode, $new_mode) {
+        if (! isset($this->regexes[$mode])) {
+            $this->regexes[$mode] = new ParallelRegex($this->case);
+        }
+        $this->regexes[$mode]->addPattern($pattern, $new_mode);
+        if (! isset($this->mode_handlers[$new_mode])) {
+            $this->mode_handlers[$new_mode] = $new_mode;
+        }
+    }
+    
+    /**
+     *    Adds a pattern that will exit the current mode
+     *    and re-enter the previous one.
+     *    @param string $pattern      Perl style regex, but ( and )
+     *                                lose the usual meaning.
+     *    @param string $mode         Mode to leave.
+     *    @access public
+     */
+    function addExitPattern($pattern, $mode) {
+        if (! isset($this->regexes[$mode])) {
+            $this->regexes[$mode] = new ParallelRegex($this->case);
+        }
+        $this->regexes[$mode]->addPattern($pattern, "__exit");
+        if (! isset($this->mode_handlers[$mode])) {
+            $this->mode_handlers[$mode] = $mode;
+        }
+    }
+    
+    /**
+     *    Adds a pattern that has a special mode. Acts as an entry
+     *    and exit pattern in one go, effectively calling a special
+     *    parser handler for this token only.
+     *    @param string $pattern      Perl style regex, but ( and )
+     *                                lose the usual meaning.
+     *    @param string $mode         Should only apply this
+     *                                pattern when dealing with
+     *                                this type of input.
+     *    @param string $special      Use this mode for this one token.
+     *    @access public
+     */
+    function addSpecialPattern($pattern, $mode, $special) {
+        if (! isset($this->regexes[$mode])) {
+            $this->regexes[$mode] = new ParallelRegex($this->case);
+        }
+        $this->regexes[$mode]->addPattern($pattern, "_$special");
+        if (! isset($this->mode_handlers[$special])) {
+            $this->mode_handlers[$special] = $special;
+        }
+    }
+    
+    /**
+     *    Adds a mapping from a mode to another handler.
+     *    @param string $mode        Mode to be remapped.
+     *    @param string $handler     New target handler.
+     *    @access public
+     */
+    function mapHandler($mode, $handler) {
+        $this->mode_handlers[$mode] = $handler;
+    }
+    
+    /**
+     *    Splits the page text into tokens. Will fail
+     *    if the handlers report an error or if no
+     *    content is consumed. If successful then each
+     *    unparsed and parsed token invokes a call to the
+     *    held listener.
+     *    @param string $raw        Raw HTML text.
+     *    @return boolean           True on success, else false.
+     *    @access public
+     */
+    function parse($raw) {
+        if (! isset($this->parser)) {
+            return false;
+        }
+        $length = strlen($raw);
+        while (is_array($parsed = $this->reduce($raw))) {
+            list($raw, $unmatched, $matched, $mode) = $parsed;
+            if (! $this->dispatchTokens($unmatched, $matched, $mode)) {
+                return false;
+            }
+            if ($raw === '') {
+                return true;
+            }
+            if (strlen($raw) == $length) {
+                return false;
+            }
+            $length = strlen($raw);
+        }
+        if (! $parsed) {
+            return false;
+        }
+        return $this->invokeParser($raw, LEXER_UNMATCHED);
+    }
+    
+    /**
+     *    Sends the matched token and any leading unmatched
+     *    text to the parser changing the lexer to a new
+     *    mode if one is listed.
+     *    @param string $unmatched    Unmatched leading portion.
+     *    @param string $matched      Actual token match.
+     *    @param string $mode         Mode after match. A boolean
+     *                                false mode causes no change.
+     *    @return boolean             False if there was any error
+     *                                from the parser.
+     *    @access private
+     */
+    protected function dispatchTokens($unmatched, $matched, $mode = false) {
+        if (! $this->invokeParser($unmatched, LEXER_UNMATCHED)) {
+            return false;
+        }
+        if (is_bool($mode)) {
+            return $this->invokeParser($matched, LEXER_MATCHED);
+        }
+        if ($this->isModeEnd($mode)) {
+            if (! $this->invokeParser($matched, LEXER_EXIT)) {
+                return false;
+            }
+            return $this->mode->leave();
+        }
+        if ($this->isSpecialMode($mode)) {
+            $this->mode->enter($this->decodeSpecial($mode));
+            if (! $this->invokeParser($matched, LEXER_SPECIAL)) {
+                return false;
+            }
+            return $this->mode->leave();
+        }
+        $this->mode->enter($mode);
+        return $this->invokeParser($matched, LEXER_ENTER);
+    }
+    
+    /**
+     *    Tests to see if the new mode is actually to leave
+     *    the current mode and pop an item from the matching
+     *    mode stack.
+     *    @param string $mode    Mode to test.
+     *    @return boolean        True if this is the exit mode.
+     *    @access private
+     */
+    protected function isModeEnd($mode) {
+        return ($mode === "__exit");
+    }
+    
+    /**
+     *    Test to see if the mode is one where this mode
+     *    is entered for this token only and automatically
+     *    leaves immediately afterwoods.
+     *    @param string $mode    Mode to test.
+     *    @return boolean        True if this is the exit mode.
+     *    @access private
+     */
+    protected function isSpecialMode($mode) {
+        return (strncmp($mode, "_", 1) == 0);
+    }
+    
+    /**
+     *    Strips the magic underscore marking single token
+     *    modes.
+     *    @param string $mode    Mode to decode.
+     *    @return string         Underlying mode name.
+     *    @access private
+     */
+    protected function decodeSpecial($mode) {
+        return substr($mode, 1);
+    }
+    
+    /**
+     *    Calls the parser method named after the current
+     *    mode. Empty content will be ignored. The lexer
+     *    has a parser handler for each mode in the lexer.
+     *    @param string $content        Text parsed.
+     *    @param boolean $is_match      Token is recognised rather
+     *                                  than unparsed data.
+     *    @access private
+     */
+    protected function invokeParser($content, $is_match) {
+        if (($content === '') || ($content === false)) {
+            return true;
+        }
+        $handler = $this->mode_handlers[$this->mode->getCurrent()];
+        return $this->parser->$handler($content, $is_match);
+    }
+    
+    /**
+     *    Tries to match a chunk of text and if successful
+     *    removes the recognised chunk and any leading
+     *    unparsed data. Empty strings will not be matched.
+     *    @param string $raw         The subject to parse. This is the
+     *                               content that will be eaten.
+     *    @return array/boolean      Three item list of unparsed
+     *                               content followed by the
+     *                               recognised token and finally the
+     *                               action the parser is to take.
+     *                               True if no match, false if there
+     *                               is a parsing error.
+     *    @access private
+     */
+    protected function reduce($raw) {
+        if ($action = $this->regexes[$this->mode->getCurrent()]->match($raw, $match)) {
+            $unparsed_character_count = strpos($raw, $match);
+            $unparsed = substr($raw, 0, $unparsed_character_count);
+            $raw = substr($raw, $unparsed_character_count + strlen($match));
+            return array($raw, $unparsed, $match, $action);
+        }
+        return true;
+    }
+}
+
+/**
+ *    Breaks HTML into SAX events.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleHtmlLexer extends SimpleLexer {
+    
+    /**
+     *    Sets up the lexer with case insensitive matching
+     *    and adds the HTML handlers.
+     *    @param SimpleSaxParser $parser  Handling strategy by
+     *                                    reference.
+     *    @access public
+     */
+    function __construct($parser) {
+        parent::__construct($parser, 'text');
+        $this->mapHandler('text', 'acceptTextToken');
+        $this->addSkipping();
+        foreach ($this->getParsedTags() as $tag) {
+            $this->addTag($tag);
+        }
+        $this->addInTagTokens();
+    }
+    
+    /**
+     *    List of parsed tags. Others are ignored.
+     *    @return array        List of searched for tags.
+     *    @access private
+     */
+    protected function getParsedTags() {
+        return array('a', 'base', 'title', 'form', 'input', 'button', 'textarea', 'select',
+                'option', 'frameset', 'frame', 'label');
+    }
+    
+    /**
+     *    The lexer has to skip certain sections such
+     *    as server code, client code and styles.
+     *    @access private
+     */
+    protected function addSkipping() {
+        $this->mapHandler('css', 'ignore');
+        $this->addEntryPattern('<style', 'text', 'css');
+        $this->addExitPattern('</style>', 'css');
+        $this->mapHandler('js', 'ignore');
+        $this->addEntryPattern('<script', 'text', 'js');
+        $this->addExitPattern('</script>', 'js');
+        $this->mapHandler('comment', 'ignore');
+        $this->addEntryPattern('<!--', 'text', 'comment');
+        $this->addExitPattern('-->', 'comment');
+    }
+    
+    /**
+     *    Pattern matches to start and end a tag.
+     *    @param string $tag          Name of tag to scan for.
+     *    @access private
+     */
+    protected function addTag($tag) {
+        $this->addSpecialPattern("</$tag>", 'text', 'acceptEndToken');
+        $this->addEntryPattern("<$tag", 'text', 'tag');
+    }
+    
+    /**
+     *    Pattern matches to parse the inside of a tag
+     *    including the attributes and their quoting.
+     *    @access private
+     */
+    protected function addInTagTokens() {
+        $this->mapHandler('tag', 'acceptStartToken');
+        $this->addSpecialPattern('\s+', 'tag', 'ignore');
+        $this->addAttributeTokens();
+        $this->addExitPattern('/>', 'tag');
+        $this->addExitPattern('>', 'tag');
+    }
+    
+    /**
+     *    Matches attributes that are either single quoted,
+     *    double quoted or unquoted.
+     *    @access private
+     */
+    protected function addAttributeTokens() {
+        $this->mapHandler('dq_attribute', 'acceptAttributeToken');
+        $this->addEntryPattern('=\s*"', 'tag', 'dq_attribute');
+        $this->addPattern("\\\\\"", 'dq_attribute');
+        $this->addExitPattern('"', 'dq_attribute');
+        $this->mapHandler('sq_attribute', 'acceptAttributeToken');
+        $this->addEntryPattern("=\s*'", 'tag', 'sq_attribute');
+        $this->addPattern("\\\\'", 'sq_attribute');
+        $this->addExitPattern("'", 'sq_attribute');
+        $this->mapHandler('uq_attribute', 'acceptAttributeToken');
+        $this->addSpecialPattern('=\s*[^>\s]*', 'tag', 'uq_attribute');
+    }
+}
+
+/**
+ *    Converts HTML tokens into selected SAX events.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleHtmlSaxParser {
+    private $lexer;
+    private $listener;
+    private $tag;
+    private $attributes;
+    private $current_attribute;
+    
+    /**
+     *    Sets the listener.
+     *    @param SimpleSaxListener $listener    SAX event handler.
+     *    @access public
+     */
+    function __construct($listener) {
+        $this->listener = $listener;
+        $this->lexer = $this->createLexer($this);
+        $this->tag = '';
+        $this->attributes = array();
+        $this->current_attribute = '';
+    }
+    
+    /**
+     *    Runs the content through the lexer which
+     *    should call back to the acceptors.
+     *    @param string $raw      Page text to parse.
+     *    @return boolean         False if parse error.
+     *    @access public
+     */
+    function parse($raw) {
+        return $this->lexer->parse($raw);
+    }
+    
+    /**
+     *    Sets up the matching lexer. Starts in 'text' mode.
+     *    @param SimpleSaxParser $parser    Event generator, usually $self.
+     *    @return SimpleLexer               Lexer suitable for this parser.
+     *    @access public
+     */
+    static function createLexer(&$parser) {
+        return new SimpleHtmlLexer($parser);
+    }
+    
+    /**
+     *    Accepts a token from the tag mode. If the
+     *    starting element completes then the element
+     *    is dispatched and the current attributes
+     *    set back to empty. The element or attribute
+     *    name is converted to lower case.
+     *    @param string $token     Incoming characters.
+     *    @param integer $event    Lexer event type.
+     *    @return boolean          False if parse error.
+     *    @access public
+     */
+    function acceptStartToken($token, $event) {
+        if ($event == LEXER_ENTER) {
+            $this->tag = strtolower(substr($token, 1));
+            return true;
+        }
+        if ($event == LEXER_EXIT) {
+            $success = $this->listener->startElement(
+                    $this->tag,
+                    $this->attributes);
+            $this->tag = '';
+            $this->attributes = array();
+            return $success;
+        }
+        if ($token != '=') {
+            $this->current_attribute = strtolower(SimpleHtmlSaxParser::decodeHtml($token));
+            $this->attributes[$this->current_attribute] = '';
+        }
+        return true;
+    }
+    
+    /**
+     *    Accepts a token from the end tag mode.
+     *    The element name is converted to lower case.
+     *    @param string $token     Incoming characters.
+     *    @param integer $event    Lexer event type.
+     *    @return boolean          False if parse error.
+     *    @access public
+     */
+    function acceptEndToken($token, $event) {
+        if (! preg_match('/<\/(.*)>/', $token, $matches)) {
+            return false;
+        }
+        return $this->listener->endElement(strtolower($matches[1]));
+    }
+    
+    /**
+     *    Part of the tag data.
+     *    @param string $token     Incoming characters.
+     *    @param integer $event    Lexer event type.
+     *    @return boolean          False if parse error.
+     *    @access public
+     */
+    function acceptAttributeToken($token, $event) {
+        if ($this->current_attribute) {
+            if ($event == LEXER_UNMATCHED) {
+                $this->attributes[$this->current_attribute] .=
+                        SimpleHtmlSaxParser::decodeHtml($token);
+            }
+            if ($event == LEXER_SPECIAL) {
+                $this->attributes[$this->current_attribute] .=
+                        preg_replace('/^=\s*/' , '', SimpleHtmlSaxParser::decodeHtml($token));
+            }
+        }
+        return true;
+    }
+    
+    /**
+     *    A character entity.
+     *    @param string $token    Incoming characters.
+     *    @param integer $event   Lexer event type.
+     *    @return boolean         False if parse error.
+     *    @access public
+     */
+    function acceptEntityToken($token, $event) {
+    }
+    
+    /**
+     *    Character data between tags regarded as
+     *    important.
+     *    @param string $token     Incoming characters.
+     *    @param integer $event    Lexer event type.
+     *    @return boolean          False if parse error.
+     *    @access public
+     */
+    function acceptTextToken($token, $event) {
+        return $this->listener->addContent($token);
+    }
+    
+    /**
+     *    Incoming data to be ignored.
+     *    @param string $token     Incoming characters.
+     *    @param integer $event    Lexer event type.
+     *    @return boolean          False if parse error.
+     *    @access public
+     */
+    function ignore($token, $event) {
+        return true;
+    }
+    
+    /**
+     *    Decodes any HTML entities.
+     *    @param string $html    Incoming HTML.
+     *    @return string         Outgoing plain text.
+     *    @access public
+     */
+    static function decodeHtml($html) {
+        return html_entity_decode($html, ENT_QUOTES);
+    }
+    
+    /**
+     *    Turns HTML into text browser visible text. Images
+     *    are converted to their alt text and tags are supressed.
+     *    Entities are converted to their visible representation.
+     *    @param string $html        HTML to convert.
+     *    @return string             Plain text.
+     *    @access public
+     */
+    static function normalise($html) {
+        $text = preg_replace('|<!--.*?-->|', '', $html);
+        $text = preg_replace('|<script[^>]*>.*?</script>|', '', $text);
+        $text = preg_replace('|<img[^>]*alt\s*=\s*"([^"]*)"[^>]*>|', ' \1 ', $text);
+        $text = preg_replace('|<img[^>]*alt\s*=\s*\'([^\']*)\'[^>]*>|', ' \1 ', $text);
+        $text = preg_replace('|<img[^>]*alt\s*=\s*([a-zA-Z_]+)[^>]*>|', ' \1 ', $text);
+        $text = preg_replace('|<[^>]*>|', '', $text);
+        $text = SimpleHtmlSaxParser::decodeHtml($text);
+        $text = preg_replace('|\s+|', ' ', $text);
+        return trim(trim($text), "\xA0");        // TODO: The \xAO is a &nbsp;. Add a test for this.
+    }
+}
+
+/**
+ *    SAX event handler.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ *    @abstract
+ */
+class SimpleSaxListener {
+    
+    /**
+     *    Sets the document to write to.
+     *    @access public
+     */
+    function __construct() {
+    }
+    
+    /**
+     *    Start of element event.
+     *    @param string $name        Element name.
+     *    @param hash $attributes    Name value pairs.
+     *                               Attributes without content
+     *                               are marked as true.
+     *    @return boolean            False on parse error.
+     *    @access public
+     */
+    function startElement($name, $attributes) {
+    }
+    
+    /**
+     *    End of element event.
+     *    @param string $name        Element name.
+     *    @return boolean            False on parse error.
+     *    @access public
+     */
+    function endElement($name) {
+    }
+    
+    /**
+     *    Unparsed, but relevant data.
+     *    @param string $text        May include unparsed tags.
+     *    @return boolean            False on parse error.
+     *    @access public
+     */
+    function addContent($text) {
+    }
+}
 ?>
-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
-DAQX0KcF

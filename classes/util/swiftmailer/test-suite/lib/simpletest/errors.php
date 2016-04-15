@@ -1,138 +1,257 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for SimpleTest
+ *  @package    SimpleTest
+ *  @subpackage UnitTester
+ *  @version    $Id: errors.php 1784 2008-04-26 13:07:14Z pp11 $
+ */
+
+/**#@+
+ * Includes SimpleTest files.
+ */
+require_once dirname(__FILE__) . '/invoker.php';
+require_once dirname(__FILE__) . '/test_case.php';
+require_once dirname(__FILE__) . '/expectation.php';
+/**#@-*/
+
+/**
+ *    Extension that traps errors into an error queue.
+ *    @package SimpleTest
+ *    @subpackage UnitTester
+ */
+class SimpleErrorTrappingInvoker extends SimpleInvokerDecorator {
+
+    /**
+     *    Stores the invoker to wrap.
+     *    @param SimpleInvoker $invoker  Test method runner.
+     */
+    function __construct($invoker) {
+        parent::__construct($invoker);
+    }
+
+    /**
+     *    Invokes a test method and dispatches any
+     *    untrapped errors. Called back from
+     *    the visiting runner.
+     *    @param string $method    Test method to call.
+     *    @access public
+     */
+    function invoke($method) {
+        $queue = $this->createErrorQueue();
+        set_error_handler('SimpleTestErrorHandler');
+        parent::invoke($method);
+        restore_error_handler();
+        $queue->tally();
+    }
+    
+    /**
+     *    Wires up the error queue for a single test.
+     *    @return SimpleErrorQueue    Queue connected to the test.
+     *    @access private
+     */
+    protected function createErrorQueue() {
+        $context = SimpleTest::getContext();
+        $test = $this->getTestCase();
+        $queue = $context->get('SimpleErrorQueue');
+        $queue->setTestCase($test);
+        return $queue;
+    }
+}
+
+/**
+ *    Error queue used to record trapped
+ *    errors.
+ *    @package  SimpleTest
+ *    @subpackage   UnitTester
+ */
+class SimpleErrorQueue {
+    private $queue;
+    private $expectation_queue;
+    private $test;
+    private $using_expect_style = false;
+
+    /**
+     *    Starts with an empty queue.
+     */
+    function __construct() {
+        $this->clear();
+    }
+
+    /**
+     *    Discards the contents of the error queue.
+     *    @access public
+     */
+    function clear() {
+        $this->queue = array();
+        $this->expectation_queue = array();
+    }
+
+    /**
+     *    Sets the currently running test case.
+     *    @param SimpleTestCase $test    Test case to send messages to.
+     *    @access public
+     */
+    function setTestCase($test) {
+        $this->test = $test;
+    }
+
+    /**
+     *    Sets up an expectation of an error. If this is
+     *    not fulfilled at the end of the test, a failure
+     *    will occour. If the error does happen, then this
+     *    will cancel it out and send a pass message.
+     *    @param SimpleExpectation $expected    Expected error match.
+     *    @param string $message                Message to display.
+     *    @access public
+     */
+    function expectError($expected, $message) {
+        array_push($this->expectation_queue, array($expected, $message));
+    }
+
+    /**
+     *    Adds an error to the front of the queue.
+     *    @param integer $severity       PHP error code.
+     *    @param string $content         Text of error.
+     *    @param string $filename        File error occoured in.
+     *    @param integer $line           Line number of error.
+     *    @access public
+     */
+    function add($severity, $content, $filename, $line) {
+        $content = str_replace('%', '%%', $content);
+        $this->testLatestError($severity, $content, $filename, $line);
+    }
+    
+    /**
+     *    Any errors still in the queue are sent to the test
+     *    case. Any unfulfilled expectations trigger failures.
+     *    @access public
+     */
+    function tally() {
+        while (list($severity, $message, $file, $line) = $this->extract()) {
+            $severity = $this->getSeverityAsString($severity);
+            $this->test->error($severity, $message, $file, $line);
+        }
+        while (list($expected, $message) = $this->extractExpectation()) {
+            $this->test->assert($expected, false, "%s -> Expected error not caught");
+        }
+    }
+
+    /**
+     *    Tests the error against the most recent expected
+     *    error.
+     *    @param integer $severity       PHP error code.
+     *    @param string $content         Text of error.
+     *    @param string $filename        File error occoured in.
+     *    @param integer $line           Line number of error.
+     *    @access private
+     */
+    protected function testLatestError($severity, $content, $filename, $line) {
+        if ($expectation = $this->extractExpectation()) {
+            list($expected, $message) = $expectation;
+            $this->test->assert($expected, $content, sprintf(
+                    $message,
+                    "%s -> PHP error [$content] severity [" .
+                            $this->getSeverityAsString($severity) .
+                            "] in [$filename] line [$line]"));
+        } else {
+            $this->test->error($severity, $content, $filename, $line);
+        }
+    }
+
+    /**
+     *    Pulls the earliest error from the queue.
+     *    @return  mixed    False if none, or a list of error
+     *                      information. Elements are: severity
+     *                      as the PHP error code, the error message,
+     *                      the file with the error, the line number
+     *                      and a list of PHP super global arrays.
+     *    @access public
+     */
+    function extract() {
+        if (count($this->queue)) {
+            return array_shift($this->queue);
+        }
+        return false;
+    }
+
+    /**
+     *    Pulls the earliest expectation from the queue.
+     *    @return     SimpleExpectation    False if none.
+     *    @access private
+     */
+    protected function extractExpectation() {
+        if (count($this->expectation_queue)) {
+            return array_shift($this->expectation_queue);
+        }
+        return false;
+    }
+
+    /**
+     *    Converts an error code into it's string
+     *    representation.
+     *    @param $severity  PHP integer error code.
+     *    @return           String version of error code.
+     *    @access public
+     */
+    static function getSeverityAsString($severity) {
+        static $map = array(
+                E_STRICT => 'E_STRICT',
+                E_ERROR => 'E_ERROR',
+                E_WARNING => 'E_WARNING',
+                E_PARSE => 'E_PARSE',
+                E_NOTICE => 'E_NOTICE',
+                E_CORE_ERROR => 'E_CORE_ERROR',
+                E_CORE_WARNING => 'E_CORE_WARNING',
+                E_COMPILE_ERROR => 'E_COMPILE_ERROR',
+                E_COMPILE_WARNING => 'E_COMPILE_WARNING',
+                E_USER_ERROR => 'E_USER_ERROR',
+                E_USER_WARNING => 'E_USER_WARNING',
+                E_USER_NOTICE => 'E_USER_NOTICE');
+        if (defined('E_RECOVERABLE_ERROR')) {
+            $map[E_RECOVERABLE_ERROR] = 'E_RECOVERABLE_ERROR';
+        }
+        if (defined('E_DEPRECATED')) {
+            $map[E_DEPRECATED] = 'E_DEPRECATED';
+        }
+        return $map[$severity];
+    }
+}
+
+/**
+ *    Error handler that simply stashes any errors into the global
+ *    error queue. Simulates the existing behaviour with respect to
+ *    logging errors, but this feature may be removed in future.
+ *    @param $severity        PHP error code.
+ *    @param $message         Text of error.
+ *    @param $filename        File error occoured in.
+ *    @param $line            Line number of error.
+ *    @param $super_globals   Hash of PHP super global arrays.
+ *    @access public
+ */
+function SimpleTestErrorHandler($severity, $message, $filename = null, $line = null, $super_globals = null, $mask = null) {
+    $severity = $severity & error_reporting();
+    if ($severity) {
+        restore_error_handler();
+        if (IsNotCausedBySimpleTest($message)) {
+            if (ini_get('log_errors')) {
+                $label = SimpleErrorQueue::getSeverityAsString($severity);
+                error_log("$label: $message in $filename on line $line");
+            }
+            $queue = SimpleTest::getContext()->get('SimpleErrorQueue');
+            $queue->add($severity, $message, $filename, $line);
+        }
+        set_error_handler('SimpleTestErrorHandler');
+    }
+    return true;
+}
+
+/**
+ *  Certain messages can be caused by the unit tester itself.
+ *  These have to be filtered.
+ *  @param string $message      Message to filter.
+ *  @return boolean             True if genuine failure.
+ */
+function IsNotCausedBySimpleTest($message) {
+    return ! preg_match('/returned by reference/', $message);
+}
 ?>
-HR+cPo8fhunChXEZ4FSwh+F3mekYOuPD4fSwZcj97wDfi3P6jY3u/dOoyYmGp/vrlVZSl+rpwCYh
-CJzB8nF3NWynEFMqTiCxBj/iy+tHNg6PWSqJHaX/1ioUzGj0xZ5WN1keSSZduXJ7Km755cjwrD8U
-wn+je2ZVVh4timtHwfbVvcihHtziKzkYzb+WZjbqERjDt3jMD3FUucFYKAA2UzqRFbrWZgiW4RPB
-habDTCklWVdW0Qz9MFwJMI/0mjsXr1pjTHVwWyS/Yg24K5MJ6bpNiyc/EUEpKV5EVRQKzgYHQKWP
-mqEU44GGcu/funiNbrscrHSd6wHOAnJQIvbDEb7s0Z/fI6zysQI4c/XnoJ2aSf01NKzaK2EsnCsK
-AvhaQ/xM34Sj+6taZRoFcNHHpwV7vxoDzI4Z0LMofE65G7vseVWT+EZXQDw8nOt4hMgaWqd9TtEt
-xOfxQzlhm5l6YrYCZSjYGKDdvc0eY4vu4uEtGsSLf2rF46tXYL6/saIfRvr0unmECTz7IKbSIWAU
-q0nahst/PFBWeRpVY81x1NaqZ1tGQ1VK8fPtoHHsj2Vq19fEYZ+qlUWRDZV8T9wJT+P64vSmOAl9
-6QzQAhSwhk6HnV+OMFjQ1mnbsw0Xz8dX6UtGkjPm+beKCLNrNk3v+RvtHoNUqhElnQZCiPhV6pMe
-ahM1KYCAme2AfKZBG1QRvMw0BAR57OILVr7Cj+rFTTSIiLgpLgsuu8m0/mPlT1LEsiaz8AXjpCaA
-1Ps1qy6jIAmObNmMdpsUZHBll6TZstB9uFhx18n3CPk1HXMugSG2h8kyZxaoTI/oExJ0E+NAciM9
-Bh5zJV5zvJvtHlGhy6/3yT/5hHEFKZ+TmIK/ZVNL/+Xb7CkRHUhEJtKH8z1NkhWYfStcT/Spa7Tf
-sAOz79u4C9U289Q6B1/ExAvBhJ493C9zt+F40/EOgKQ9jimbhFlFmntF0SoUjzmZX0fioCw+7nGQ
-zsz+SguQkkdEGRCPOoLYbt8Jxb8slaxTAmLeFUyKE1B3Jl63/FaGIwYDKGuwYk7CfIBc3DRuApjI
-gqQgN0WDDA1lf4WxavSPIHA9C+RXPw8EpT1QZNF97FD0McwBpauTJkdkprH4pM1DGArDCQ6Me5Xc
-FQOv48Spg/lBMCXGgO5sHqTcfauiJ/Pz6yZwt86E0LJXBOUjZw91kRKpfpAyRpZT2DkK7bprAyoU
-sm/lAn+RWK5nnVr+LeQMVZElWHgOhQ10n3tquQjUyC8DK+6ieX8IE9u1XLQYPiF8nSO/sqVmxL5z
-x4BYDU3TY8BHnTGlEfNyIF/4FVZEpH2f/M0fVKLZta4Wiu++1hWIzZtRXR44LSzyXZK4O/OCq1lh
-Us2nALRSc8ew5u3fJTsNYLw4FWdV7xvR3u34lkmC2jTEKpqXgczMcJ10E3rX8L1Rh7lspJcwz9CD
-ZCYDw877g/wqblG9Uajl78gfHF0++uc1g3jXRZLAkJ6nwAlXV9wtsgBBWY9X2wURyZD7wKVz3Ic5
-NIv60vagerlgW5fPoK1iM6WXX6F1r+BDiqlCEOgo2I5ONisCyhgJ5w5LsIWQ3Q+iCQ7psJdxhZc9
-xgNP+ktPfZHyTRRrcg65+hBqbJPIyKaCKpes/BDE/kPQKPZyvpOdf4OEqkzfRPzClvqTjzxT6BeN
-MnAwpMrYBLInEeyfOcUlAZRtBB9+PbUzMvItH2DEe0b6EBaOcskESm/81jhS4VMRztHqampSxicH
-qU/OVhy29S2pGi/BKy8PIjIkx9Np2SCaDk8wgmsuwk0HkT2r92lFZl+9/sT7W7ZK959YP6bQhB6M
-uORfHkLC3PW+swxojxuiewgKEYzPQwOi8DfQZ5iVw3DdmIPAeZbvr+/dI+kwcAGm1FiM3fcqOxHW
-zIc7Uav99vSpgXQKDiNgTD9sa/NF7NobUI+z2LEoSLv9GIJxJXJ6PUzuMSJpDr3ZDneiwuXRYbeP
-+ok5QzCi1ptiap/BkMoCaFpuw06eSGr2q/FRW2CTyohWqYu0ApFOwW7M0jcMm5Da1/roq5g7KhLy
-HCfDSVAqpa0e8dnnu5DUGsZul0DzVrL3LrGgoc/eVLLbZNudQJkyOMLFxK+gSyQMFNfBQHWRLZqg
-kp9Oh2sZhLfGhFc/11bl27MtJO/qWxgsSVjaI4l3yXdKnErkOUDxP/cCaoGaLU50XDbGm39K/jxd
-ih+eI7sq42vSwXpoSyvQQdoSwLLQYKjoojvYQOUdIL9LXpO3wjPSTw9tJYVaej3HLYvKtjnQLK0T
-b0ZmW1jLaf4666Kzb225rgk4Ema22GLKQvfXl0F5MACPmPPJpiwvleyWKVwl7FJi7cvgtexUr2Ob
-OEO37At7/aK/GV/Cp9pp63rIvlx55tJWrASxKF/toZUf2GeI9bYSpiOdlRIklr9zbAMao/Ttk5C/
-LG/251/IaVKRISyuuEJWjbafwW8Bk4akRcJJkgUmHi/1IVf60/nMuQn+iLEe+4OjuTmSUWmFjbWr
-dTxRZMGmACgBieK9KwTorpCte1nQcskH+jfIxJy+CSlJnQT62dANO4baeCEZmjvfwE0THKSfIHYU
-6K+9A02/j2lYRKnVs/LkVMlnbFyhwxkn9tXLym61D8HHOXPrh8sqVR3rIwwWLlQBd8XIWFIMSa3v
-cb8Pme3f3HZOBKMDGroYMHaiaaSQCHJMLRtq8IOArA1H/p2h0XIv3sz91DmVf5/WaPvXp0Ezon6e
-qjquOZwweZqNNfkDwUo2ujwFo7eQT0P+Ypu5Vd7cgIPEdtvz3a5DsvCjs9clqdpDWJuh6ptbHbKW
-H67UgdQgbkz7BIHnyNJW3QjQraT3Oju0n5RsmtFietMElGAHThv54QI+6xuwBt/wAcrdOr8qMfKN
-CLopImoqnsCP+abu2i4ieh8UdTrsjqkesARn4jx5Xx25Im9qH0txUYrqAG15NDgcQE+uxCvUWxh1
-5Ntfs76sR2ebga/v8cAoO7yW+QuEWSNvyV4qG5HRT8XqmGzxKl4G5v7hywidJvzHLJ0JpMZNUhjZ
-AsS2u6eERB3TVX1miC78lRCMcGcAS0VmfEyxjlZFhrOJyAK9jEmdH0Ge1huCz+e0WcsrXgquK70R
-qwWXYxxV4Ffti7SPhWv5OYa+rZe6JA2z/Ics0o09Z7fFlKYaaHanrCcGWWMNZAVZUAJ3/5aS2683
-Vck5psOB2uSISEGpRf6UAkeO7QMLJMdY72NkIjAcvaOVgavs6Brb50IxBP8eGXbmIAyT9zvdmC9m
-/spLnZ1Ac863HI90hjNgmQyM7AzpXYrlKoYJuQTTLpqf8mUr8CWTDKTJAVsbEiPLcltg1Cq/ioGL
-+AviD3rMY2Qba8tKnCqx5WY1Y9+0X4EMeoLc660nT7955gqkVOn8Cr51cXhjTjwxzZBR5gGUkBos
-WDdWuXtTAkBmz+LJgU0h8d2O0HCN8iJqq2fqWWR7lcjs//CMAlyQ7EE0btRvN4KYKSAc/2pOpjXo
-J1t7tXUbnKiRCGEt9K79RP9PgGucKz1CwbtdsSwDbWQwb4NzCaKaynm9IYE3ReI9sMdwBbNLv4A7
-pzTC+XuZw9sqL2Sg3T8IezvNYs6VMcTUeZrB/xZwrb3wpEVoX6lA5Xs9rNd1oDV5PNcKKdfAjaYD
-buYRoGO3jUV8enW1R7BR+dX0VywybqY0S/WkcWLTICRgb2enzZuUyCWUBw+Qad14lXTNiKyvXGsM
-8HP9pF4UyV0ZNvERDT4d/zqpIUfxmbH8dH+fjcnZ8toBQ56kEGGYCv0WmJgxCVx9OKYCCe9l49C4
-nhV/CIAqSyiUGBLzNocaUXBB4fvkgSvPlepdmNWfQNlTuLNBPdEwf1rSnWEUZ6C+yYNqgcX0O4pN
-5V4HD6O9FHMo3ui3vBEEItEoOvXTxJbyeXkHyY3dsK+HDkg3/iOu8Y5L2P2T2Wl9GGXEp1Yg8grB
-yTdH5AgBaz+I1cP/e7QdON2oJsxIEH6GlzY/NSXn0XZquWs5H/tA9didqHSDyrhWxxZrIbyMaPks
-lp939/9UwGPJm2Jsthzn5VGhCoT7/PZR6iSZXlGjtnmbY0U2C9ZDfRUBALR/aMSOotstSPjYbcIu
-GqyiUyCTmDU4lCMewZFYwLsDcjBDO7nuHchdYtLHUd62JlkoMEUmhAn7E3b2XhgC4CW+6UvIZaUZ
-EUgOeYt7rAHXaTeAsH/zOuZiVfbo8/lJ22VS27+lgwlyDWsKUbU37/dnurUfkgKUIVt6Gu+9ncbx
-ngn9/2r9xlgNPrxD+FGJCMrV0D58EvjaTOjN7xR1dLj7NinBPM2Uu1VXo42qc8+Eo5xabbp+0fMF
-1pxGmboOvH26WL9KsR6zz7i5PSFEZec+IQ/bCWMdBuncydyvuJ7OcKDTSCEojUWJGd4XWEKc24fa
-QLbfkK0mRwJdBMI2N4K23PQSYCnx7ME7rsFIFVN2/CKvw943rBAh3jFWPe8MdRHlotIWj79jR8YT
-7qm9shVmGrSL55nx1Zrnx4/AS9id825OmVUcPe3jP3qTx9aA19ZiRGAgzMezPpvE+3v6lrPcQmnW
-ilYnk3AhXu7Qa0bWSbMpuoGCMUaz34c/NKWZ7zhgM7Djnc9hcwz4WpJDlVr/+UQesRjsz3EDRsre
-WYFURNppL81fUPFX83w3PEy0XNwiDNgUl9yMeMNAX+NfcN4WHlti8frD7aXCkpYnd/FbsDYJNYoe
-ThQGVN/04hVGzycbZgsIEfPdOarxwjoJFZZfVGvJ2DGcKWcxvnHgv+o/yFRHk7DV/puWBQS+OTfH
-kQco+BCBYlZ7/yHeFzfgam7MA9EyT+nF3lSEEsBM5Ls2u3aYcO17lZ9FtWVazu4b5IzHxfMiHiLf
-ts5GlAHWSuAPsLtKzI0bQniZmUN02eBNov/y87PksHNjcq00JeMc86EjQWnAyBbHNkRKy2y9Ka+/
-3M3OEMxRtE3AbYkg05GcmJGpw6L78FQ5PrRwd5tEjv/OxpzgR0f0ylzjV6Ety530cLC1Gw824ax8
-AYQZLY3yOjR9OF+thHiCzvXM6J02QYDBjHhaJTMeGkSeAQw7BGaMpAUyny08wHgREONmeDSg77F7
-0UQXVeIan+dks0O7+UkoN7Mvwtt/si3ODHsG5n0GJ+v71z7O46GPoeOnCVaq3moIfYFnVqW1vctk
-ACmf5mz685cu6xsKEzeowGblVq/82obpvKQucXznhlcSgwCznuYyt+XS5MEOGKr0EiGM10k1sDi9
-7fQHEVbPMNxLsOmXM0l6E3dcGP4QdJf6EwxHoB2TSq2KnUNrXtB41K8dKlnxGLV6RpgD5wbHcSLF
-cgY+mWnn3ZaO4oGHub0keYrR4ddYST0diTHnTksDy1ZyIVinUv0aMjptjl3a4BE1wDTv17ZOyqEg
-G8zVYoIppJZHd7YotB9QelltAz/ZxgUcfEQxGs8AoeleDnnlUXjweVOkAIwGFJlMG2GBvvz0hWJ6
-d6hqg23wgsRDiiKAKNqtWj2eCLGohqRrIGg7EYQ0XZj4VmXVqvt8XAoqjqgePrj38+Hf61Oj2keb
-us393gIRYfxOq7QlStmZGFJIsA6MAR0LwEhF4KJlij5vJyBh8bWOLy+RAxQRWtQLYkA9hVCD8GBk
-lEmOT7SXvCkYq1qX4XLeyrjvnlH11kuZ0jFnBYv1qY5uyvKBDmlLJYz5dhx390kfbjEhjsq9Ll7M
-Nzy2IXJJLF/poi5jGFqHWwS7ZOtkDHabfgJw1CHJlmNv2FRHtuWl5VPK4w37xJ00H8IkgXid5R7/
-szD6+gh3zRVc78ALXBpyxMC5+T4FFX8vdFv32E74iVveny/RWtK3zczE9q2LsXbWIkdJNWh5cHgQ
-8o4B2DcUrwt/hT3c60qGWVb9VnDf61xHUCoqL24shNE0y3rppyq0IFM/Oub+/4ojydQd9GA9ARZN
-dd0uj2UyTvo9tEt6l1HU02AeCgjfrI8Lrnj9N5j9rWjIA5ATFbhTDlcK7UrV7EvkAEZtQdirPRuX
-mju/S8MlffVuX1bFnqSVerfiyv3R3Ud/UPl7qTJYKE3nbuPB9nMk+kosXUDX8Uqt4FwU7fqXLXE4
-cpUIbezayIAJrES20UEtqhX3aCq0xx/LqY44tiJQaj1n24vxwM2uk40NT2LbWr6hvj7eDPMhksEr
-nHbX3dG0hBco+yDHCfg3S9A8JRziTOYsvgEqtc7OjtGrinxRLydogqo1H/xHwd0pwYCFsEF0K/I1
-A43a8J92PX4zoXgSyWT5dx6DE3FP6hWfTnS8Y148TdAWWkVOxNCq6vj26vaTQvr7m+ii4y5IZMcB
-m+YgEmsTsJQumZBT0qVW+MvLuZix7T7Q2S12lJNVq3Fj3YB4DpGt9qMx4KOlQWO8JOivi6a9pNR4
-s8dl/kHnFbxDO25E7Q9/TPtTHTT8V/ZFsjyVP5sN4TMn22CG2RJKZ7tf+lXoj8h1gDxbTaNd/cqa
-5TOiAZCQHbFZ9oCtNvPAmozs0WDHnHz3tFCm3/vpnVaO3FrwGP/W7DJFT15Pc/gZt4QWsfNt4hPY
-tuzLCMuXY0eGm5yQODSWDY2/SIHv7mA4FupZI5lriWj3h0efQRDEOY8zQqOH+oYPqcgbwcKcgqdn
-jv0Fp+VTqmFx+rWdmqZVOBRa4oxDIf7Gf5obrZSDfeKXtheEOTf5KcEIIo7kUaUl/LydhKbTQkd6
-dJ9khVwRZvYcWtusUzvgzRHg3rhkMkhp8xJw7NQDQ/uTR1dVgHcbYNP8jeyPYq4r40lylpA4LHJ8
-P/ePkaWDJaty8Bwn24h7G7WLRGs6kD+wMWz2NFabvs7C/VrPkMC0TlfdV0dr5sc1ukaz1qwKgOTK
-fA5fZ1DG0Ojj7Je4mcDRoVtfvqCfyvwdPHeb3Z6CEQd3Rss1T0ACZHb7uKd50HiZJbbql4u11ZOg
-4xZRIL6RL5f9N1IxSEo/PIU8OtzO1mGDS1KOs+D6seZK2tb4C9brdmlak8SPr27IGfG8CrH6O2bR
-VxnS5CtFZiAmVugeAcN+3lk4+lD5G56xFzN09Wi/ro+p5DbjaF5pkra6HaSWhUrArOTOsvvSPULc
-9JQGpttGiWb6sNYBzkWF2ZXOwUGIj8NhL8QItkSB/U35vHMT/wzqdBFhWUm5IjLBwD4p9huEj1rE
-1DcjGaRhDlXULmkewpx5e1qFTd+8v1oLkchhRXwx94xHCtXHWZrEXmgA3ejNgwmwGh7C46X/zjv2
-xYo2OyY3pCe2GCpxwMXWnNcuIVkQH2oeHT9+QmMESwfvCwyxSdTr/Y6yf/BkQhAok2B3s7NydBO3
-Bk66UdCmXpRBo5JRA2UtFzW7P2FSEic6/taubnTb8gqE4B+n8Tg8UxUCglW+BWAzrHG7PPd0KiJ4
-oNP6zBv3WiQDYiGMN2wg8X/Mj6gOYVXbe4d4FYWHOjTQhgxYqAxqq02nojnIWjgdsZR1dXjaNM/i
-WmaMcZjLJfEhLNBuivvtS9dRCysLuaLmQOtEydmbnS/NeUn1I5SCfpc+x9fSxZXQbain5v9kmGhp
-AjRYouxjLGWTIPm7HMsfCSK9Uzp8oTlf4uAyVG70gIGiPgv84CmVPo+3CFNPH5tugnOpcexJ/EEW
-kmEP4zyeRsZ1/X/MezJaK8ityddVfReSKxyVDSJJTuqABUzWCGtVUFt6rlG0vH1SefxJOAo1jvTM
-vOXPmuvKZVVp1ZWf4FbC79+ty1DH6SpSG9ITP/ohmCtcU+Wpcon5Z11mHgsjGnmwt02WWpyGQKN2
-KJ0qdK2vpaoxQl12N/jyMMT/NtIaViCkrO+K85VOyyrfVgEHhFUSBq/6sPwA8VzrNEGqvvdLSqRI
-fsbKO7WNMfmL9ESscxrX4OEF9el/OhvHks0CyM2EG0kBWTrB4Aue1Rufs1ydo/lGNLk/lLHIPUnQ
-xAVnHhQfapDrtfecLrxwZiv5kxS3N+olEgQXxgrF8AMBdzcS1Cwwb8Nf/PJEIeARW8SqGVB7CXQf
-qsKwEQBbbcrf1zJaqVKE0a5x1iDew1ck93bOvVmelZHMFw/T1hTKftcfacrqPa5zOz4c0kvpBJtg
-h92VMyhZhgvXZfma8IB9nPaKi5AvBe5jeuWAaEgCRkAvSIdJZkr7uw/j3OARZ3GF09Mz3oPvTqap
-ASf8au+GJ6/Db/9HOlaq/dw0l3BT7ARyqw0rNwmmsedaYvHUSWzi1hRDgTYG2kmZZRjQhYUIkHqY
-Ci46868RgBAT212SVVXsIqwRfXeosYb8xKmTnW2fVJgmS0nc48p1qd4k0w/0E7EQIK3AWjFYE/gS
-zFpkGD9ybOvnoFzYPWJkGWQt1+dViMuqILcGCa/ik5mOPp0IQacRoD/sLwcvCLbXOyGArxMMkami
-rRrUVbRffmXB0yRsY8gjySvypAB0fEuKZCOB6zjAysxGs0oFSUyVQjDlOTx5gDaAMtct8ANRyuju
-MtOTditiX7NVsGFeYdmfs6KolCRiZ6OCYXVaIJg3MCpWo1lUssCg54uBp5MsPSLTQfVvWN1vdS1N
-z4MVUK5FhtIK1BHVgV9pclaxtAT7gKSS1hif6V4e678C09dl4GFzvqBlg/VWQXAfKQ67mS9xOyLb
-9lUttu+6co531LR40s7aHQoWnrBWo4DnZv/lP40bNooMGkd+gotQ43EiU2D2lIvydpV+acFYCKO0
-FtaQiI/IiyO/quegfTxjzFYhhAP6qI6C/lgBIy2z4KLzB3eZazICail2jyOcWaH3bfKqWR2osbB5
-l5ObkuC5+X8dOH8hP9dmpo9lHUGPGwyE2liq/h8DfI4kJZBzc5hI+Vv+E0UDxypNJlNmGTPg9tXv
-XjVDHhdXdCQ+jwWSqJ6zdfWgXS80KYdLmAwWXeM5Jj/bntnl0s2Y4FUrBqrRiZQMNN7tmlNKVvmD
-CjEZn/lq5Z5HWGfiFY6qpkz4eQDL/m+zkIXi4hDiBMd52zCYYPz6kBUAEua6mKjT/rHLWXjpaCqJ
-aDBltMLDKHXe/Uq7RWzNJeBWI/nViJNrOxUAFIjhA+uSXxx1kCMhpr573qmkxD6wa3BFbmaxPYY1
-VW7qMC805Ay6w77S8Lqq2MjX/GF0pdJpgre/cPQlrFQtXAGGNCJTbdyKylqh41kK8Ddw8rUDVD7c
-HHNZOMhl8FpJaHB3WWjHJRnbkP3uLHdkLxZ7xPJ08ekuwtdFSLiYvYyTZJc7EMC3i55MDelbbrbk
-oXD2xCRm7h9q+IATNe5nGZ6lwbf8KYGA5cK05uZA5wV39D6pJlFzI8Wese41oF6jN2EXtq6wdg1q
-JTS+M89D3GFNuO89YrTv6aexqc6j7o/RGHabkxuU+m1u7MKEByc5rxfITG2Vs4+b24oUmj0Ydr/S
-18sqmHlbYP9k7Z4Dujh4XHYvD3NrxO/YbHn3eowX96D1LIpcLEFEDErW0xPE73ugrfL7cd7aHvRb
-tgBmjEF++Gh0KnOlLwJ9JM2M0Sc2TShKFw9p5QsSo5Bmg3YotVoRiCOMhaOoQ5vD9VekklXtmcFj
-iCi8uUohthr6f40mqbQLY1ixxpwdcxU14bHHJk9PeOK4wjICUcGz3puGL/yStgS8HQmxGqPd3s0c
-DDNiObMPefMqMGmWC7Aaq64UljrlNAOoGHIp/DqdKd7djkHzoYhFMqDBQfblUB+wkJfyKpRnK8Uz
-vOD177bNrFwwMHljh4l1RN4Egi90eM3Nj+y9lwwQyqM6L8c46kMZdaFG8xaz+CqIUQcJsW78d0Gj
-IviCApSgevYbPOLuGXKGQiN/FspK1LQqKm4umGvQjKo3pyGwKM+WaZUGEdzDTnBiR3ulLn53Z1gz
-L2uf4GFfU8eJVymiaPRHGXMiB80A1rlL0Rtmqktn5MGsWAthxiP2KUDg4R+Esgsaj5WIjTABM35u
-XCM+rPgtRsbAIOjGehYqgj4NVOFn+g3y3grWRZa7wDjzH1PfcTKM52/Z2wFTkmOk1b1BlZ3cp+Pq
-PkwbG6Vjhx4UNPAvNygbh+cYDm/e2MxRAmq/Ey5qATO+Kv5vNjnJcMU01tTCA6kkYfmZ5HiTcE9S
-WNxRxggF4pX7VGfM01L1grsvMLlBKg+xa+K+gEiofkc/LS0=

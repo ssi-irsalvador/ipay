@@ -1,599 +1,1630 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for SimpleTest
+ *  @package    SimpleTest
+ *  @subpackage MockObjects
+ *  @version    $Id: mock_objects.php 1788 2008-04-27 11:01:59Z pp11 $
+ */
+
+/**#@+
+ * include SimpleTest files
+ */
+require_once(dirname(__FILE__) . '/expectation.php');
+require_once(dirname(__FILE__) . '/simpletest.php');
+require_once(dirname(__FILE__) . '/dumper.php');
+require_once(dirname(__FILE__) . '/reflection_php5.php');
+/**#@-*/
+
+/**
+ * Default character simpletest will substitute for any value
+ */
+if (! defined('MOCK_ANYTHING')) {
+    define('MOCK_ANYTHING', '*');
+}
+
+/**
+ *    Parameter comparison assertion.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class ParametersExpectation extends SimpleExpectation {
+    private $expected;
+
+    /**
+     *    Sets the expected parameter list.
+     *    @param array $parameters  Array of parameters including
+     *                              those that are wildcarded.
+     *                              If the value is not an array
+     *                              then it is considered to match any.
+     *    @param string $message    Customised message on failure.
+     *    @access public
+     */
+    function __construct($expected = false, $message = '%s') {
+        parent::__construct($message);
+        $this->expected = $expected;
+    }
+
+    /**
+     *    Tests the assertion. True if correct.
+     *    @param array $parameters     Comparison values.
+     *    @return boolean              True if correct.
+     *    @access public
+     */
+    function test($parameters) {
+        if (! is_array($this->expected)) {
+            return true;
+        }
+        if (count($this->expected) != count($parameters)) {
+            return false;
+        }
+        for ($i = 0; $i < count($this->expected); $i++) {
+            if (! $this->testParameter($parameters[$i], $this->expected[$i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     *    Tests an individual parameter.
+     *    @param mixed $parameter    Value to test.
+     *    @param mixed $expected     Comparison value.
+     *    @return boolean            True if expectation
+     *                               fulfilled.
+     *    @access private
+     */
+    protected function testParameter($parameter, $expected) {
+        $comparison = $this->coerceToExpectation($expected);
+        return $comparison->test($parameter);
+    }
+
+    /**
+     *    Returns a human readable test message.
+     *    @param array $comparison   Incoming parameter list.
+     *    @return string             Description of success
+     *                               or failure.
+     *    @access public
+     */
+    function testMessage($parameters) {
+        if ($this->test($parameters)) {
+            return "Expectation of " . count($this->expected) .
+                    " arguments of [" . $this->renderArguments($this->expected) .
+                    "] is correct";
+        } else {
+            return $this->describeDifference($this->expected, $parameters);
+        }
+    }
+
+    /**
+     *    Message to display if expectation differs from
+     *    the parameters actually received.
+     *    @param array $expected      Expected parameters as list.
+     *    @param array $parameters    Actual parameters received.
+     *    @return string              Description of difference.
+     *    @access private
+     */
+    protected function describeDifference($expected, $parameters) {
+        if (count($expected) != count($parameters)) {
+            return "Expected " . count($expected) .
+                    " arguments of [" . $this->renderArguments($expected) .
+                    "] but got " . count($parameters) .
+                    " arguments of [" . $this->renderArguments($parameters) . "]";
+        }
+        $messages = array();
+        for ($i = 0; $i < count($expected); $i++) {
+            $comparison = $this->coerceToExpectation($expected[$i]);
+            if (! $comparison->test($parameters[$i])) {
+                $messages[] = "parameter " . ($i + 1) . " with [" .
+                        $comparison->overlayMessage($parameters[$i], $this->getDumper()) . "]";
+            }
+        }
+        return "Parameter expectation differs at " . implode(" and ", $messages);
+    }
+
+    /**
+     *    Creates an identical expectation if the
+     *    object/value is not already some type
+     *    of expectation.
+     *    @param mixed $expected      Expected value.
+     *    @return SimpleExpectation   Expectation object.
+     *    @access private
+     */
+    protected function coerceToExpectation($expected) {
+        if (SimpleExpectation::isExpectation($expected)) {
+            return $expected;
+        }
+        return new IdenticalExpectation($expected);
+    }
+
+    /**
+     *    Renders the argument list as a string for
+     *    messages.
+     *    @param array $args    Incoming arguments.
+     *    @return string        Simple description of type and value.
+     *    @access private
+     */
+    protected function renderArguments($args) {
+        $descriptions = array();
+        if (is_array($args)) {
+            foreach ($args as $arg) {
+                $dumper = new SimpleDumper();
+                $descriptions[] = $dumper->describeValue($arg);
+            }
+        }
+        return implode(', ', $descriptions);
+    }
+}
+
+/**
+ *    Confirms that the number of calls on a method is as expected.
+ *  @package    SimpleTest
+ *  @subpackage MockObjects
+ */
+class CallCountExpectation extends SimpleExpectation {
+    private $method;
+    private $count;
+
+    /**
+     *    Stashes the method and expected count for later
+     *    reporting.
+     *    @param string $method    Name of method to confirm against.
+     *    @param integer $count    Expected number of calls.
+     *    @param string $message   Custom error message.
+     */
+    function __construct($method, $count, $message = '%s') {
+        $this->method = $method;
+        $this->count = $count;
+        parent::__construct($message);
+    }
+
+    /**
+     *    Tests the assertion. True if correct.
+     *    @param integer $compare     Measured call count.
+     *    @return boolean             True if expected.
+     *    @access public
+     */
+    function test($compare) {
+        return ($this->count == $compare);
+    }
+
+    /**
+     *    Reports the comparison.
+     *    @param integer $compare     Measured call count.
+     *    @return string              Message to show.
+     *    @access public
+     */
+    function testMessage($compare) {
+        return 'Expected call count for [' . $this->method .
+                '] was [' . $this->count .
+                '] got [' . $compare . ']';
+    }
+}
+
+/**
+ *    Confirms that the number of calls on a method is as expected.
+ *  @package    SimpleTest
+ *  @subpackage MockObjects
+ */
+class MinimumCallCountExpectation extends SimpleExpectation {
+    private $method;
+    private $count;
+
+    /**
+     *    Stashes the method and expected count for later
+     *    reporting.
+     *    @param string $method    Name of method to confirm against.
+     *    @param integer $count    Minimum number of calls.
+     *    @param string $message   Custom error message.
+     */
+    function __construct($method, $count, $message = '%s') {
+        $this->method = $method;
+        $this->count = $count;
+        parent::__construct($message);
+    }
+
+    /**
+     *    Tests the assertion. True if correct.
+     *    @param integer $compare     Measured call count.
+     *    @return boolean             True if enough.
+     *    @access public
+     */
+    function test($compare) {
+        return ($this->count <= $compare);
+    }
+
+    /**
+     *    Reports the comparison.
+     *    @param integer $compare     Measured call count.
+     *    @return string              Message to show.
+     *    @access public
+     */
+    function testMessage($compare) {
+        return 'Minimum call count for [' . $this->method .
+                '] was [' . $this->count .
+                '] got [' . $compare . ']';
+    }
+}
+
+/**
+ *    Confirms that the number of calls on a method is as expected.
+ *    @package      SimpleTest
+ *    @subpackage   MockObjects
+ */
+class MaximumCallCountExpectation extends SimpleExpectation {
+    private $method;
+    private $count;
+
+    /**
+     *    Stashes the method and expected count for later
+     *    reporting.
+     *    @param string $method    Name of method to confirm against.
+     *    @param integer $count    Minimum number of calls.
+     *    @param string $message   Custom error message.
+     */
+    function __construct($method, $count, $message = '%s') {
+        $this->method = $method;
+        $this->count = $count;
+        parent::__construct($message);
+    }
+
+    /**
+     *    Tests the assertion. True if correct.
+     *    @param integer $compare     Measured call count.
+     *    @return boolean             True if not over.
+     *    @access public
+     */
+    function test($compare) {
+        return ($this->count >= $compare);
+    }
+
+    /**
+     *    Reports the comparison.
+     *    @param integer $compare     Measured call count.
+     *    @return string              Message to show.
+     *    @access public
+     */
+    function testMessage($compare) {
+        return 'Maximum call count for [' . $this->method .
+                '] was [' . $this->count .
+                '] got [' . $compare . ']';
+    }
+}
+
+/**
+ *    Retrieves method actions by searching the
+ *    parameter lists until an expected match is found.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class SimpleSignatureMap {
+    private $map;
+
+    /**
+     *    Creates an empty call map.
+     *    @access public
+     */
+    function __construct() {
+        $this->map = array();
+    }
+
+    /**
+     *    Stashes a reference against a method call.
+     *    @param array $parameters    Array of arguments (including wildcards).
+     *    @param mixed $action        Reference placed in the map.
+     *    @access public
+     */
+    function add($parameters, $action) {
+        $place = count($this->map);
+        $this->map[$place] = array();
+        $this->map[$place]['params'] = new ParametersExpectation($parameters);
+        $this->map[$place]['content'] = $action;
+    }
+
+    /**
+     *    Searches the call list for a matching parameter
+     *    set. Returned by reference.
+     *    @param array $parameters    Parameters to search by
+     *                                without wildcards.
+     *    @return object              Object held in the first matching
+     *                                slot, otherwise null.
+     *    @access public
+     */
+    function &findFirstAction($parameters) {
+        $slot = $this->findFirstSlot($parameters);
+        if (isset($slot) && isset($slot['content'])) {
+            return $slot['content'];
+        }
+        $null = null;
+        return $null;
+    }
+
+    /**
+     *    Searches the call list for a matching parameter
+     *    set. True if successful.
+     *    @param array $parameters    Parameters to search by
+     *                                without wildcards.
+     *    @return boolean             True if a match is present.
+     *    @access public
+     */
+    function isMatch($parameters) {
+        return ($this->findFirstSlot($parameters) != null);
+    }
+    
+    /**
+     *    Compares the incoming parameters with the
+     *    internal expectation. Uses the incoming $test
+     *    to dispatch the test message.
+     *    @param SimpleTestCase $test   Test to dispatch to.
+     *    @param array $parameters      The actual calling arguments.
+     *    @param string $message        The message to overlay.
+     *    @access public
+     */
+    function test($test, $parameters, $message) {
+    }
+
+    /**
+     *    Searches the map for a matching item.
+     *    @param array $parameters    Parameters to search by
+     *                                without wildcards.
+     *    @return array               Reference to slot or null.
+     *    @access private
+     */
+    function &findFirstSlot($parameters) {
+        $count = count($this->map);
+        for ($i = 0; $i < $count; $i++) {
+            if ($this->map[$i]["params"]->test($parameters)) {
+                return $this->map[$i];
+            }
+        }
+        $null = null;
+        return $null;
+    }
+}
+
+/**
+ *    Allows setting of actions against call signatures either
+ *    at a specific time, or always. Specific time settings
+ *    trump lasting ones, otherwise the most recently added
+ *    will mask an earlier match.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class SimpleCallSchedule {
+    private $wildcard = MOCK_ANYTHING;
+    private $always;
+    private $at;
+    
+    /**
+     *    Sets up an empty response schedule.
+     *    Creates an empty call map.
+     */
+    function __construct() {
+        $this->always = array();
+        $this->at = array();
+    }
+    
+    /**
+     *    Stores an action against a signature that
+     *    will always fire unless masked by a time
+     *    specific one.
+     *    @param string $method        Method name.
+     *    @param array $args           Calling parameters.
+     *    @param SimpleAction $action  Actually simpleByValue, etc.
+     *    @access public
+     */
+    function register($method, $args, $action) {
+        $args = $this->replaceWildcards($args);
+        $method = strtolower($method);
+        if (! isset($this->always[$method])) {
+            $this->always[$method] = new SimpleSignatureMap();
+        }
+        $this->always[$method]->add($args, $action);
+    }
+    
+    /**
+     *    Stores an action against a signature that
+     *    will fire at a specific time in the future.
+     *    @param integer $step         delay of calls to this method,
+     *                                 0 is next.
+     *    @param string $method        Method name.
+     *    @param array $args           Calling parameters.
+     *    @param SimpleAction $action  Actually SimpleByValue, etc.
+     *    @access public
+     */
+    function registerAt($step, $method, $args, $action) {
+        $args = $this->replaceWildcards($args);
+        $method = strtolower($method);
+        if (! isset($this->at[$method])) {
+            $this->at[$method] = array();
+        }
+        if (! isset($this->at[$method][$step])) {
+            $this->at[$method][$step] = new SimpleSignatureMap();
+        }
+        $this->at[$method][$step]->add($args, $action);
+    }
+    
+    /**
+     *  Sets up an expectation on the argument list.
+     *  @param string $method       Method to test.
+     *  @param array $args          Bare arguments or list of
+     *                              expectation objects.
+     *  @param string $message      Failure message.
+     */
+    function expectArguments($method, $args, $message) {
+        $args = $this->replaceWildcards($args);
+        $message .= Mock::getExpectationLine();
+        $this->expected_args[strtolower($method)] =
+                new ParametersExpectation($args, $message);
+
+    }
+    
+    /**
+     *    Actually carry out the action stored previously,
+     *    if the parameters match.
+     *    @param integer $step      Time of call.
+     *    @param string $method     Method name.
+     *    @param array $args        The parameters making up the
+     *                              rest of the call.
+     *    @return mixed             The result of the action.
+     *    @access public.
+     */
+    function &respond($step, $method, $args) {
+        $method = strtolower($method);
+        if (isset($this->at[$method][$step])) {
+            if ($this->at[$method][$step]->isMatch($args)) {
+                $action = $this->at[$method][$step]->findFirstAction($args);
+                if (isset($action)) {
+                    return $action->act();
+                }
+            }
+        }
+        if (isset($this->always[$method])) {
+            $action = $this->always[$method]->findFirstAction($args);
+            if (isset($action)) {
+                return $action->act();
+            }
+        }
+        $null = null;
+        return $null;
+    }
+    
+    /**
+     *    Replaces wildcard matches with wildcard
+     *    expectations in the argument list.
+     *    @param array $args      Raw argument list.
+     *    @return array           Argument list with
+     *                            expectations.
+     *    @access private
+     */
+    protected function replaceWildcards($args) {
+        if ($args === false) {
+            return false;
+        }
+        for ($i = 0; $i < count($args); $i++) {
+            if ($args[$i] === $this->wildcard) {
+                $args[$i] = new AnythingExpectation();
+            }
+        }
+        return $args;
+    }
+}
+
+/**
+ *    A type of SimpleMethodAction.
+ *    Stashes a value for returning later. Follows usual
+ *    PHP5 semantics of objects being returned by reference.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class SimpleReturn {
+    private $value;
+    
+    /**
+     *    Stashes it for later.
+     *    @param mixed $value     You need to clone objects
+     *                            if you want copy semantics
+     *                            for these.
+     *    @access public
+     */
+    function __construct($value) {
+        $this->value = $value;
+    }
+    
+    /**
+     *    Returns the value stored earlier.
+     *    @return mixed    Whatever was stashed.
+     *    @access public
+     */
+    function act() {
+        return $this->value;
+    }
+}
+
+/**
+ *    A type of SimpleMethodAction.
+ *    Stashes a reference for returning later.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class SimpleByReference {
+    private $reference;
+    
+    /**
+     *    Stashes it for later.
+     *    @param mixed $reference     Actual PHP4 style reference.
+     *    @access public
+     */
+    function __construct(&$reference) {
+        $this->reference = &$reference;
+    }
+    
+    /**
+     *    Returns the reference stored earlier.
+     *    @return mixed    Whatever was stashed.
+     *    @access public
+     */
+    function &act() {
+        return $this->reference;
+    }
+}
+
+/**
+ *    A type of SimpleMethodAction.
+ *    Stashes a value for returning later.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class SimpleByValue {
+    private $value;
+    
+    /**
+     *    Stashes it for later.
+     *    @param mixed $value     You need to clone objects
+     *                            if you want copy semantics
+     *                            for these.
+     *    @access public
+     */
+    function __construct($value) {
+        $this->value = $value;
+    }
+    
+    /**
+     *    Returns the value stored earlier.
+     *    @return mixed    Whatever was stashed.
+     *    @access public
+     */
+    function &act() {
+        $dummy = $this->value;
+        return $dummy;
+    }
+}
+
+/**
+ *    A type of SimpleMethodAction.
+ *    Stashes an exception for throwing later.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class SimpleThrower {
+    private $exception;
+    
+    /**
+     *    Stashes it for later.
+     *    @param Exception $exception    The exception object to throw.
+     *    @access public
+     */
+    function __construct($exception) {
+        $this->exception = $exception;
+    }
+    
+    /**
+     *    Throws the exceptins stashed earlier.
+     *    @access public
+     */
+    function act() {
+        throw $this->exception;
+    }
+}
+
+/**
+ *    A type of SimpleMethodAction.
+ *    Stashes an error for emitting later.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class SimpleErrorThrower {
+    private $error;
+    private $severity;
+    
+    /**
+     *    Stashes an error to throw later.
+     *    @param string $error      Error message.
+     *    @param integer $severity  PHP error constant, e.g E_USER_ERROR.
+     *    @access public
+     */
+    function __construct($error, $severity) {
+        $this->error = $error;
+        $this->severity = $severity;
+    }
+    
+    /**
+     *    Triggers the stashed error.
+     *    @access public
+     */
+    function &act() {
+        trigger_error($this->error, $this->severity);
+        $null = null;
+        return $null;
+    }
+}
+
+/**
+ *    A base class or delegate that extends an
+ *    empty collection of methods that can have their
+ *    return values set and expectations made of the
+ *    calls upon them. The mock will assert the
+ *    expectations against it's attached test case in
+ *    addition to the server stub behaviour or returning
+ *    preprogrammed responses.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class SimpleMock {
+    private $actions;
+    private $expectations;
+    private $wildcard = MOCK_ANYTHING;
+    private $is_strict = true;
+    private $call_counts;
+    private $expected_counts;
+    private $max_counts;
+    private $expected_args;
+    private $expected_args_at;
+
+    /**
+     *    Creates an empty action list and expectation list.
+     *    All call counts are set to zero.
+     *    @access public
+     */
+    function SimpleMock() {
+        $this->actions = new SimpleCallSchedule();
+        $this->expectations = new SimpleCallSchedule();
+        $this->call_counts = array();
+        $this->expected_counts = array();
+        $this->max_counts = array();
+        $this->expected_args = array();
+        $this->expected_args_at = array();
+        $this->getCurrentTestCase()->tell($this);
+    }
+    
+    /**
+     *    Disables a name check when setting expectations.
+     *    This hack is needed for the partial mocks.
+     *    @access public
+     */
+    function disableExpectationNameChecks() {
+        $this->is_strict = false;
+    }
+
+    /**
+     *    Finds currently running test.
+     *    @return SimpeTestCase    Current test case.
+     *    @access protected
+     */
+    protected function getCurrentTestCase() {
+        return SimpleTest::getContext()->getTest();
+    }
+
+    /**
+     *    Die if bad arguments array is passed.
+     *    @param mixed $args     The arguments value to be checked.
+     *    @param string $task    Description of task attempt.
+     *    @return boolean        Valid arguments
+     *    @access private
+     */
+    protected function checkArgumentsIsArray($args, $task) {
+        if (! is_array($args)) {
+            trigger_error(
+                "Cannot $task as \$args parameter is not an array",
+                E_USER_ERROR);
+        }
+    }
+
+    /**
+     *    Triggers a PHP error if the method is not part
+     *    of this object.
+     *    @param string $method        Name of method.
+     *    @param string $task          Description of task attempt.
+     *    @access protected
+     */
+    protected function dieOnNoMethod($method, $task) {
+        if ($this->is_strict && ! method_exists($this, $method)) {
+            trigger_error(
+                    "Cannot $task as no ${method}() in class " . get_class($this),
+                    E_USER_ERROR);
+        }
+    }
+
+    /**
+     *    Replaces wildcard matches with wildcard
+     *    expectations in the argument list.
+     *    @param array $args      Raw argument list.
+     *    @return array           Argument list with
+     *                            expectations.
+     *    @access private
+     */
+    function replaceWildcards($args) {
+        if ($args === false) {
+            return false;
+        }
+        for ($i = 0; $i < count($args); $i++) {
+            if ($args[$i] === $this->wildcard) {
+                $args[$i] = new AnythingExpectation();
+            }
+        }
+        return $args;
+    }
+
+    /**
+     *    Adds one to the call count of a method.
+     *    @param string $method        Method called.
+     *    @param array $args           Arguments as an array.
+     *    @access protected
+     */
+    protected function addCall($method, $args) {
+        if (! isset($this->call_counts[$method])) {
+            $this->call_counts[$method] = 0;
+        }
+        $this->call_counts[$method]++;
+    }
+
+    /**
+     *    Fetches the call count of a method so far.
+     *    @param string $method        Method name called.
+     *    @return integer              Number of calls so far.
+     *    @access public
+     */
+    function getCallCount($method) {
+        $this->dieOnNoMethod($method, "get call count");
+        $method = strtolower($method);
+        if (! isset($this->call_counts[$method])) {
+            return 0;
+        }
+        return $this->call_counts[$method];
+    }
+
+    /**
+     *    Sets a return for a parameter list that will
+     *    be passed on by all calls to this method that match.
+     *    @param string $method       Method name.
+     *    @param mixed $value         Result of call by value/handle.
+     *    @param array $args          List of parameters to match
+     *                                including wildcards.
+     *    @access public
+     */
+    function returns($method, $value, $args = false) {
+        $this->dieOnNoMethod($method, "set return");
+        $this->actions->register($method, $args, new SimpleReturn($value));
+    }
+
+    /**
+     *    Sets a return for a parameter list that will
+     *    be passed only when the required call count
+     *    is reached.
+     *    @param integer $timing   Number of calls in the future
+     *                             to which the result applies. If
+     *                             not set then all calls will return
+     *                             the value.
+     *    @param string $method    Method name.
+     *    @param mixed $value      Result of call passed.
+     *    @param array $args       List of parameters to match
+     *                             including wildcards.
+     *    @access public
+     */
+    function returnsAt($timing, $method, $value, $args = false) {
+        $this->dieOnNoMethod($method, "set return value sequence");
+        $this->actions->registerAt($timing, $method, $args, new SimpleReturn($value));
+    }
+
+    /**
+     *    Sets a return for a parameter list that will
+     *    be passed by value for all calls to this method.
+     *    @param string $method       Method name.
+     *    @param mixed $value         Result of call passed by value.
+     *    @param array $args          List of parameters to match
+     *                                including wildcards.
+     *    @access public
+     */
+    function setReturnValue($method, $value, $args = false) {
+        $this->dieOnNoMethod($method, "set return value");
+        $this->actions->register($method, $args, new SimpleByValue($value));
+    }
+
+    /**
+     *    Sets a return for a parameter list that will
+     *    be passed by value only when the required call count
+     *    is reached.
+     *    @param integer $timing   Number of calls in the future
+     *                             to which the result applies. If
+     *                             not set then all calls will return
+     *                             the value.
+     *    @param string $method    Method name.
+     *    @param mixed $value      Result of call passed by value.
+     *    @param array $args       List of parameters to match
+     *                             including wildcards.
+     *    @access public
+     */
+    function setReturnValueAt($timing, $method, $value, $args = false) {
+        $this->dieOnNoMethod($method, "set return value sequence");
+        $this->actions->registerAt($timing, $method, $args, new SimpleByValue($value));
+    }
+
+    /**
+     *    Sets a return for a parameter list that will
+     *    be passed by reference for all calls.
+     *    @param string $method       Method name.
+     *    @param mixed $reference     Result of the call will be this object.
+     *    @param array $args          List of parameters to match
+     *                                including wildcards.
+     *    @access public
+     */
+    function setReturnReference($method, &$reference, $args = false) {
+        $this->dieOnNoMethod($method, "set return reference");
+        $this->actions->register($method, $args, new SimpleByReference($reference));
+    }
+
+    /**
+     *    Sets a return for a parameter list that will
+     *    be passed by value only when the required call count
+     *    is reached.
+     *    @param integer $timing    Number of calls in the future
+     *                              to which the result applies. If
+     *                              not set then all calls will return
+     *                              the value.
+     *    @param string $method     Method name.
+     *    @param mixed $reference   Result of the call will be this object.
+     *    @param array $args        List of parameters to match
+     *                              including wildcards.
+     *    @access public
+     */
+    function setReturnReferenceAt($timing, $method, &$reference, $args = false) {
+        $this->dieOnNoMethod($method, "set return reference sequence");
+        $this->actions->registerAt($timing, $method, $args, new SimpleByReference($reference));
+    }
+
+    /**
+     *    Sets up an expected call with a set of
+     *    expected parameters in that call. All
+     *    calls will be compared to these expectations
+     *    regardless of when the call is made.
+     *    @param string $method        Method call to test.
+     *    @param array $args           Expected parameters for the call
+     *                                 including wildcards.
+     *    @param string $message       Overridden message.
+     *    @access public
+     */
+    function expect($method, $args, $message = '%s') {
+        $this->dieOnNoMethod($method, 'set expected arguments');
+        $this->checkArgumentsIsArray($args, 'set expected arguments');
+        $this->expectations->expectArguments($method, $args, $message);
+        $args = $this->replaceWildcards($args);
+        $message .= Mock::getExpectationLine();
+        $this->expected_args[strtolower($method)] =
+                new ParametersExpectation($args, $message);
+    }
+
+    /**
+     *    Sets up an expected call with a set of
+     *    expected parameters in that call. The
+     *    expected call count will be adjusted if it
+     *    is set too low to reach this call.
+     *    @param integer $timing    Number of calls in the future at
+     *                              which to test. Next call is 0.
+     *    @param string $method     Method call to test.
+     *    @param array $args        Expected parameters for the call
+     *                              including wildcards.
+     *    @param string $message    Overridden message.
+     *    @access public
+     */
+    function expectAt($timing, $method, $args, $message = '%s') {
+        $this->dieOnNoMethod($method, 'set expected arguments at time');
+        $this->checkArgumentsIsArray($args, 'set expected arguments at time');
+        $args = $this->replaceWildcards($args);
+        if (! isset($this->expected_args_at[$timing])) {
+            $this->expected_args_at[$timing] = array();
+        }
+        $method = strtolower($method);
+        $message .= Mock::getExpectationLine();
+        $this->expected_args_at[$timing][$method] =
+                new ParametersExpectation($args, $message);
+    }
+
+    /**
+     *    Sets an expectation for the number of times
+     *    a method will be called. The tally method
+     *    is used to check this.
+     *    @param string $method        Method call to test.
+     *    @param integer $count        Number of times it should
+     *                                 have been called at tally.
+     *    @param string $message       Overridden message.
+     *    @access public
+     */
+    function expectCallCount($method, $count, $message = '%s') {
+        $this->dieOnNoMethod($method, 'set expected call count');
+        $message .= Mock::getExpectationLine();
+        $this->expected_counts[strtolower($method)] =
+                new CallCountExpectation($method, $count, $message);
+    }
+
+    /**
+     *    Sets the number of times a method may be called
+     *    before a test failure is triggered.
+     *    @param string $method        Method call to test.
+     *    @param integer $count        Most number of times it should
+     *                                 have been called.
+     *    @param string $message       Overridden message.
+     *    @access public
+     */
+    function expectMaximumCallCount($method, $count, $message = '%s') {
+        $this->dieOnNoMethod($method, 'set maximum call count');
+        $message .= Mock::getExpectationLine();
+        $this->max_counts[strtolower($method)] =
+                new MaximumCallCountExpectation($method, $count, $message);
+    }
+
+    /**
+     *    Sets the number of times to call a method to prevent
+     *    a failure on the tally.
+     *    @param string $method      Method call to test.
+     *    @param integer $count      Least number of times it should
+     *                               have been called.
+     *    @param string $message     Overridden message.
+     *    @access public
+     */
+    function expectMinimumCallCount($method, $count, $message = '%s') {
+        $this->dieOnNoMethod($method, 'set minimum call count');
+        $message .= Mock::getExpectationLine();
+        $this->expected_counts[strtolower($method)] =
+                new MinimumCallCountExpectation($method, $count, $message);
+    }
+
+    /**
+     *    Convenience method for barring a method
+     *    call.
+     *    @param string $method        Method call to ban.
+     *    @param string $message       Overridden message.
+     *    @access public
+     */
+    function expectNever($method, $message = '%s') {
+        $this->expectMaximumCallCount($method, 0, $message);
+    }
+
+    /**
+     *    Convenience method for a single method
+     *    call.
+     *    @param string $method     Method call to track.
+     *    @param array $args        Expected argument list or
+     *                              false for any arguments.
+     *    @param string $message    Overridden message.
+     *    @access public
+     */
+    function expectOnce($method, $args = false, $message = '%s') {
+        $this->expectCallCount($method, 1, $message);
+        if ($args !== false) {
+            $this->expect($method, $args, $message);
+        }
+    }
+
+    /**
+     *    Convenience method for requiring a method
+     *    call.
+     *    @param string $method       Method call to track.
+     *    @param array $args          Expected argument list or
+     *                                false for any arguments.
+     *    @param string $message      Overridden message.
+     *    @access public
+     */
+    function expectAtLeastOnce($method, $args = false, $message = '%s') {
+        $this->expectMinimumCallCount($method, 1, $message);
+        if ($args !== false) {
+            $this->expect($method, $args, $message);
+        }
+    }
+    
+    /**
+     *    Sets up a trigger to throw an exception upon the
+     *    method call.
+     *    @param string $method     Method name to throw on.
+     */
+    function throwOn($method, $exception = false, $args = false) {
+        $this->dieOnNoMethod($method, "throw on");
+        $this->actions->register($method, $args,
+                new SimpleThrower($exception ? $exception : new Exception()));
+    }
+    
+    /**
+     *    Sets up a trigger to throw an exception upon the
+     *    method call.
+     */
+    function throwAt($timing, $method, $exception = false, $args = false) {
+        $this->dieOnNoMethod($method, "throw at");
+        $this->actions->registerAt($timing, $method, $args,
+                new SimpleThrower($exception ? $exception : new Exception()));
+    }
+    
+    /**
+     *    Sets up a trigger to throw an error upon the
+     *    method call.
+     */
+    function errorOn($method, $error = 'A mock error', $args = false, $severity = E_USER_ERROR) {
+        $this->dieOnNoMethod($method, "error on");
+        $this->actions->register($method, $args, new SimpleErrorThrower($error, $severity));
+    }
+    
+    /**
+     *    Sets up a trigger to throw an error upon the
+     *    method call.
+     */
+    function errorAt($timing, $method, $error = 'A mock error', $args = false, $severity = E_USER_ERROR) {
+        $this->dieOnNoMethod($method, "error at");
+        $this->actions->registerAt($timing, $method, $args, new SimpleErrorThrower($error, $severity));
+    }
+
+    /**
+     *    Receives event from unit test that the current
+     *    test method has finished. Totals up the call
+     *    counts and triggers a test assertion if a test
+     *    is present for expected call counts.
+     *    @param string $test_method      Current method name.
+     *    @param SimpleTestCase $test     Test to send message to.
+     *    @access public
+     */
+    function atTestEnd($test_method, &$test) {
+        foreach ($this->expected_counts as $method => $expectation) {
+            $test->assert($expectation, $this->getCallCount($method));
+        }
+        foreach ($this->max_counts as $method => $expectation) {
+            if ($expectation->test($this->getCallCount($method))) {
+                $test->assert($expectation, $this->getCallCount($method));
+            }
+        }
+    }
+
+    /**
+     *    Returns the expected value for the method name
+     *    and checks expectations. Will generate any
+     *    test assertions as a result of expectations
+     *    if there is a test present.
+     *    @param string $method       Name of method to simulate.
+     *    @param array $args          Arguments as an array.
+     *    @return mixed               Stored return.
+     *    @access private
+     */
+    function &invoke($method, $args) {
+        $method = strtolower($method);
+        $step = $this->getCallCount($method);
+        $this->addCall($method, $args);
+        $this->checkExpectations($method, $args, $step);
+        $was = $this->disableEStrict();
+        try {
+            $result = &$this->emulateCall($method, $args, $step);
+        } catch (Exception $e) {
+            $this->restoreEStrict($was);
+            throw $e;
+        }
+        $this->restoreEStrict($was);
+        return $result;
+    }
+    
+    /**
+     *    Finds the return value matching the incoming
+     *    arguments. If there is no matching value found
+     *    then an error is triggered.
+     *    @param string $method      Method name.
+     *    @param array $args         Calling arguments.
+     *    @param integer $step       Current position in the
+     *                               call history.
+     *    @return mixed              Stored return or other action.
+     *    @access protected
+     */
+    protected function &emulateCall($method, $args, $step) {
+        return $this->actions->respond($step, $method, $args);
+    }
+
+    /**
+     *    Tests the arguments against expectations.
+     *    @param string $method        Method to check.
+     *    @param array $args           Argument list to match.
+     *    @param integer $timing       The position of this call
+     *                                 in the call history.
+     *    @access private
+     */
+    protected function checkExpectations($method, $args, $timing) {
+        $test = $this->getCurrentTestCase();
+        if (isset($this->max_counts[$method])) {
+            if (! $this->max_counts[$method]->test($timing + 1)) {
+                $test->assert($this->max_counts[$method], $timing + 1);
+            }
+        }
+        if (isset($this->expected_args_at[$timing][$method])) {
+            $test->assert(
+                    $this->expected_args_at[$timing][$method],
+                    $args,
+                    "Mock method [$method] at [$timing] -> %s");
+        } elseif (isset($this->expected_args[$method])) {
+            $test->assert(
+                    $this->expected_args[$method],
+                    $args,
+                    "Mock method [$method] -> %s");
+        }
+    }
+    
+    private function disableEStrict() {
+        $was = error_reporting();
+        error_reporting($was & ~E_STRICT);
+        return $was;
+    }
+    
+    private function restoreEStrict($was) {
+        error_reporting($was);
+    }
+}
+
+/**
+ *    Static methods only service class for code generation of
+ *    mock objects.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class Mock {
+
+    /**
+     *    Factory for mock object classes.
+     *    @access public
+     */
+    function __construct() {
+        trigger_error('Mock factory methods are static.');
+    }
+
+    /**
+     *    Clones a class' interface and creates a mock version
+     *    that can have return values and expectations set.
+     *    @param string $class         Class to clone.
+     *    @param string $mock_class    New class name. Default is
+     *                                 the old name with "Mock"
+     *                                 prepended.
+     *    @param array $methods        Additional methods to add beyond
+     *                                 those in the cloned class. Use this
+     *                                 to emulate the dynamic addition of
+     *                                 methods in the cloned class or when
+     *                                 the class hasn't been written yet.sta
+     *    @access public
+     */
+    static function generate($class, $mock_class = false, $methods = false) {
+        $generator = new MockGenerator($class, $mock_class);
+        return @$generator->generateSubclass($methods);
+    }
+
+    /**
+     *    Generates a version of a class with selected
+     *    methods mocked only. Inherits the old class
+     *    and chains the mock methods of an aggregated
+     *    mock object.
+     *    @param string $class            Class to clone.
+     *    @param string $mock_class       New class name.
+     *    @param array $methods           Methods to be overridden
+     *                                    with mock versions.
+     *    @access public
+     */
+    static function generatePartial($class, $mock_class, $methods) {
+        $generator = new MockGenerator($class, $mock_class);
+        return @$generator->generatePartial($methods);
+    }
+
+    /**
+     *    Uses a stack trace to find the line of an assertion.
+     *    @access public
+     */
+    static function getExpectationLine() {
+        $trace = new SimpleStackTrace(array('expect'));
+        return $trace->traceMethod();
+    }
+}
+
+/**
+ *    Service class for code generation of mock objects.
+ *    @package SimpleTest
+ *    @subpackage MockObjects
+ */
+class MockGenerator {
+    private $class;
+    private $mock_class;
+    private $mock_base;
+    private $reflection;
+
+    /**
+     *    Builds initial reflection object.
+     *    @param string $class        Class to be mocked.
+     *    @param string $mock_class   New class with identical interface,
+     *                                but no behaviour.
+     */
+    function __construct($class, $mock_class) {
+        $this->class = $class;
+        $this->mock_class = $mock_class;
+        if (! $this->mock_class) {
+            $this->mock_class = 'Mock' . $this->class;
+        }
+        $this->mock_base = SimpleTest::getMockBaseClass();
+        $this->reflection = new SimpleReflection($this->class);
+    }
+
+    /**
+     *    Clones a class' interface and creates a mock version
+     *    that can have return values and expectations set.
+     *    @param array $methods        Additional methods to add beyond
+     *                                 those in th cloned class. Use this
+     *                                 to emulate the dynamic addition of
+     *                                 methods in the cloned class or when
+     *                                 the class hasn't been written yet.
+     *    @access public
+     */
+    function generate($methods) {
+        if (! $this->reflection->classOrInterfaceExists()) {
+            return false;
+        }
+        $mock_reflection = new SimpleReflection($this->mock_class);
+        if ($mock_reflection->classExistsSansAutoload()) {
+            return false;
+        }
+        $code = $this->createClassCode($methods ? $methods : array());
+        return eval("$code return \$code;");
+    }
+    
+    /**
+     *    Subclasses a class and overrides every method with a mock one
+     *    that can have return values and expectations set. Chains
+     *    to an aggregated SimpleMock.
+     *    @param array $methods        Additional methods to add beyond
+     *                                 those in the cloned class. Use this
+     *                                 to emulate the dynamic addition of
+     *                                 methods in the cloned class or when
+     *                                 the class hasn't been written yet.
+     *    @access public
+     */
+    function generateSubclass($methods) {
+        if (! $this->reflection->classOrInterfaceExists()) {
+            return false;
+        }
+        $mock_reflection = new SimpleReflection($this->mock_class);
+        if ($mock_reflection->classExistsSansAutoload()) {
+            return false;
+        }
+        if ($this->reflection->isInterface() || $this->reflection->hasFinal()) {
+            $code = $this->createClassCode($methods ? $methods : array());
+            return eval("$code return \$code;");
+        } else {
+            $code = $this->createSubclassCode($methods ? $methods : array());
+            return eval("$code return \$code;");
+        }
+    }
+
+    /**
+     *    Generates a version of a class with selected
+     *    methods mocked only. Inherits the old class
+     *    and chains the mock methods of an aggregated
+     *    mock object.
+     *    @param array $methods           Methods to be overridden
+     *                                    with mock versions.
+     *    @access public
+     */
+    function generatePartial($methods) {
+        if (! $this->reflection->classExists($this->class)) {
+            return false;
+        }
+        $mock_reflection = new SimpleReflection($this->mock_class);
+        if ($mock_reflection->classExistsSansAutoload()) {
+            trigger_error('Partial mock class [' . $this->mock_class . '] already exists');
+            return false;
+        }
+        $code = $this->extendClassCode($methods);
+        return eval("$code return \$code;");
+    }
+
+    /**
+     *    The new mock class code as a string.
+     *    @param array $methods          Additional methods.
+     *    @return string                 Code for new mock class.
+     *    @access private
+     */
+    protected function createClassCode($methods) {
+        $implements = '';
+        $interfaces = $this->reflection->getInterfaces();
+        if (function_exists('spl_classes')) {
+            $interfaces = array_diff($interfaces, array('Traversable'));
+        }
+        if (count($interfaces) > 0) {
+            $implements = 'implements ' . implode(', ', $interfaces);
+        }
+        $code = "class " . $this->mock_class . " extends " . $this->mock_base . " $implements {\n";
+        $code .= "    function " . $this->mock_class . "() {\n";
+        $code .= "        \$this->" . $this->mock_base . "();\n";
+        $code .= "    }\n";
+        if (in_array('__construct', $this->reflection->getMethods())) {
+            $code .= "    function __construct() {\n";
+            $code .= "        \$this->" . $this->mock_base . "();\n";
+            $code .= "    }\n";
+        }
+        $code .= $this->createHandlerCode($methods);
+        $code .= "}\n";
+        return $code;
+    }
+
+    /**
+     *    The new mock class code as a string. The mock will
+     *    be a subclass of the original mocked class.
+     *    @param array $methods          Additional methods.
+     *    @return string                 Code for new mock class.
+     *    @access private
+     */
+    protected function createSubclassCode($methods) {
+        $code  = "class " . $this->mock_class . " extends " . $this->class . " {\n";
+        $code .= "    public \$mock;\n";
+        $code .= $this->addMethodList(array_merge($methods, $this->reflection->getMethods()));
+        $code .= "\n";
+        $code .= "    function " . $this->mock_class . "() {\n";
+        $code .= "        \$this->mock = new " . $this->mock_base . "();\n";
+        $code .= "        \$this->mock->disableExpectationNameChecks();\n";
+        $code .= "    }\n";
+        $code .= $this->chainMockReturns();
+        $code .= $this->chainMockExpectations();
+        $code .= $this->chainThrowMethods();
+        $code .= $this->overrideMethods($this->reflection->getMethods());
+        $code .= $this->createNewMethodCode($methods);
+        $code .= "}\n";
+        return $code;
+    }
+
+    /**
+     *    The extension class code as a string. The class
+     *    composites a mock object and chains mocked methods
+     *    to it.
+     *    @param array  $methods       Mocked methods.
+     *    @return string               Code for a new class.
+     *    @access private
+     */
+    protected function extendClassCode($methods) {
+        $code  = "class " . $this->mock_class . " extends " . $this->class . " {\n";
+        $code .= "    protected \$mock;\n";
+        $code .= $this->addMethodList($methods);
+        $code .= "\n";
+        $code .= "    function " . $this->mock_class . "() {\n";
+        $code .= "        \$this->mock = new " . $this->mock_base . "();\n";
+        $code .= "        \$this->mock->disableExpectationNameChecks();\n";
+        $code .= "    }\n";
+        $code .= $this->chainMockReturns();
+        $code .= $this->chainMockExpectations();
+        $code .= $this->chainThrowMethods();
+        $code .= $this->overrideMethods($methods);
+        $code .= "}\n";
+        return $code;
+    }
+
+    /**
+     *    Creates code within a class to generate replaced
+     *    methods. All methods call the invoke() handler
+     *    with the method name and the arguments in an
+     *    array.
+     *    @param array $methods    Additional methods.
+     *    @access private
+     */
+    protected function createHandlerCode($methods) {
+        $code = '';
+        $methods = array_merge($methods, $this->reflection->getMethods());
+        foreach ($methods as $method) {
+            if ($this->isConstructor($method)) {
+                continue;
+            }
+            $mock_reflection = new SimpleReflection($this->mock_base);
+            if (in_array($method, $mock_reflection->getMethods())) {
+                continue;
+            }
+            $code .= "    " . $this->reflection->getSignature($method) . " {\n";
+            $code .= "        \$args = func_get_args();\n";
+            $code .= "        \$result = &\$this->invoke(\"$method\", \$args);\n";
+            $code .= "        return \$result;\n";
+            $code .= "    }\n";
+        }
+        return $code;
+    }
+
+    /**
+     *    Creates code within a class to generate a new
+     *    methods. All methods call the invoke() handler
+     *    on the internal mock with the method name and
+     *    the arguments in an array.
+     *    @param array $methods    Additional methods.
+     *    @access private
+     */
+    protected function createNewMethodCode($methods) {
+        $code = '';
+        foreach ($methods as $method) {
+            if ($this->isConstructor($method)) {
+                continue;
+            }
+            $mock_reflection = new SimpleReflection($this->mock_base);
+            if (in_array($method, $mock_reflection->getMethods())) {
+                continue;
+            }
+            $code .= "    " . $this->reflection->getSignature($method) . " {\n";
+            $code .= "        \$args = func_get_args();\n";
+            $code .= "        \$result = &\$this->mock->invoke(\"$method\", \$args);\n";
+            $code .= "        return \$result;\n";
+            $code .= "    }\n";
+        }
+        return $code;
+    }
+
+    /**
+     *    Tests to see if a special PHP method is about to
+     *    be stubbed by mistake.
+     *    @param string $method    Method name.
+     *    @return boolean          True if special.
+     *    @access private
+     */
+    protected function isConstructor($method) {
+        return in_array(
+                strtolower($method),
+                array('__construct', '__destruct'));
+    }
+
+    /**
+     *    Creates a list of mocked methods for error checking.
+     *    @param array $methods       Mocked methods.
+     *    @return string              Code for a method list.
+     *    @access private
+     */
+    protected function addMethodList($methods) {
+        return "    protected \$mocked_methods = array('" .
+                implode("', '", array_map('strtolower', $methods)) .
+                "');\n";
+    }
+
+    /**
+     *    Creates code to abandon the expectation if not mocked.
+     *    @param string $alias       Parameter name of method name.
+     *    @return string             Code for bail out.
+     *    @access private
+     */
+    protected function bailOutIfNotMocked($alias) {
+        $code  = "        if (! in_array(strtolower($alias), \$this->mocked_methods)) {\n";
+        $code .= "            trigger_error(\"Method [$alias] is not mocked\");\n";
+        $code .= "            \$null = null;\n";
+        $code .= "            return \$null;\n";
+        $code .= "        }\n";
+        return $code;
+    }
+
+    /**
+     *    Creates source code for chaining to the composited
+     *    mock object.
+     *    @return string           Code for mock set up.
+     *    @access private
+     */
+    protected function chainMockReturns() {
+        $code  = "    function returns(\$method, \$value, \$args = false) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->returns(\$method, \$value, \$args);\n";
+        $code .= "    }\n";
+        $code .= "    function returnsAt(\$timing, \$method, \$value, \$args = false) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->returnsAt(\$timing, \$method, \$value, \$args);\n";
+        $code .= "    }\n";
+        $code .= "    function setReturnValue(\$method, \$value, \$args = false) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->setReturnValue(\$method, \$value, \$args);\n";
+        $code .= "    }\n";
+        $code .= "    function setReturnValueAt(\$timing, \$method, \$value, \$args = false) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->setReturnValueAt(\$timing, \$method, \$value, \$args);\n";
+        $code .= "    }\n";
+        $code .= "    function setReturnReference(\$method, &\$ref, \$args = false) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->setReturnReference(\$method, \$ref, \$args);\n";
+        $code .= "    }\n";
+        $code .= "    function setReturnReferenceAt(\$timing, \$method, &\$ref, \$args = false) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->setReturnReferenceAt(\$timing, \$method, \$ref, \$args);\n";
+        $code .= "    }\n";
+        return $code;
+    }
+
+    /**
+     *    Creates source code for chaining to an aggregated
+     *    mock object.
+     *    @return string                 Code for expectations.
+     *    @access private
+     */
+    protected function chainMockExpectations() {
+        $code  = "    function expect(\$method, \$args = false, \$msg = '%s') {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->expect(\$method, \$args, \$msg);\n";
+        $code .= "    }\n";
+        $code .= "    function expectAt(\$timing, \$method, \$args = false, \$msg = '%s') {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->expectAt(\$timing, \$method, \$args, \$msg);\n";
+        $code .= "    }\n";
+        $code .= "    function expectCallCount(\$method, \$count) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->expectCallCount(\$method, \$count, \$msg = '%s');\n";
+        $code .= "    }\n";
+        $code .= "    function expectMaximumCallCount(\$method, \$count, \$msg = '%s') {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->expectMaximumCallCount(\$method, \$count, \$msg = '%s');\n";
+        $code .= "    }\n";
+        $code .= "    function expectMinimumCallCount(\$method, \$count, \$msg = '%s') {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->expectMinimumCallCount(\$method, \$count, \$msg = '%s');\n";
+        $code .= "    }\n";
+        $code .= "    function expectNever(\$method) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->expectNever(\$method);\n";
+        $code .= "    }\n";
+        $code .= "    function expectOnce(\$method, \$args = false, \$msg = '%s') {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->expectOnce(\$method, \$args, \$msg);\n";
+        $code .= "    }\n";
+        $code .= "    function expectAtLeastOnce(\$method, \$args = false, \$msg = '%s') {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->expectAtLeastOnce(\$method, \$args, \$msg);\n";
+        $code .= "    }\n";
+        return $code;
+    }
+    
+    /**
+     *    Adds code for chaining the throw methods.
+     *    @return string           Code for chains.
+     *    @access private
+     */
+    protected function chainThrowMethods() {
+        $code  = "    function throwOn(\$method, \$exception = false, \$args = false) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->throwOn(\$method, \$exception, \$args);\n";
+        $code .= "    }\n";
+        $code .= "    function throwAt(\$timing, \$method, \$exception = false, \$args = false) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->throwAt(\$timing, \$method, \$exception, \$args);\n";
+        $code .= "    }\n";
+        $code .= "    function errorOn(\$method, \$error = 'A mock error', \$args = false, \$severity = E_USER_ERROR) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->errorOn(\$method, \$error, \$args, \$severity);\n";
+        $code .= "    }\n";
+        $code .= "    function errorAt(\$timing, \$method, \$error = 'A mock error', \$args = false, \$severity = E_USER_ERROR) {\n";
+        $code .= $this->bailOutIfNotMocked("\$method");
+        $code .= "        \$this->mock->errorAt(\$timing, \$method, \$error, \$args, \$severity);\n";
+        $code .= "    }\n";
+        return $code;
+    }
+
+    /**
+     *    Creates source code to override a list of methods
+     *    with mock versions.
+     *    @param array $methods    Methods to be overridden
+     *                             with mock versions.
+     *    @return string           Code for overridden chains.
+     *    @access private
+     */
+    protected function overrideMethods($methods) {
+        $code = "";
+        foreach ($methods as $method) {
+            if ($this->isConstructor($method)) {
+                continue;
+            }
+            $code .= "    " . $this->reflection->getSignature($method) . " {\n";
+            $code .= "        \$args = func_get_args();\n";
+            $code .= "        \$result = &\$this->mock->invoke(\"$method\", \$args);\n";
+            $code .= "        return \$result;\n";
+            $code .= "    }\n";
+        }
+        return $code;
+    }
+}
 ?>
-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
-DA0qkdBh

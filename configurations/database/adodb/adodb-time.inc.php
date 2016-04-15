@@ -1,525 +1,1312 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ADOdb Date Library, part of the ADOdb abstraction library
+Download: http://phplens.com/phpeverywhere/
+
+PHP native date functions use integer timestamps for computations.
+Because of this, dates are restricted to the years 1901-2038 on Unix 
+and 1970-2038 on Windows due to integer overflow for dates beyond 
+those years. This library overcomes these limitations by replacing the 
+native function's signed integers (normally 32-bits) with PHP floating 
+point numbers (normally 64-bits).
+
+Dates from 100 A.D. to 3000 A.D. and later
+have been tested. The minimum is 100 A.D. as <100 will invoke the
+2 => 4 digit year conversion. The maximum is billions of years in the 
+future, but this is a theoretical limit as the computation of that year 
+would take too long with the current implementation of adodb_mktime().
+
+This library replaces native functions as follows:
+
+<pre>	
+	getdate()  with  adodb_getdate()
+	date()     with  adodb_date() 
+	gmdate()   with  adodb_gmdate()
+	mktime()   with  adodb_mktime()
+	gmmktime() with  adodb_gmmktime()
+	strftime() with  adodb_strftime()
+	strftime() with  adodb_gmstrftime()
+</pre>
+	
+The parameters are identical, except that adodb_date() accepts a subset
+of date()'s field formats. Mktime() will convert from local time to GMT, 
+and date() will convert from GMT to local time, but daylight savings is 
+not handled currently.
+
+This library is independant of the rest of ADOdb, and can be used
+as standalone code.
+
+PERFORMANCE
+
+For high speed, this library uses the native date functions where
+possible, and only switches to PHP code when the dates fall outside 
+the 32-bit signed integer range.
+
+GREGORIAN CORRECTION
+
+Pope Gregory shortened October of A.D. 1582 by ten days. Thursday, 
+October 4, 1582 (Julian) was followed immediately by Friday, October 15, 
+1582 (Gregorian). 
+
+Since 0.06, we handle this correctly, so:
+
+adodb_mktime(0,0,0,10,15,1582) - adodb_mktime(0,0,0,10,4,1582) 
+	== 24 * 3600 (1 day)
+
+=============================================================================
+
+COPYRIGHT
+
+(c) 2003-2005 John Lim and released under BSD-style license except for code by 
+jackbbs, which includes adodb_mktime, adodb_get_gmt_diff, adodb_is_leap_year
+and originally found at http://www.php.net/manual/en/function.mktime.php
+
+=============================================================================
+
+BUG REPORTS
+
+These should be posted to the ADOdb forums at
+
+	http://phplens.com/lens/lensforum/topics.php?id=4
+
+=============================================================================
+
+FUNCTION DESCRIPTIONS
+
+
+** FUNCTION adodb_getdate($date=false)
+
+Returns an array containing date information, as getdate(), but supports
+dates greater than 1901 to 2038. The local date/time format is derived from a 
+heuristic the first time adodb_getdate is called. 
+	 
+	 
+** FUNCTION adodb_date($fmt, $timestamp = false)
+
+Convert a timestamp to a formatted local date. If $timestamp is not defined, the
+current timestamp is used. Unlike the function date(), it supports dates
+outside the 1901 to 2038 range.
+
+The format fields that adodb_date supports:
+
+<pre>
+	a - "am" or "pm" 
+	A - "AM" or "PM" 
+	d - day of the month, 2 digits with leading zeros; i.e. "01" to "31" 
+	D - day of the week, textual, 3 letters; e.g. "Fri" 
+	F - month, textual, long; e.g. "January" 
+	g - hour, 12-hour format without leading zeros; i.e. "1" to "12" 
+	G - hour, 24-hour format without leading zeros; i.e. "0" to "23" 
+	h - hour, 12-hour format; i.e. "01" to "12" 
+	H - hour, 24-hour format; i.e. "00" to "23" 
+	i - minutes; i.e. "00" to "59" 
+	j - day of the month without leading zeros; i.e. "1" to "31" 
+	l (lowercase 'L') - day of the week, textual, long; e.g. "Friday"  
+	L - boolean for whether it is a leap year; i.e. "0" or "1" 
+	m - month; i.e. "01" to "12" 
+	M - month, textual, 3 letters; e.g. "Jan" 
+	n - month without leading zeros; i.e. "1" to "12" 
+	O - Difference to Greenwich time in hours; e.g. "+0200" 
+	Q - Quarter, as in 1, 2, 3, 4 
+	r - RFC 822 formatted date; e.g. "Thu, 21 Dec 2000 16:01:07 +0200" 
+	s - seconds; i.e. "00" to "59" 
+	S - English ordinal suffix for the day of the month, 2 characters; 
+	   			i.e. "st", "nd", "rd" or "th" 
+	t - number of days in the given month; i.e. "28" to "31"
+	T - Timezone setting of this machine; e.g. "EST" or "MDT" 
+	U - seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)  
+	w - day of the week, numeric, i.e. "0" (Sunday) to "6" (Saturday) 
+	Y - year, 4 digits; e.g. "1999" 
+	y - year, 2 digits; e.g. "99" 
+	z - day of the year; i.e. "0" to "365" 
+	Z - timezone offset in seconds (i.e. "-43200" to "43200"). 
+	   			The offset for timezones west of UTC is always negative, 
+				and for those east of UTC is always positive. 
+</pre>
+
+Unsupported:
+<pre>
+	B - Swatch Internet time 
+	I (capital i) - "1" if Daylight Savings Time, "0" otherwise.
+	W - ISO-8601 week number of year, weeks starting on Monday 
+
+</pre>
+
+
+** FUNCTION adodb_date2($fmt, $isoDateString = false)
+Same as adodb_date, but 2nd parameter accepts iso date, eg.
+
+  adodb_date2('d-M-Y H:i','2003-12-25 13:01:34');
+
+  
+** FUNCTION adodb_gmdate($fmt, $timestamp = false)
+
+Convert a timestamp to a formatted GMT date. If $timestamp is not defined, the
+current timestamp is used. Unlike the function date(), it supports dates
+outside the 1901 to 2038 range.
+
+
+** FUNCTION adodb_mktime($hr, $min, $sec[, $month, $day, $year])
+
+Converts a local date to a unix timestamp.  Unlike the function mktime(), it supports
+dates outside the 1901 to 2038 range. All parameters are optional.
+
+
+** FUNCTION adodb_gmmktime($hr, $min, $sec [, $month, $day, $year])
+
+Converts a gmt date to a unix timestamp.  Unlike the function gmmktime(), it supports
+dates outside the 1901 to 2038 range. Differs from gmmktime() in that all parameters
+are currently compulsory.
+
+** FUNCTION adodb_gmstrftime($fmt, $timestamp = false)
+Convert a timestamp to a formatted GMT date.
+
+** FUNCTION adodb_strftime($fmt, $timestamp = false)
+
+Convert a timestamp to a formatted local date. Internally converts $fmt into 
+adodb_date format, then echo result.
+
+For best results, you can define the local date format yourself. Define a global
+variable $ADODB_DATE_LOCALE which is an array, 1st element is date format using
+adodb_date syntax, and 2nd element is the time format, also in adodb_date syntax.
+
+    eg. $ADODB_DATE_LOCALE = array('d/m/Y','H:i:s');
+	
+	Supported format codes:
+
+<pre>
+	%a - abbreviated weekday name according to the current locale 
+	%A - full weekday name according to the current locale 
+	%b - abbreviated month name according to the current locale 
+	%B - full month name according to the current locale 
+	%c - preferred date and time representation for the current locale 
+	%d - day of the month as a decimal number (range 01 to 31) 
+	%D - same as %m/%d/%y 
+	%e - day of the month as a decimal number, a single digit is preceded by a space (range ' 1' to '31') 
+	%h - same as %b
+	%H - hour as a decimal number using a 24-hour clock (range 00 to 23) 
+	%I - hour as a decimal number using a 12-hour clock (range 01 to 12) 
+	%m - month as a decimal number (range 01 to 12) 
+	%M - minute as a decimal number 
+	%n - newline character 
+	%p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale 
+	%r - time in a.m. and p.m. notation 
+	%R - time in 24 hour notation 
+	%S - second as a decimal number 
+	%t - tab character 
+	%T - current time, equal to %H:%M:%S 
+	%x - preferred date representation for the current locale without the time 
+	%X - preferred time representation for the current locale without the date 
+	%y - year as a decimal number without a century (range 00 to 99) 
+	%Y - year as a decimal number including the century 
+	%Z - time zone or name or abbreviation 
+	%% - a literal `%' character 
+</pre>	
+
+	Unsupported codes:
+<pre>
+	%C - century number (the year divided by 100 and truncated to an integer, range 00 to 99) 
+	%g - like %G, but without the century. 
+	%G - The 4-digit year corresponding to the ISO week number (see %V). 
+	     This has the same format and value as %Y, except that if the ISO week number belongs 
+		 to the previous or next year, that year is used instead. 
+	%j - day of the year as a decimal number (range 001 to 366) 
+	%u - weekday as a decimal number [1,7], with 1 representing Monday 
+	%U - week number of the current year as a decimal number, starting 
+	    with the first Sunday as the first day of the first week 
+	%V - The ISO 8601:1988 week number of the current year as a decimal number, 
+	     range 01 to 53, where week 1 is the first week that has at least 4 days in the 
+		 current year, and with Monday as the first day of the week. (Use %G or %g for 
+		 the year component that corresponds to the week number for the specified timestamp.) 
+	%w - day of the week as a decimal, Sunday being 0 
+	%W - week number of the current year as a decimal number, starting with the 
+	     first Monday as the first day of the first week 
+</pre>
+
+=============================================================================
+
+NOTES
+
+Useful url for generating test timestamps:
+	http://www.4webhelp.net/us/timestamp.php
+
+Possible future optimizations include 
+
+a. Using an algorithm similar to Plauger's in "The Standard C Library" 
+(page 428, xttotm.c _Ttotm() function). Plauger's algorithm will not 
+work outside 32-bit signed range, so i decided not to implement it.
+
+b. Implement daylight savings, which looks awfully complicated, see
+	http://webexhibits.org/daylightsaving/
+
+
+CHANGELOG
+- 08 Sept 2005 0.22
+In adodb_date2(), $is_gmt not supported properly. Fixed.
+
+- 18 July  2005 0.21
+In PHP 4.3.11, the 'r' format has changed. Leading 0 in day is added. Changed for compat.
+Added support for negative months in adodb_mktime().
+
+- 24 Feb 2005 0.20
+Added limited strftime/gmstrftime support. x10 improvement in performance of adodb_date().
+
+- 21 Dec 2004 0.17
+In adodb_getdate(), the timestamp was accidentally converted to gmt when $is_gmt is false. 
+Also adodb_mktime(0,0,0) did not work properly. Both fixed thx Mauro.
+
+- 17 Nov 2004 0.16
+Removed intval typecast in adodb_mktime() for secs, allowing:
+	 adodb_mktime(0,0,0 + 2236672153,1,1,1934);
+Suggested by Ryan.
+
+- 18 July 2004 0.15
+All params in adodb_mktime were formerly compulsory. Now only the hour, min, secs is compulsory. 
+This brings it more in line with mktime (still not identical).
+
+- 23 June 2004 0.14
+
+Allow you to define your own daylights savings function, adodb_daylight_sv.
+If the function is defined (somewhere in an include), then you can correct for daylights savings.
+
+In this example, we apply daylights savings in June or July, adding one hour. This is extremely
+unrealistic as it does not take into account time-zone, geographic location, current year.
+
+function adodb_daylight_sv(&$arr, $is_gmt)
+{
+	if ($is_gmt) return;
+	$m = $arr['mon'];
+	if ($m == 6 || $m == 7) $arr['hours'] += 1;
+}
+
+This is only called by adodb_date() and not by adodb_mktime(). 
+
+The format of $arr is
+Array ( 
+   [seconds] => 0 
+   [minutes] => 0 
+   [hours] => 0 
+   [mday] => 1      # day of month, eg 1st day of the month
+   [mon] => 2       # month (eg. Feb)
+   [year] => 2102 
+   [yday] => 31     # days in current year
+   [leap] =>        # true if leap year
+   [ndays] => 28    # no of days in current month
+   ) 
+   
+
+- 28 Apr 2004 0.13
+Fixed adodb_date to properly support $is_gmt. Thx to Dimitar Angelov.
+
+- 20 Mar 2004 0.12
+Fixed month calculation error in adodb_date. 2102-June-01 appeared as 2102-May-32.
+
+- 26 Oct 2003 0.11
+Because of daylight savings problems (some systems apply daylight savings to 
+January!!!), changed adodb_get_gmt_diff() to ignore daylight savings.
+
+- 9 Aug 2003 0.10
+Fixed bug with dates after 2038. 
+See http://phplens.com/lens/lensforum/msgs.php?id=6980
+
+- 1 July 2003 0.09
+Added support for Q (Quarter).
+Added adodb_date2(), which accepts ISO date in 2nd param
+
+- 3 March 2003 0.08
+Added support for 'S' adodb_date() format char. Added constant ADODB_ALLOW_NEGATIVE_TS
+if you want PHP to handle negative timestamps between 1901 to 1969.
+
+- 27 Feb 2003 0.07
+All negative numbers handled by adodb now because of RH 7.3+ problems.
+See http://bugs.php.net/bug.php?id=20048&edit=2
+
+- 4 Feb 2003 0.06
+Fixed a typo, 1852 changed to 1582! This means that pre-1852 dates
+are now correctly handled.
+
+- 29 Jan 2003 0.05
+
+Leap year checking differs under Julian calendar (pre 1582). Also
+leap year code optimized by checking for most common case first.
+
+We also handle month overflow correctly in mktime (eg month set to 13).
+
+Day overflow for less than one month's days is supported.
+
+- 28 Jan 2003 0.04
+
+Gregorian correction handled. In PHP5, we might throw an error if 
+mktime uses invalid dates around 5-14 Oct 1582. Released with ADOdb 3.10.
+Added limbo 5-14 Oct 1582 check, when we set to 15 Oct 1582.
+
+- 27 Jan 2003 0.03
+
+Fixed some more month problems due to gmt issues. Added constant ADODB_DATE_VERSION.
+Fixed calculation of days since start of year for <1970. 
+
+- 27 Jan 2003 0.02
+
+Changed _adodb_getdate() to inline leap year checking for better performance.
+Fixed problem with time-zones west of GMT +0000.
+
+- 24 Jan 2003 0.01
+
+First implementation.
+*/
+
+
+/* Initialization */
+
+/*
+	Version Number
+*/
+define('ADODB_DATE_VERSION',0.22);
+
+/*
+	This code was originally for windows. But apparently this problem happens 
+	also with Linux, RH 7.3 and later!
+	
+	glibc-2.2.5-34 and greater has been changed to return -1 for dates <
+	1970.  This used to work.  The problem exists with RedHat 7.3 and 8.0
+	echo (mktime(0, 0, 0, 1, 1, 1960));  // prints -1
+	
+	References:
+	 http://bugs.php.net/bug.php?id=20048&edit=2
+	 http://lists.debian.org/debian-glibc/2002/debian-glibc-200205/msg00010.html
+*/
+
+if (!defined('ADODB_ALLOW_NEGATIVE_TS')) define('ADODB_NO_NEGATIVE_TS',1);
+
+function adodb_date_test_date($y1,$m,$d=13)
+{
+	$t = adodb_mktime(0,0,0,$m,$d,$y1);
+	$rez = adodb_date('Y-n-j H:i:s',$t);
+	if ("$y1-$m-$d 00:00:00" != $rez) {
+		print "<b>$y1 error, expected=$y1-$m-$d 00:00:00, adodb=$rez</b><br>";
+		return false;
+	}
+	return true;
+}
+
+function adodb_date_test_strftime($fmt)
+{
+	$s1 = strftime($fmt);
+	$s2 = adodb_strftime($fmt);
+	
+	if ($s1 == $s2) return true;
+	
+	echo "error for $fmt,  strftime=$s1, $adodb=$s2<br>";
+	return false;
+}
+
+/**
+	 Test Suite
+*/
+function adodb_date_test()
+{
+	
+	error_reporting(E_ALL);
+	print "<h4>Testing adodb_date and adodb_mktime. version=".ADODB_DATE_VERSION.' PHP='.PHP_VERSION."</h4>";
+	@set_time_limit(0);
+	$fail = false;
+	
+	// This flag disables calling of PHP native functions, so we can properly test the code
+	if (!defined('ADODB_TEST_DATES')) define('ADODB_TEST_DATES',1);
+	
+	adodb_date_test_strftime('%Y %m %x %X');
+	adodb_date_test_strftime("%A %d %B %Y");
+	adodb_date_test_strftime("%H %M S");
+	
+	$t = adodb_mktime(0,0,0);
+	if (!(adodb_date('Y-m-d') == date('Y-m-d'))) print 'Error in '.adodb_mktime(0,0,0).'<br>';
+	
+	$t = adodb_mktime(0,0,0,6,1,2102);
+	if (!(adodb_date('Y-m-d',$t) == '2102-06-01')) print 'Error in '.adodb_date('Y-m-d',$t).'<br>';
+	
+	$t = adodb_mktime(0,0,0,2,1,2102);
+	if (!(adodb_date('Y-m-d',$t) == '2102-02-01')) print 'Error in '.adodb_date('Y-m-d',$t).'<br>';
+	
+	
+	print "<p>Testing gregorian <=> julian conversion<p>";
+	$t = adodb_mktime(0,0,0,10,11,1492);
+	//http://www.holidayorigins.com/html/columbus_day.html - Friday check
+	if (!(adodb_date('D Y-m-d',$t) == 'Fri 1492-10-11')) print 'Error in Columbus landing<br>';
+	
+	$t = adodb_mktime(0,0,0,2,29,1500);
+	if (!(adodb_date('Y-m-d',$t) == '1500-02-29')) print 'Error in julian leap years<br>';
+	
+	$t = adodb_mktime(0,0,0,2,29,1700);
+	if (!(adodb_date('Y-m-d',$t) == '1700-03-01')) print 'Error in gregorian leap years<br>';
+	
+	print  adodb_mktime(0,0,0,10,4,1582).' ';
+	print adodb_mktime(0,0,0,10,15,1582);
+	$diff = (adodb_mktime(0,0,0,10,15,1582) - adodb_mktime(0,0,0,10,4,1582));
+	if ($diff != 3600*24) print " <b>Error in gregorian correction = ".($diff/3600/24)." days </b><br>";
+		
+	print " 15 Oct 1582, Fri=".(adodb_dow(1582,10,15) == 5 ? 'Fri' : '<b>Error</b>')."<br>";
+	print " 4 Oct 1582, Thu=".(adodb_dow(1582,10,4) == 4 ? 'Thu' : '<b>Error</b>')."<br>";
+	
+	print "<p>Testing overflow<p>";
+	
+	$t = adodb_mktime(0,0,0,3,33,1965);
+	if (!(adodb_date('Y-m-d',$t) == '1965-04-02')) print 'Error in day overflow 1 <br>';
+	$t = adodb_mktime(0,0,0,4,33,1971);
+	if (!(adodb_date('Y-m-d',$t) == '1971-05-03')) print 'Error in day overflow 2 <br>';
+	$t = adodb_mktime(0,0,0,1,60,1965);
+	if (!(adodb_date('Y-m-d',$t) == '1965-03-01')) print 'Error in day overflow 3 '.adodb_date('Y-m-d',$t).' <br>';
+	$t = adodb_mktime(0,0,0,12,32,1965);
+	if (!(adodb_date('Y-m-d',$t) == '1966-01-01')) print 'Error in day overflow 4 '.adodb_date('Y-m-d',$t).' <br>';
+	$t = adodb_mktime(0,0,0,12,63,1965);
+	if (!(adodb_date('Y-m-d',$t) == '1966-02-01')) print 'Error in day overflow 5 '.adodb_date('Y-m-d',$t).' <br>';
+	$t = adodb_mktime(0,0,0,13,3,1965);
+	if (!(adodb_date('Y-m-d',$t) == '1966-01-03')) print 'Error in mth overflow 1 <br>';
+	
+	print "Testing 2-digit => 4-digit year conversion<p>";
+	if (adodb_year_digit_check(00) != 2000) print "Err 2-digit 2000<br>";
+	if (adodb_year_digit_check(10) != 2010) print "Err 2-digit 2010<br>";
+	if (adodb_year_digit_check(20) != 2020) print "Err 2-digit 2020<br>";
+	if (adodb_year_digit_check(30) != 2030) print "Err 2-digit 2030<br>";
+	if (adodb_year_digit_check(40) != 1940) print "Err 2-digit 1940<br>";
+	if (adodb_year_digit_check(50) != 1950) print "Err 2-digit 1950<br>";
+	if (adodb_year_digit_check(90) != 1990) print "Err 2-digit 1990<br>";
+	
+	// Test string formating
+	print "<p>Testing date formating</p>";
+	$fmt = '\d\a\t\e T Y-m-d H:i:s a A d D F g G h H i j l L m M n O \R\F\C822 r s t U w y Y z Z 2003';
+	$s1 = date($fmt,0);
+	$s2 = adodb_date($fmt,0);
+	if ($s1 != $s2) {
+		print " date() 0 failed<br>$s1<br>$s2<br>";
+	}
+	flush();
+	for ($i=100; --$i > 0; ) {
+
+		$ts = 3600.0*((rand()%60000)+(rand()%60000))+(rand()%60000);
+		$s1 = date($fmt,$ts);
+		$s2 = adodb_date($fmt,$ts);
+		//print "$s1 <br>$s2 <p>";
+		$pos = strcmp($s1,$s2);
+
+		if (($s1) != ($s2)) {
+			for ($j=0,$k=strlen($s1); $j < $k; $j++) {
+				if ($s1[$j] != $s2[$j]) {
+					print substr($s1,$j).' ';
+					break;
+				}
+			}
+			print "<b>Error date(): $ts<br><pre> 
+&nbsp; \"$s1\" (date len=".strlen($s1).")
+&nbsp; \"$s2\" (adodb_date len=".strlen($s2).")</b></pre><br>";
+			$fail = true;
+		}
+		
+		$a1 = getdate($ts);
+		$a2 = adodb_getdate($ts);
+		$rez = array_diff($a1,$a2);
+		if (sizeof($rez)>0) {
+			print "<b>Error getdate() $ts</b><br>";
+				print_r($a1);
+			print "<br>";
+				print_r($a2);
+			print "<p>";
+			$fail = true;
+		}
+	}
+	
+	// Test generation of dates outside 1901-2038
+	print "<p>Testing random dates between 100 and 4000</p>";
+	adodb_date_test_date(100,1);
+	for ($i=100; --$i >= 0;) {
+		$y1 = 100+rand(0,1970-100);
+		$m = rand(1,12);
+		adodb_date_test_date($y1,$m);
+		
+		$y1 = 3000-rand(0,3000-1970);
+		adodb_date_test_date($y1,$m);
+	}
+	print '<p>';
+	$start = 1960+rand(0,10);
+	$yrs = 12;
+	$i = 365.25*86400*($start-1970);
+	$offset = 36000+rand(10000,60000);
+	$max = 365*$yrs*86400;
+	$lastyear = 0;
+	
+	// we generate a timestamp, convert it to a date, and convert it back to a timestamp
+	// and check if the roundtrip broke the original timestamp value.
+	print "Testing $start to ".($start+$yrs).", or $max seconds, offset=$offset: ";
+	$cnt = 0;
+	for ($max += $i; $i < $max; $i += $offset) {
+		$ret = adodb_date('m,d,Y,H,i,s',$i);
+		$arr = explode(',',$ret);
+		if ($lastyear != $arr[2]) {
+			$lastyear = $arr[2];
+			print " $lastyear ";
+			flush();
+		}
+		$newi = adodb_mktime($arr[3],$arr[4],$arr[5],$arr[0],$arr[1],$arr[2]);
+		if ($i != $newi) {
+			print "Error at $i, adodb_mktime returned $newi ($ret)";
+			$fail = true;
+			break;
+		}
+		$cnt += 1;
+	}
+	echo "Tested $cnt dates<br>";
+	if (!$fail) print "<p>Passed !</p>";
+	else print "<p><b>Failed</b> :-(</p>";
+}
+
+/**
+	Returns day of week, 0 = Sunday,... 6=Saturday. 
+	Algorithm from PEAR::Date_Calc
+*/
+function adodb_dow($year, $month, $day)
+{
+/*
+Pope Gregory removed 10 days - October 5 to October 14 - from the year 1582 and 
+proclaimed that from that time onwards 3 days would be dropped from the calendar 
+every 400 years.
+
+Thursday, October 4, 1582 (Julian) was followed immediately by Friday, October 15, 1582 (Gregorian). 
+*/
+	if ($year <= 1582) {
+		if ($year < 1582 || 
+			($year == 1582 && ($month < 10 || ($month == 10 && $day < 15)))) $greg_correction = 3;
+		 else
+			$greg_correction = 0;
+	} else
+		$greg_correction = 0;
+	
+	if($month > 2)
+	    $month -= 2;
+	else {
+	    $month += 10;
+	    $year--;
+	}
+	
+	$day =  floor((13 * $month - 1) / 5) +
+	        $day + ($year % 100) +
+	        floor(($year % 100) / 4) +
+	        floor(($year / 100) / 4) - 2 *
+	        floor($year / 100) + 77 + $greg_correction;
+	
+	return $day - 7 * floor($day / 7);
+}
+
+
+/**
+ Checks for leap year, returns true if it is. No 2-digit year check. Also 
+ handles julian calendar correctly.
+*/
+function _adodb_is_leap_year($year) 
+{
+	if ($year % 4 != 0) return false;
+	
+	if ($year % 400 == 0) {
+		return true;
+	// if gregorian calendar (>1582), century not-divisible by 400 is not leap
+	} else if ($year > 1582 && $year % 100 == 0 ) {
+		return false;
+	} 
+	
+	return true;
+}
+
+
+/**
+ checks for leap year, returns true if it is. Has 2-digit year check
+*/
+function adodb_is_leap_year($year) 
+{
+	return  _adodb_is_leap_year(adodb_year_digit_check($year));
+}
+
+/**
+	Fix 2-digit years. Works for any century.
+ 	Assumes that if 2-digit is more than 30 years in future, then previous century.
+*/
+function adodb_year_digit_check($y) 
+{
+	if ($y < 100) {
+	
+		$yr = (integer) date("Y");
+		$century = (integer) ($yr /100);
+		
+		if ($yr%100 > 50) {
+			$c1 = $century + 1;
+			$c0 = $century;
+		} else {
+			$c1 = $century;
+			$c0 = $century - 1;
+		}
+		$c1 *= 100;
+		// if 2-digit year is less than 30 years in future, set it to this century
+		// otherwise if more than 30 years in future, then we set 2-digit year to the prev century.
+		if (($y + $c1) < $yr+30) $y = $y + $c1;
+		else $y = $y + $c0*100;
+	}
+	return $y;
+}
+
+/**
+ get local time zone offset from GMT
+*/
+function adodb_get_gmt_diff() 
+{
+static $TZ;
+	if (isset($TZ)) return $TZ;
+	
+	$TZ = mktime(0,0,0,1,2,1970,0) - gmmktime(0,0,0,1,2,1970,0);
+	return $TZ;
+}
+
+/**
+	Returns an array with date info.
+*/
+function adodb_getdate($d=false,$fast=false)
+{
+	if ($d === false) return getdate();
+	if (!defined('ADODB_TEST_DATES')) {
+		if ((abs($d) <= 0x7FFFFFFF)) { // check if number in 32-bit signed range
+			if (!defined('ADODB_NO_NEGATIVE_TS') || $d >= 0) // if windows, must be +ve integer
+				return @getdate($d);
+		}
+	}
+	return _adodb_getdate($d);
+}
+
+/*
+// generate $YRS table for _adodb_getdate()
+function adodb_date_gentable($out=true)
+{
+
+	for ($i=1970; $i >= 1600; $i-=10) {
+		$s = adodb_gmmktime(0,0,0,1,1,$i);
+		echo "$i => $s,<br>";	
+	}
+}
+adodb_date_gentable();
+
+for ($i=1970; $i > 1500; $i--) {
+
+echo "<hr />$i ";
+	adodb_date_test_date($i,1,1);
+}
+
+*/
+
+
+$_month_table_normal = array("",31,28,31,30,31,30,31,31,30,31,30,31);
+$_month_table_leaf = array("",31,29,31,30,31,30,31,31,30,31,30,31);
+	
+function adodb_validdate($y,$m,$d)
+{
+global $_month_table_normal,$_month_table_leaf;
+
+	if (_adodb_is_leap_year($y)) $marr =& $_month_table_leaf;
+	else $marr =& $_month_table_normal;
+	
+	if ($m > 12 || $m < 1) return false;
+	
+	if ($d > 31 || $d < 1) return false;
+	
+	if ($marr[$m] < $d) return false;
+	
+	if ($y < 1000 && $y > 3000) return false;
+	
+	return true;
+}
+
+/**
+	Low-level function that returns the getdate() array. We have a special
+	$fast flag, which if set to true, will return fewer array values,
+	and is much faster as it does not calculate dow, etc.
+*/
+function _adodb_getdate($origd=false,$fast=false,$is_gmt=false)
+{
+static $YRS;
+global $_month_table_normal,$_month_table_leaf;
+
+	$d =  $origd - ($is_gmt ? 0 : adodb_get_gmt_diff());
+	
+	$_day_power = 86400;
+	$_hour_power = 3600;
+	$_min_power = 60;
+	
+	if ($d < -12219321600) $d -= 86400*10; // if 15 Oct 1582 or earlier, gregorian correction 
+	
+	$_month_table_normal = array("",31,28,31,30,31,30,31,31,30,31,30,31);
+	$_month_table_leaf = array("",31,29,31,30,31,30,31,31,30,31,30,31);
+	
+	$d366 = $_day_power * 366;
+	$d365 = $_day_power * 365;
+	
+	if ($d < 0) {
+		
+		if (empty($YRS)) $YRS = array(
+			1970 => 0,
+			1960 => -315619200,
+			1950 => -631152000,
+			1940 => -946771200,
+			1930 => -1262304000,
+			1920 => -1577923200,
+			1910 => -1893456000,
+			1900 => -2208988800,
+			1890 => -2524521600,
+			1880 => -2840140800,
+			1870 => -3155673600,
+			1860 => -3471292800,
+			1850 => -3786825600,
+			1840 => -4102444800,
+			1830 => -4417977600,
+			1820 => -4733596800,
+			1810 => -5049129600,
+			1800 => -5364662400,
+			1790 => -5680195200,
+			1780 => -5995814400,
+			1770 => -6311347200,
+			1760 => -6626966400,
+			1750 => -6942499200,
+			1740 => -7258118400,
+			1730 => -7573651200,
+			1720 => -7889270400,
+			1710 => -8204803200,
+			1700 => -8520336000,
+			1690 => -8835868800,
+			1680 => -9151488000,
+			1670 => -9467020800,
+			1660 => -9782640000,
+			1650 => -10098172800,
+			1640 => -10413792000,
+			1630 => -10729324800,
+			1620 => -11044944000,
+			1610 => -11360476800,
+			1600 => -11676096000);
+
+		if ($is_gmt) $origd = $d;
+		// The valid range of a 32bit signed timestamp is typically from 
+		// Fri, 13 Dec 1901 20:45:54 GMT to Tue, 19 Jan 2038 03:14:07 GMT
+		//
+		
+		# old algorithm iterates through all years. new algorithm does it in
+		# 10 year blocks
+		
+		/*
+		# old algo
+		for ($a = 1970 ; --$a >= 0;) {
+			$lastd = $d;
+			
+			if ($leaf = _adodb_is_leap_year($a)) $d += $d366;
+			else $d += $d365;
+			
+			if ($d >= 0) {
+				$year = $a;
+				break;
+			}
+		}
+		*/
+		
+		$lastsecs = 0;
+		$lastyear = 1970;
+		foreach($YRS as $year => $secs) {
+			if ($d >= $secs) {
+				$a = $lastyear;
+				break;
+			}
+			$lastsecs = $secs;
+			$lastyear = $year;
+		}
+		
+		$d -= $lastsecs;
+		if (!isset($a)) $a = $lastyear;
+		
+		//echo ' yr=',$a,' ', $d,'.';
+		
+		for (; --$a >= 0;) {
+			$lastd = $d;
+			
+			if ($leaf = _adodb_is_leap_year($a)) $d += $d366;
+			else $d += $d365;
+			
+			if ($d >= 0) {
+				$year = $a;
+				break;
+			}
+		}
+		/**/
+		
+		$secsInYear = 86400 * ($leaf ? 366 : 365) + $lastd;
+		
+		$d = $lastd;
+		$mtab = ($leaf) ? $_month_table_leaf : $_month_table_normal;
+		for ($a = 13 ; --$a > 0;) {
+			$lastd = $d;
+			$d += $mtab[$a] * $_day_power;
+			if ($d >= 0) {
+				$month = $a;
+				$ndays = $mtab[$a];
+				break;
+			}
+		}
+		
+		$d = $lastd;
+		$day = $ndays + ceil(($d+1) / ($_day_power));
+
+		$d += ($ndays - $day+1)* $_day_power;
+		$hour = floor($d/$_hour_power);
+	
+	} else {
+		for ($a = 1970 ;; $a++) {
+			$lastd = $d;
+			
+			if ($leaf = _adodb_is_leap_year($a)) $d -= $d366;
+			else $d -= $d365;
+			if ($d < 0) {
+				$year = $a;
+				break;
+			}
+		}
+		$secsInYear = $lastd;
+		$d = $lastd;
+		$mtab = ($leaf) ? $_month_table_leaf : $_month_table_normal;
+		for ($a = 1 ; $a <= 12; $a++) {
+			$lastd = $d;
+			$d -= $mtab[$a] * $_day_power;
+			if ($d < 0) {
+				$month = $a;
+				$ndays = $mtab[$a];
+				break;
+			}
+		}
+		$d = $lastd;
+		$day = ceil(($d+1) / $_day_power);
+		$d = $d - ($day-1) * $_day_power;
+		$hour = floor($d /$_hour_power);
+	}
+	
+	$d -= $hour * $_hour_power;
+	$min = floor($d/$_min_power);
+	$secs = $d - $min * $_min_power;
+	if ($fast) {
+		return array(
+		'seconds' => $secs,
+		'minutes' => $min,
+		'hours' => $hour,
+		'mday' => $day,
+		'mon' => $month,
+		'year' => $year,
+		'yday' => floor($secsInYear/$_day_power),
+		'leap' => $leaf,
+		'ndays' => $ndays
+		);
+	}
+	
+	
+	$dow = adodb_dow($year,$month,$day);
+
+	return array(
+		'seconds' => $secs,
+		'minutes' => $min,
+		'hours' => $hour,
+		'mday' => $day,
+		'wday' => $dow,
+		'mon' => $month,
+		'year' => $year,
+		'yday' => floor($secsInYear/$_day_power),
+		'weekday' => gmdate('l',$_day_power*(3+$dow)),
+		'month' => gmdate('F',mktime(0,0,0,$month,2,1971)),
+		0 => $origd
+	);
+}
+
+function adodb_gmdate($fmt,$d=false)
+{
+	return adodb_date($fmt,$d,true);
+}
+
+// accepts unix timestamp and iso date format in $d
+function adodb_date2($fmt, $d=false, $is_gmt=false)
+{
+	if ($d !== false) {
+		if (!preg_match( 
+			"|^([0-9]{4})[-/\.]?([0-9]{1,2})[-/\.]?([0-9]{1,2})[ -]?(([0-9]{1,2}):?([0-9]{1,2}):?([0-9\.]{1,4}))?|", 
+			($d), $rr)) return adodb_date($fmt,false,$is_gmt);
+
+		if ($rr[1] <= 100 && $rr[2]<= 1) return adodb_date($fmt,false,$is_gmt);
+	
+		// h-m-s-MM-DD-YY
+		if (!isset($rr[5])) $d = adodb_mktime(0,0,0,$rr[2],$rr[3],$rr[1],false,$is_gmt);
+		else $d = @adodb_mktime($rr[5],$rr[6],$rr[7],$rr[2],$rr[3],$rr[1],false,$is_gmt);
+	}
+	
+	return adodb_date($fmt,$d,$is_gmt);
+}
+
+
+/**
+	Return formatted date based on timestamp $d
+*/
+function adodb_date($fmt,$d=false,$is_gmt=false)
+{
+static $daylight;
+
+	if ($d === false) return ($is_gmt)? @gmdate($fmt): @date($fmt);
+	if (!defined('ADODB_TEST_DATES')) {
+		if ((abs($d) <= 0x7FFFFFFF)) { // check if number in 32-bit signed range
+			if (!defined('ADODB_NO_NEGATIVE_TS') || $d >= 0) // if windows, must be +ve integer
+				return ($is_gmt)? @gmdate($fmt,$d): @date($fmt,$d);
+
+		}
+	}
+	$_day_power = 86400;
+	
+	$arr = _adodb_getdate($d,true,$is_gmt);
+	
+	if (!isset($daylight)) $daylight = function_exists('adodb_daylight_sv');
+	if ($daylight) adodb_daylight_sv($arr, $is_gmt);
+	
+	$year = $arr['year'];
+	$month = $arr['mon'];
+	$day = $arr['mday'];
+	$hour = $arr['hours'];
+	$min = $arr['minutes'];
+	$secs = $arr['seconds'];
+	
+	$max = strlen($fmt);
+	$dates = '';
+	
+	/*
+		at this point, we have the following integer vars to manipulate:
+		$year, $month, $day, $hour, $min, $secs
+	*/
+	for ($i=0; $i < $max; $i++) {
+		switch($fmt[$i]) {
+		case 'T': $dates .= date('T');break;
+		// YEAR
+		case 'L': $dates .= $arr['leap'] ? '1' : '0'; break;
+		case 'r': // Thu, 21 Dec 2000 16:01:07 +0200
+		
+			// 4.3.11 uses '04 Jun 2004'
+			// 4.3.8 uses  ' 4 Jun 2004'
+			$dates .= gmdate('D',$_day_power*(3+adodb_dow($year,$month,$day))).', '		
+				. ($day<10?'0'.$day:$day) . ' '.date('M',mktime(0,0,0,$month,2,1971)).' '.$year.' ';
+			
+			if ($hour < 10) $dates .= '0'.$hour; else $dates .= $hour; 
+			
+			if ($min < 10) $dates .= ':0'.$min; else $dates .= ':'.$min;
+			
+			if ($secs < 10) $dates .= ':0'.$secs; else $dates .= ':'.$secs;
+			
+			$gmt = adodb_get_gmt_diff();
+			$dates .= sprintf(' %s%04d',($gmt<0)?'+':'-',abs($gmt)/36); break;
+				
+		case 'Y': $dates .= $year; break;
+		case 'y': $dates .= substr($year,strlen($year)-2,2); break;
+		// MONTH
+		case 'm': if ($month<10) $dates .= '0'.$month; else $dates .= $month; break;
+		case 'Q': $dates .= ($month+3)>>2; break;
+		case 'n': $dates .= $month; break;
+		case 'M': $dates .= date('M',mktime(0,0,0,$month,2,1971)); break;
+		case 'F': $dates .= date('F',mktime(0,0,0,$month,2,1971)); break;
+		// DAY
+		case 't': $dates .= $arr['ndays']; break;
+		case 'z': $dates .= $arr['yday']; break;
+		case 'w': $dates .= adodb_dow($year,$month,$day); break;
+		case 'l': $dates .= gmdate('l',$_day_power*(3+adodb_dow($year,$month,$day))); break;
+		case 'D': $dates .= gmdate('D',$_day_power*(3+adodb_dow($year,$month,$day))); break;
+		case 'j': $dates .= $day; break;
+		case 'd': if ($day<10) $dates .= '0'.$day; else $dates .= $day; break;
+		case 'S': 
+			$d10 = $day % 10;
+			if ($d10 == 1) $dates .= 'st';
+			else if ($d10 == 2 && $day != 12) $dates .= 'nd';
+			else if ($d10 == 3) $dates .= 'rd';
+			else $dates .= 'th';
+			break;
+			
+		// HOUR
+		case 'Z':
+			$dates .= ($is_gmt) ? 0 : -adodb_get_gmt_diff(); break;
+		case 'O': 
+			$gmt = ($is_gmt) ? 0 : adodb_get_gmt_diff();
+			$dates .= sprintf('%s%04d',($gmt<0)?'+':'-',abs($gmt)/36); break;
+			
+		case 'H': 
+			if ($hour < 10) $dates .= '0'.$hour; 
+			else $dates .= $hour; 
+			break;
+		case 'h': 
+			if ($hour > 12) $hh = $hour - 12; 
+			else {
+				if ($hour == 0) $hh = '12'; 
+				else $hh = $hour;
+			}
+			
+			if ($hh < 10) $dates .= '0'.$hh;
+			else $dates .= $hh;
+			break;
+			
+		case 'G': 
+			$dates .= $hour;
+			break;
+			
+		case 'g':
+			if ($hour > 12) $hh = $hour - 12; 
+			else {
+				if ($hour == 0) $hh = '12'; 
+				else $hh = $hour; 
+			}
+			$dates .= $hh;
+			break;
+		// MINUTES
+		case 'i': if ($min < 10) $dates .= '0'.$min; else $dates .= $min; break;
+		// SECONDS
+		case 'U': $dates .= $d; break;
+		case 's': if ($secs < 10) $dates .= '0'.$secs; else $dates .= $secs; break;
+		// AM/PM
+		// Note 00:00 to 11:59 is AM, while 12:00 to 23:59 is PM
+		case 'a':
+			if ($hour>=12) $dates .= 'pm';
+			else $dates .= 'am';
+			break;
+		case 'A':
+			if ($hour>=12) $dates .= 'PM';
+			else $dates .= 'AM';
+			break;
+		default:
+			$dates .= $fmt[$i]; break;
+		// ESCAPE
+		case "\\": 
+			$i++;
+			if ($i < $max) $dates .= $fmt[$i];
+			break;
+		}
+	}
+	return $dates;
+}
+
+/**
+	Returns a timestamp given a GMT/UTC time. 
+	Note that $is_dst is not implemented and is ignored.
+*/
+function adodb_gmmktime($hr,$min,$sec,$mon=false,$day=false,$year=false,$is_dst=false)
+{
+	return adodb_mktime($hr,$min,$sec,$mon,$day,$year,$is_dst,true);
+}
+
+/**
+	Return a timestamp given a local time. Originally by jackbbs.
+	Note that $is_dst is not implemented and is ignored.
+	
+	Not a very fast algorithm - O(n) operation. Could be optimized to O(1).
+*/
+function adodb_mktime($hr,$min,$sec,$mon=false,$day=false,$year=false,$is_dst=false,$is_gmt=false) 
+{
+	if (!defined('ADODB_TEST_DATES')) {
+
+		if ($mon === false) {
+			return $is_gmt? @gmmktime($hr,$min,$sec): @mktime($hr,$min,$sec);
+		}
+		
+		// for windows, we don't check 1970 because with timezone differences, 
+		// 1 Jan 1970 could generate negative timestamp, which is illegal
+		if (1971 < $year && $year < 2038
+			|| !defined('ADODB_NO_NEGATIVE_TS') && (1901 < $year && $year < 2038)
+			) {
+				return $is_gmt ?
+					@gmmktime($hr,$min,$sec,$mon,$day,$year):
+					@mktime($hr,$min,$sec,$mon,$day,$year);
+			}
+	}
+	
+	$gmt_different = ($is_gmt) ? 0 : adodb_get_gmt_diff();
+
+	/*
+	# disabled because some people place large values in $sec.
+	# however we need it for $mon because we use an array...
+	$hr = intval($hr);
+	$min = intval($min);
+	$sec = intval($sec);
+	*/
+	$mon = intval($mon);
+	$day = intval($day);
+	$year = intval($year);
+	
+	
+	$year = adodb_year_digit_check($year);
+
+	if ($mon > 12) {
+		$y = floor($mon / 12);
+		$year += $y;
+		$mon -= $y*12;
+	} else if ($mon < 1) {
+		$y = ceil((1-$mon) / 12);
+		$year -= $y;
+		$mon += $y*12;
+	}
+	
+	$_day_power = 86400;
+	$_hour_power = 3600;
+	$_min_power = 60;
+	
+	$_month_table_normal = array("",31,28,31,30,31,30,31,31,30,31,30,31);
+	$_month_table_leaf = array("",31,29,31,30,31,30,31,31,30,31,30,31);
+	
+	$_total_date = 0;
+	if ($year >= 1970) {
+		for ($a = 1970 ; $a <= $year; $a++) {
+			$leaf = _adodb_is_leap_year($a);
+			if ($leaf == true) {
+				$loop_table = $_month_table_leaf;
+				$_add_date = 366;
+			} else {
+				$loop_table = $_month_table_normal;
+				$_add_date = 365;
+			}
+			if ($a < $year) { 
+				$_total_date += $_add_date;
+			} else {
+				for($b=1;$b<$mon;$b++) {
+					$_total_date += $loop_table[$b];
+				}
+			}
+		}
+		$_total_date +=$day-1;
+		$ret = $_total_date * $_day_power + $hr * $_hour_power + $min * $_min_power + $sec + $gmt_different;
+	
+	} else {
+		for ($a = 1969 ; $a >= $year; $a--) {
+			$leaf = _adodb_is_leap_year($a);
+			if ($leaf == true) {
+				$loop_table = $_month_table_leaf;
+				$_add_date = 366;
+			} else {
+				$loop_table = $_month_table_normal;
+				$_add_date = 365;
+			}
+			if ($a > $year) { $_total_date += $_add_date;
+			} else {
+				for($b=12;$b>$mon;$b--) {
+					$_total_date += $loop_table[$b];
+				}
+			}
+		}
+		$_total_date += $loop_table[$mon] - $day;
+		
+		$_day_time = $hr * $_hour_power + $min * $_min_power + $sec;
+		$_day_time = $_day_power - $_day_time;
+		$ret = -( $_total_date * $_day_power + $_day_time - $gmt_different);
+		if ($ret < -12220185600) $ret += 10*86400; // if earlier than 5 Oct 1582 - gregorian correction
+		else if ($ret < -12219321600) $ret = -12219321600; // if in limbo, reset to 15 Oct 1582.
+	} 
+	//print " dmy=$day/$mon/$year $hr:$min:$sec => " .$ret;
+	return $ret;
+}
+
+function adodb_gmstrftime($fmt, $ts=false)
+{
+	return adodb_strftime($fmt,$ts,true);
+}
+
+// hack - convert to adodb_date
+function adodb_strftime($fmt, $ts=false,$is_gmt=false)
+{
+global $ADODB_DATE_LOCALE;
+
+	if (!defined('ADODB_TEST_DATES')) {
+		if ((abs($ts) <= 0x7FFFFFFF)) { // check if number in 32-bit signed range
+			if (!defined('ADODB_NO_NEGATIVE_TS') || $ts >= 0) // if windows, must be +ve integer
+				return ($is_gmt)? @gmstrftime($fmt,$ts): @strftime($fmt,$ts);
+
+		}
+	}
+	
+	if (empty($ADODB_DATE_LOCALE)) {
+		$tstr = strtoupper(gmstrftime('%c',31366800)); // 30 Dec 1970, 1 am
+		$sep = substr($tstr,2,1);
+		$hasAM = strrpos($tstr,'M') !== false;
+		
+		$ADODB_DATE_LOCALE = array();
+		$ADODB_DATE_LOCALE[] =  strncmp($tstr,'30',2) == 0 ? 'd'.$sep.'m'.$sep.'y' : 'm'.$sep.'d'.$sep.'y';	
+		$ADODB_DATE_LOCALE[]  = ($hasAM) ? 'h:i:s a' : 'H:i:s';
+			
+	}
+	$inpct = false;
+	$fmtdate = '';
+	for ($i=0,$max = strlen($fmt); $i < $max; $i++) {
+		$ch = $fmt[$i];
+		if ($ch == '%') {
+			if ($inpct) {
+				$fmtdate .= '%';
+				$inpct = false;
+			} else
+				$inpct = true;
+		} else if ($inpct) {
+		
+			$inpct = false;
+			switch($ch) {
+			case '0':
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+			case '7':
+			case '8':
+			case '9':
+			case 'E':
+			case 'O':
+				/* ignore format modifiers */
+				$inpct = true; 
+				break;
+				
+			case 'a': $fmtdate .= 'D'; break;
+			case 'A': $fmtdate .= 'l'; break;
+			case 'h':
+			case 'b': $fmtdate .= 'M'; break;
+			case 'B': $fmtdate .= 'F'; break;
+			case 'c': $fmtdate .= $ADODB_DATE_LOCALE[0].$ADODB_DATE_LOCALE[1]; break;
+			case 'C': $fmtdate .= '\C?'; break; // century
+			case 'd': $fmtdate .= 'd'; break;
+			case 'D': $fmtdate .= 'm/d/y'; break;
+			case 'e': $fmtdate .= 'j'; break;
+			case 'g': $fmtdate .= '\g?'; break; //?
+			case 'G': $fmtdate .= '\G?'; break; //?
+			case 'H': $fmtdate .= 'H'; break;
+			case 'I': $fmtdate .= 'h'; break;
+			case 'j': $fmtdate .= '?z'; $parsej = true; break; // wrong as j=1-based, z=0-basd
+			case 'm': $fmtdate .= 'm'; break;
+			case 'M': $fmtdate .= 'i'; break;
+			case 'n': $fmtdate .= "\n"; break;
+			case 'p': $fmtdate .= 'a'; break;
+			case 'r': $fmtdate .= 'h:i:s a'; break;
+			case 'R': $fmtdate .= 'H:i:s'; break;
+			case 'S': $fmtdate .= 's'; break;
+			case 't': $fmtdate .= "\t"; break;
+			case 'T': $fmtdate .= 'H:i:s'; break;
+			case 'u': $fmtdate .= '?u'; $parseu = true; break; // wrong strftime=1-based, date=0-based
+			case 'U': $fmtdate .= '?U'; $parseU = true; break;// wrong strftime=1-based, date=0-based
+			case 'x': $fmtdate .= $ADODB_DATE_LOCALE[0]; break;
+			case 'X': $fmtdate .= $ADODB_DATE_LOCALE[1]; break;
+			case 'w': $fmtdate .= '?w'; $parseu = true; break; // wrong strftime=1-based, date=0-based
+			case 'W': $fmtdate .= '?W'; $parseU = true; break;// wrong strftime=1-based, date=0-based
+			case 'y': $fmtdate .= 'y'; break;
+			case 'Y': $fmtdate .= 'Y'; break;
+			case 'Z': $fmtdate .= 'T'; break;
+			}
+		} else if (('A' <= ($ch) && ($ch) <= 'Z' ) || ('a' <= ($ch) && ($ch) <= 'z' ))
+			$fmtdate .= "\\".$ch;
+		else
+			$fmtdate .= $ch;
+	}
+	//echo "fmt=",$fmtdate,"<br>";
+	if ($ts === false) $ts = time();
+	$ret = adodb_date($fmtdate, $ts, $is_gmt);
+	return $ret;
+}
+
+
 ?>
-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
-cR/48Mu76mI4x5r/qwLuaK+s

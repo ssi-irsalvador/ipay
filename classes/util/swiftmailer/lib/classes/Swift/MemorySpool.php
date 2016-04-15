@@ -1,53 +1,84 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2011 Fabien Potencier <fabien.potencier@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Stores Messages in memory.
+ *
+ * @package Swift
+ * @author  Fabien Potencier
+ */
+class Swift_MemorySpool implements Swift_Spool
+{
+    protected $messages = array();
+
+    /**
+     * Tests if this Transport mechanism has started.
+     *
+     * @return boolean
+     */
+    public function isStarted()
+    {
+        return true;
+    }
+
+    /**
+     * Starts this Transport mechanism.
+     */
+    public function start()
+    {
+    }
+
+    /**
+     * Stops this Transport mechanism.
+     */
+    public function stop()
+    {
+    }
+
+    /**
+     * Stores a message in the queue.
+     *
+     * @param Swift_Mime_Message $message The message to store
+     *
+     * @return boolean Whether the operation has succeeded
+     */
+    public function queueMessage(Swift_Mime_Message $message)
+    {
+        $this->messages[] = $message;
+
+        return true;
+    }
+
+    /**
+     * Sends messages using the given transport instance.
+     *
+     * @param Swift_Transport $transport        A transport instance
+     * @param string[]        $failedRecipients An array of failures by-reference
+     *
+     * @return integer The number of sent emails
+     */
+    public function flushQueue(Swift_Transport $transport, &$failedRecipients = null)
+    {
+        if (!$this->messages) {
+            return 0;
+        }
+
+        if (!$transport->isStarted()) {
+            $transport->start();
+        }
+
+        $count = 0;
+        while ($message = array_pop($this->messages)) {
+            $count += $transport->send($message, $failedRecipients);
+        }
+
+        return $count;
+    }
+}

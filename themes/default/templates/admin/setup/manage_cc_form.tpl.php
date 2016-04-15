@@ -1,62 +1,50 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php 
+if(isset($eMsg)){
+	if (is_array($eMsg)) {
 ?>
-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
-KEZ+
+	<div class="tblListErrMsg">
+	<b>Check the following error(s) below:</b><br>
+	<?php
+	foreach ($eMsg as $key => $value) {
+	?>
+	&nbsp;&nbsp;&bull;&nbsp;<?=$value?><br>
+	<?php		
+	}
+	?>
+	</div>
+<?php		
+	}else {
+?>
+	<div class="tblListErrMsg">
+	<?=$eMsg?>
+	</div>
+<?
+	}
+}
+?>
+<div class="themeFieldsetDiv01">
+<fieldset class="themeFieldset01" style="background: #FAD163; border-radius: 4px 4px 0 0;"><h2 style="margin: 0 0 -5px 0;">Manage Cost Center Form</h2></fieldset>
+<fieldset class="themeFieldset01">
+<!--<legend class="themeLegend01">Manage Cost Center Form</legend>-->
+<form method="post" action="">
+<table>
+	<tr>
+		<td>Cost Center Code:</td>
+		<td><input type="text" name="cc_code"></td>
+	</tr>
+	<tr>
+		<td>Cost Center Name:</td>
+		<td><input type="text" name="cc_name"></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+			<input type="submit" name="Submit" value=" Save &amp; Exit " class="themeInputButton">
+			<input type="reset" name="reset" value=" Clear " class="themeInputButton">
+		</td>
+	</tr>
+</table>
+
+</form>
+</fieldset>
+</div>

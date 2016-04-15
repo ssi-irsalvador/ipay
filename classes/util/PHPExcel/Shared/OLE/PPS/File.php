@@ -1,49 +1,84 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-H7eYeOxMUtu=
+<?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// +----------------------------------------------------------------------+
+// | PHP Version 4                                                        |
+// +----------------------------------------------------------------------+
+// | Copyright (c) 1997-2002 The PHP Group                                |
+// +----------------------------------------------------------------------+
+// | This source file is subject to version 2.02 of the PHP license,      |
+// | that is bundled with this package in the file LICENSE, and is        |
+// | available at through the world-wide-web at                           |
+// | http://www.php.net/license/2_02.txt.                                 |
+// | If you did not receive a copy of the PHP license and are unable to   |
+// | obtain it through the world-wide-web, please send a note to          |
+// | license@php.net so we can mail you a copy immediately.               |
+// +----------------------------------------------------------------------+
+// | Author: Xavier Noguer <xnoguer@php.net>                              |
+// | Based on OLE::Storage_Lite by Kawai, Takanori                        |
+// +----------------------------------------------------------------------+
+//
+// $Id: File.php,v 1.11 2007/02/13 21:00:42 schmidt Exp $
+
+
+/**
+* Class for creating File PPS's for OLE containers
+*
+* @author   Xavier Noguer <xnoguer@php.net>
+* @category PHPExcel
+* @package  PHPExcel_Shared_OLE
+*/
+class PHPExcel_Shared_OLE_PPS_File extends PHPExcel_Shared_OLE_PPS
+	{
+	/**
+	* The constructor
+	*
+	* @access public
+	* @param string $name The name of the file (in Unicode)
+	* @see OLE::Asc2Ucs()
+	*/
+	public function __construct($name)
+	{
+		parent::__construct(
+			null,
+			$name,
+			PHPExcel_Shared_OLE::OLE_PPS_TYPE_FILE,
+			null,
+			null,
+			null,
+			null,
+			null,
+			'',
+			array());
+	}
+
+	/**
+	* Initialization method. Has to be called right after OLE_PPS_File().
+	*
+	* @access public
+	* @return mixed true on success
+	*/
+	public function init()
+	{
+		return true;
+	}
+
+	/**
+	* Append data to PPS
+	*
+	* @access public
+	* @param string $data The data to append
+	*/
+	public function append($data)
+	{
+		$this->_data .= $data;
+	}
+
+	/**
+	 * Returns a stream for reading this file using fread() etc.
+	 * @return  resource  a read-only stream
+	 */
+	public function getStream()
+	{
+		$this->ole->getStream($this);
+	}
+}

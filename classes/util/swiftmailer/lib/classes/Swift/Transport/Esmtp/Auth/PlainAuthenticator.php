@@ -1,52 +1,52 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-lZCcq7uguDVltOhFs4Jhsgj9IBfp
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Handles PLAIN authentication.
+ *
+ * @package    Swift
+ * @subpackage Transport
+ * @author     Chris Corbyn
+ */
+class Swift_Transport_Esmtp_Auth_PlainAuthenticator implements Swift_Transport_Esmtp_Authenticator
+{
+    /**
+     * Get the name of the AUTH mechanism this Authenticator handles.
+     *
+     * @return string
+     */
+    public function getAuthKeyword()
+    {
+        return 'PLAIN';
+    }
+
+    /**
+     * Try to authenticate the user with $username and $password.
+     *
+     * @param Swift_Transport_SmtpAgent $agent
+     * @param string                    $username
+     * @param string                    $password
+     *
+     * @return boolean
+     */
+    public function authenticate(Swift_Transport_SmtpAgent $agent, $username, $password)
+    {
+        try {
+            $message = base64_encode($username . chr(0) . $username . chr(0) . $password);
+            $agent->executeCommand(sprintf("AUTH PLAIN %s\r\n", $message), array(235));
+
+            return true;
+        } catch (Swift_TransportException $e) {
+            $agent->executeCommand("RSET\r\n", array(250));
+
+            return false;
+        }
+    }
+}

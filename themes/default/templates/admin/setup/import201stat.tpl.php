@@ -1,84 +1,71 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<style type="text/css">
+<!--
+.style3 {font-size: 12px}
+.style4 {color: #333333}
+.style5 {color: #FF0000}
+-->
+</style>
+<br>
+<?php 
+if(isset($eMsg)){
+	if (is_array($eMsg)) {
 ?>
-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
+	<div class="tblListErrMsg">
+	<b>Check the following error(s) below:</b><br>
+	<?php
+	foreach ($eMsg as $key => $value) {
+	?>
+	&nbsp;&nbsp;&bull;&nbsp;<?=$Value?>
+	<?php		
+	}
+	?>
+	</div>
+<?php		
+	}else {
+?>
+	<div class="tblListErrMsg">
+	<?=$eMsg?>
+	</div>
+<?
+	}
+}
+?>
+<div class="themeFieldsetDiv01">
+<fieldset class="themeFieldset01">
+<legend class="themeLegend01">201 Status XLS Import</legend>
+<form method="post" enctype="multipart/form-data" action="">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr bgcolor="#FAD163">
+	  <td colspan="2" style="height:19px"><b>Upload 201 Status Information</b></td>
+	  </tr>
+	<tr>
+		<td width="110" class="divTblTH_">&nbsp;</td>
+		<td class="divTblTH_"><b class="longlabel">Select File <span class="style5">*</span></b><input type="file" name="uptahead_file"></td>
+	</tr>
+	<tr>
+		<td class="divTblTH_">&nbsp;</td>
+		<td class="divTblTH_"><label class="longlabel">&nbsp;</label><input type="submit" name="submit[save]" value="Upload File" class="themeInputButton"></td>
+	</tr>
+	<tr bgcolor="#FAD163">
+	  <td colspan="2" style="height:19px"><b>**Note </b></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em> All header in &quot;<span class="style5">Red Font</span>&quot; are compulsory </em></div></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em>All date fields should be in YYYY-MM-DD format </em></div></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em>Each import file should be configured for 1000 records or less </em></div></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em>Sample XLS file:&nbsp;<a href="importtemplate/201Status.xls" target="_blank">Download</a></em></div></td>
+	</tr>
+</table>
+</form>
+</fieldset>
+</div>

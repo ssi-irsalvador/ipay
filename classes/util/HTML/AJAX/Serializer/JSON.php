@@ -1,54 +1,96 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+require_once SYSCONFIG_CLASS_PATH.'util/HTML/AJAX/JSON.php';
+// $Id$
+/**
+ * JSON Serializer
+ *
+ * @category   HTML
+ * @package    AJAX
+ * @author     Joshua Eichorn <josh@bluga.net>
+ * @copyright  2005 Joshua Eichorn
+ * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
+ * @version    Release: 0.5.2
+ * @link       http://pear.php.net/package/PackageName
+ */
+// {{{ class HTMLA_AJAX_Serialize_JSON
+class HTML_AJAX_Serializer_JSON 
+{
+    // {{{ variables-properties
+    /**
+     * JSON instance
+     * @var HTML_AJAX_JSON
+     * @access private
+     */
+    var $_json;
+
+    /**
+     * use json php extension http://www.aurore.net/projects/php-json/
+     * @access private
+     */
+    var $_jsonext;
+
+    /**
+     * use loose typing to decode js objects into php associative arrays
+     * @access public
+     */
+    var $loose_type;
+    
+    // }}}
+    // {{{ constructor
+    function HTML_AJAX_Serializer_JSON($use_loose_type = true) 
+    {
+        $this->loose_type = (bool) $use_loose_type;
+        $this->_jsonext = $this->_detect();
+        if(!$this->_jsonext) {
+            $use_loose_type = ($this->loose_type) ? SERVICES_JSON_LOOSE_TYPE : 0;
+            $this->_json = new HTML_AJAX_JSON($use_loose_type);
+        }
+    }
+    // }}}
+    // {{{ serialize
+    /**
+     * This function serializes and input passed to it.
+     *
+     * @access public
+     * @param  string $input   The input to serialize.
+     * @return string $input   The serialized input.
+     */
+    function serialize($input) 
+    {
+        if($this->_jsonext) {
+            return json_encode($input);
+        } else {
+            return $this->_json->encode($input);
+        }
+    }
+    // }}}
+    // {{{ unserialize
+    /**
+     * this function unserializes the input passed to it.
+     *
+     * @access public
+     * @param  string $input   The input to unserialize
+     * @return string $input   The unserialized input.
+     */
+    function unserialize($input) 
+    {
+        if($this->_jsonext) {
+            return json_decode($input, $this->loose_type);
+        } else {
+            return $this->_json->decode($input);
+        }
+    }
+    // }}}
+    // {{{ _detect
+    /**
+     * detects the loaded extension
+     */
+    function _detect()
+    {
+        return extension_loaded('json');
+    }
+    // }}}
+}
+// }}}
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 ?>
-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
-Py4Rlvc2XPu=

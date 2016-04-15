@@ -1,65 +1,53 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'swift_required.php';
+
+/**
+ * Smoke test helper class.
+ * @package Swift
+ * @subpackage Tests
+ * @author Chris Corbyn
+ */
+class Swift_Tests_SwiftSmokeTestCase extends Swift_Tests_SwiftUnitTestCase
+{
+    public function skip()
+    {
+        $this->skipUnless(SWIFT_SMOKE_TRANSPORT_TYPE,
+            '%s: Smoke tests are skipped if tests/smoke.conf.php is not editted'
+            );
+    }
+
+    protected function _getMailer()
+    {
+        switch (SWIFT_SMOKE_TRANSPORT_TYPE) {
+            case 'smtp':
+                $transport = Swift_DependencyContainer::getInstance()->lookup('transport.smtp')
+                    ->setHost(SWIFT_SMOKE_SMTP_HOST)
+                    ->setPort(SWIFT_SMOKE_SMTP_PORT)
+                    ->setUsername(SWIFT_SMOKE_SMTP_USER)
+                    ->setPassword(SWIFT_SMOKE_SMTP_PASS)
+                    ->setEncryption(SWIFT_SMOKE_SMTP_ENCRYPTION)
+                    ;
+                break;
+            case 'sendmail':
+                $transport = Swift_DependencyContainer::getInstance()->lookup('transport.sendmail')
+                    ->setCommand(SWIFT_SMOKE_SENDMAIL_COMMAND)
+                    ;
+                break;
+            case 'mail':
+            case 'nativemail':
+                $transport = Swift_DependencyContainer::getInstance()->lookup('transport.mail');
+                break;
+            default:
+                throw new Exception('Undefined transport [' . SWIFT_SMOKE_TRANSPORT_TYPE . ']');
+        }
+
+        return new Swift_Mailer($transport);
+    }
+
+    protected function _visualCheck($url)
+    {
+        $this->dump('{image @ ' . $url . '}');
+    }
+}

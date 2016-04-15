@@ -1,62 +1,28 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+<title></title>
+</head>
+
+<body>
+
+<?php
+echo "<p>Here's some dynamically generated text and some random circles...</p>";
 ?>
-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
-CY0OqMn0rvKGmTIjHCUalbxdw9S4pitkiwfMt1S=
+
+<script type="text/php">
+$max_x = $pdf->get_width() - 50;
+$max_y = $pdf->get_height() - 50; 
+for ( $i = 0; $i < 30; $i++) {
+  $pdf->circle(rand(50, $max_x), rand(50, $max_y), rand(10, 70),
+               array(rand()/getrandmax(), rand()/getrandmax(), rand()/getrandmax()),
+               rand(1,40));
+}
+</script>
+<?php
+echo "<p>Current PHP version: " . phpversion() . ".  ";
+echo "Today is " . strftime("%A") . " the " . strftime("%e").date("S").strftime(" of %B, %Y %T") . "</p>";
+
+?>
+</body> </html>

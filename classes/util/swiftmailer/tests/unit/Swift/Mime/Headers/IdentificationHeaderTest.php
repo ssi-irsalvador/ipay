@@ -1,114 +1,199 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Mime/Headers/IdentificationHeader.php';
+require_once 'Swift/Mime/Grammar.php';
+
+class Swift_Mime_Headers_IdentificationHeaderTest
+    extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testTypeIsIdHeader()
+    {
+        $header = $this->_getHeader('Message-ID');
+        $this->assertEqual(Swift_Mime_Header::TYPE_ID, $header->getFieldType());
+    }
+
+    public function testValueMatchesMsgIdSpec()
+    {
+        /* -- RFC 2822, 3.6.4.
+     message-id      =       "Message-ID:" msg-id CRLF
+
+     in-reply-to     =       "In-Reply-To:" 1*msg-id CRLF
+
+     references      =       "References:" 1*msg-id CRLF
+
+     msg-id          =       [CFWS] "<" id-left "@" id-right ">" [CFWS]
+
+     id-left         =       dot-atom-text / no-fold-quote / obs-id-left
+
+     id-right        =       dot-atom-text / no-fold-literal / obs-id-right
+
+     no-fold-quote   =       DQUOTE *(qtext / quoted-pair) DQUOTE
+
+     no-fold-literal =       "[" *(dtext / quoted-pair) "]"
+     */
+
+        $header = $this->_getHeader('Message-ID');
+        $header->setId('id-left@id-right');
+        $this->assertEqual('<id-left@id-right>', $header->getFieldBody());
+    }
+
+    public function testIdCanBeRetrievedVerbatim()
+    {
+        $header = $this->_getHeader('Message-ID');
+        $header->setId('id-left@id-right');
+        $this->assertEqual('id-left@id-right', $header->getId());
+    }
+
+    public function testMultipleIdsCanBeSet()
+    {
+        $header = $this->_getHeader('References');
+        $header->setIds(array('a@b', 'x@y'));
+        $this->assertEqual(array('a@b', 'x@y'), $header->getIds());
+    }
+
+    public function testSettingMultipleIdsProducesAListValue()
+    {
+        /* -- RFC 2822, 3.6.4.
+     The "References:" and "In-Reply-To:" field each contain one or more
+     unique message identifiers, optionally separated by CFWS.
+
+     .. SNIP ..
+
+     in-reply-to     =       "In-Reply-To:" 1*msg-id CRLF
+
+     references      =       "References:" 1*msg-id CRLF
+     */
+
+        $header = $this->_getHeader('References');
+        $header->setIds(array('a@b', 'x@y'));
+        $this->assertEqual('<a@b> <x@y>', $header->getFieldBody());
+    }
+
+    public function testIdLeftCanBeQuoted()
+    {
+        /* -- RFC 2822, 3.6.4.
+     id-left         =       dot-atom-text / no-fold-quote / obs-id-left
+     */
+
+        $header = $this->_getHeader('References');
+        $header->setId('"ab"@c');
+        $this->assertEqual('"ab"@c', $header->getId());
+        $this->assertEqual('<"ab"@c>', $header->getFieldBody());
+    }
+
+    public function testIdLeftCanContainAnglesAsQuotedPairs()
+    {
+        /* -- RFC 2822, 3.6.4.
+     no-fold-quote   =       DQUOTE *(qtext / quoted-pair) DQUOTE
+     */
+
+        $header = $this->_getHeader('References');
+        $header->setId('"a\\<\\>b"@c');
+        $this->assertEqual('"a\\<\\>b"@c', $header->getId());
+        $this->assertEqual('<"a\\<\\>b"@c>', $header->getFieldBody());
+    }
+
+    public function testIdLeftCanBeDotAtom()
+    {
+        $header = $this->_getHeader('References');
+        $header->setId('a.b+&%$.c@d');
+        $this->assertEqual('a.b+&%$.c@d', $header->getId());
+        $this->assertEqual('<a.b+&%$.c@d>', $header->getFieldBody());
+    }
+
+    public function testInvalidIdLeftThrowsException()
+    {
+        try {
+            $header = $this->_getHeader('References');
+            $header->setId('a b c@d');
+            $this->fail(
+                'Exception should be thrown since "a b c" is not valid id-left.'
+                );
+        } catch (Exception $e) {
+            $this->pass();
+        }
+    }
+
+    public function testIdRightCanBeDotAtom()
+    {
+        /* -- RFC 2822, 3.6.4.
+     id-right        =       dot-atom-text / no-fold-literal / obs-id-right
+     */
+
+        $header = $this->_getHeader('References');
+        $header->setId('a@b.c+&%$.d');
+        $this->assertEqual('a@b.c+&%$.d', $header->getId());
+        $this->assertEqual('<a@b.c+&%$.d>', $header->getFieldBody());
+    }
+
+    public function testIdRightCanBeLiteral()
+    {
+        /* -- RFC 2822, 3.6.4.
+     no-fold-literal =       "[" *(dtext / quoted-pair) "]"
+     */
+
+        $header = $this->_getHeader('References');
+        $header->setId('a@[1.2.3.4]');
+        $this->assertEqual('a@[1.2.3.4]', $header->getId());
+        $this->assertEqual('<a@[1.2.3.4]>', $header->getFieldBody());
+    }
+
+    public function testInvalidIdRightThrowsException()
+    {
+        try {
+            $header = $this->_getHeader('References');
+            $header->setId('a@b c d');
+            $this->fail(
+                'Exception should be thrown since "b c d" is not valid id-right.'
+                );
+        } catch (Exception $e) {
+            $this->pass();
+        }
+    }
+
+    public function testMissingAtSignThrowsException()
+    {
+        /* -- RFC 2822, 3.6.4.
+     msg-id          =       [CFWS] "<" id-left "@" id-right ">" [CFWS]
+     */
+
+        try {
+            $header = $this->_getHeader('References');
+            $header->setId('abc');
+            $this->fail(
+                'Exception should be thrown since "abc" is does not contain @.'
+                );
+        } catch (Exception $e) {
+            $this->pass();
+        }
+    }
+
+    public function testSetBodyModel()
+    {
+        $header = $this->_getHeader('Message-ID');
+        $header->setFieldBodyModel('a@b');
+        $this->assertEqual(array('a@b'), $header->getIds());
+    }
+
+    public function testGetBodyModel()
+    {
+        $header = $this->_getHeader('Message-ID');
+        $header->setId('a@b');
+        $this->assertEqual(array('a@b'), $header->getFieldBodyModel());
+    }
+
+    public function testStringValue()
+    {
+        $header = $this->_getHeader('References');
+        $header->setIds(array('a@b', 'x@y'));
+        $this->assertEqual('References: <a@b> <x@y>' . "\r\n", $header->toString());
+    }
+
+    // -- Private methods
+
+    private function _getHeader($name)
+    {
+        return new Swift_Mime_Headers_IdentificationHeader($name, new Swift_Mime_Grammar());
+    }
+}

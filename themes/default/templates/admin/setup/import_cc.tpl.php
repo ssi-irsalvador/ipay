@@ -1,80 +1,60 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<style type="text/css">
+<!--
+.style3 {font-size: 12px}
+.style4 {color: #333333}
+.style5 {color: #FF0000}
+-->
+</style>
+<?php
+if (isset($eMsg)) {
+	if (is_array($eMsg)) {
+		?>
+<div class="tblListErrMsg"><strong>Check the following error(s) below:</strong><br />
+		<?php
+		foreach ($eMsg as $key => $value) {
+			?> &nbsp;&nbsp;&bull;&nbsp;<?=$value?><br />
+			<?php
+		}
+		?></div>
+		<?php
+	} else {
+		?>
+<div class="tblListErrMsg"><?=$eMsg?></div>
+		<?
+	}
+}
 ?>
-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
+<div class="themeFieldsetDiv01">
+<fieldset class="themeFieldset01" style="background: #FAD163; border-radius: 4px 4px 0 0;"><h2 style="margin: 0 0 -5px 0;">Import Cost Center Accounts</h2></fieldset>
+<fieldset class="themeFieldset01">
+<!--<legend class="themeLegend01">Loan XLS Import</legend>-->
+<form method="post" enctype="multipart/form-data" action="">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr bgcolor="#FAD163">
+	  <td colspan="2" style="height:19px"><strong>Upload Cost Center Accounts</strong></td>
+	  </tr>
+	<tr>
+		<td width="110" class="divTblTH_">&nbsp;</td>
+		<td class="divTblTH_"><strong class="longlabel">Select File <span class="style5">*</span></strong>
+		  <input type="file" name="uptahead_file" accept="application/vnd.ms-excel"></td>
+	</tr>
+	<tr>
+	  <td class="divTblTH_">&nbsp;</td>
+	  <td class="divTblTH_"><label class="longlabel">&nbsp;</label>
+	    <input type="submit" name="submit[save]" value="Upload File" class="themeInputButton" /></td>
+	  </tr>
+	<tr bgcolor="#FAD163">
+	  <td colspan="2" style="height:19px"><strong>**Note </strong></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em> All header in &quot;<span class="style5">Red Font</span>&quot; are compulsory </em></div></td>
+	  </tr>
+	<tr>
+	  <td class="divTblTH_ style3 style4"><div align="left"></div></td>
+	  <td class="divTblTH_ style3 style4"><div align="left">&bull; <em>Sample XLS file:&nbsp;<a href="importtemplate/LoanTemplate.xls" target="_blank">Download</a></em></div></td>
+	</tr>
+</table>
+</form>
+</fieldset>
+</div>

@@ -1,106 +1,120 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-QCyIg/QqydB3hiSJsrlVeXSxZES=
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Plugins/ReporterPlugin.php';
+require_once 'Swift/Plugins/Reporter.php';
+require_once 'Swift/Mime/Message.php';
+require_once 'Swift/Events/SendEvent.php';
+
+class Swift_Plugins_ReporterPluginTest extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testReportingPasses()
+    {
+        $message = $this->_createMessage();
+        $evt = $this->_createSendEvent();
+        $reporter = $this->_createReporter();
+
+        $this->_checking(Expectations::create()
+            -> allowing($message)->getTo() -> returns(array('foo@bar.tld' => 'Foo'))
+            -> allowing($evt)->getMessage() -> returns($message)
+            -> allowing($evt)->getFailedRecipients() -> returns(array())
+            -> one($reporter)->notify($message, 'foo@bar.tld', Swift_Plugins_Reporter::RESULT_PASS)
+            -> ignoring($message)
+            -> ignoring($evt)
+            );
+
+        $plugin = new Swift_Plugins_ReporterPlugin($reporter);
+        $plugin->sendPerformed($evt);
+    }
+
+    public function testReportingFailedTo()
+    {
+        $message = $this->_createMessage();
+        $evt = $this->_createSendEvent();
+        $reporter = $this->_createReporter();
+
+        $this->_checking(Expectations::create()
+            -> allowing($message)->getTo() -> returns(array(
+                'foo@bar.tld' => 'Foo', 'zip@button' => 'Zip'
+                ))
+            -> allowing($evt)->getMessage() -> returns($message)
+            -> allowing($evt)->getFailedRecipients() -> returns(array('zip@button'))
+            -> one($reporter)->notify($message, 'foo@bar.tld', Swift_Plugins_Reporter::RESULT_PASS)
+            -> one($reporter)->notify($message, 'zip@button', Swift_Plugins_Reporter::RESULT_FAIL)
+            -> ignoring($message)
+            -> ignoring($evt)
+            );
+
+        $plugin = new Swift_Plugins_ReporterPlugin($reporter);
+        $plugin->sendPerformed($evt);
+    }
+
+    public function testReportingFailedCc()
+    {
+        $message = $this->_createMessage();
+        $evt = $this->_createSendEvent();
+        $reporter = $this->_createReporter();
+
+        $this->_checking(Expectations::create()
+            -> allowing($message)->getTo() -> returns(array(
+                'foo@bar.tld' => 'Foo'
+                ))
+            -> allowing($message)->getCc() -> returns(array(
+                'zip@button' => 'Zip', 'test@test.com' => 'Test'
+                ))
+            -> allowing($evt)->getMessage() -> returns($message)
+            -> allowing($evt)->getFailedRecipients() -> returns(array('zip@button'))
+            -> one($reporter)->notify($message, 'foo@bar.tld', Swift_Plugins_Reporter::RESULT_PASS)
+            -> one($reporter)->notify($message, 'zip@button', Swift_Plugins_Reporter::RESULT_FAIL)
+            -> one($reporter)->notify($message, 'test@test.com', Swift_Plugins_Reporter::RESULT_PASS)
+            -> ignoring($message)
+            -> ignoring($evt)
+            );
+
+        $plugin = new Swift_Plugins_ReporterPlugin($reporter);
+        $plugin->sendPerformed($evt);
+    }
+
+    public function testReportingFailedBcc()
+    {
+        $message = $this->_createMessage();
+        $evt = $this->_createSendEvent();
+        $reporter = $this->_createReporter();
+
+        $this->_checking(Expectations::create()
+            -> allowing($message)->getTo() -> returns(array(
+                'foo@bar.tld' => 'Foo'
+                ))
+            -> allowing($message)->getBcc() -> returns(array(
+                'zip@button' => 'Zip', 'test@test.com' => 'Test'
+                ))
+            -> allowing($evt)->getMessage() -> returns($message)
+            -> allowing($evt)->getFailedRecipients() -> returns(array('zip@button'))
+            -> one($reporter)->notify($message, 'foo@bar.tld', Swift_Plugins_Reporter::RESULT_PASS)
+            -> one($reporter)->notify($message, 'zip@button', Swift_Plugins_Reporter::RESULT_FAIL)
+            -> one($reporter)->notify($message, 'test@test.com', Swift_Plugins_Reporter::RESULT_PASS)
+            -> ignoring($message)
+            -> ignoring($evt)
+            );
+
+        $plugin = new Swift_Plugins_ReporterPlugin($reporter);
+        $plugin->sendPerformed($evt);
+    }
+
+    // -- Creation Methods
+
+    private function _createMessage()
+    {
+        return $this->_mock('Swift_Mime_Message');
+    }
+
+    private function _createSendEvent()
+    {
+        return $this->_mock('Swift_Events_SendEvent');
+    }
+
+    private function _createReporter()
+    {
+        return $this->_mock('Swift_Plugins_Reporter');
+    }
+}

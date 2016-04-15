@@ -1,117 +1,185 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * DOMPDF - PHP5 HTML to PDF renderer
+ *
+ * File: $RCSfile: table_cell_renderer.cls.php,v $
+ * Created on: 2004-06-09
+ *
+ * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library in the file LICENSE.LGPL; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * Alternatively, you may distribute this software under the terms of the
+ * PHP License, version 3.0 or later.  A copy of this license should have
+ * been distributed with this file in the file LICENSE.PHP .  If this is not
+ * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
+ *
+ * The latest version of DOMPDF might be available at:
+ * http://www.dompdf.com/
+ *
+ * @link http://www.dompdf.com/
+ * @copyright 2004 Benj Carson
+ * @author Benj Carson <benjcarson@digitaljunkies.ca>
+ * @package dompdf
+
+ */
+
+/* $Id: table_cell_renderer.cls.php 311 2010-09-05 20:02:01Z fabien.menager $ */
+
+/**
+ * Renders table cells
+ *
+ * @access private
+ * @package dompdf
+ */
+class Table_Cell_Renderer extends Block_Renderer {
+
+  //........................................................................
+
+  function render(Frame $frame) {
+    $style = $frame->get_style();
+
+    $this->_set_opacity( $frame->get_opacity( $style->opacity ) );
+    
+    // Draw our background, border and content
+    if ( ($bg = $style->background_color) !== "transparent" ) {
+      list($x, $y, $w, $h) = $frame->get_padding_box();
+      $this->_canvas->filled_rectangle( $x, $y, $w, $h, $bg );
+    }
+    else {
+      list($x, $y, $w, $h) = $frame->get_padding_box();
+    }
+
+    if ( ($url = $style->background_image) && $url !== "none" ) {
+      $this->_background_image($url, $x, $y, $w, $h, $style);
+    }
+
+    if ( $style->border_collapse !== "collapse" ) {
+      $this->_render_border($frame, "bevel");
+      $this->_render_outline($frame, "bevel");
+      return;
+    }
+
+    // The collapsed case is slightly complicated...
+    // @todo Add support for outlines here
+
+    $cellmap = Table_Frame_Decorator::find_parent_table($frame)->get_cellmap();
+    $cells = $cellmap->get_spanned_cells($frame);
+    $num_rows = $cellmap->get_num_rows();
+    $num_cols = $cellmap->get_num_cols();
+
+    // Determine the top row spanned by this cell
+    $i = $cells["rows"][0];
+    $top_row = $cellmap->get_row($i);
+
+    // Determine if this cell borders on the bottom of the table.  If so,
+    // then we draw its bottom border.  Otherwise the next row down will
+    // draw its top border instead.
+    if (in_array( $num_rows - 1, $cells["rows"])) {
+      $draw_bottom = true;
+      $bottom_row = $cellmap->get_row($num_rows - 1);
+    } else
+      $draw_bottom = false;
+
+
+    // Draw the horizontal borders
+    foreach ( $cells["columns"] as $j ) {
+      $bp = $cellmap->get_border_properties($i, $j);
+
+      $y = $top_row["y"] - $bp["top"]["width"] / 2;
+
+      $col = $cellmap->get_column($j);
+      $x = $col["x"] - $bp["left"]["width"] / 2;
+      $w = $col["used-width"] + ($bp["left"]["width"] + $bp["right"]["width"] ) / 2;
+
+      if ( $bp["top"]["style"] !== "none" && $bp["top"]["width"] > 0 ) {
+        $widths = array($bp["top"]["width"],
+                        $bp["right"]["width"],
+                        $bp["bottom"]["width"],
+                        $bp["left"]["width"]);
+        $method = "_border_". $bp["top"]["style"];
+        $this->$method($x, $y, $w, $bp["top"]["color"], $widths, "top", "square");
+      }
+
+      if ( $draw_bottom ) {
+        $bp = $cellmap->get_border_properties($num_rows - 1, $j);
+        if ( $bp["bottom"]["style"] === "none" || $bp["bottom"]["width"] <= 0 )
+          continue;
+
+        $y = $bottom_row["y"] + $bottom_row["height"] + $bp["bottom"]["width"] / 2;
+
+        $widths = array($bp["top"]["width"],
+                        $bp["right"]["width"],
+                        $bp["bottom"]["width"],
+                        $bp["left"]["width"]);
+        $method = "_border_". $bp["bottom"]["style"];
+        $this->$method($x, $y, $w, $bp["bottom"]["color"], $widths, "bottom", "square");
+
+      }
+    }
+
+    $j = $cells["columns"][0];
+
+    $left_col = $cellmap->get_column($j);
+
+    if (in_array($num_cols - 1, $cells["columns"])) {
+      $draw_right = true;
+      $right_col = $cellmap->get_column($num_cols - 1);
+    } else
+      $draw_right = false;
+
+    // Draw the vertical borders
+    foreach ( $cells["rows"] as $i ) {
+      $bp = $cellmap->get_border_properties($i, $j);
+
+      $x = $left_col["x"] - $bp["left"]["width"] / 2;
+
+      $row = $cellmap->get_row($i);
+
+      $y = $row["y"] - $bp["top"]["width"] / 2;
+      $h = $row["height"] + ($bp["top"]["width"] + $bp["bottom"]["width"])/ 2;
+
+      if ( $bp["left"]["style"] !== "none" && $bp["left"]["width"] > 0 ) {
+
+        $widths = array($bp["top"]["width"],
+                        $bp["right"]["width"],
+                        $bp["bottom"]["width"],
+                        $bp["left"]["width"]);
+
+        $method = "_border_" . $bp["left"]["style"];
+        $this->$method($x, $y, $h, $bp["left"]["color"], $widths, "left", "square");
+      }
+
+      if ( $draw_right ) {
+        $bp = $cellmap->get_border_properties($i, $num_cols - 1);
+        if ( $bp["right"]["style"] === "none" || $bp["right"]["width"] <= 0 )
+          continue;
+
+        $x = $right_col["x"] + $right_col["used-width"] + $bp["right"]["width"] / 2;
+
+        $widths = array($bp["top"]["width"],
+                        $bp["right"]["width"],
+                        $bp["bottom"]["width"],
+                        $bp["left"]["width"]);
+
+        $method = "_border_" . $bp["right"]["style"];
+        $this->$method($x, $y, $h, $bp["right"]["color"], $widths, "right", "square");
+
+      }
+    }
+
+  }
+}

@@ -1,120 +1,277 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * A CharacterStream implementation which stores characters in an internal array.
+ *
+ * @package    Swift
+ * @subpackage CharacterStream
+ * @author     Xavier De Cock <xdecock@gmail.com>
+ */
+
+class Swift_CharacterStream_NgCharacterStream implements Swift_CharacterStream
+{
+    /**
+     * The char reader (lazy-loaded) for the current charset.
+     *
+     * @var Swift_CharacterReader
+     */
+    private $_charReader;
+
+    /**
+     * A factory for creating CharacterReader instances.
+     *
+     * @var Swift_CharacterReaderFactory
+     */
+    private $_charReaderFactory;
+
+    /**
+     * The character set this stream is using.
+     *
+     * @var string
+     */
+    private $_charset;
+
+    /**
+     * The data's stored as-is.
+     *
+     * @var string
+     */
+    private $_datas = '';
+
+    /**
+     * Number of bytes in the stream
+     *
+     * @var integer
+     */
+    private $_datasSize = 0;
+
+    /**
+     * Map.
+     *
+     * @var mixed
+     */
+    private $_map;
+
+    /**
+     * Map Type.
+     *
+     * @var integer
+     */
+    private $_mapType = 0;
+
+    /**
+     * Number of characters in the stream.
+     *
+     * @var integer
+     */
+    private $_charCount = 0;
+
+    /**
+     * Position in the stream.
+     *
+     * @var integer
+     */
+    private $_currentPos = 0;
+
+    /**
+     * Constructor.
+     *
+     * @param Swift_CharacterReaderFactory $factory
+     * @param string                       $charset
+     */
+    public function __construct(Swift_CharacterReaderFactory $factory, $charset)
+    {
+        $this->setCharacterReaderFactory($factory);
+        $this->setCharacterSet($charset);
+    }
+
+    /* -- Changing parameters of the stream -- */
+
+    /**
+     * Set the character set used in this CharacterStream.
+     *
+     * @param string $charset
+     */
+    public function setCharacterSet($charset)
+    {
+        $this->_charset = $charset;
+        $this->_charReader = null;
+        $this->_mapType = 0;
+    }
+
+    /**
+     * Set the CharacterReaderFactory for multi charset support.
+     *
+     * @param Swift_CharacterReaderFactory $factory
+     */
+    public function setCharacterReaderFactory(Swift_CharacterReaderFactory $factory)
+    {
+        $this->_charReaderFactory = $factory;
+    }
+
+    /**
+     * @see Swift_CharacterStream::flushContents()
+     */
+    public function flushContents()
+    {
+        $this->_datas = null;
+        $this->_map = null;
+        $this->_charCount = 0;
+        $this->_currentPos = 0;
+        $this->_datasSize = 0;
+    }
+
+    /**
+     * @see Swift_CharacterStream::importByteStream()
+     *
+     * @param Swift_OutputByteStream $os
+     */
+    public function importByteStream(Swift_OutputByteStream $os)
+    {
+        $this->flushContents();
+        $blocks=512;
+        $os->setReadPointer(0);
+        while(false!==($read = $os->read($blocks)))
+            $this->write($read);
+    }
+
+    /**
+     * @see Swift_CharacterStream::importString()
+     *
+     * @param string $string
+     */
+    public function importString($string)
+    {
+        $this->flushContents();
+        $this->write($string);
+    }
+
+    /**
+     * @see Swift_CharacterStream::read()
+     *
+     * @param integer $length
+     *
+     * @return string
+     */
+    public function read($length)
+    {
+        if ($this->_currentPos>=$this->_charCount) {
+          return false;
+        }
+        $ret=false;
+        $length = ($this->_currentPos+$length > $this->_charCount)
+          ? $this->_charCount - $this->_currentPos
+          : $length;
+          switch ($this->_mapType) {
+            case Swift_CharacterReader::MAP_TYPE_FIXED_LEN:
+                $len = $length*$this->_map;
+                $ret = substr($this->_datas,
+                        $this->_currentPos * $this->_map,
+                        $len);
+                $this->_currentPos += $length;
+                break;
+
+            case Swift_CharacterReader::MAP_TYPE_INVALID:
+                $end = $this->_currentPos + $length;
+                $end = $end > $this->_charCount
+                    ?$this->_charCount
+                    :$end;
+                $ret = '';
+                for (; $this->_currentPos < $length; ++$this->_currentPos) {
+                    if (isset ($this->_map[$this->_currentPos])) {
+                        $ret .= '?';
+                    } else {
+                        $ret .= $this->_datas[$this->_currentPos];
+                    }
+                }
+                break;
+
+            case Swift_CharacterReader::MAP_TYPE_POSITIONS:
+                $end = $this->_currentPos + $length;
+                $end = $end > $this->_charCount
+                    ?$this->_charCount
+                    :$end;
+                $ret = '';
+                $start = 0;
+                if ($this->_currentPos>0) {
+                    $start = $this->_map['p'][$this->_currentPos-1];
+                }
+                $to = $start;
+                for (; $this->_currentPos < $end; ++$this->_currentPos) {
+                    if (isset($this->_map['i'][$this->_currentPos])) {
+                        $ret .= substr($this->_datas, $start, $to - $start).'?';
+                        $start = $this->_map['p'][$this->_currentPos];
+                    } else {
+                        $to = $this->_map['p'][$this->_currentPos];
+                    }
+                }
+                $ret .= substr($this->_datas, $start, $to - $start);
+                break;
+        }
+
+        return $ret;
+    }
+
+    /**
+     * @see Swift_CharacterStream::readBytes()
+     *
+     * @param integer $length
+     *
+     * @return integer[]
+     */
+    public function readBytes($length)
+    {
+        $read=$this->read($length);
+        if ($read!==false) {
+            $ret = array_map('ord', str_split($read, 1));
+
+            return $ret;
+        }
+
+        return false;
+    }
+
+    /**
+     * @see Swift_CharacterStream::setPointer()
+     *
+     * @param integer $charOffset
+     */
+    public function setPointer($charOffset)
+    {
+        if ($this->_charCount<$charOffset) {
+            $charOffset=$this->_charCount;
+        }
+        $this->_currentPos = $charOffset;
+    }
+
+    /**
+     * @see Swift_CharacterStream::write()
+     *
+     * @param string $chars
+     */
+    public function write($chars)
+    {
+        if (!isset($this->_charReader)) {
+            $this->_charReader = $this->_charReaderFactory->getReaderFor(
+                $this->_charset);
+            $this->_map = array();
+            $this->_mapType = $this->_charReader->getMapType();
+        }
+        $ignored='';
+        $this->_datas .= $chars;
+        $this->_charCount += $this->_charReader->getCharPositions(substr($this->_datas, $this->_datasSize), $this->_datasSize, $this->_map, $ignored);
+        if ($ignored!==false) {
+            $this->_datasSize=strlen($this->_datas)-strlen($ignored);
+        } else {
+            $this->_datasSize=strlen($this->_datas);
+        }
+    }
+}

@@ -1,79 +1,115 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for SimpleTest
+ *  @package    SimpleTest
+ *  @subpackage UnitTester
+ *  @version    $Id: remote.php 1786 2008-04-26 17:32:20Z pp11 $
+ */
+
+/**#@+
+ *  include other SimpleTest class files
+ */
+require_once(dirname(__FILE__) . '/browser.php');
+require_once(dirname(__FILE__) . '/xml.php');
+require_once(dirname(__FILE__) . '/test_case.php');
+/**#@-*/
+
+/**
+ *    Runs an XML formated test on a remote server.
+ *    @package SimpleTest
+ *    @subpackage UnitTester
+ */
+class RemoteTestCase {
+    private $url;
+    private $dry_url;
+    private $size;
+    
+    /**
+     *    Sets the location of the remote test.
+     *    @param string $url       Test location.
+     *    @param string $dry_url   Location for dry run.
+     *    @access public
+     */
+    function __construct($url, $dry_url = false) {
+        $this->url = $url;
+        $this->dry_url = $dry_url ? $dry_url : $url;
+        $this->size = false;
+    }
+    
+    /**
+     *    Accessor for the test name for subclasses.
+     *    @return string           Name of the test.
+     *    @access public
+     */
+    function getLabel() {
+        return $this->url;
+    }
+
+    /**
+     *    Runs the top level test for this class. Currently
+     *    reads the data as a single chunk. I'll fix this
+     *    once I have added iteration to the browser.
+     *    @param SimpleReporter $reporter    Target of test results.
+     *    @returns boolean                   True if no failures.
+     *    @access public
+     */
+    function run($reporter) {
+        $browser = $this->createBrowser();
+        $xml = $browser->get($this->url);
+        if (! $xml) {
+            trigger_error('Cannot read remote test URL [' . $this->url . ']');
+            return false;
+        }
+        $parser = $this->createParser($reporter);
+        if (! $parser->parse($xml)) {
+            trigger_error('Cannot parse incoming XML from [' . $this->url . ']');
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     *    Creates a new web browser object for fetching
+     *    the XML report.
+     *    @return SimpleBrowser           New browser.
+     *    @access protected
+     */
+    protected function createBrowser() {
+        return new SimpleBrowser();
+    }
+    
+    /**
+     *    Creates the XML parser.
+     *    @param SimpleReporter $reporter    Target of test results.
+     *    @return SimpleTestXmlListener      XML reader.
+     *    @access protected
+     */
+    protected function createParser($reporter) {
+        return new SimpleTestXmlParser($reporter);
+    }
+    
+    /**
+     *    Accessor for the number of subtests.
+     *    @return integer           Number of test cases.
+     *    @access public
+     */
+    function getSize() {
+        if ($this->size === false) {
+            $browser = $this->createBrowser();
+            $xml = $browser->get($this->dry_url);
+            if (! $xml) {
+                trigger_error('Cannot read remote test URL [' . $this->dry_url . ']');
+                return false;
+            }
+            $reporter = new SimpleReporter();
+            $parser = $this->createParser($reporter);
+            if (! $parser->parse($xml)) {
+                trigger_error('Cannot parse incoming XML from [' . $this->dry_url . ']');
+                return false;
+            }
+            $this->size = $reporter->getTestCaseCount();
+        }
+        return $this->size;
+    }
+}
 ?>
-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

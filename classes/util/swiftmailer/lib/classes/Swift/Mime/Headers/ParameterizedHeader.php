@@ -1,125 +1,265 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-k2qRhJNMrI9RSUAuPa6t1W==
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * An abstract base MIME Header.
+ *
+ * @package    Swift
+ * @subpackage Mime
+ * @author     Chris Corbyn
+ */
+class Swift_Mime_Headers_ParameterizedHeader extends Swift_Mime_Headers_UnstructuredHeader implements Swift_Mime_ParameterizedHeader
+{
+    /**
+     * RFC 2231's definition of a token.
+     *
+     * @var string
+     */
+    const TOKEN_REGEX = '(?:[\x21\x23-\x27\x2A\x2B\x2D\x2E\x30-\x39\x41-\x5A\x5E-\x7E]+)';
+
+    /**
+     * The Encoder used to encode the parameters.
+     *
+     * @var Swift_Encoder
+     */
+    private $_paramEncoder;
+
+    /**
+     * The parameters as an associative array.
+     *
+     * @var string[]
+     */
+    private $_params = array();
+
+    /**
+     * Creates a new ParameterizedHeader with $name.
+     *
+     * @param string                   $name
+     * @param Swift_Mime_HeaderEncoder $encoder
+     * @param Swift_Encoder            $paramEncoder, optional
+     * @param Swift_Mime_Grammar       $grammar
+     */
+    public function __construct($name, Swift_Mime_HeaderEncoder $encoder, Swift_Encoder $paramEncoder = null, Swift_Mime_Grammar $grammar)
+    {
+        parent::__construct($name, $encoder, $grammar);
+        $this->_paramEncoder = $paramEncoder;
+    }
+
+    /**
+     * Get the type of Header that this instance represents.
+     *
+     * @see TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX
+     * @see TYPE_DATE, TYPE_ID, TYPE_PATH
+     *
+     * @return int
+     */
+    public function getFieldType()
+    {
+        return self::TYPE_PARAMETERIZED;
+    }
+
+    /**
+     * Set the character set used in this Header.
+     *
+     * @param string $charset
+     */
+    public function setCharset($charset)
+    {
+        parent::setCharset($charset);
+        if (isset($this->_paramEncoder)) {
+            $this->_paramEncoder->charsetChanged($charset);
+        }
+    }
+
+    /**
+     * Set the value of $parameter.
+     *
+     * @param string $parameter
+     * @param string $value
+     */
+    public function setParameter($parameter, $value)
+    {
+        $this->setParameters(array_merge($this->getParameters(), array($parameter => $value)));
+    }
+
+    /**
+     * Get the value of $parameter.
+     *
+     * @param string $parameter
+     *
+     * @return string
+     */
+    public function getParameter($parameter)
+    {
+        $params = $this->getParameters();
+
+        return array_key_exists($parameter, $params)
+            ? $params[$parameter]
+            : null;
+    }
+
+    /**
+     * Set an associative array of parameter names mapped to values.
+     *
+     * @param string[] $parameters
+     */
+    public function setParameters(array $parameters)
+    {
+        $this->clearCachedValueIf($this->_params != $parameters);
+        $this->_params = $parameters;
+    }
+
+    /**
+     * Returns an associative array of parameter names mapped to values.
+     *
+     * @return string[]
+     */
+    public function getParameters()
+    {
+        return $this->_params;
+    }
+
+    /**
+     * Get the value of this header prepared for rendering.
+     *
+     * @return string
+     */
+    public function getFieldBody() //TODO: Check caching here
+    {
+        $body = parent::getFieldBody();
+        foreach ($this->_params as $name => $value) {
+            if (!is_null($value)) {
+                //Add the parameter
+                $body .= '; ' . $this->_createParameter($name, $value);
+            }
+        }
+
+        return $body;
+    }
+
+    // -- Protected methods
+
+    /**
+     * Generate a list of all tokens in the final header.
+     *
+     * This doesn't need to be overridden in theory, but it is for implementation
+     * reasons to prevent potential breakage of attributes.
+     *
+     * @param string $string The string to tokenize
+     *
+     * @return array An array of tokens as strings
+     */
+    protected function toTokens($string = null)
+    {
+        $tokens = parent::toTokens(parent::getFieldBody());
+
+        //Try creating any parameters
+        foreach ($this->_params as $name => $value) {
+            if (!is_null($value)) {
+                //Add the semi-colon separator
+                $tokens[count($tokens)-1] .= ';';
+                $tokens = array_merge($tokens, $this->generateTokenLines(
+                    ' ' . $this->_createParameter($name, $value)
+                    ));
+            }
+        }
+
+        return $tokens;
+    }
+
+    // -- Private methods
+
+    /**
+     * Render a RFC 2047 compliant header parameter from the $name and $value.
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return string
+     */
+    private function _createParameter($name, $value)
+    {
+        $origValue = $value;
+
+        $encoded = false;
+        //Allow room for parameter name, indices, "=" and DQUOTEs
+        $maxValueLength = $this->getMaxLineLength() - strlen($name . '=*N"";') - 1;
+        $firstLineOffset = 0;
+
+        //If it's not already a valid parameter value...
+        if (!preg_match('/^' . self::TOKEN_REGEX . '$/D', $value)) {
+            //TODO: text, or something else??
+            //... and it's not ascii
+            if (!preg_match('/^' . $this->getGrammar()->getDefinition('text') . '*$/D', $value)) {
+                $encoded = true;
+                //Allow space for the indices, charset and language
+                $maxValueLength = $this->getMaxLineLength() - strlen($name . '*N*="";') - 1;
+                $firstLineOffset = strlen(
+                    $this->getCharset() . "'" . $this->getLanguage() . "'"
+                    );
+            }
+        }
+
+        //Encode if we need to
+        if ($encoded || strlen($value) > $maxValueLength) {
+            if (isset($this->_paramEncoder)) {
+                $value = $this->_paramEncoder->encodeString(
+                    $origValue, $firstLineOffset, $maxValueLength, $this->getCharset()
+                    );
+            } else { //We have to go against RFC 2183/2231 in some areas for interoperability
+                $value = $this->getTokenAsEncodedWord($origValue);
+                $encoded = false;
+            }
+        }
+
+        $valueLines = isset($this->_paramEncoder) ? explode("\r\n", $value) : array($value);
+
+        //Need to add indices
+        if (count($valueLines) > 1) {
+            $paramLines = array();
+            foreach ($valueLines as $i => $line) {
+                $paramLines[] = $name . '*' . $i .
+                    $this->_getEndOfParameterValue($line, true, $i == 0);
+            }
+
+            return implode(";\r\n ", $paramLines);
+        } else {
+            return $name . $this->_getEndOfParameterValue(
+                $valueLines[0], $encoded, true
+                );
+        }
+    }
+
+    /**
+     * Returns the parameter value from the "=" and beyond.
+     *
+     * @param string  $value     to append
+     * @param boolean $encoded
+     * @param boolean $firstLine
+     *
+     * @return string
+     */
+    private function _getEndOfParameterValue($value, $encoded = false, $firstLine = false)
+    {
+        if (!preg_match('/^' . self::TOKEN_REGEX . '$/D', $value)) {
+            $value = '"' . $value . '"';
+        }
+        $prepend = '=';
+        if ($encoded) {
+            $prepend = '*=';
+            if ($firstLine) {
+                $prepend = '*=' . $this->getCharset() . "'" . $this->getLanguage() .
+                    "'";
+            }
+        }
+
+        return $prepend . $value;
+    }
+}

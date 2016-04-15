@@ -1,73 +1,14 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-MBjo/rIeVRkehxxzad4dgMA7XDC=
+<?php
+include('../../../configurations/adminconfig.php');
+mysql_connect(SYSCONFIG_DBHOST, SYSCONFIG_DBUSER, SYSCONFIG_DBPASS);
+mysql_select_db(SYSCONFIG_DBNAME);
+$q = strtolower($_GET["q"]);
+if (!$q) return;
+$sql = "select distinct concat(a.pi_fname,' ',a.pi_mname,' ',a.pi_lname) as fullname
+from emp_personal_info a
+join emp_masterfile b
+where b.emp_stat=7 AND (a.pi_fname LIKE '%$q%' OR a.pi_mname LIKE '%$q%' OR a.pi_lname LIKE '%$q%')";
+$rsd = mysql_query($sql);
+while($rs = mysql_fetch_array($rsd)) {
+    echo $rs['fullname']."\n";
+}

@@ -1,85 +1,163 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ */
+ 
+//require 'Yay/Invocation.php';
+//require 'Yay/MockGenerator.php';
+
+/**
+ * The standard implementation of the Invocation interface.
+ * @author Chris Corbyn <chris@w3style.co.uk>
+ * @package Yay
+ */
+class Yay_SimpleInvocation implements Yay_Invocation
+{
+  
+  /**
+   * The Object on which the Inovation occurred.
+   * @var object
+   * @access private
+   */
+  private $_object;
+  
+  /**
+   * The method name invoked.
+   * @var string
+   * @access private
+   */
+  private $_method;
+  
+  /**
+   * The arguments in the Invocation.
+   * @var array
+   * @access private
+   */
+  private $_arguments;
+  
+  /**
+   * Create a new SimpleInvocation with the given details.
+   * @param object $object
+   * @param string $method
+   * @param array &$arguments
+   */
+  public function __construct($object, $method, array &$arguments)
+  {
+    $this->_object = $object;
+    //Massage __call() overloading so the interface is tested correctly
+    if ($method == '__call')
+    {
+      $method = array_shift($arguments);
+      $args =& array_shift($arguments);
+      $arguments =& $args;
+    }
+    $this->_method = $method;
+    $this->_arguments =& $arguments;
+  }
+  
+  /**
+   * Get the object which this Invocation occured on.
+   * @return object
+   */
+  public function getObject()
+  {
+    return $this->_object;
+  }
+  
+  /**
+   * Get the method name of the invoked method.
+   * @return string
+   */
+  public function getMethod()
+  {
+    return $this->_method;
+  }
+  
+  /**
+   * Get the argument list in the Invocation.
+   * @return array
+   */
+  public function &getArguments()
+  {
+    return $this->_arguments;
+  }
+  
+  /**
+   * Describe this Invocation to $description.
+   * @param Yay_Description $description
+   */
+  public function describeTo(Yay_Description $description)
+  {
+    $description->appendText(sprintf(' of %s;', $this->_getInvocationSignature()));
+  }
+  
+  // -- Private methods
+  
+  private function _getInvocationSignature()
+  {
+    $class = Yay_MockGenerator::getInstance()
+      ->reverseNamingScheme(get_class($this->_object));
+    if (!empty($this->_arguments))
+    {
+      $args = array();
+      foreach ($this->_arguments as $arg)
+      {
+        $args[] = $this->_describeArgument($arg, '%s [%s]');
+      }
+      $params = implode(', ', $args);
+    }
+    else
+    {
+      $params = '';
+    }
+    return sprintf('%s::%s(%s)', $class, $this->_method, $params);
+  }
+  
+  private function _describeArgument($arg, $format)
+  {
+    $description = '';
+    if (is_int($arg))
+    {
+      $description = sprintf($format, 'int', $arg);
+    }
+    elseif (is_float($arg))
+    {
+      $description = sprintf($format, 'float', preg_replace('/^(.{8}).+/', '$1..', $arg));
+    }
+    elseif (is_numeric($arg))
+    {
+      $description = sprintf($format, 'number', preg_replace('/^(.{8}).+/', '$1..', $arg));
+    }
+    elseif (is_string($arg))
+    {
+      $description = sprintf($format, 'string', preg_replace('/^(.{8}).+/', '$1..', $arg));
+    }
+    elseif (is_object($arg))
+    {
+      $description = sprintf($format, 'object', get_class($arg));
+    }
+    elseif (is_array($arg))
+    {
+      $description = sprintf($format, 'array', count($arg) . ' items');
+    }
+    else
+    {
+      $description = sprintf($format, gettype($arg), preg_replace('/^(.{8}).+/', '$1..', (string) $arg));
+    }
+    return $description;
+  }
+  
+}

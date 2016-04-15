@@ -1,119 +1,143 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPmpkp+5iOpJMS2nQmjbf7ejEvF9qvuVWjJaeP5Gzq4uzl+wRbM+WmLh+NGJG74uucKaHJCYD
-G2YuaHlhT07IISlKvQlqZtkrE9l1B2RCWnbND8mlAscWd8d+/2OowzDxLUuYlm4zy1g5I143B+or
-YVZtXVo3udYrsvDPt7dqIJHrn5xyv/nHk9chiQJks/Be738dewZhDYT7/hUVhiTL5iMrLKU/pJA2
-IEb3q1h1rN9Yuo+QxhGW7t9nGJFgUYpeguhecVinuNfR0YtxFWaA1ElXlP5zaNHScsAuHyZ0WNCp
-e3fOvbUtmL3k1sV6DTjZX3uS64PDfQ/E2o62EuZf3s54PFAIbPNOhm1vfMsVAymI9ID7e7EW7Gp0
-vibK2F5nwd+ZuI5ezJJvu9hi1KJPoBkXYxXn46fWAb6+LFjquPmCD8/gT1/ao33Rjx8aZBufOGBu
-UZq3KUTUpp5lh0xT4AzKxYnJxNRiU1bObimkqaSMig5+i+b7QpSebHxaC12CkaQrYbTKdY3lo/zS
-Zx+AkU8fSL44Nw2hNAPWgjjanqjPgPPCwWcwVGfY0A2VaYui7fQ8hoNTsNNJp95um/hNaWT1CviS
-3j5p0p69AP2Y49ObF/PR6clcM1XSNUIxZpaTG7aajzNKkqJzkX+X5TCcTqCAPMasIKV0m6LFunac
-v5Z18XoT4XRmIlTnrrole7NO7yHM/btq8XRCuvmTSMnf9tOMupGBChnVpCq9GYQXC0aWHqrCl5R4
-M+CpwGFVUoG4+F5WS1Lh+7CODMVpZ0/gK+L5zODpo7M1ErT4rpSW2xqU4/9q3bdCmcyWjw4Pk4DB
-wAwO3pTgWrBksK5/PNENAUJ4+zU3gYPDnsreuZIVtlBTxIL2ZMalm4xwB887ZqaLRQiUgn/kXr73
-LFs7Bp39g4MXTDzO+lga62bidu4iQ6LaJEXG5BQ3p8ARoSeEnDx22VkjAhM6ZdEDUda5pGsiygxb
-7BWxRwZjI6iUykMAQ48UT+iiqku87NNJwkxLaex/CDWuhwYtHDoiFS7kS8ycNFoPQbpmyX3Ek0t9
-kWwdo7zx/rfVpD8RNFOqbCjYBI1/BCy7GoeQ89NZiOYBwySMNPzRJzM4jqeeebZiePaM9nvB+3cb
-VlIMehMnvg5eHGVGwefYZ2Z0gus0PzTCl3PvM9Kp+dCoNYCbeEbjR0aDjsxmzjjRFlkgay8xbd7L
-KNQXeMQ+EhJPzR1449a/IhS1h1wILXbb4tcea0dPd1zO8uuVmedQgeAYdW65Lg9cmyZ5nZ/RH/3j
-KG3bHvyrmp8f5D6vgJTGlR5hLq53IU4l5s/oXunznAw4kWeZl0W75HjTaMdNA3rHG4ktCnQTP3al
-z5vQT7DHW82xac5aG/OSKpAfuD/C6hk1A8Dlv0GKypJS+W4TsXApcn9Y+YsxxOtd88lSFQVPGkF0
-9q0dTMndB9G/JuMBfGUZ72HOyb9JUZint1G1aiLKm9Mx097XpQ1smSTxcDQgwfpRqsOi/X1tsP5s
-X6MB/oGQADYfiwPyacwE+xEPsZBbGskKw6W97zX/He9uunDHdZjZ/vQGcuaqghn5sgtXHJLY2Kzr
-7uhHGzPYqEmVo+0a/M4h9lZ/n/7gOzvs3slth+yKWcaEkyYf1ZlVI7XK5w7/NSRHaaWLOBmn5sN1
-DG3X+RrPNeGsu3Rq9bVuYAfjwSSCkHkrup+pU9vvsGTFPRH4oXn62xHb+7UzEZxLpwqiWKzMHSBX
-w1pz+FypfytkmrmNm0o7LG6KPWC/f6EAVW7AHj8jy1Yqa0z21sw/8gWgfKAHpXQfyko1+wZogDZF
-9i/JZ2P6IVJnKtMY/28Ht1/gDKNF2hvh2s/JVl9JjODqJcE1/hX6m9q5D2pnUVVwMJAE7fFBf1lX
-IqOu7aBkVsOoQ7tzbTjAiEGeJe14ZFaBuzLYnjmvk4vcMqxrbjte/MMNYRuEXA8bZPn9NCVSBeIM
-4/S5knrdBqPNVLJgCxfgoyJ3hhc7fIoJVk+Q1UVSL+58qaCYskPw3qWchFwFZGO3FvogQUbSIai/
-jnijQfxHl+bIaIh6cPJ2yt3jxPWtLlfS4nRYlnml+5megHyXd2xaezo8LV4+z8c5xyAa3mzj65Ze
-r/DMpzjsjha03V/iPA/MDwYT3TIOInzwTr5M5dP8qqFzWs3XcoSMxlsiNhSvKSXmOcpf44quXukJ
-mWApJsKzaryMHY7IKbV/0zwOsDwTRpVQflgooQEoxOQ4Y890mc/xBiVEE0TDonGCJktsFgtRu7Mc
-pDoRCmWXGyUGTDgIk/tTpFCCIK1CAYQHlIW/SLVvXeu4t6L3+fxP50+EMBzOXLD17hM2vKknEynw
-/mooT3xIKhqqICIFwwznTtvExVpSZ9hznPI9PQ0ZKArWFeKk3/DTzTvpZ0mxSVUVbY2gancTQ3El
-gvg9gLBTM7U7hK4USrM9k/roYpjbPn/apxyVlnt32aqbxed2O2Hrt6q0c8StmgxRSYGle4I+kDqY
-dzhmE+JNR88nUQVWlRXZ5sZooTWaL0YH7mTDSHW70s8Mbou9Go8CN6/DSWxC6lHgcFJ9xDGoITVs
-BsAFKMBCDW2XAAq+ONacpTe+XpsZsRB6q/B4rL36o9YnBAqKOlUT983M6Zi39Wtg4l5u53Zchalu
-jPcgmUbeB07i8SCMXQkOlbPlw0qTfpR+ptBfRqe+dv32emvCbuu2XM1BCdqNxGgMOd/QjuPyxcNO
-unzwNtiQ0N+qQHRZWj7egTx/9gfZzHex7fOa+h0ZCjoUYOQAdorAvwNb+wVmkhfIMqSF0OvaAW8F
-pjuknZkcA2VCtG50tOlp2+c2KzYfGfdvhCtax//72xPaDlh4lIw18AOOCGkMKQoVlHQClr6vs8sD
-otrTsQAwIVb597yZKf/OyiuBbEYj+RWs1m3gJvUtgzC6PsYxsof829W+YAwds8Q+JuVh1r+x6fT2
-0KCj8jBIKI9rzvSzgGAKKkwR+GM7Omq9DlkQOpOZNBYcFuuWIpKkdLSw5/UgydaJfkufRUD6itoF
-hfxutFgNHHXiRgAmYwSaJqeeBMkoMuoV9ZeFdGihD2pJpKL8RRvzpF3yNMZSTDgbW30bdlPWQpeq
-kkUtnGUNwLYFFn7gSTd4XswsMTHGz5ZrPk3TtiWMNFqRYIFcU8t6NMLrZheebaYAei5hD2hK7mae
-Uut4/flpBpWHRdII0tK/VY8THlr8MBl4xpDhuMztuYnxiEjGITRJMk1IcON+tiiIj4/LQ8ZktdFR
-WhYEhK5SuXrmhbqD4GY6bmHt8x3yoxAucfuhL8HDAwTKw1tuhZSZ95l8rVQzKxx+UiwI0rfjnOqu
-Go+l32rYGtBIv7RgNv0bj0SzEm0RbSpkmrYl4Li3p3sFftg0INQiNuX8MLftz9Jas1+Kaw7f0HFS
-1G5xlgiRm0KE78IvPRrrZDRIssV/IrM5DgZvRcLK8NH/aX21lWNpdk/cY7Cvqle79n98kk9hfhUa
-comPjLCtcUW+R4PDJrHNHeo3YFPoGGnFFnKZnMvkbvxjufA9rkOZIPH+IUypsKdHqUYoU9iifQuV
-cZUwU7DMmA+X8SsbhQYhgM5G9jCACZ9UqSA1k6Tvac1lOmSaHsjJjWqIKi9LjgeEK/8biFLvmtdh
-TJXkao/yE3y/JsvyRRacyBLT5o3/PAh9Kvd07DqFkgqgUQsRFslQu6JgcKalL7f3W7vVwX/IpBEZ
-TiNGSCtimllBcdXfDfuR/IOcRMticahkVXTUp7I0eQpp/Mt6eL9ugsWVWzPyLB/o5nqcY62mPwh9
-fgptFuIQu+rPolKYLRpWITsOWPxArPE0fNcGwhh3n8c4wtZdvh0qjsGbMG2NgevuWijdaX5gOPJl
-ecyX02CVXvDX6Sh1CLxDzoL2XL9yw3JD712YLOFOjA8QeF4N//lgiJFHGDp2feXBv2MJXyHeN+Hg
-XAPLML3jOQh1EGE1JtauJKJgpr7xgDplGJk+hDhTRBplbl8ex+CXwt31u+GvRGlPiF31tIZ7KzEb
-Iv9tnN5KLDqDV4MkWcmodzaPwDFExjqibg+a+c+D7rCIdbvw+0rqbjXwob4gPIeL30f52Hy62Kqz
-LC+bQErrrTUN5aY9GXY6Xg0jStLThT4mAqVdYGu2tr9VYgS9qk06Mgi4LGE/bVe6zRTDR5NaIjVX
-+eM1mdxXa81D6FWlW5Q8API0HwQlSE7uaJ2XivE6w0fbDElMHGDQc7Iqb6bDBCrlVDhLcAG9m8kQ
-wRglCHgVJLNCEheoq62+jqpfJszja0mu4mypxZOkmaUhSKr8oMoAFLb9KeaASg+BRJurea0wl50E
-/9mLgR1uoMkVfyBJcy2T8Vm90BeQHHJltWesznx8mTGG0DwUfYKny3dj5C8K8YNDehbGqyORmi8R
-cIiQUbqQUkq1qdw89chmJl/oMEDgkNdFatOh6dl1fCPDSu3Lq/coOksfjMTfjA/vyTQuEWY6Yq4k
-v24l0i7ftJBg//l0vPGHHlIT1MVEFjDFFfO5A0GQvlar5MRLXt2qRWmV9xUVZa60K9HSGBdVk7IJ
-dxJBEgCKdK7DdUHWblgUxezi/ElgN0YacgnKiby2Kr6Ie7SHX+BCiliWTxiz+06S/++hAbNHgYzK
-qn5Q0+SNaatZUh1FBdievFw/iwwBngSUjfC2SObJNaxmkjVEEr0U/tm5SmBe8SNF9bPVQdoKqPce
-dQHWk3/hu5tD/MdRT2/dKum5WRG1i+HDbYqMh1wldq+Y7GnHt8sV1dQjdvPWKLQS2Gi8FKgDD49H
-V4HH+60pgf0PHj19d7s+Wnt3ubXEY3X+0Qc7nlZZBymL6c1mIGNH2VgpOZw+lWLGmuBG8e9+PoGs
-7LF8SSMDA6QPEU4wog3VaZ0SB149RZ3SBnxJXCuHhVPAGA4vLHr+mhCbOaeQdmaoShgzDPhsGitP
-fUJxaeoEL8HDehu5hh3yL5DdgnCLSB6pzxxq3FqjJitB94p1yCxbdDGccGMJyjKo5XyjPtSO800Q
-Z03NflUNdaHzElLt32ilG6GIJVIUrouK1zLFXmyCTPd8IL73AXHNk0n4Na9yf+eGc7BcI5289n92
-pJIFIjL23YKurK6I96A0jYz+ebToGc09iis+RSauJA2K0l+glXcGDMZEq6Ypnqdy/lz9zRSwcfPv
-h2JGq2FvDZXZ9SUwNeIpyC2nsU/pPqT3BR2ZzOmvuQ2B+O9w7K4+wCZd56xIojG9pcE990WcXrjw
-j6wMmZHYx2fJLdvJGpN2lKMpnzgq0kjaq4hlxHF1g2Kg89Y20KK5ai8cj4Z9nqBzMlrH0FW3YicG
-fnLs6T8VcAKomCu/+ZNuYj2tztjpBo+qFPAQzDJ4mdUaJlZtCq4uIMmBRRUV2ph8HeAVYBu+S4qS
-VE5GQiO/MojhpWdyQ5DDORRlT22IEPGXKl9fkVxR+flW0aRoWy6tefWHq4KwWhi0+UtZPdacvF8e
-zF7lepKm/xfmPfKXWsW26Icdl2tmT43P3RK6YHL87TXRDgdypV4KzNdgQtJoIpHy7AUehap/xmZ/
-A9wact+5AHITblHoBGFQCfUrNCtRCdIZ20+VtFLlgPecH/5jFcohHuVQpdfv/ah97XAR5/13Tnqb
-I2qAkY92zab5mj5FHaA77Jk5uRqiZRmqHnbzHJciQYo8rOwlxnRckrHQKogo52rBjRwfDYVFwp0j
-AHFClzUe7bYqjoYDHq2wdvPM1/mfi2+RY9nzgQuYf2AP1eL/6BRzHUB4fXTrtsDGUkBw9nWaOfK6
-kXeCtXcFG75JNdnoB60dWZdGhd9vJsdTShXXq0vLUByzFYimw8rh+hXSeyr/3zMkfGQHnV+amjSk
-DktrVaMQa2fMBeiYj3xYrhOlbG9BXwruwfcaYqH5bApZM+lSevm8bLjLX65eXrrGRlvFRX0bS4px
-FUwWu5Ke9WzJtRYqsMGBL31F+7LbaMnOguG3hubX7ZdMZv1jdcbnSjvI+HQewOrw8BohFz6gjMbR
-XTH38nsMDlCBAka3n3Onsmeue3t/QLJum/dtWAiH1Yl/UXVkLJZuGtFpnZ7QHPekyHxi8/BH2PlH
-OYvHOnkxd2I5oa0v1YgmeH6JNs8lwOod3LYCVrfq3sGpBnUDUKCBSTsUejXD6XjzLEaTSA8W079k
-D/9RrKFAEwMLfT3u7nEYM/ADf4ldvGxbGoBr8jujHPwld+HGwuYNl9Thk6ksESs/bPLnmBYj4JJk
-7wFYPAmLI0qFi4UN2Xcw75TqWwipBCS76y6T3yOZFRYA7ttXeVI2miioS0l4YwHzJgJp0UbUVh+S
-3Ehblre2OZ4t5Q2rzvm1hXFGS6DzRlGDn05oShqGwCEX011g6OgjwYNjcdC6j6nh8SY/nX7J/Qkz
-wyo1mxHmR7TwNDQDrptVtZVsffrAUt3eJ3q28E3zNqVUkyyuP3tATeLg4jrqBa6to+HMk95LSXev
-kzsy3T4WKJ4vH/p84F8IT2h8HwU/eTXKWt0nFP5KKp7loO39YAd0QSTq25900Hs0V5BzRN8X9LNW
-haSweyvoc1Wz7YTbPeB73NpnSyNGZL/x7qcH+LdoMR7t0YAwdXRD43T9/iD5y1DVNLZgsooSLkPs
-aE/QL3LOtgJaq8HGqukb3NqhBZFWj+Bd4OGlDlLZlE2UM2TvwvvoJVls6qaX2jB5+NJzJtE+OP8l
-R25AFv4IRkk030y9C+g8B+yc3wof+Qo9wqoD46qSyMcKjfe4ivwvqoRIXdBv4ltv49N8T0dLykda
-zoVwV6SfnA9TZAFfeos3avN3s/JKf32PnDVe8f4EJi3Ib+0OGW9wrgd3EB4jddN7i7EkaBYy5lpB
-hCpRI6kZPeXerPR1ShckWgK60pt/gAiL+sRw6YYU/AifagBF70b8SpUCZBXtzUvttjh5eqazjRs0
-tlSDdbM72qthvjhjcUUQZDJEpZiUQEMrYOaqsE00Q7cEl46nFV29CKh5OCIp5vU0lbnjUn+Fb+FG
-XRflm1mE9vKPNMNq8+Q9KejAh1GmK9Aphlm4UzV7dKtbxrUT7NZKcgGNZKUCLFNOVqCJ95CLADbu
-P/6Dd8QHLL2QXIzU9+Xwvwb42/QL8NgMbcQjq0ERRaZ5AiC+baCH7ba74aXK+DuAxNTbp2PzOaMk
-U347pdTpgQMJktaH9bzHfYYtJwJpb2tVU9PSS9MsWkH/KeSBat/0WsO8fI4eplq75/yK7jCx9wnp
-a5SqQLzUSkIgcm1oNX541tZZj4QDa26bHbJU3dH/oMUIZuEOOFyGaGXJcVhOMyXq1Y3fkzgeUDgx
-57IBllx4b9WqlZkroZ4JSvWGBdG6+ijngfTM06/xj+lqXw82dQs05dHt6woVOiBjLoOZUkQ0zVJw
-7VkqSuwpaMuUUbDJxtYmMoDYOSvLmJAej2+SalUCZDXPyhLc9y+WpfWZMbrRl51RK0H8KPiqLSfA
-3lRCHdY5xIhui51VOOZPEBSmOOpGRFy6hMqw1UObiSijwQFM4NlcDBxhRg0dyMAD4AKBjx1FdQn7
-Zaa7qB8erAm8aopM/6ZIsMmLExy//o4NB+JUszyShV9Mh4dnIb7QDU2Xxf/wImeVeZkKKbqZCD8A
-b7ljai9zR/Ih9oUymEoDlhpJc83QiFlD8HY97cgKI3kUJ/GOjCA1DaZ0TtZXto9uoaYpJCC8Yn2l
-4opx4XGPykFZDOqswuZb2xygkJ5OsXjwanmaExlmVDMvYqrQcd5pZ+fPln1c3pTWqb1YxtCEH162
-QpYmggNoI2AusoVgGKguWk/xUDJprMTd2yCzOZz1E4li5vWpEg2jv+c7EsP2h8sRQqUqoT3iBpsO
-6LMxslN3QGhk6c4V+T5e6xiiIIuonslzduo+Yku9mpJf1VVNb4sEqIEPKq+I4B1vfKB/luEjK+Rg
-SsDL0j5nw10J/JRB6BNbmqApypM0R/pVVwVCMJKHzNKdjHGKYk4AT1E0xXLo9bJd0sSPi7m691Nq
-Q7/GaJG526fsXIlKP6xx9rf27jmuXBzCGfCt6hXLuzXc7mNX8tXV/VQyw8f0VfY/Lq7QkbYZYDcd
-/m3HCpvrytFsQwAemRKjyJOZbaskqPndpHVBAqoIwlXZqb2yJaVVozd6Fqwf1+TTKV+W2jmBMD+v
-8JzKNOXrIrxMMXSCN81/4e5gam7vEcjBplPOaPZOr9qT+5oA9wtCIR0GGEkB711S4GdsmJgDqczS
-R4vbaW8alydv8mc6iwPwQu5WrqI+HMzchxnnYDqWcR5TDrxs6/ReQn4qsMsA4Rk3l86ni4udGZvG
-LhchK6JtOY19ZObvhzVEkVPHsu76coD2tNxv7OJFLq5BRoSBEjBs4hUh4d2ERJAxsFMIWClfcCDO
-8fzhWgb5tDRbdsQhEjht3H15DQU5aN2Fq/9cgpMvJg/jtiIo07n75l1wX0kn4N4EzsOiIf3Y/JQ+
-ith1pC+a3AQJUaTT2ziP6GNWOTJiVLfStveVXKXJ6Mx9QJjUxJzjvXLvhGRXDTAtzC/uXc5/V2xR
-87q6yLl+sWEVM5ctlWx5YhxmFHxsJvapSORGKV+C3Kx1hQ/cdez+5mOoMClExYDAq/nMyXXU4TbK
-VrccAUzV/oH9BB1Nxwl9jP6sXge=
+<?php
+
+require_once 'Swift/Mime/MimePart.php';
+require_once 'Swift/Mime/Headers/UnstructuredHeader.php';
+require_once 'Swift/Mime/Headers/ParameterizedHeader.php';
+require_once 'Swift/Encoder/Rfc2231Encoder.php';
+require_once 'Swift/Mime/ContentEncoder/QpContentEncoder.php';
+require_once 'Swift/Mime/HeaderEncoder/QpHeaderEncoder.php';
+require_once 'Swift/CharacterStream/ArrayCharacterStream.php';
+require_once 'Swift/CharacterReaderFactory/SimpleCharacterReaderFactory.php';
+require_once 'Swift/KeyCache/ArrayKeyCache.php';
+require_once 'Swift/KeyCache/SimpleKeyCacheInputStream.php';
+require_once 'Swift/Mime/SimpleHeaderSet.php';
+require_once 'Swift/Mime/SimpleHeaderFactory.php';
+require_once 'Swift/Mime/Grammar.php';
+
+class Swift_Mime_MimePartAcceptanceTest extends UnitTestCase
+{
+    private $_contentEncoder;
+    private $_cache;
+    private $_grammar;
+    private $_headers;
+
+    public function setUp()
+    {
+        $this->_cache = new Swift_KeyCache_ArrayKeyCache(
+            new Swift_KeyCache_SimpleKeyCacheInputStream()
+            );
+        $factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
+        $this->_contentEncoder = new Swift_Mime_ContentEncoder_QpContentEncoder(
+            new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8'),
+            new Swift_StreamFilters_ByteArrayReplacementFilter(
+                array(array(0x0D, 0x0A), array(0x0D), array(0x0A)),
+                array(array(0x0A), array(0x0A), array(0x0D, 0x0A))
+                )
+            );
+
+        $headerEncoder = new Swift_Mime_HeaderEncoder_QpHeaderEncoder(
+            new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8')
+            );
+        $paramEncoder = new Swift_Encoder_Rfc2231Encoder(
+            new Swift_CharacterStream_ArrayCharacterStream($factory, 'utf-8')
+            );
+        $this->_grammar = new Swift_Mime_Grammar();
+        $this->_headers = new Swift_Mime_SimpleHeaderSet(
+            new Swift_Mime_SimpleHeaderFactory($headerEncoder, $paramEncoder, $this->_grammar)
+            );
+    }
+
+    public function testCharsetIsSetInHeader()
+    {
+        $part = $this->_createMimePart();
+        $part->setContentType('text/plain');
+        $part->setCharset('utf-8');
+        $part->setBody('foobar');
+        $this->assertEqual(
+            'Content-Type: text/plain; charset=utf-8' . "\r\n" .
+            'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
+            "\r\n" .
+            'foobar',
+            $part->toString()
+            );
+    }
+
+    public function testFormatIsSetInHeaders()
+    {
+        $part = $this->_createMimePart();
+        $part->setContentType('text/plain');
+        $part->setFormat('flowed');
+        $part->setBody('> foobar');
+        $this->assertEqual(
+            'Content-Type: text/plain; format=flowed' . "\r\n" .
+            'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
+            "\r\n" .
+            '> foobar',
+            $part->toString()
+            );
+    }
+
+    public function testDelSpIsSetInHeaders()
+    {
+        $part = $this->_createMimePart();
+        $part->setContentType('text/plain');
+        $part->setDelSp(true);
+        $part->setBody('foobar');
+        $this->assertEqual(
+            'Content-Type: text/plain; delsp=yes' . "\r\n" .
+            'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
+            "\r\n" .
+            'foobar',
+            $part->toString()
+            );
+    }
+
+    public function testAll3ParamsInHeaders()
+    {
+        $part = $this->_createMimePart();
+        $part->setContentType('text/plain');
+        $part->setCharset('utf-8');
+        $part->setFormat('fixed');
+        $part->setDelSp(true);
+        $part->setBody('foobar');
+        $this->assertEqual(
+            'Content-Type: text/plain; charset=utf-8; format=fixed; delsp=yes' . "\r\n" .
+            'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
+            "\r\n" .
+            'foobar',
+            $part->toString()
+            );
+    }
+
+    public function testBodyIsCanonicalized()
+    {
+        $part = $this->_createMimePart();
+        $part->setContentType('text/plain');
+        $part->setCharset('utf-8');
+        $part->setBody("foobar\r\rtest\ning\r");
+        $this->assertEqual(
+            'Content-Type: text/plain; charset=utf-8' . "\r\n" .
+            'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
+            "\r\n" .
+            "foobar\r\n" .
+            "\r\n" .
+            "test\r\n" .
+            "ing\r\n",
+            $part->toString()
+            );
+    }
+
+    // -- Private helpers
+
+    protected function _createMimePart()
+    {
+        $entity = new Swift_Mime_MimePart(
+            $this->_headers,
+            $this->_contentEncoder,
+            $this->_cache,
+            $this->_grammar
+            );
+
+        return $entity;
+    }
+}

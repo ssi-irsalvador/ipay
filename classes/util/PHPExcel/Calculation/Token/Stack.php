@@ -1,50 +1,115 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Calculation
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version	1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Calculation_Token_Stack
+ *
+ * @category	PHPExcel_Calculation_Token_Stack
+ * @package		PHPExcel_Calculation
+ * @copyright	Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Calculation_Token_Stack {
+
+	/**
+	 *  The parser stack for formulae
+	 *
+	 *  @var mixed[]
+	 */
+	private $_stack = array();
+
+	/**
+	 *  Count of entries in the parser stack
+	 *
+	 *  @var integer
+	 */
+	private $_count = 0;
+
+
+	/**
+	 * Return the number of entries on the stack
+	 *
+	 * @return  integer
+	 */
+	public function count() {
+		return $this->_count;
+	}	//	function count()
+
+	/**
+	 * Push a new entry onto the stack
+	 *
+	 * @param  mixed  $type
+	 * @param  mixed  $value
+	 * @param  mixed  $reference
+	 */
+	public function push($type, $value, $reference = NULL) {
+		$this->_stack[$this->_count++] = array('type'		=> $type,
+											   'value'		=> $value,
+											   'reference'	=> $reference
+											  );
+		if ($type == 'Function') {
+			$localeFunction = PHPExcel_Calculation::_localeFunc($value);
+			if ($localeFunction != $value) {
+				$this->_stack[($this->_count - 1)]['localeValue'] = $localeFunction;
+			}
+		}
+	}	//	function push()
+
+	/**
+	 * Pop the last entry from the stack
+	 *
+	 * @return  mixed
+	 */
+	public function pop() {
+		if ($this->_count > 0) {
+			return $this->_stack[--$this->_count];
+		}
+		return NULL;
+	}	//	function pop()
+
+	/**
+	 * Return an entry from the stack without removing it
+	 *
+	 * @param   integer  $n  number indicating how far back in the stack we want to look
+	 * @return  mixed
+	 */
+	public function last($n = 1) {
+		if ($this->_count - $n < 0) {
+			return NULL;
+		}
+		return $this->_stack[$this->_count - $n];
+	}	//	function last()
+
+	/**
+	 * Clear the stack
+	 */
+	function clear() {
+		$this->_stack = array();
+		$this->_count = 0;
+	}
+
+}	//	class PHPExcel_Calculation_Token_Stack

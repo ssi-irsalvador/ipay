@@ -1,84 +1,175 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/*
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/*
+	
+	Filename	: export.xls.class.php
+	Description	: A small light weight PHP class to allow the creation of simple xls excel spreadsheets from array data.
+	Version 	: 1
+	Author 		: Leenix
+	Website		: http://www.leenix.co.uk
+*/
+
+class ExportXLS {
+
+	private $filename;	//Filename which the excel file will be returned as
+	private $headerArray;	// Array which contains header information
+	private $bodyArray;	// Array with the spreadsheet body
+	private $rowNo = 0;	// Keep track of the row numbers
+
+
+	#Class constructor
+	function ExportXLS($filename) { 
+		$this->filename = $filename;
+	}
+
+
+	/*
+	-------------------------
+	START OF PUBLIC FUNCTIONS
+	-------------------------
+	*/
+
+	public function addHeader($header) {
+	#Accepts an array or var which gets added to the top of the spreadsheet as a header.
+
+		if(is_array($header)) {
+			$this->headerArray[] = $header;
+		}
+		else
+		{
+			$this->headerArray[][0] = $header;
+		}
+	}
+
+	public function addRow($row) {
+	#Accepts an array or var which gets added to the spreadsheet body
+
+		if(is_array($row)) {
+			#check for multi dim array
+			if(is_array($row[0])) {
+				foreach($row as $key=>$array) {
+					$this->bodyArray[] = $array;
+				}
+			}
+			else
+			{
+				$this->bodyArray[] = $row;
+			}			
+		}
+		else
+		{
+			$this->bodyArray[][0] = $row;
+		}
+	
+	}
+	
+	public function returnSheet() {
+	# returns the spreadsheet as a variable
+
+		#build the xls
+		return $this->buildXLS();
+	}
+
+	public function sendFile() {
+
+		#build the xls
+		$xls = $this->buildXLS();
+
+		#send headers
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Content-Type: application/force-download");
+		header("Content-Type: application/octet-stream");
+		header("Content-Type: application/download");
+		header("Content-Disposition: attachment;filename=".$this->filename);
+		header("Content-Transfer-Encoding: binary ");
+
+		echo $xls;
+
+		exit;
+	}
+
+
+	/*
+	--------------------------
+	START OF PRIVATE FUNCTIONS
+	--------------------------
+	*/
+
+	private function buildXLS() {
+	# build and return the xls 
+	
+		#Excel BOF
+		$xls = pack("ssssss", 0x809, 0x8, 0x0, 0x10, 0x0, 0x0);
+
+		#build headers
+		if(is_array($this->headerArray)) {
+			$xls .= $this->build($this->headerArray);
+		}
+
+		#build body
+		if(is_array($this->bodyArray)) {
+			$xls .= $this->build($this->bodyArray);
+		}
+
+		$xls .= pack("ss", 0x0A, 0x00);
+
+		return $xls;
+	}
+
+	private function build($array) {
+	#build and return the headers 
+
+		foreach($array as $key=>$row) {
+			$colNo = 0;
+			foreach($row as $key2=>$field) {
+				if(is_numeric($field)) {
+					$build .= $this->numFormat($this->rowNo, $colNo, $field);
+				}
+				else
+				{
+					$build .= $this->textFormat($this->rowNo, $colNo, $field);
+				}
+
+				$colNo++;
+			}
+			$this->rowNo++;
+		}
+
+		return $build;
+	}
+
+	public function textFormat($row, $col, $data) {
+	# format and return the field as a header
+		$length = strlen($data);
+		$field = pack("ssssss", 0x204, 8 + $length, $row, $col, 0x0, $length);
+		$field .= $data;
+
+		return $field; 
+	}
+		
+
+	private function numFormat($row, $col, $data) {
+	# format and return the field as a header
+    		$field = pack("sssss", 0x203, 14, $row, $col, 0x0);
+    		$field .= pack("d", $data); 
+		
+		return $field; 
+	}
+}
 ?>
-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

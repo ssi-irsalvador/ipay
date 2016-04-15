@@ -1,61 +1,99 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPt0P9kcQofhEUjIpoi8DKIbJ+j8SmzeqD40PY+Ege7HR9j5KDZJM+3GXmJtCm1lgWdn3M5B5
-lMVyHUzzn3KHqgDHT5XWZLIv9fRHBwgfaZ8pLQPdGwl44PceSHEPl/AvGzkWQBjYgkOUtlH26CoI
-21ZrOWP9IgDSvNCPQVwEE80IKW7oB3UW92dx2/TJCjq8V3hJDgW13FB5W5eGej+uwHAFfMPNmm4f
-mda4zl2wvhNAAhGjY9XVObS4CwGEMzwZ10rHNlPx6fcQJSHVGjdghDJqerbDFdLY7JM3SW8Y0ZIZ
-q5bgQ3DyzZXt21UNTglTm4hIHVfWcbmcZ25dp0ObCmztTMAOzbBAmr9HvScTZFI9OJTsRknCjXyi
-gaMwKWu5oMMTiwkTy4YuW1cfcwSJObME+CUmmU7SrEMyvQaTH6B21/2c1rYnEuLqo4bfFz/89DTS
-RZZXqEnz2xIkXFSwDR29mvIOuCqAM4OCf8bDgbcMi84vzhKVZ8vp388TKDopdCM5ptzuITvaPTJG
-bFbNIAqIUw9K393L3C7Gq0MsXyAwD9o2f4xLkcGU0/RGizLYVr2UCpHTtvbMyD92lkVs9tlc5ug+
-BBwx3cJIr5oQ1veVAFT7BuKrHVEjN+KZfTl5OnhYz7SbIpyelhsIo8DyQIeXaREj+RzoCpFEbRa5
-B+Xi0a5JA74LSwwwrzXK7FtMRsGhMytvEgJmmQVguoopL2PrOYDaOkgJp9FP8tVpmnzypXLvKR9K
-teovTYwLOIsvMQLZRyr2MLgkMXcFkzDEFZgHDBtTM9LILEACE5n5rYXEEHaL6sw+x9InnpB25/u+
-VgkZe7DzTL2cQyZf8h7GETcH7nhp/Hkmud4eRvVGkmuhTNkuUxfY6kr76BCG9itm2C6TVUuHuRf8
-etMDZ2sVtkylx6HeEnrrmPhuvTnLbZsvXUyLJdX3hZ7B6pNYEYdJ7Rp8kTEHaXvcLc6gd7JLWNdU
-wUuqnptT9SxOjaMb2llp/YgpAfdHqw+1WfE58A4FYBGTd9d+PAONszWQH3GAzDwztWVNGmUBVlEs
-LKz0C2merfPHGpZlDvmq4OsIog4YtCYQwgf0yJNAX6so+Yx9yiVgQNPPUHH1pBrGJsEJvPttRCju
-RvDzTcOTFX2Jigrx3vbz/jVOoCeNqINbhUL621FDLII9AcHZa/HZqpOmgsA7Y/q6nFPXRCUBbs89
-x3jk85c6r6F1XpziD517dgTfFQjhAiwf8w+OIDFDGu8MT3k+Au1JdW65Lg9cmyZ5nZ/RH/3jKGlc
-m/kCx0OSq87WPTzBCz5P/pCKqRWYeCOTlmmv0d6o4EFvcGWHCE5yyUiwtWzgpsqWWjsnvA6TRDpD
-zov/8w3FtqgY/rswpTGSC2YhWzgH2bO9ibUEKJ+7XI0+EUoFSnrchN0rEVGi58sMSqXbXIUbJfOg
-d8Slcg2Q88nxw1+rLjmo8O0+m/ODn/L/j2f31q/ifJWpQ7DfNARwo0M0RUo7aLc+9CPBrb5LH/QH
-ehcQMsadpKlu1ek58ZOIfXX01xjBR9VFb0kjCHjOfZBLZCkh6P/EKiyL4uy83Z7+oSbP2K7IZazI
-l5DxWMjARvDu2RwDsrwKBT0lsKGY3e0bZWIhqYZj23ti7SFSGoJevSAHlqqC5oz2k788shLUepbc
-ZSXUydhq3ySChRMorxUDgQh+YnoDiXkFKGZyHNmSCWBU+UQXywgERmzpPzjW5+aCcNjMpaFtSCwg
-W1wDghoZapGiTEZkeyd0eK+wycbCJDGOL9TVe8FgWtDam44tYXCj35C7nKsBDPaI4V0xh54gMUSI
-RNow/4eMYYCEh0irqCgiJIZ+dJDl0iG+AbB4FyWwqjVw9k36UEs/qNc9XpjoPEmXAIq6dR4cvCW7
-+itULi9AVqX/B4Mh2H6exNeTRm5+PNqY413KQc/91kq7+rKrSDUFbG4msM8qDKHS8XD0r7qj5UnL
-sULgQghnqOlDYOT9oObi0k+H22LDcQPBY8k1h9FWdkgo8hn5VhG1eIPTXmlLIE8MDan9cGo5cq9j
-Y4LyhtgnZ+gcDgG2vFQEJEbhIyiKXdgZtG8fuz5QHhOz7K0AzUiMolsctXTx7CghsVspRKUna4YQ
-dxRFdG+kvFAYLvc6dnhDjFG8hjfAYU31lwHCInGeO75X70eCdHEJc7/yShBnkMbTNMbViW8ZLnir
-bnKM65hFpKhZ70Uzv9utm26ls6fCwyFM5Vqha1ysWaMI45HI/5txbAbJqFmCNGX37qa3KES5JlOq
-TfnbUV5Z+M+SsIyfW6UIrms8Bv42cDzKjBiu9LKTKw5g9ibiM/4jQlcbXuUjReD77sTQg9X2LWMM
-6OM6c7SItWqQlOpZUV+BQx0LY3PQvY186fhICTTh5c7qiD3djVociRfSkXeC19NGZlLEdL0sHMvK
-YRUa1dkGtB5iKDoAAq02AUS+C0rtRgpDg1/3WZy3caN4yXMM+dvs/BG3Yr56htyA729Gq98S4Ark
-yl53UhUT9unDNDL6SMAGQE6wbsXhVRm16xkMS3YXK2E7oBn6uSyxoPcJWtKFlw5umqHXoAZFR01S
-+8jTIBLF4AJXsn9dCK05spZeiTjSSMW5zoqoUwJEaYWPUAx2UBcRRxAAbY7Wl8nHUezCrp/tgRG1
-f/lm774a1M/mYts6+SM3gpSDiCUHK4U/I2kjUtwEFtedAm23HVIg3wH3sXo2a2W5Ec6a5xk1XpaS
-1orsjnuzhPXh0HF+tBfCckTDJKeR3WFhz6Pmk/kAa/42OkZesL3p1z8BvxsUbKavFS2AJkGS+//z
-+NkToEl1HRug7YyHlXYTyRZhTBEl+cZjsDL17YzM/mIq+8EUltTkZIv+YOLtnaC7gD6rspOdLvD0
-mbdYUg20EebhI+ZRI81Zg57uSoEZ5308qrsczL2NGlLJIMPl4BzMPoOh1Fd8BFIDq3WN9eK2dsHg
-Go+HZ9DR6eXMnCO+nX+xwbkeA58z62dhWugrpHqqcfW576M2czCdwaV0FQ7Dfh3Kz6GFXAgO/tPB
-VpU8hxoxLctn4Xz+rVOpN9dDQCSC0CK1CMnwQIoA2aq3AcPiJ9Hdfkefai8Zh303XE64UfWq5Nb8
-ghhAMV2fyyVTub0zYT+CkdbuVW3Wo8NfzP/FrOY+7eupFsEIqsTZhfIyobb2WA/8QZt3IHDrsDqx
-+/lzbxDiZAhZxXZ2Cup6EJVmj9yoCHXIiCVt5dokErlJGfkbqcOLLMo4juQie2EwNIerT1ALqfqP
-lp4czRvWUR5I0VPg7XoJNN4ZCsaddT3e7o4WKvijYRjqrMmUiM5DLLyS5ZxxZ463xNeoNd/PqpiR
-XgCF7A5QCMyGYMwdmjr6cPYcL1QLoiTO/3Vvd3u3QZyFSIiC2ws0UxsvfaTZ//XrGwhc6bpU4mm4
-s5ceGP/eVOiacwar4dt/VZ2zIW5rc8kBuXxCcNYGW+dvw0NwuoppNfHiZ68FputvWAVoRllPdDTz
-7qUoQkrndMpkeLSUnSmHqCUQUBvc1d+2TyM1ar7OrWbHdqOdanQ1/6Ubn9lHN3bL1HRV5fcnGhrK
-jwnW8WCA1LlpkEB1rsmuElrdISjfsDJhQjaOy3TnI1FAvvsHd7MQoGRuy5WmdsVSN8/pA6U624wS
-UA+krlWRt5EU/Sz5967qCO3Hhcghz1u6ZNP2LpYXyLPigjnwZjw83L3BfNl3B/3V2JjtSf+qZlqR
-HQvse6iTDxA5L05171ajnsYgi8mtvbpxQHEdee961xoJ/tnQ+VgRb1P2Y0Q0OpQyYE4gkMX1bvDr
-AvtSVCj4IAvQ0CdubpGYaL6FII+oOivrgjhzY2H5bF9HkQxuWqvycOI95RHeddOcV3La0x8a/cqr
-fdzREFwNPsYFTbGMNlY88Ol4z7Vs87IHrdg76Kk14XL7Dyp+R5fdV1Mr4UW0iY3dovh8VjzSUbb3
-C0uY67hCA28nRTVAtsHIpAE8d1zKU9VsCwG4A6AV+jNmfOKlIgBb51ixVZFMimHgBXTnqlGH/wR/
-0B3MtETUpL2zTGGNaz8qhmNZ1+sNmJw1PhkJE8bXEpQYfucsWg0f6NnVSrqwFhK+PMlhPLuoAHxq
-785hsBjLs2/IfK+UjeSUrvuYl0Z9SG8uGmLlsnhpfuUuXE8nb2oweBNXX53zURgpTJRNOOrLUiIM
-zsJrAmg/GANE+OrhQXp0pM98u/HKuGOenJDonX/yACQ9WF9gwlX+CQ6s2QQpCjF1
+<?php
+/**
+ * DOMPDF - PHP5 HTML to PDF renderer
+ *
+ * File: $RCSfile: inline_frame_reflower.cls.php,v $
+ * Created on: 2004-06-17
+ *
+ * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library in the file LICENSE.LGPL; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * Alternatively, you may distribute this software under the terms of the
+ * PHP License, version 3.0 or later.  A copy of this license should have
+ * been distributed with this file in the file LICENSE.PHP .  If this is not
+ * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
+ *
+ * The latest version of DOMPDF might be available at:
+ * http://www.dompdf.com/
+ *
+ * @link http://www.dompdf.com/
+ * @copyright 2004 Benj Carson
+ * @author Benj Carson <benjcarson@digitaljunkies.ca>
+ * @package dompdf
+
+ */
+
+/* $Id: inline_frame_reflower.cls.php 357 2011-01-30 20:56:46Z fabien.menager $ */
+
+/**
+ * Reflows inline frames
+ *
+ * @access private
+ * @package dompdf
+ */
+class Inline_Frame_Reflower extends Frame_Reflower {
+
+  function __construct(Frame $frame) { parent::__construct($frame); }
+  
+  //........................................................................
+
+  function reflow(Frame_Decorator $block = null) {
+    $frame = $this->_frame;
+    
+  	// Check if a page break is forced
+    $page = $frame->get_root();
+    $page->check_forced_page_break($frame);
+    
+    if ( $page->is_full() )
+      return;
+      
+    $style = $frame->get_style();
+    
+    // Generated content
+    $this->_set_content();
+    
+    $frame->position();
+
+    $cb = $frame->get_containing_block();
+
+    // Add our margin, padding & border to the first and last children
+    if ( ($f = $frame->get_first_child()) && $f instanceof Text_Frame_Decorator ) {
+      $f_style = $f->get_style();
+      $f_style->margin_left  = $style->margin_left;
+      $f_style->padding_left = $style->padding_left;
+      $f_style->border_left  = $style->border_left;
+    }
+
+    if ( ($l = $frame->get_last_child()) && $l instanceof Text_Frame_Decorator ) {
+      $l_style = $l->get_style();
+      $l_style->margin_right  = $style->margin_right;
+      $l_style->padding_right = $style->padding_right;
+      $l_style->border_right  = $style->border_right;
+    }
+    
+    if ( $block ) {
+      $block->add_frame_to_line($this->_frame);
+    }
+
+    // Set the containing blocks and reflow each child.  The containing
+    // block is not changed by line boxes.
+    foreach ( $frame->get_children() as $child ) {
+      $child->set_containing_block($cb);
+      $child->reflow($block);
+    }
+  }
+}

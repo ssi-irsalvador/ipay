@@ -1,71 +1,41 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<br>
+<br>
+<div class="themeFieldsetDiv01">
+<?php 
+if(isset($eMsg)){
+	if (is_array($eMsg)) {
 ?>
-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
-GZuq5I5MqiWui6eHsxPVJ4eM
+	<div class="tblListErrMsg">
+	<b>Check the following error(s) below:</b><br>
+	<?php
+	foreach ($eMsg as $key => $value) {
+	?>
+	&nbsp;&nbsp;&bull;&nbsp;<?=$Value?>
+	<?php		
+	}
+	?>
+	</div>
+<?php		
+	}else {
+?>
+	<div class="tblListErrMsg">
+	<?=$eMsg?>
+	</div>
+<?
+	}
+}
+?>
+<fieldset class="themeFieldset01"> 
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  
+  <tr>
+    <td width="20%">Select Pay Period</td>
+    <td width="80%"><select name="pps_id" id="pps_id" onchange="javascript:window.location='reports.php?statpos=<?=$_GET['statpos'];?>&pps_id='+document.getElementById('pps_id').value;">
+		 <option value="0">Please select</option>
+		 <?=html_options_2d($payperiod,'pps_id','pps_name',$_GET['pps_id'],true)?>
+    </select></td>
+  </tr>
+</table>
+</fieldset>
+<?=$tblDataList?>
+</div>

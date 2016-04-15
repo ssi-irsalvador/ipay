@@ -1,93 +1,97 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  Autorunner which runs all tests cases found in a file
+ *  that includes this module.
+ *  @package    SimpleTest
+ *  @version    $Id: autorun.php 1809 2008-09-12 00:46:55Z lastcraft $
+ */
+require_once dirname(__FILE__) . '/unit_tester.php';
+require_once dirname(__FILE__) . '/mock_objects.php';
+require_once dirname(__FILE__) . '/collector.php';
+require_once dirname(__FILE__) . '/default_reporter.php';
+
+$GLOBALS['SIMPLETEST_AUTORUNNER_INITIAL_CLASSES'] = get_declared_classes();
+register_shutdown_function('simpletest_autorun');
+
+/**
+ *    Exit handler to run all recent test cases if no test has
+ *    so far been run. Uses the DefaultReporter which can have
+ *    it's output controlled with SimpleTest::prefer().
+ */
+function simpletest_autorun() {
+    try {
+        if (tests_have_run()) {
+            return;
+        }
+        $candidates = array_intersect(
+                capture_new_classes(),
+                classes_defined_in_initial_file());
+        $loader = new SimpleFileLoader();
+        $suite = $loader->createSuiteFromClasses(
+                basename(initial_file()),
+                $loader->selectRunnableTests($candidates));
+        $result = $suite->run(new DefaultReporter());
+    } catch (Exception $stack_frame_fix) {
+        print $stack_frame_fix->getMessage();
+        $result = false;
+    }
+    if (SimpleReporter::inCli()) {
+        exit($result ? 0 : 1);
+    }
+}
+
+/**
+ *    Checks the current test context to see if a test has
+ *    ever been run.
+ *    @return boolean        True if tests have run.
+ */
+function tests_have_run() {
+    if ($context = SimpleTest::getContext()) {
+        return (boolean)$context->getTest();
+    }
+    return false;
+}
+
+/**
+ *    The first autorun file.
+ *    @return string        Filename of first autorun script.
+ */
+function initial_file() {
+    static $file = false;
+    if (! $file) {
+        if (isset($_SERVER, $_SERVER['SCRIPT_FILENAME'])) {
+            $file = $_SERVER['SCRIPT_FILENAME'];
+        } else {
+	        $included_files = get_included_files();
+	        $file = reset($included_files);
+        }
+    }
+    return $file;
+}
+
+/**
+ *    Just the classes from the first autorun script. May
+ *    get a few false positives, as it just does a regex based
+ *    on following the word "class".
+ *    @return array        List of all possible classes in first
+ *                         autorun script.
+ */
+function classes_defined_in_initial_file() {
+    if (preg_match_all('/\bclass\s+(\w+)/i', file_get_contents(initial_file()), $matches)) {
+        return array_map('strtolower', $matches[1]);
+    }
+    return array();
+}
+
+/**
+ *    Every class since the first autorun include. This
+ *    is safe enough if require_once() is alwyas used.
+ *    @return array        Class names.
+ */
+function capture_new_classes() {
+    global $SIMPLETEST_AUTORUNNER_INITIAL_CLASSES;
+    return array_map('strtolower', array_diff(get_declared_classes(),
+                            $SIMPLETEST_AUTORUNNER_INITIAL_CLASSES ?
+                            $SIMPLETEST_AUTORUNNER_INITIAL_CLASSES : array()));
+}
 ?>
-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

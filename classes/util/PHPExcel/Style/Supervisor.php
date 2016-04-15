@@ -1,53 +1,132 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-iH6neBakD0BfQCkboZYPBCgv6DgjrqH6eG==
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package	PHPExcel_Style
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version	1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Style_Supervisor
+ *
+ * @category   PHPExcel
+ * @package	PHPExcel_Style
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+abstract class PHPExcel_Style_Supervisor
+{
+	/**
+	 * Supervisor?
+	 *
+	 * @var boolean
+	 */
+	protected $_isSupervisor;
+
+	/**
+	 * Parent. Only used for supervisor
+	 *
+	 * @var PHPExcel_Style
+	 */
+	protected $_parent;
+
+	/**
+	 * Create a new PHPExcel_Style_Alignment
+	 *
+	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
+	 */
+	public function __construct($isSupervisor = FALSE)
+	{
+		// Supervisor?
+		$this->_isSupervisor = $isSupervisor;
+	}
+
+	/**
+	 * Bind parent. Only used for supervisor
+	 *
+	 * @param PHPExcel $parent
+	 * @return PHPExcel_Style_Supervisor
+	 */
+	public function bindParent($parent, $parentPropertyName=NULL)
+	{
+		$this->_parent = $parent;
+		return $this;
+	}
+
+	/**
+	 * Is this a supervisor or a cell style component?
+	 *
+	 * @return boolean
+	 */
+	public function getIsSupervisor()
+	{
+		return $this->_isSupervisor;
+	}
+
+	/**
+	 * Get the currently active sheet. Only used for supervisor
+	 *
+	 * @return PHPExcel_Worksheet
+	 */
+	public function getActiveSheet()
+	{
+		return $this->_parent->getActiveSheet();
+	}
+
+	/**
+	 * Get the currently active cell coordinate in currently active sheet.
+	 * Only used for supervisor
+	 *
+	 * @return string E.g. 'A1'
+	 */
+	public function getSelectedCells()
+	{
+		return $this->getActiveSheet()->getSelectedCells();
+	}
+
+	/**
+	 * Get the currently active cell coordinate in currently active sheet.
+	 * Only used for supervisor
+	 *
+	 * @return string E.g. 'A1'
+	 */
+	public function getActiveCell()
+	{
+		return $this->getActiveSheet()->getActiveCell();
+	}
+
+	/**
+	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
+	 */
+	public function __clone() {
+		$vars = get_object_vars($this);
+		foreach ($vars as $key => $value) {
+			if ((is_object($value)) && ($key != '_parent')) {
+				$this->$key = clone $value;
+			} else {
+				$this->$key = $value;
+			}
+		}
+	}
+}

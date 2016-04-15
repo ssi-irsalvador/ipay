@@ -1,165 +1,307 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for eclipse plugin  
+ *  @package    SimpleTest
+ *  @subpackage Eclipse
+ *  @version    $Id: eclipse.php 1787 2008-04-26 20:35:39Z pp11 $
+ */
+/**#@+
+ * simpletest include files
+ */
+include_once 'unit_tester.php';
+include_once 'test_case.php';
+include_once 'invoker.php';
+include_once 'socket.php';
+include_once 'mock_objects.php';
+/**#@-*/
+
+/**
+ *  base reported class for eclipse plugin  
+ *  @package    SimpleTest
+ *  @subpackage Eclipse
+ */
+class EclipseReporter extends SimpleScorer {
+    
+    /**
+     *    Reporter to be run inside of Eclipse interface.
+     *    @param object $listener   Eclipse listener (?).
+     *    @param boolean $cc        Whether to include test coverage.
+     */
+    function __construct(&$listener, $cc=false){
+        $this->listener = &$listener;
+        $this->SimpleScorer();
+        $this->case = "";
+        $this->group = "";
+        $this->method = "";
+        $this->cc = $cc;
+        $this->error = false;
+        $this->fail = false;
+    }
+    
+    /**
+     *    Means to display human readable object comparisons.
+     *    @return SimpleDumper        Visual comparer.
+     */
+    function getDumper() {
+        return new SimpleDumper();
+    }
+    
+    /**
+     *    Localhost connection from Eclipse.
+     *    @param integer $port      Port to connect to Eclipse.
+     *    @param string $host       Normally localhost.
+     *    @return SimpleSocket      Connection to Eclipse.
+     */
+    function &createListener($port, $host="127.0.0.1"){
+        $tmplistener = &new SimpleSocket($host, $port, 5);
+        return $tmplistener;
+    }
+    
+    /**
+     *    Wraps the test in an output buffer.
+     *    @param SimpleInvoker $invoker     Current test runner.
+     *    @return EclipseInvoker            Decorator with output buffering.
+     *    @access public
+     */
+    function &createInvoker(&$invoker){
+        $eclinvoker = &new EclipseInvoker($invoker, $this->listener);
+        return $eclinvoker;
+    }
+    
+    /**
+     *    C style escaping.
+     *    @param string $raw    String with backslashes, quotes and whitespace.
+     *    @return string        Replaced with C backslashed tokens.
+     */
+    function escapeVal($raw){
+        $needle = array("\\","\"","/","\b","\f","\n","\r","\t");
+        $replace = array('\\\\','\"','\/','\b','\f','\n','\r','\t');
+        return str_replace($needle, $replace, $raw);
+    }
+    
+    /**
+     *    Stash the first passing item. Clicking the test
+     *    item goes to first pass.
+     *    @param string $message    Test message, but we only wnat the first.
+     *    @access public
+     */
+    function paintPass($message){
+        if (! $this->pass){
+            $this->message = $this->escapeVal($message);
+        }
+        $this->pass = true;
+    }
+    
+    /**
+     *    Stash the first failing item. Clicking the test
+     *    item goes to first fail.
+     *    @param string $message    Test message, but we only wnat the first.
+     *    @access public
+     */
+    function paintFail($message){
+        //only get the first failure or error
+        if (! $this->fail && ! $this->error){
+            $this->fail = true;
+            $this->message = $this->escapeVal($message);
+            $this->listener->write('{status:"fail",message:"'.$this->message.'",group:"'.$this->group.'",case:"'.$this->case.'",method:"'.$this->method.'"}');
+        }
+    }
+    
+    /**
+     *    Stash the first error. Clicking the test
+     *    item goes to first error.
+     *    @param string $message    Test message, but we only wnat the first.
+     *    @access public
+     */
+    function paintError($message){
+        if (! $this->fail && ! $this->error){
+            $this->error = true;
+            $this->message = $this->escapeVal($message);
+            $this->listener->write('{status:"error",message:"'.$this->message.'",group:"'.$this->group.'",case:"'.$this->case.'",method:"'.$this->method.'"}');
+        }
+    }
+    
+    
+    /**
+     *    Stash the first exception. Clicking the test
+     *    item goes to first message.
+     *    @param string $message    Test message, but we only wnat the first.
+     *    @access public
+     */
+    function paintException($exception){
+        if (! $this->fail && ! $this->error){
+            $this->error = true;
+            $message = 'Unexpected exception of type[' . get_class($exception) .
+                    '] with message [' . $exception->getMessage() . '] in [' .
+                    $exception->getFile() .' line '. $exception->getLine() . ']';
+            $this->message = $this->escapeVal($message);
+            $this->listener->write(
+                    '{status:"error",message:"' . $this->message . '",group:"' .
+                    $this->group . '",case:"' . $this->case . '",method:"' . $this->method
+                    . '"}');
+        }
+    }
+    
+
+    /**
+     *    We don't display any special header.
+     *    @param string $test_name     First test top level
+     *                                 to start.
+     *    @access public
+     */
+    function paintHeader($test_name) {
+    }
+
+    /**
+     *    We don't display any special footer.
+     *    @param string $test_name        The top level test.
+     *    @access public
+     */
+    function paintFooter($test_name) {
+    }
+    
+    /**
+     *    Paints nothing at the start of a test method, but stash
+     *    the method name for later.
+     *    @param string $test_name   Name of test that is starting.
+     *    @access public
+     */
+    function paintMethodStart($method) {
+        $this->pass = false;
+        $this->fail = false;
+        $this->error = false;
+        $this->method = $this->escapeVal($method);
+    }
+        
+    /**
+     *    Only send one message if the test passes, after that
+     *    suppress the message.
+     *    @param string $test_name   Name of test that is ending.
+     *    @access public
+     */
+    function paintMethodEnd($method){   
+        if ($this->fail || $this->error || ! $this->pass){
+        } else {
+            $this->listener->write(
+                        '{status:"pass",message:"' . $this->message . '",group:"' .
+                        $this->group . '",case:"' . $this->case . '",method:"' .
+                        $this->method . '"}');
+        }
+    }
+    
+    /**
+     *    Stashes the test case name for the later failure message.
+     *    @param string $test_name     Name of test or other label.
+     *    @access public
+     */
+    function paintCaseStart($case){
+        $this->case = $this->escapeVal($case);
+    }
+    
+    /**
+     *    Drops the name.
+     *    @param string $test_name     Name of test or other label.
+     *    @access public
+     */
+    function paintCaseEnd($case){
+        $this->case = "";
+    }
+    
+    /**
+     *    Stashes the name of the test suite. Starts test coverage
+     *    if enabled.
+     *    @param string $group     Name of test or other label.
+     *    @param integer $size     Number of test cases starting.
+     *    @access public
+     */
+    function paintGroupStart($group, $size){
+        $this->group = $this->escapeVal($group);
+        if ($this->cc){
+            if (extension_loaded('xdebug')){
+                xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE); 
+            }
+        }
+    }
+
+    /**
+     *    Paints coverage report if enabled.
+     *    @param string $group     Name of test or other label.
+     *    @access public
+     */
+    function paintGroupEnd($group){
+        $this->group = "";
+        $cc = "";
+        if ($this->cc){
+            if (extension_loaded('xdebug')){
+                $arrfiles = xdebug_get_code_coverage();
+                xdebug_stop_code_coverage();
+                $thisdir = dirname(__FILE__);
+                $thisdirlen = strlen($thisdir);
+                foreach ($arrfiles as $index=>$file){
+                    if (substr($index, 0, $thisdirlen)===$thisdir){
+                        continue;
+                    }
+                    $lcnt = 0;
+                    $ccnt = 0;
+                    foreach ($file as $line){
+                        if ($line == -2){
+                            continue;
+                        }
+                        $lcnt++;
+                        if ($line==1){
+                            $ccnt++;
+                        }
+                    }
+                    if ($lcnt > 0){
+                        $cc .= round(($ccnt/$lcnt) * 100, 2) . '%';
+                    }else{
+                        $cc .= "0.00%";
+                    }
+                    $cc.= "\t". $index . "\n";
+                }
+            }
+        }
+        $this->listener->write('{status:"coverage",message:"' .
+                                EclipseReporter::escapeVal($cc) . '"}');
+    }
+}
+
+/**
+ *  Invoker decorator for Eclipse. Captures output until
+ *  the end of the test.  
+ *  @package    SimpleTest
+ *  @subpackage Eclipse
+ */
+class EclipseInvoker extends SimpleInvokerDecorator{
+    function __construct(&$invoker, &$listener) {
+        $this->listener = &$listener;
+        $this->SimpleInvokerDecorator($invoker);
+    }
+    
+    /**
+     *    Starts output buffering.
+     *    @param string $method    Test method to call.
+     *    @access public
+     */
+    function before($method){
+        ob_start();
+        $this->invoker->before($method);
+    }
+
+    /**
+     *    Stops output buffering and send the captured output
+     *    to the listener.
+     *    @param string $method    Test method to call.
+     *    @access public
+     */
+    function after($method) {
+        $this->invoker->after($method);
+        $output = ob_get_contents();
+        ob_end_clean();
+        if ($output !== ""){
+            $result = $this->listener->write('{status:"info",message:"' .
+                                              EclipseReporter::escapeVal($output) . '"}');
+        }
+    }
+}
 ?>
-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
-cMeG

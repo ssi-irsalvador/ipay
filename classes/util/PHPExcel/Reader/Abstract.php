@@ -1,76 +1,227 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-QsSWjXzPiltSLbG=
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Reader
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Reader_Abstract
+ *
+ * @category	PHPExcel
+ * @package	PHPExcel_Reader
+ * @copyright	Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
+{
+	/**
+	 * Read data only?
+	 * Identifies whether the Reader should only read data values for cells, and ignore any formatting information;
+	 *		or whether it should read both data and formatting
+	 *
+	 * @var	boolean
+	 */
+	protected $_readDataOnly = FALSE;
+
+	/**
+	 * Read charts that are defined in the workbook?
+	 * Identifies whether the Reader should read the definitions for any charts that exist in the workbook;
+	 *
+	 * @var	boolean
+	 */
+	protected $_includeCharts = FALSE;
+
+	/**
+	 * Restrict which sheets should be loaded?
+	 * This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
+	 *
+	 * @var array of string
+	 */
+	protected $_loadSheetsOnly = NULL;
+
+	/**
+	 * PHPExcel_Reader_IReadFilter instance
+	 *
+	 * @var PHPExcel_Reader_IReadFilter
+	 */
+	protected $_readFilter = NULL;
+
+	protected $_fileHandle = NULL;
+
+
+	/**
+	 * Read data only?
+	 *		If this is true, then the Reader will only read data values for cells, it will not read any formatting information.
+	 *		If false (the default) it will read data and formatting.
+	 *
+	 * @return	boolean
+	 */
+	public function getReadDataOnly() {
+		return $this->_readDataOnly;
+	}
+
+	/**
+	 * Set read data only
+	 *		Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.
+	 *		Set to false (the default) to advise the Reader to read both data and formatting for cells.
+	 *
+	 * @param	boolean	$pValue
+	 *
+	 * @return	PHPExcel_Reader_IReader
+	 */
+	public function setReadDataOnly($pValue = FALSE) {
+		$this->_readDataOnly = $pValue;
+		return $this;
+	}
+
+	/**
+	 * Read charts in workbook?
+	 *		If this is true, then the Reader will include any charts that exist in the workbook.
+	 *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
+	 *		If false (the default) it will ignore any charts defined in the workbook file.
+	 *
+	 * @return	boolean
+	 */
+	public function getIncludeCharts() {
+		return $this->_includeCharts;
+	}
+
+	/**
+	 * Set read charts in workbook
+	 *		Set to true, to advise the Reader to include any charts that exist in the workbook.
+	 *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
+	 *		Set to false (the default) to discard charts.
+	 *
+	 * @param	boolean	$pValue
+	 *
+	 * @return	PHPExcel_Reader_IReader
+	 */
+	public function setIncludeCharts($pValue = FALSE) {
+		$this->_includeCharts = (boolean) $pValue;
+		return $this;
+	}
+
+	/**
+	 * Get which sheets to load
+	 * Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
+	 *		indicating that all worksheets in the workbook should be loaded.
+	 *
+	 * @return mixed
+	 */
+	public function getLoadSheetsOnly()
+	{
+		return $this->_loadSheetsOnly;
+	}
+
+	/**
+	 * Set which sheets to load
+	 *
+	 * @param mixed $value
+	 *		This should be either an array of worksheet names to be loaded, or a string containing a single worksheet name.
+	 *		If NULL, then it tells the Reader to read all worksheets in the workbook
+	 *
+	 * @return PHPExcel_Reader_IReader
+	 */
+	public function setLoadSheetsOnly($value = NULL)
+	{
+		$this->_loadSheetsOnly = is_array($value) ?
+			$value : array($value);
+		return $this;
+	}
+
+	/**
+	 * Set all sheets to load
+	 *		Tells the Reader to load all worksheets from the workbook.
+	 *
+	 * @return PHPExcel_Reader_IReader
+	 */
+	public function setLoadAllSheets()
+	{
+		$this->_loadSheetsOnly = NULL;
+		return $this;
+	}
+
+	/**
+	 * Read filter
+	 *
+	 * @return PHPExcel_Reader_IReadFilter
+	 */
+	public function getReadFilter() {
+		return $this->_readFilter;
+	}
+
+	/**
+	 * Set read filter
+	 *
+	 * @param PHPExcel_Reader_IReadFilter $pValue
+	 * @return PHPExcel_Reader_IReader
+	 */
+	public function setReadFilter(PHPExcel_Reader_IReadFilter $pValue) {
+		$this->_readFilter = $pValue;
+		return $this;
+	}
+
+	/**
+	 * Open file for reading
+	 *
+	 * @param string $pFilename
+	 * @throws	PHPExcel_Reader_Exception
+	 * @return resource
+	 */
+	protected function _openFile($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename) || !is_readable($pFilename)) {
+			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		// Open file
+		$this->_fileHandle = fopen($pFilename, 'r');
+		if ($this->_fileHandle === FALSE) {
+			throw new PHPExcel_Reader_Exception("Could not open file " . $pFilename . " for reading.");
+		}
+	}
+
+	/**
+	 * Can the current PHPExcel_Reader_IReader read the file?
+	 *
+	 * @param 	string 		$pFilename
+	 * @return boolean
+	 * @throws PHPExcel_Reader_Exception
+	 */
+	public function canRead($pFilename)
+	{
+		// Check if file exists
+		try {
+			$this->_openFile($pFilename);
+		} catch (Exception $e) {
+			return FALSE;
+		}
+
+		$readable = $this->_isValidFormat();
+		fclose ($this->_fileHandle);
+		return $readable;
+	}
+
+}

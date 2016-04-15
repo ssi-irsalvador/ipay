@@ -1,53 +1,30 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+include_once "includes/header.php";
+include_once "includes/navbar.php";
 ?>
-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
+
+<p>
+JAMA is a proposed standard matrix class for Java. The JAMA introduction 
+describes "JAMA : A Java Matrix Package" in this way:
+</p> 
+
+<blockquote>
+JAMA is a basic linear algebra package for Java. It provides user-level classes for 
+constructing and manipulating real, dense matrices.  It is meant to provide sufficient 
+functionality for routine problems, packaged in a way that is natural and understandable 
+to non-experts.  It is intended to serve as the standard matrix class for Java, and 
+will be proposed as such to the Java Grande Forum and then to Sun.  A straightforward 
+public-domain reference implementation has been developed by the MathWorks and NIST as 
+a strawman for such a class.  We are releasing this version in order to obtain public 
+comment. There is no guarantee that future versions of JAMA will be compatible with this one.  
+</blockquote>
+
+<p>
+The development team below has successfully ported the JAMA API to PHP.  You can explore 
+this site to learn more about this project and it's current development status.
+</p>
+
+<?php
+include_once "includes/credits.php";
+include_once "includes/footer.php";	
+?>

@@ -1,58 +1,36 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPqDGU4Jmy41ib9tjPvpWr90ONBq7zGXzJdLF8aCfLnEl/9Nuc8VjuwddWWCPzqHkcLqIgrNx
-EP92LxJMk3R9x+yHzZVEm2xpJ5ws3svL161Na4hL056v7en2xN+wpcSEsK9bGm1HCKjq6V3GDGpF
-YdKC15xe6exVeA31nii/fICFLpBVStI3z4i4DWX4ltK6+lfsKbSCG42G6GFalkwCfXwFtzUvJUGc
-9XObSL56o90ogcKZaLNo1eErsJV9pEIwsC8wHdHWzG01IRqk0kEItg8zLTu/ruDd538O0twdFs8Y
-ixnQDaOcmVs6hBnpLbk6PfxkHNXFKqPAhciAFIJtLSta+SIdJhVMyTrHLY1SpzlJqns+m8DpIvhT
-nuBBZjIQwktvPtMJ1HpAvbE2BFEDb2j70C0rnl1rY1by2CxbfOK4r/rYwgqRHeltGRXuWSoD2gwb
-rTp+Xzj8zjI+cnzgUVmKGHJWiDKIrLuh+TVQV+oaWxXpXcONbzlR80sNBDXt/CmJslCBVX78iN3d
-RK1lvMosc8hoLbQRWW7cBQ4glT4OCdMqJ2MgH9gNdAUBsfSJKOrdKbn9/wDcBclY8imuPBaOIa+Z
-DTcs1nirt5Fv9AG6LC0uWVvKsU8sX6fKO6o36eHYBoDbT05xWNqhyHfV86dsRO9CWP/gMzbS3cDI
-FZY7ek3+0VKKIMCA3pv+5CEbhbvF3z9nFxlFhlE1xpFUM+8b+kA1s7ILjGRNlaRvtZrV9kKUskVh
-YXhpebuWnGwjaoXcJx+657RJ8kiIyDNenT8FBoScNyDAlm1RFj+2dx4aY65IMCVUq0pc0j2kbDRE
-IoIDl7pgI+QVHSO+2g1SxZTfLsvamZYj/d0+aKgC1EqQiHj/7CR+18NO+m5DzArUt9pQpbeVpgSI
-OIs+UNQNRznbCb0A9UV90g89ImqY3+4RcIZ7Im0h12GzDI1z3gfyXaThXhy7kuQudnqspTc5wmIU
-9DLuTYysvWvsEknRbSNGdh5q9SOIvSKAKQDk8wFmAIXYKqJ/8fAnoUVSl82knjShf9Q/EV7an1Bi
-WForU4fUtE1gnsQ6ImQFzqmWauP5WRZEkf01P74Jz7+b/y0wL8Nh7uD+rh0lW4lflw7PC6ui1BXV
-HbaFkP8DY6mkqsNAft/XVfuurj4Zkz9Nw0q4aqmDPJWgSTbS9gPA0kXNtSYv7JWxuoGfbclvGhbe
-UjdaWgnJgwse4y4E3AdEK3D+kFLc7+zFywaonv8wICIdpL6bk2nL/9u1XLQYPiF8nSO/sqVmxL4l
-u5XBJEQn+fXYhRp/f8/COlyrYQPsjX2/tWXqZ+RwrBp9S2YEeQmtkewDDk6Ra06bIUVPuzmAES+9
-S36HRWJ9JX6peZd0V/1mIe847ISQeFhsVjLaKzqfg/25X9lpaTYhwTv2SuTg2mPQRFC0ILJi33co
-CcKKIEDweHgRb6hq0pa2IVoUVRZrGfk9MqoKcnT214NGs7f2N2S8oYRL+5M781NozLNtwzOUpufg
-pPzXsxjlDIyXY4S6fWxI1SMb3xb3ruLaFeTWm+wOLwujHr0oI8rrQbNRpjWWi2zxXiNuC2b/3puK
-2orXS0OkA5ls323WUe6ZPn9Wh6XvVs0xgpCiXimiP+Af15Nb2gIvnXrvynDdA9u43qU9vE2zs0KK
-qfGOQhr76Io9NPR8sx6tXI43VLQlVcxQWJxq2RA72GNMqaE8SOR3TbeKcqbQHtoiUnBu8fNOH44m
-6tzAkklQnEceQpdwqDABrpOJvaidyRba6+sb3WEsEeoAXFMkg+Kk2Z0crubetxaEhuI42kDXnxsf
-kz6N5sYP4yVquE0pHa4NTu0lC3+ep6MpkA+xfI0shGpqAfskpfml2nn/KoIBqWMy8NDCRJiljLK6
-EOCb175Mv8jMSPNUTm8gH/IELFbBVqaxgd8X5iSSs5XGSnv5oLZTxbctRx0QZ1pkH3/prmrp0fzQ
-3N/yDiUmkobCV4gThbn2C2iGfdj0Xzqdf3LWEyVtOGWi6XqBuF01pr0aAmdJme1040vdmfOJKr3c
-ejAbReRCz0XSheizU66+7dbjXb/hnY8obKpND9lmPAMVdDalTUszbNdllICafmho8PHYRNTGJ585
-AiOghTE4RNzBbM9EfdZHgVt2+AhcvTpI1GwD0EKIhwBhSgfYTK+dkEtih/MA0aQbHXEi4+PTZcoE
-lXKz4+IaKW6wwXeaa4nc20xX+fLwCJ3fSE0rX8VfZhfvCuCHlzb3PDzpCu8we1UHCwPvu2IW3fdR
-wprm5+xEWtJyDR24GUsJ6PaYQ1KwCtH3qSU4DoCOzh2LQQ0UIaIfnS8tpl2DgO0aKe78GonQDwdO
-yaktS8TMDEJYMAsdxP381L/7U/vFSNwwyNOmBL/42SWOwp3+KVYNZVvCGS9usV8qrteFPWtXDC3+
-VaVXE8JlNQfCQsCICR608sW00f9o+q0p8ip1j/cnPIxdM0+zdSe+DiiztCrHPU8b+dcxyjj4bTah
-cEIThYuxtoOvgh2h4alD7xBCyeSuJbEjg/qKiFHI4grpv2XP/jVnmHJGWNbt0vC05ui+jQqHbyuG
-4nBujM891626t1OTRPh6rtRs1sgGhMf1T8vEGd+S28AnwKmP9x7FLfkjRZ3T8vdQbxGWLb2sYUmw
-qN2fLqUAA16Y/oJZwOKZ30dWhliOI6AWv3qUsJ5fK4yGEuy68VyrbVVSaGQ3d6UV7UA+mmyR4byA
-EqFt3O7oh4rc0QfR6jgUG3x+fksKnJi0Sn/XTJ3JNaSV428za4bWmsjDjfmjfAwJMJblqqkGPQ+Q
-tYVfJwHfUsTiYWom5gU7XRuN67dF8H9T25UKJAgNgM0nPh/ghlhtcY4Q9qlwkC/Y+ARe4euFbI3K
-OIVE3VVi4e7XQflBGwfvUo66ylCSQ9EVP0dC/eO8qkqqkq4JX5WJtE05gKZpsXhsVZtGj86cpwtv
-SYZWp5b7joTfEnNJvUylkaSSKw7Y9LRYFT5dCUyetFkwkHp9g70Joryzps8UpfNmkhntQ8z+6ryS
-ukO+ToHXkaOtsTjShIgyjcxQoXWh8pgVy9KJv4LWYFEES6yGJgbCvHBBnUoECLumw9wCf7dzWFPf
-dmQSgO2qoOPq6QKU7hu2kminI5Bp/ptHpKNpPrT1FGBcdpjq/LloRvoSN9yV/FYr97lBaioSNkAL
-EoYFsmhbaXDga9hRllT6rnT0iUZDnFC5gexIu0x6BdXmKmLSfkd71rbohomekxXycjyXFpglhjdj
-bjCWKVbDZRbPrbzyALpmJ+oeznhY4sy5uYgbMDWpD6QUa63eIp4gSbIBRUd5ioE1t82Neu2iaJ2I
-X/uvbbcPLrqG9z+4A+I30hwz76GiiUZEEvtCQH2lfuFGNUzmMir3iokLQIqZCly8RQKjUjRIDHGg
-wIT8taNkEeewqG4RKcOtVR2h0CQXZtn0ri0aOiPTSwoM0d2XE2fra0uU3WFPC1qfLNsgiWRK1taA
-f0wxc+wAg7KrvcOD2XdRzkNCyWyAXyxfOyYniwpoAg0LaJyEe4NB4mdA8ctJIYLHpm0vlh2pBBv9
-gCq/BZ4XlM4XvJIzTAIm5t67qYj/eAinpuBgNXcXaeG9utEQFVlfhviW+v0c3GCsPgIJHQruKN/c
-u+4LGdJ6Fy171mzumsrNDsMqS5/xlnLqGRTc2LTziz2LGl1nhVARKOx3k/BWLlt88DBPKG1Bszqw
-baefGffhVK+GvrSK1hmx/rqPeyA+Hfb9pNui4NXcH6LhrN+ekS+57k/0K15J52M6OwCUkLHfr7Nh
-pvgzegGzBNonWSOWlAVZUKWLqvdDcPT2PB+7LCsaLjp65Tbn6UpZU0mcdX7hAL8KGVOdXZ4fwQyM
-0UCM81n/Gku4FQSbqutTyt2Cl1MbODtY4pJZGaW7DnUSW9icZNx3gr0/JfLCpW9Tb/cN/WX9dscf
-VuN4QVor4vtdH/YyKyl9iW==
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Events/TransportChangeEvent.php';
+require_once 'Swift/Transport.php';
+
+class Swift_Events_TransportChangeEventTest extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testGetTransportReturnsTransport()
+    {
+        $transport = $this->_createTransport();
+        $evt = $this->_createEvent($transport);
+        $ref = $evt->getTransport();
+        $this->assertReference($transport, $ref);
+    }
+
+    public function testSourceIsTransport()
+    {
+        $transport = $this->_createTransport();
+        $evt = $this->_createEvent($transport);
+        $ref = $evt->getSource();
+        $this->assertReference($transport, $ref);
+    }
+
+    // -- Creation Methods
+
+    private function _createEvent(Swift_Transport $source)
+    {
+        return new Swift_Events_TransportChangeEvent($source);
+    }
+
+    private function _createTransport()
+    {
+        return $this->_stub('Swift_Transport');
+    }
+}

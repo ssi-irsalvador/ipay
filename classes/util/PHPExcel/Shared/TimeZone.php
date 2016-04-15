@@ -1,64 +1,140 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-bz4S2n2ZU4b+RlqKhLS4LKnimAFuYyC0
+<?php
+
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package	PHPExcel_Shared
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version	1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Shared_TimeZone
+ *
+ * @category   PHPExcel
+ * @package	PHPExcel_Shared
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Shared_TimeZone
+{
+	/*
+	 * Default Timezone used for date/time conversions
+	 *
+	 * @private
+	 * @var	string
+	 */
+	protected static $_timezone	= 'UTC';
+
+	/**
+	 * Validate a Timezone name
+	 *
+	 * @param	 string		$timezone			Time zone (e.g. 'Europe/London')
+	 * @return	 boolean						Success or failure
+	 */
+	public static function _validateTimeZone($timezone) {
+		if (in_array($timezone, DateTimeZone::listIdentifiers())) {
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Set the Default Timezone used for date/time conversions
+	 *
+	 * @param	 string		$timezone			Time zone (e.g. 'Europe/London')
+	 * @return	 boolean						Success or failure
+	 */
+	public static function setTimeZone($timezone) {
+		if (self::_validateTimezone($timezone)) {
+			self::$_timezone = $timezone;
+			return TRUE;
+		}
+		return FALSE;
+	}	//	function setTimezone()
+
+
+	/**
+	 * Return the Default Timezone used for date/time conversions
+	 *
+	 * @return	 string		Timezone (e.g. 'Europe/London')
+	 */
+	public static function getTimeZone() {
+		return self::$_timezone;
+	}	//	function getTimezone()
+
+
+	/**
+	 *	Return the Timezone transition for the specified timezone and timestamp
+	 *
+	 *	@param		DateTimeZone	 	$objTimezone	The timezone for finding the transitions
+	 *	@param		integer	 			$timestamp		PHP date/time value for finding the current transition
+	 *	@return	 	array				The current transition details
+	 */
+	private static function _getTimezoneTransitions($objTimezone, $timestamp) {
+		$allTransitions = $objTimezone->getTransitions();
+		$transitions = array();
+		foreach($allTransitions as $key => $transition) {
+			if ($transition['ts'] > $timestamp) {
+				$transitions[] = ($key > 0) ? $allTransitions[$key - 1] : $transition;
+				break;
+			}
+			if (empty($transitions)) {
+				$transitions[] = end($allTransitions);
+			}
+		}
+
+		return $transitions;
+	}
+
+	/**
+	 *	Return the Timezone offset used for date/time conversions to/from UST
+	 *	This requires both the timezone and the calculated date/time to allow for local DST
+	 *
+	 *	@param		string	 			$timezone		The timezone for finding the adjustment to UST
+	 *	@param		integer	 			$timestamp		PHP date/time value
+	 *	@return	 	integer				Number of seconds for timezone adjustment
+	 *	@throws		PHPExcel_Exception
+	 */
+	public static function getTimeZoneAdjustment($timezone, $timestamp) {
+		if ($timezone !== NULL) {
+			if (!self::_validateTimezone($timezone)) {
+				throw new PHPExcel_Exception("Invalid timezone " . $timezone);
+			}
+		} else {
+			$timezone = self::$_timezone;
+		}
+
+		if ($timezone == 'UST') {
+			return 0;
+		}
+
+		$objTimezone = new DateTimeZone($timezone);
+		if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+			$transitions = $objTimezone->getTransitions($timestamp,$timestamp);
+		} else {
+			$transitions = self::_getTimezoneTransitions($objTimezone, $timestamp);
+		}
+
+		return (count($transitions) > 0) ? $transitions[0]['offset'] : 0;
+	}
+
+}

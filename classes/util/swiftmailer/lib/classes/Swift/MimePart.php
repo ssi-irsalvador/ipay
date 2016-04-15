@@ -1,51 +1,61 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-j3e=
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * A MIME part, in a multipart message.
+ *
+ * @package    Swift
+ * @subpackage Mime
+ * @author     Chris Corbyn
+ */
+class Swift_MimePart extends Swift_Mime_MimePart
+{
+    /**
+     * Create a new MimePart.
+     *
+     * Details may be optionally passed into the constructor.
+     *
+     * @param string $body
+     * @param string $contentType
+     * @param string $charset
+     */
+    public function __construct($body = null, $contentType = null, $charset = null)
+    {
+        call_user_func_array(
+            array($this, 'Swift_Mime_MimePart::__construct'),
+            Swift_DependencyContainer::getInstance()
+                ->createDependenciesFor('mime.part')
+            );
+
+        if (!isset($charset)) {
+            $charset = Swift_DependencyContainer::getInstance()
+                ->lookup('properties.charset');
+        }
+        $this->setBody($body);
+        $this->setCharset($charset);
+        if ($contentType) {
+            $this->setContentType($contentType);
+        }
+    }
+
+    /**
+     * Create a new MimePart.
+     *
+     * @param string $body
+     * @param string $contentType
+     * @param string $charset
+     *
+     * @return Swift_Mime_MimePart
+     */
+    public static function newInstance($body = null, $contentType = null, $charset = null)
+    {
+        return new self($body, $contentType, $charset);
+    }
+}

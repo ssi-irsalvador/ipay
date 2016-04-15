@@ -1,64 +1,75 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-h0DiSzMz6RUrV3ug
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Does real time reporting of pass/fail for each recipient.
+ *
+ * @package    Swift
+ * @subpackage Plugins
+ * @author     Chris Corbyn
+ */
+class Swift_Plugins_ReporterPlugin implements Swift_Events_SendListener
+{
+    /**
+     * The reporter backend which takes notifications.
+     *
+     * @var Swift_Plugin_Reporter
+     */
+    private $_reporter;
+
+    /**
+     * Create a new ReporterPlugin using $reporter.
+     *
+     * @param Swift_Plugins_Reporter $reporter
+     */
+    public function __construct(Swift_Plugins_Reporter $reporter)
+    {
+        $this->_reporter = $reporter;
+    }
+
+    /**
+     * Not used.
+     */
+    public function beforeSendPerformed(Swift_Events_SendEvent $evt)
+    {
+    }
+
+    /**
+     * Invoked immediately after the Message is sent.
+     *
+     * @param Swift_Events_SendEvent $evt
+     */
+    public function sendPerformed(Swift_Events_SendEvent $evt)
+    {
+        $message = $evt->getMessage();
+        $failures = array_flip($evt->getFailedRecipients());
+        foreach ((array) $message->getTo() as $address => $null) {
+            $this->_reporter->notify(
+                $message, $address, (array_key_exists($address, $failures)
+                ? Swift_Plugins_Reporter::RESULT_FAIL
+                : Swift_Plugins_Reporter::RESULT_PASS)
+                );
+        }
+        foreach ((array) $message->getCc() as $address => $null) {
+            $this->_reporter->notify(
+                $message, $address, (array_key_exists($address, $failures)
+                ? Swift_Plugins_Reporter::RESULT_FAIL
+                : Swift_Plugins_Reporter::RESULT_PASS)
+                );
+        }
+        foreach ((array) $message->getBcc() as $address => $null) {
+            $this->_reporter->notify(
+                $message, $address, (array_key_exists($address, $failures)
+                ? Swift_Plugins_Reporter::RESULT_FAIL
+                : Swift_Plugins_Reporter::RESULT_PASS)
+                );
+        }
+    }
+}

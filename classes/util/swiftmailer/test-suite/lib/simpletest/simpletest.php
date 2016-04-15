@@ -1,163 +1,396 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  Global state for SimpleTest and kicker script in future versions.
+ *  @package    SimpleTest
+ *  @subpackage UnitTester
+ *  @version    $Id: simpletest.php 1786 2008-04-26 17:32:20Z pp11 $
+ */
+
+/**#@+
+ * include SimpleTest files
+ */
+if (version_compare(phpversion(), '5') >= 0) {
+    require_once(dirname(__FILE__) . '/reflection_php5.php');
+} else {
+    require_once(dirname(__FILE__) . '/reflection_php4.php');
+}
+require_once(dirname(__FILE__) . '/default_reporter.php');
+require_once(dirname(__FILE__) . '/compatibility.php');
+/**#@-*/
+
+/**
+ *    Registry and test context. Includes a few
+ *    global options that I'm slowly getting rid of.
+ *    @package  SimpleTest
+ *    @subpackage   UnitTester
+ */
+class SimpleTest {
+
+    /**
+     *    Reads the SimpleTest version from the release file.
+     *    @return string        Version string.
+     *    @access public
+     */
+    static function getVersion() {
+        $content = file(dirname(__FILE__) . '/VERSION');
+        return trim($content[0]);
+    }
+
+    /**
+     *    Sets the name of a test case to ignore, usually
+     *    because the class is an abstract case that should
+     *    not be run. Once PHP4 is dropped this will disappear
+     *    as a public method and "abstract" will rule.
+     *    @param string $class        Add a class to ignore.
+     *    @access public
+     */
+    static function ignore($class) {
+        $registry = &SimpleTest::getRegistry();
+        $registry['IgnoreList'][strtolower($class)] = true;
+    }
+
+    /**
+     *    Scans the now complete ignore list, and adds
+     *    all parent classes to the list. If a class
+     *    is not a runnable test case, then it's parents
+     *    wouldn't be either. This is syntactic sugar
+     *    to cut down on ommissions of ignore()'s or
+     *    missing abstract declarations. This cannot
+     *    be done whilst loading classes wiithout forcing
+     *    a particular order on the class declarations and
+     *    the ignore() calls. It's just nice to have the ignore()
+     *    calls at the top of the file before the actual declarations.
+     *    @param array $classes     Class names of interest.
+     *    @access public
+     */
+    static function ignoreParentsIfIgnored($classes) {
+        $registry = &SimpleTest::getRegistry();
+        foreach ($classes as $class) {
+            if (SimpleTest::isIgnored($class)) {
+                $reflection = new SimpleReflection($class);
+                if ($parent = $reflection->getParent()) {
+                    SimpleTest::ignore($parent);
+                }
+            }
+        }
+    }
+
+    /**
+     *   Puts the object to the global pool of 'preferred' objects
+     *   which can be retrieved with SimpleTest :: preferred() method.
+     *   Instances of the same class are overwritten.
+     *   @param object $object      Preferred object
+     *   @access public
+     *   @see preferred()
+     */
+    static function prefer($object) {
+        $registry = &SimpleTest::getRegistry();
+        $registry['Preferred'][] = $object;
+    }
+
+    /**
+     *   Retrieves 'preferred' objects from global pool. Class filter
+     *   can be applied in order to retrieve the object of the specific
+     *   class
+     *   @param array|string $classes       Allowed classes or interfaces.
+     *   @access public
+     *   @return array|object|null
+     *   @see prefer()
+     */
+    static function preferred($classes) {
+        if (! is_array($classes)) {
+            $classes = array($classes);
+        }
+        $registry = &SimpleTest::getRegistry();
+        for ($i = count($registry['Preferred']) - 1; $i >= 0; $i--) {
+            foreach ($classes as $class) {
+                if (SimpleTestCompatibility::isA($registry['Preferred'][$i], $class)) {
+                    return $registry['Preferred'][$i];
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     *    Test to see if a test case is in the ignore
+     *    list. Quite obviously the ignore list should
+     *    be a separate object and will be one day.
+     *    This method is internal to SimpleTest. Don't
+     *    use it.
+     *    @param string $class        Class name to test.
+     *    @return boolean             True if should not be run.
+     *    @access public
+     */
+    static function isIgnored($class) {
+        $registry = &SimpleTest::getRegistry();
+        return isset($registry['IgnoreList'][strtolower($class)]);
+    }
+
+    /**
+     *    Sets proxy to use on all requests for when
+     *    testing from behind a firewall. Set host
+     *    to false to disable. This will take effect
+     *    if there are no other proxy settings.
+     *    @param string $proxy     Proxy host as URL.
+     *    @param string $username  Proxy username for authentication.
+     *    @param string $password  Proxy password for authentication.
+     *    @access public
+     */
+    static function useProxy($proxy, $username = false, $password = false) {
+        $registry = &SimpleTest::getRegistry();
+        $registry['DefaultProxy'] = $proxy;
+        $registry['DefaultProxyUsername'] = $username;
+        $registry['DefaultProxyPassword'] = $password;
+    }
+
+    /**
+     *    Accessor for default proxy host.
+     *    @return string       Proxy URL.
+     *    @access public
+     */
+    static function getDefaultProxy() {
+        $registry = &SimpleTest::getRegistry();
+        return $registry['DefaultProxy'];
+    }
+
+    /**
+     *    Accessor for default proxy username.
+     *    @return string    Proxy username for authentication.
+     *    @access public
+     */
+    static function getDefaultProxyUsername() {
+        $registry = &SimpleTest::getRegistry();
+        return $registry['DefaultProxyUsername'];
+    }
+
+    /**
+     *    Accessor for default proxy password.
+     *    @return string    Proxy password for authentication.
+     *    @access public
+     */
+    static function getDefaultProxyPassword() {
+        $registry = &SimpleTest::getRegistry();
+        return $registry['DefaultProxyPassword'];
+    }
+
+    /**
+     *    Accessor for global registry of options.
+     *    @return hash           All stored values.
+     *    @access private
+     */
+    protected static function &getRegistry() {
+        static $registry = false;
+        if (! $registry) {
+            $registry = SimpleTest::getDefaults();
+        }
+        return $registry;
+    }
+
+    /**
+     *    Accessor for the context of the current
+     *    test run.
+     *    @return SimpleTestContext    Current test run.
+     *    @access public
+     */
+    static function getContext() {
+        static $context = false;
+        if (! $context) {
+            $context = new SimpleTestContext();
+        }
+        return $context;
+    }
+
+    /**
+     *    Constant default values.
+     *    @return hash       All registry defaults.
+     *    @access private
+     */
+    protected static function getDefaults() {
+        return array(
+                'MockBaseClass' => 'SimpleMock',
+                'IgnoreList' => array(),
+                'DefaultProxy' => false,
+                'DefaultProxyUsername' => false,
+                'DefaultProxyPassword' => false,
+                'Preferred' => array(new HtmlReporter(), new TextReporter(), new XmlReporter()));
+    }
+    
+    /**
+     *    @deprecated
+     */
+    static function setMockBaseClass($mock_base) {
+        $registry = &SimpleTest::getRegistry();
+        $registry['MockBaseClass'] = $mock_base;
+    }
+
+    /**
+     *    @deprecated
+     */
+    static function getMockBaseClass() {
+        $registry = &SimpleTest::getRegistry();
+        return $registry['MockBaseClass'];
+    }
+}
+
+/**
+ *    Container for all components for a specific
+ *    test run. Makes things like error queues
+ *    available to PHP event handlers, and also
+ *    gets around some nasty reference issues in
+ *    the mocks.
+ *    @package  SimpleTest
+ */
+class SimpleTestContext {
+    private $test;
+    private $reporter;
+    private $resources;
+
+    /**
+     *    Clears down the current context.
+     *    @access public
+     */
+    function clear() {
+        $this->resources = array();
+    }
+
+    /**
+     *    Sets the current test case instance. This
+     *    global instance can be used by the mock objects
+     *    to send message to the test cases.
+     *    @param SimpleTestCase $test        Test case to register.
+     *    @access public
+     */
+    function setTest($test) {
+        $this->clear();
+        $this->test = $test;
+    }
+
+    /**
+     *    Accessor for currently running test case.
+     *    @return SimpleTestCase    Current test.
+     *    @access public
+     */
+    function getTest() {
+        return $this->test;
+    }
+
+    /**
+     *    Sets the current reporter. This
+     *    global instance can be used by the mock objects
+     *    to send messages.
+     *    @param SimpleReporter $reporter     Reporter to register.
+     *    @access public
+     */
+    function setReporter($reporter) {
+        $this->clear();
+        $this->reporter = $reporter;
+    }
+
+    /**
+     *    Accessor for current reporter.
+     *    @return SimpleReporter    Current reporter.
+     *    @access public
+     */
+    function getReporter() {
+        return $this->reporter;
+    }
+
+    /**
+     *    Accessor for the Singleton resource.
+     *    @return object       Global resource.
+     *    @access public
+     */
+    function get($resource) {
+        if (! isset($this->resources[$resource])) {
+            $this->resources[$resource] = new $resource();
+        }
+        return $this->resources[$resource];
+    }
+}
+
+/**
+ *    Interrogates the stack trace to recover the
+ *    failure point.
+ *    @package SimpleTest
+ *    @subpackage UnitTester
+ */
+class SimpleStackTrace {
+    private $prefixes;
+
+    /**
+     *    Stashes the list of target prefixes.
+     *    @param array $prefixes      List of method prefixes
+     *                                to search for.
+     */
+    function __construct($prefixes) {
+        $this->prefixes = $prefixes;
+    }
+
+    /**
+     *    Extracts the last method name that was not within
+     *    Simpletest itself. Captures a stack trace if none given.
+     *    @param array $stack      List of stack frames.
+     *    @return string           Snippet of test report with line
+     *                             number and file.
+     *    @access public
+     */
+    function traceMethod($stack = false) {
+        $stack = $stack ? $stack : $this->captureTrace();
+        foreach ($stack as $frame) {
+            if ($this->frameLiesWithinSimpleTestFolder($frame)) {
+                continue;
+            }
+            if ($this->frameMatchesPrefix($frame)) {
+                return ' at [' . $frame['file'] . ' line ' . $frame['line'] . ']';
+            }
+        }
+        return '';
+    }
+
+    /**
+     *    Test to see if error is generated by SimpleTest itself.
+     *    @param array $frame     PHP stack frame.
+     *    @return boolean         True if a SimpleTest file.
+     *    @access private
+     */
+    protected function frameLiesWithinSimpleTestFolder($frame) {
+        if (isset($frame['file'])) {
+            $path = substr(SIMPLE_TEST, 0, -1);
+            if (strpos($frame['file'], $path) === 0) {
+                if (dirname($frame['file']) == $path) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     *    Tries to determine if the method call is an assert, etc.
+     *    @param array $frame     PHP stack frame.
+     *    @return boolean         True if matches a target.
+     *    @access private
+     */
+    protected function frameMatchesPrefix($frame) {
+        foreach ($this->prefixes as $prefix) {
+            if (strncmp($frame['function'], $prefix, strlen($prefix)) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *    Grabs a current stack trace.
+     *    @return array        Fulle trace.
+     *    @access private
+     */
+    protected function captureTrace() {
+        if (function_exists('debug_backtrace')) {
+            return array_reverse(debug_backtrace());
+        }
+        return array();
+    }
+}
 ?>
-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

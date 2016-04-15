@@ -1,101 +1,122 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPnujOu1XkbUePUlsepQmGCuzTx85mCBexMQQbGjc8YDStt8hAV4whGlcDZDGD+NEUpkRUMSe
-uWG+9qrRLmfOkwUDEI/UMQqwyKdqEDpjdRcj6EgkVCDkAJ4o7+vnOVoTKFTdyzc5y+wnmugVqupV
-YL3atfcN7FRvPdlFzjqFd8XtSI4EBoRHEBHiJBVJ9CdJoeafYzlX4ytNYLrDNLtktNubhrBBi5xC
-LMEC3w1WNCquO8Foi1NPI18qdyt09LShHOud0LGhNP4Z4hPU0P69f+gU+iyFFKzwGR0ix8Sxr0LP
-8i1F2RZ2SsqjULpqL0igV29zWJ2oABsOtvDIhH50OdQuQuZe9vbUeidvz+O+WzGAuhdiELi/FT4Y
-ToYlfmPeSSwRoCXMrzYRHWX3q/4ObHAcvD9jhs3PYjNFXr53UaGzm3aXXNjn9q2+RAvu4BJqY5Ix
-9xZvATReJqb1UBxx8iX3CiUJsHHJd07zfODcxUcZNlRp5JyrazIzYUucckwHQNhr4AmXJ1UKM9m6
-FYsxDLz+8WF5ErCkOrm6WVYbflEYGABNGz2r2M6JIJExOrVWhlbCQcJQP2leY0Q71BbRTi2zAS/j
-J3PNnllT55KPV+GK8zfJ5KcfhEJ+eJtY5LRMoWanPvI0XGvM/OOxnHL3+hAbR7e0UYECo8CZ8PgA
-5h3B/FFFtW12hHFVlt9eixbjMtP2yDHHJcTXxCjOzMDqEn1CXl5OyWy2n1OGjEic9aaOgnaZ7FDB
-Xan+7rJYQjfTStIhKNOeD5eJ8ivSVrhr1wlJ4YRA53Dls9voWgkSfu5btAwqIsBF2BEV6E8v3H0N
-EVbvgmwWZJxGlyaWwHtWsiOBb6g3tSGAlo952yyoPH9TDf5VNUz4XHT+Z0NsGGmAYVpVxoonqtAD
-g0fxKl65cXMtxhfyj7vW4em2o6dqsXBD9ZxXeHiKFU5ZxwioBCYzglRxo8ma0BLevyi25Ww9cezg
-eZZDADTEP3gIubnepZvhBU/eY/+H7ApS/Kj30kSnKw3EJ1NzKoAbNMKL4V6jdgw3lYE6t0Yb0BCK
-vt9c9nimRbWYuABwiRJ/7+uAqHCpywg/Ql0k74u0qpbY7kmqn+lOZ81Mp1nYeRKqrdaMaSWZcMwh
-pSU+CCZ4Yz9jDvtpIh3bP4OhSrgPmBlvxCxDiaJsH6vGXSFGWHCIGs4wB6/Glp2wQa3q/Nu21mLa
-qLAhD9UcNlCWpFoKDJ1wOuwq7cimkQBWG43mjpOlyy9PV5i/MQ7/dW65Lg9cmyZ5nZ/RH/3jKQRT
-nRsmFy+wCNDhq5/NlR5R//UxvULoPnvm4hu7dhcnAhQHMH0c8fh2Lq8fK6nBEQXzFI2s6bBTWHMj
-OrkhN1WZcntau7bMuQ8gmlcVb8fke8ASvN6/zwFsjiIWiccVPG+lNlDUT1OHCBXzKdRM5r5o6Z86
-feJ6TR4uru768u+LT4xgIjafNlU04PsPbLEHRkwGNMnMk2JpEKsQe30PfdddldNp6EEhwjjlbl7j
-RNFPs3EUaj4J+NjtnDTgdzCpFiwyBuwvt+SKld5JNZqi06NFAxlsqYIRDsoqJlyNBkF7evNsm7bl
-tUTJCNYqqkgdzggfXquKILicUFtWrXSemSwKIjK/ewJi6Ft4jo7iJ4LJ1L+VROnalbHPb4DPu6iv
-5HmejKFPDI0HShJdZtk+fBXBonx91XfOi8OSZ8pXZwzJKLG5vVdf+9siiTsDgaIQSuebc5OkAClV
-BYfK8i3grLLb1nSRLtLi5Z+OsBq7sqmQfeTDbNliWgMyfJQuB8V7UHQ0WUCdeMyvGwHexclYZXqW
-4bVMDKzQ2N8KJq2UukhOrmiZxDGLPcgjjIJTb078zxhKdx5x0c81c+iaNAYpe7Egqo0XWJPLpZ5x
-O7hfyWYiIcoLo5AidOzD7HA8ZJU6c5SmBre5gwWLAmdyltzfs/+/Y+DNg61eZSo/Nb2kIdx6uj7s
-HXeglHZNcDSJ7nzndOiUYiISIXIhBdrZnQiCSUtLIWUZbetkamkNACmOSlJJX46pq+13LYhTdJZc
-7mKzgvrpsUTqqo6WVXOU8ClMkyMo8q0wg9zENJkIWWo4Q+joz2yTeu9JZ1TtEGfK4pduaGeoWpaa
-RAgtNeCRr1MbAslqc7fd4XMNISDiah1aCAy2MKa4Wn0d+ux78MxSquhOpLrRTxsSrtpRYWSsh0K5
-8Oc0/O6OiZ7pengm5iAynZAnQNCRPgB5+OmTqDZpMjj5jyolOztO+6osad6ti+g7SyFjPTf/ddAf
-rrn/qyWVdvgWCKp+tGaFwZuOhHUoUD6vCoXexVo/MYGIdO64CX90awKf6dMfVUm9J2vVrk5DqkKJ
-sG9sJtaV9FmHzvih6ncXhoCOc+cj2CmW/OBjYPeTtRPlWZQuOwCOYNFONwii1EymOVeae9yRkYTd
-a+DN/iTl0miGb3BAqt6VlDFqiidCdPgWSvqn1g4fFNsqXTL2JuL7dmHlJxNMMmt0WJvaHKylOalG
-FOLIt3U0FwDBBYOr9dvF1b1nf7OFBZ7vSY7y3YxlTgTt0z7kLziYEkHfjcF5IMASO/0L3ut3uGVc
-Mf6/hNqzxbYClBnjVoc3wLkftSgDvXaLQr7omym7mucW14Rml1b0A6ihg1W0crkJuYibI/+degvK
-i1oMscb3Cu7ky23IqCMZjM3mEbnptOfFJ3uGO6Z9Zcl/yzUQGHBuygV7dvhojOcqXyRP4cMWfqoh
-sjmFcGdSnOD/DeYlzv/FYiEk6jcofQ4fy8S/hgsiyNeYRlMyUJWisKdaEwkkTnVeOvBNiee4tnCP
-rBET/nN1Gctq4AMWx5/UArCvWGHvc0dpYh+DD3YiT7qNwaPrjv8byR+BS2noJ2uXR/9FFmEDNJOh
-2S8dlSgJ2SoUjxEi34ZSQ1eJGt7fcXKl6GZCJ/wqADVcz6WS61Zo68xNbbfMbIq59v8CRyGzi4id
-ICkvCICFlJSAQopAjZIp5Ft3nZ/7sukD/K2kKZzXpnEbdfpmtni7xdxl5QxaLGvNzvm/wJizadZO
-MXcU0KORdArmzBW8YXprJYaxrlKQ1ktGerGYZSJjJfOHJa+Gb9b0i6mqEfG3o404FWaM1AYtK2n9
-W7oXrNxnNgfG4D46lCUAP5rwWGw53cEkAt2wXOdbzYmI1HAKive8DmVSddxUcO0fL6vAReia1csu
-ot1reOE/GWJT17kK2TQN2dcKhNT3GGx1xW2vkY32hX3Mmll+4yF8KHnGTxNYIb8YXeA9B/rpEBNg
-X8fOemLWJrLqVdtG14n1ufYLrXIEOVsGEKrMe62wBZfSUd7B1y2mTXsb36LF/K2Q2+wMWq7kgPmD
-vJ0IfOuZt12PgPTxc/T6G9CBLjMGJG3GXIEgWqfs29vgS5uMsUzLHqllZQfQIZEkzSN//xZdhrzx
-cToxxlYp6WUtJkfYDvdnVpODPE2zhceTJNiAh1lxSpUNqFaal9JjtsSdRPDbz367w5dwAJVTl5Vo
-o9Y7Q1HzEPnqcgja9wb59tjgL7HpCuC02rFs9EbrQ15dweuHV4oKKR29BzvMe4Xrn4Q6VDcY2g/5
-x/VFNHlTYr1XZSSwuFON3kNsD8cqvocfqk9dkza3tN81JCXWAZcKoQ+N5UxY/fTtNqLf5CxoEIMq
-vANNyRkWiS+Bf2igWrOdS1+KENCr3vzkpHh0SWotMabQsekdc9jVIz43/++hxcCG+RkHb0BQQPnI
-JlbewA+ncxHWQr0kbRiI2pD346wnMZ9V37+h5B3mLfGhQ1s305FkQPbD+fz9ujxX+1b72j0Y+kAf
-FfzVeqtZRl1LNOy0mgefTFLiv3Xz/jFdtwSl4fkxfotMH8etHIIRu5n3rr7Yz+YKgtlhxtr0cUZ8
-/8UE2ueOhSimbv5TONueLyFlxOYlSZLcQyEAZMcc4ZVsmcg13zbm1HV2Od3ID+OEk+iOVKWM2RSo
-tsRtQ9WkQum7aFA9Dhj5fOSV0pO8DUmNzfpWI0IvJ8a/qDmECgrxw62Z12BDX/mYOw61OnxI9q19
-hlfnDBd5gdKzL7owNBnCttNDH0/PgputAMpXpMrrS0zOj5uUNms/O7+F0X9g4kYmL3t/AdGW/Z9R
-j9FWuKe9ejoh/7IcfWzqgqbiGqCS7wFOAF+0uxPlIahA9GynelGKqs53YmvrjX01m8UDzb0zjqJY
-SY5tvQ4jhtHuRLzWv8G5FiFDx9OPkjym4JPimTQwsVKsCJzrOval25pnkU062T77CeCzd7yRdbt/
-6mXOpwAzu7Fg7r1N01W++0okzP4sjV4bPmYjRJFdZcIsyXwjLojMNmIly4SB7u9MArEJmb0AStk0
-zWCqIraHrftMexHOOPykdLYg5J77x14RAETwgtQyZKV3Sb4D2YtWk4HwTIUyRKFh3WWm7iI1kwUV
-mU87Bq+wv+X9KccxqEYS8Xtc4YGcVy4KvsWp3i4TCtZzVHZ2KmQndUFQEsm5QENrRz1Sf8fU/c6F
-7v2sgSqN5ekBUh+phwcP/lJ/bDnphlIAPNhEp+ojvhRk1pdbq0ti0kFHXDvR6oXAlYHyQt8wSiK8
-fuoRYthfUJFD93imG5iiy698DIGt+sEOH5eN8cNhlVsHSvnT7s2uL0o3RYUFUV8KuowznuCXavFF
-BHrxv1UMt3bCzM5c+luBMMsaqe9ENCHmR3Q13nCPoYyiGMo5EY9YBbIjsicNds9DFIaHCbAiKD1P
-AvKeJL0bq6wn+pwFBIYVvZbEAEGDAI6V/cBVEj+02P66ladWuxejoJIMmxcGkwYDJxaA7NDOv7NE
-7QnBUwuZ1aw2zwVaVhEsSXyZC/JfhN/nBK7EICnDTjR7t9Rmnh4ow7NsPgInWCmZt+MMxDIBmJR8
-R8dmi2L4GUrYfJS15VLwpK9yjNSWRpRd1irtIqqsMQmp0XDQ3HWUJoG50qr4godOqX+GN1L7DmZl
-oAKXXhJcWcP8PicHB2Q1eCZUUFMC2w38DTfbDTq6AIaQ9uvn+ggwM0/MLJhkYVenU3WjLDRQCXAE
-VJiO2D+815lO2RhgYyi8RkztARVOY20dmgwStG5jzQhYKc9BuJ92VwfWCN3vU9JfT35hHXItEfXC
-DXeSDN3SCisO3aDoszeuXLS2w0JG/uyW3nivTqN/tmWB9r82I8nsD4vTvJf7EEJuw43c2OUxM32p
-5rgMu5d2V8PYyXOEM3+X5/agiqU3wPSV7jveGyWQFvYZ5sJYJaSFJxiUITgOLGNHh0oOTUbIAVAP
-LREZ63kwIVjNoZkjl8kUapukU8/qTJtyCZcBTzCMQNQawaw9RR2b/HmpZcis0eesHAu7oO4Z2JZK
-bBNGlRFghS+YIV3ujDSjI91hJOFtKPBYiidX/91snLTDtl5G12KnWqifTjR7PP3Afb/e2uQv8cFo
-njLwr2tcGA8eCJ3GQugytyeYtHD0FkJsz01R1ClKEmtEa9XOfHEer542qMxtT+VV7/yPgtZtqVmn
-AlzkFuYQG8R8I5HlXXzmmgmpvnDC/xZBBaTrcMn8JnT39E9AJQO4zryRJG0o2JbFYA6LllfUC1Ff
-bsAdWwk2riQoOejiWmE5+U752k9+SeszV5AmNaJLbdGDn8Wks8Hw3qQCivIV1ejhLL8SPsHAYO0q
-Uaj54CSkfelmJ+NN0nbJcrzG7AS4/quzfjNNXu3bmofp95JF+eErDpuNa+GBriA/fjQCZnPF/OLA
-1W17SNuxuYvbIwebFt6U8IAvZ3HbGCupr0KUGP6jm+5QXSeFH4S03zr8us5X0ixYPkm834QLE7Wd
-ysO2Yc7kfO0eYqsib4tCVUiVYE+4424YBFW+T4OcvKFXPUitIxUo7pq3AHcKyoNRXmL5I9C5Fq7B
-fnZdTkrH+vWpFIFYSwJ8ltz+3Y+3uH0IizlScCLkl3doP3woUTdxHo4uFfXi5SWPVBJTZn/5buFH
-pJOUsIjZ6O1NTgV58XqSAybNSTldT5/nACgHQphR7WYwFLHOm+CF5QMbm4wnnt6HfzY13fNocTGc
-EMetjrsHlcxrFr/BPb5M3bzA7Cgez0hk3+yfJUD+vP47srNjvBeawEsazhrU2dG0SW7wSevKqoG8
-OSrS302FZca1jjPYdKWpSesQO9Yid+9a1gnvDKV4ubM61NS9rBCO3g2o0Aw6bvm53t209N3bxFTX
-sEGWkN9d4KJ/MjQXQZlHOnYiZd8pYm9mqAac/tX1prxgvIu+HcCgYkF7BEY5FWbET9jKhm8UOdDb
-bqlUjRM+IHq5T7YjzIywDrqea4T8YVZ4aI6XpF1LT3bhDeCBC2Y0iZXAXLtWQhQfS+EdjSRw7qbo
-S471h37Lg9xd1MB2BWCs1wEx850KMFieQ8lKEiBEwx3kUKW/gAuryFzFCVwBIEgUdXfmrk0SXyt6
-Ayb42B5TmldcFLVrf8PRjn0ecr1z2J8FYyOVMgKraTGiVFk88c1kz/j2WhSY+Sluj1y9fOt2/dFD
-w7pjIwqVEOfz1XJbO169V8/Li0BpwVmv9/yYWrBgSgYbMY2aGZrKSGu2df3zjvMyp0oSvV5D3AqM
-jj3+4Qy3WUjUha71idpL7tAkp8iGUr56VHqbwxVuysG30On4hwP8XOj+Wb5QTYoJUB60IW/1rhff
-8kbnKQHHmTKZFLIVgtspjTHjVIgvBoDq0E4g9kTWfBeCz5YrsQdEN0TKqdmtpmu2i/HpX93CNJQu
-1oByw7ZOKrhkliOT6hkX7DoO77pZv69p73d/khlCbNSHMhlb8OaFW6kyoyjWPJR/TBQQjnbAgmvq
-PTfX4mXgwciZYH1DUd69pKdqwbYuRiF84RCtsxHWmSwjMUWBtuVpO6T4MA3191dylar2K24+PFhm
-iowfsCtti8XrzJ2/QT1k//hXjzw0tt0lpM06OHd6qbRqem6cSkQblPBHyB+Mr2mqHoKYzrqHbBqp
-cC3ECOfG85rlNVuS6IPm1PgkhlEYraWsUS+zbQA20pKwgMWRccXnyhUMYF3TjEdkvi4IFs0/tqrg
-wkZaLNTDhUtgIIDXIL2GaaTN7HdwOYifbFbt6cAWbIDGLcZJJmHpmb+ID4cDjUzmty+6YVS1Xqas
-ZtA9nC3NwUVGqhQWXvKA48il0RNoqx03xX4e93Ob2Aqjs144/pGY5+udmGI8UeL7KAHN/0owm7ij
-zoY8uLK58Ke3xH+3L5cxpt5sLWGE+Ix7bVolnr00a6JfRU5VUS/ohzV2UJ0W4Q8bDq2/wvnqnYUD
-ggzBmZPOTym7Q+z6qvqPcXz83nI+i8ENCW==
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Transport/StreamBuffer.php';
+require_once 'Swift/ReplacementFilterFactory.php';
+require_once 'Swift/InputByteStream.php';
+
+abstract class Swift_Transport_StreamBuffer_AbstractStreamBufferAcceptanceTest
+    extends Swift_Tests_SwiftUnitTestCase
+{
+    protected $_buffer;
+
+    abstract protected function _initializeBuffer();
+
+    public function setUp()
+    {
+        $this->_buffer = new Swift_Transport_StreamBuffer(
+            $this->_stub('Swift_ReplacementFilterFactory')
+            );
+    }
+
+    public function testReadLine()
+    {
+        $this->_initializeBuffer();
+
+        $line = $this->_buffer->readLine(0);
+        $this->assertPattern('/^[0-9]{3}.*?\r\n$/D', $line);
+        $seq = $this->_buffer->write("QUIT\r\n");
+        $this->assertTrue($seq);
+        $line = $this->_buffer->readLine($seq);
+        $this->assertPattern('/^[0-9]{3}.*?\r\n$/D', $line);
+        $this->_buffer->terminate();
+    }
+
+    public function testWrite()
+    {
+        $this->_initializeBuffer();
+
+        $line = $this->_buffer->readLine(0);
+        $this->assertPattern('/^[0-9]{3}.*?\r\n$/D', $line);
+
+        $seq = $this->_buffer->write("HELO foo\r\n");
+        $this->assertTrue($seq);
+        $line = $this->_buffer->readLine($seq);
+        $this->assertPattern('/^[0-9]{3}.*?\r\n$/D', $line);
+
+        $seq = $this->_buffer->write("QUIT\r\n");
+        $this->assertTrue($seq);
+        $line = $this->_buffer->readLine($seq);
+        $this->assertPattern('/^[0-9]{3}.*?\r\n$/D', $line);
+        $this->_buffer->terminate();
+    }
+
+    public function testBindingOtherStreamsMirrorsWriteOperations()
+    {
+        $this->_initializeBuffer();
+
+        $is1 = $this->_createMockInputStream();
+        $is2 = $this->_createMockInputStream();
+
+        $this->_checking(Expectations::create()
+            -> one($is1)->write('x')
+            -> one($is2)->write('x')
+            -> one($is1)->write('y')
+            -> one($is2)->write('y')
+        );
+
+        $this->_buffer->bind($is1);
+        $this->_buffer->bind($is2);
+
+        $this->_buffer->write('x');
+        $this->_buffer->write('y');
+    }
+
+    public function testBindingOtherStreamsMirrorsFlushOperations()
+    {
+        $this->_initializeBuffer();
+
+        $is1 = $this->_createMockInputStream();
+        $is2 = $this->_createMockInputStream();
+
+        $this->_checking(Expectations::create()
+            -> one($is1)->flushBuffers()
+            -> one($is2)->flushBuffers()
+        );
+
+        $this->_buffer->bind($is1);
+        $this->_buffer->bind($is2);
+
+        $this->_buffer->flushBuffers();
+    }
+
+    public function testUnbindingStreamPreventsFurtherWrites()
+    {
+        $this->_initializeBuffer();
+
+        $is1 = $this->_createMockInputStream();
+        $is2 = $this->_createMockInputStream();
+
+        $this->_checking(Expectations::create()
+            -> one($is1)->write('x')
+            -> one($is2)->write('x')
+            -> one($is1)->write('y')
+        );
+
+        $this->_buffer->bind($is1);
+        $this->_buffer->bind($is2);
+
+        $this->_buffer->write('x');
+
+        $this->_buffer->unbind($is2);
+
+        $this->_buffer->write('y');
+    }
+
+    // -- Creation Methods
+
+    private function _createMockInputStream()
+    {
+        return $this->_mock('Swift_InputByteStream');
+    }
+}

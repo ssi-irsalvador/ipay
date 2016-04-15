@@ -1,54 +1,28 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-nh859q3HRT82I+RPagemTjQgbQtD4g5OU7FH
+<?php include("head.inc"); ?>
+
+<a name="overview"> </a>
+<h2>Overview</h2>
+
+<p>dompdf is an HTML to PDF converter.  At its heart, dompdf is (mostly)
+CSS2.1 compliant HTML layout and rendering engine written in PHP.  It is
+a style-driven renderer: it will download and read external stylesheets,
+inline style tags, and the style attributes of individual HTML elements.  It
+also supports most presentational HTML attributes.</p>
+
+<p>PDF rendering is currently provided either by PDFLib (<a
+href="http://www.pdflib.com">www.pdflib.com</a>) or by a bundled
+version the R&amp;OS CPDF class written by Wayne Munro (<a
+href="http://www.ros.co.nz/pdf/">www.ros.co.nz/pdf</a>).  (Some
+performance related changes have been made to the R&amp;OS class,
+however).  In order to use PDFLib with dompdf, the PDFLib PECL
+extension is required.  Using PDFLib improves performance and reduces
+the memory requirements of dompdf somewhat, while the R&amp;OS CPDF class,
+though slightly slower, eliminates any dependencies on external PDF
+libraries.</p>
+
+<p>Please note that dompdf works only with PHP 5. There are no plans for
+a PHP 4 port. If your web host does not offer PHP 4, I suggest either pestering
+them, or setting up your own PHP 5 box and using it to run dompdf.  Your scripts
+on your web host can redirect PDF requests to your PHP 5 box.</p>
+
+<?php include("foot.inc"); ?>

@@ -1,178 +1,552 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for SimpleTest
+ *  @package    SimpleTest
+ *  @subpackage WebTester
+ *  @version    $Id: encoding.php 1784 2008-04-26 13:07:14Z pp11 $
+ */
+    
+/**#@+
+ *  include other SimpleTest class files
+ */
+require_once(dirname(__FILE__) . '/socket.php');
+/**#@-*/
+
+/**
+ *    Single post parameter.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleEncodedPair {
+    private $key;
+    private $value;
+    
+    /**
+     *    Stashes the data for rendering later.
+     *    @param string $key       Form element name.
+     *    @param string $value     Data to send.
+     */
+    function __construct($key, $value) {
+        $this->key = $key;
+        $this->value = $value;
+    }
+    
+    /**
+     *    The pair as a single string.
+     *    @return string        Encoded pair.
+     *    @access public
+     */
+    function asRequest() {
+        return urlencode($this->key) . '=' . urlencode($this->value);
+    }
+    
+    /**
+     *    The MIME part as a string.
+     *    @return string        MIME part encoding.
+     *    @access public
+     */
+    function asMime() {
+        $part = 'Content-Disposition: form-data; ';
+        $part .= "name=\"" . $this->key . "\"\r\n";
+        $part .= "\r\n" . $this->value;
+        return $part;
+    }
+    
+    /**
+     *    Is this the value we are looking for?
+     *    @param string $key    Identifier.
+     *    @return boolean       True if matched.
+     *    @access public
+     */
+    function isKey($key) {
+        return $key == $this->key;
+    }
+    
+    /**
+     *    Is this the value we are looking for?
+     *    @return string       Identifier.
+     *    @access public
+     */
+    function getKey() {
+        return $this->key;
+    }
+    
+    /**
+     *    Is this the value we are looking for?
+     *    @return string       Content.
+     *    @access public
+     */
+    function getValue() {
+        return $this->value;
+    }
+}
+
+/**
+ *    Single post parameter.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleAttachment {
+    private $key;
+    private $content;
+    private $filename;
+    
+    /**
+     *    Stashes the data for rendering later.
+     *    @param string $key          Key to add value to.
+     *    @param string $content      Raw data.
+     *    @param hash $filename       Original filename.
+     */
+    function __construct($key, $content, $filename) {
+        $this->key = $key;
+        $this->content = $content;
+        $this->filename = $filename;
+    }
+    
+    /**
+     *    The pair as a single string.
+     *    @return string        Encoded pair.
+     *    @access public
+     */
+    function asRequest() {
+        return '';
+    }
+    
+    /**
+     *    The MIME part as a string.
+     *    @return string        MIME part encoding.
+     *    @access public
+     */
+    function asMime() {
+        $part = 'Content-Disposition: form-data; ';
+        $part .= 'name="' . $this->key . '"; ';
+        $part .= 'filename="' . $this->filename . '"';
+        $part .= "\r\nContent-Type: " . $this->deduceMimeType();
+        $part .= "\r\n\r\n" . $this->content;
+        return $part;
+    }
+    
+    /**
+     *    Attempts to figure out the MIME type from the
+     *    file extension and the content.
+     *    @return string        MIME type.
+     *    @access private
+     */
+    protected function deduceMimeType() {
+        if ($this->isOnlyAscii($this->content)) {
+            return 'text/plain';
+        }
+        return 'application/octet-stream';
+    }
+    
+    /**
+     *    Tests each character is in the range 0-127.
+     *    @param string $ascii    String to test.
+     *    @access private
+     */
+    protected function isOnlyAscii($ascii) {
+        for ($i = 0, $length = strlen($ascii); $i < $length; $i++) {
+            if (ord($ascii[$i]) > 127) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     *    Is this the value we are looking for?
+     *    @param string $key    Identifier.
+     *    @return boolean       True if matched.
+     *    @access public
+     */
+    function isKey($key) {
+        return $key == $this->key;
+    }
+    
+    /**
+     *    Is this the value we are looking for?
+     *    @return string       Identifier.
+     *    @access public
+     */
+    function getKey() {
+        return $this->key;
+    }
+    
+    /**
+     *    Is this the value we are looking for?
+     *    @return string       Content.
+     *    @access public
+     */
+    function getValue() {
+        return $this->filename;
+    }
+}
+
+/**
+ *    Bundle of GET/POST parameters. Can include
+ *    repeated parameters.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleEncoding {
+    private $request;
+    
+    /**
+     *    Starts empty.
+     *    @param array $query       Hash of parameters.
+     *                              Multiple values are
+     *                              as lists on a single key.
+     *    @access public
+     */
+    function __construct($query = false) {
+        if (! $query) {
+            $query = array();
+        }
+        $this->clear();
+        $this->merge($query);
+    }
+    
+    /**
+     *    Empties the request of parameters.
+     *    @access public
+     */
+    function clear() {
+        $this->request = array();
+    }
+    
+    /**
+     *    Adds a parameter to the query.
+     *    @param string $key            Key to add value to.
+     *    @param string/array $value    New data.
+     *    @access public
+     */
+    function add($key, $value) {
+        if ($value === false) {
+            return;
+        }
+        if (is_array($value)) {
+            foreach ($value as $item) {
+                $this->addPair($key, $item);
+            }
+        } else {
+            $this->addPair($key, $value);
+        }
+    }
+    
+    /**
+     *    Adds a new value into the request.
+     *    @param string $key            Key to add value to.
+     *    @param string/array $value    New data.
+     *    @access private
+     */
+    protected function addPair($key, $value) {
+        $this->request[] = new SimpleEncodedPair($key, $value);
+    }
+    
+    /**
+     *    Adds a MIME part to the query. Does nothing for a
+     *    form encoded packet.
+     *    @param string $key          Key to add value to.
+     *    @param string $content      Raw data.
+     *    @param hash $filename       Original filename.
+     *    @access public
+     */
+    function attach($key, $content, $filename) {
+        $this->request[] = new SimpleAttachment($key, $content, $filename);
+    }
+    
+    /**
+     *    Adds a set of parameters to this query.
+     *    @param array/SimpleQueryString $query  Multiple values are
+     *                                           as lists on a single key.
+     *    @access public
+     */
+    function merge($query) {
+        if (is_object($query)) {
+            $this->request = array_merge($this->request, $query->getAll());
+        } elseif (is_array($query)) {
+            foreach ($query as $key => $value) {
+                $this->add($key, $value);
+            }
+        }
+    }
+    
+    /**
+     *    Accessor for single value.
+     *    @return string/array    False if missing, string
+     *                            if present and array if
+     *                            multiple entries.
+     *    @access public
+     */
+    function getValue($key) {
+        $values = array();
+        foreach ($this->request as $pair) {
+            if ($pair->isKey($key)) {
+                $values[] = $pair->getValue();
+            }
+        }
+        if (count($values) == 0) {
+            return false;
+        } elseif (count($values) == 1) {
+            return $values[0];
+        } else {
+            return $values;
+        }
+    }
+    
+    /**
+     *    Accessor for listing of pairs.
+     *    @return array        All pair objects.
+     *    @access public
+     */
+    function getAll() {
+        return $this->request;
+    }
+    
+    /**
+     *    Renders the query string as a URL encoded
+     *    request part.
+     *    @return string        Part of URL.
+     *    @access protected
+     */
+    protected function encode() {
+        $statements = array();
+        foreach ($this->request as $pair) {
+            if ($statement = $pair->asRequest()) {
+                $statements[] = $statement;
+            }
+        }
+        return implode('&', $statements);
+    }
+}
+
+/**
+ *    Bundle of GET parameters. Can include
+ *    repeated parameters.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleGetEncoding extends SimpleEncoding {
+    
+    /**
+     *    Starts empty.
+     *    @param array $query       Hash of parameters.
+     *                              Multiple values are
+     *                              as lists on a single key.
+     *    @access public
+     */
+    function __construct($query = false) {
+        parent::__construct($query);
+    }
+    
+    /**
+     *    HTTP request method.
+     *    @return string        Always GET.
+     *    @access public
+     */
+    function getMethod() {
+        return 'GET';
+    }
+    
+    /**
+     *    Writes no extra headers.
+     *    @param SimpleSocket $socket        Socket to write to.
+     *    @access public
+     */
+    function writeHeadersTo(&$socket) {
+    }
+    
+    /**
+     *    No data is sent to the socket as the data is encoded into
+     *    the URL.
+     *    @param SimpleSocket $socket        Socket to write to.
+     *    @access public
+     */
+    function writeTo(&$socket) {
+    }
+    
+    /**
+     *    Renders the query string as a URL encoded
+     *    request part for attaching to a URL.
+     *    @return string        Part of URL.
+     *    @access public
+     */
+    function asUrlRequest() {
+        return $this->encode();
+    }
+}
+
+/**
+ *    Bundle of URL parameters for a HEAD request.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleHeadEncoding extends SimpleGetEncoding {
+    
+    /**
+     *    Starts empty.
+     *    @param array $query       Hash of parameters.
+     *                              Multiple values are
+     *                              as lists on a single key.
+     *    @access public
+     */
+    function SimpleHeadEncoding($query = false) {
+        $this->SimpleGetEncoding($query);
+    }
+    
+    /**
+     *    HTTP request method.
+     *    @return string        Always HEAD.
+     *    @access public
+     */
+    function getMethod() {
+        return 'HEAD';
+    }
+}
+
+/**
+ *    Bundle of POST parameters. Can include
+ *    repeated parameters.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimplePostEncoding extends SimpleEncoding {
+    
+    /**
+     *    Starts empty.
+     *    @param array $query       Hash of parameters.
+     *                              Multiple values are
+     *                              as lists on a single key.
+     *    @access public
+     */
+    function __construct($query = false) {
+        if (is_array($query) and $this->hasMoreThanOneLevel($query)) {
+            $query = $this->rewriteArrayWithMultipleLevels($query);
+        }
+        parent::__construct($query);
+    }
+    
+    function hasMoreThanOneLevel($query) {
+        foreach ($query as $key => $value) {
+            if (is_array($value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function rewriteArrayWithMultipleLevels($query) {
+        $query_ = array();
+        foreach ($query as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $sub_key => $sub_value) {
+                    $query_[$key."[".$sub_key."]"] = $sub_value;
+                }
+            } else {
+                $query_[$key] = $value;
+            }
+        }
+        if ($this->hasMoreThanOneLevel($query_)) {
+            $query_ = $this->rewriteArrayWithMultipleLevels($query_);
+        }
+        
+        return $query_;
+    }
+    
+    
+    /**
+     *    HTTP request method.
+     *    @return string        Always POST.
+     *    @access public
+     */
+    function getMethod() {
+        return 'POST';
+    }
+    
+    /**
+     *    Dispatches the form headers down the socket.
+     *    @param SimpleSocket $socket        Socket to write to.
+     *    @access public
+     */
+    function writeHeadersTo(&$socket) {
+        $socket->write("Content-Length: " . (integer)strlen($this->encode()) . "\r\n");
+        $socket->write("Content-Type: application/x-www-form-urlencoded\r\n");
+    }
+    
+    /**
+     *    Dispatches the form data down the socket.
+     *    @param SimpleSocket $socket        Socket to write to.
+     *    @access public
+     */
+    function writeTo(&$socket) {
+        $socket->write($this->encode());
+    }
+    
+    /**
+     *    Renders the query string as a URL encoded
+     *    request part for attaching to a URL.
+     *    @return string        Part of URL.
+     *    @access public
+     */
+    function asUrlRequest() {
+        return '';
+    }
+}
+
+/**
+ *    Bundle of POST parameters in the multipart
+ *    format. Can include file uploads.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class SimpleMultipartEncoding extends SimplePostEncoding {
+    private $boundary;
+    
+    /**
+     *    Starts empty.
+     *    @param array $query       Hash of parameters.
+     *                              Multiple values are
+     *                              as lists on a single key.
+     *    @access public
+     */
+    function __construct($query = false, $boundary = false) {
+        parent::__construct($query);
+        $this->boundary = ($boundary === false ? uniqid('st') : $boundary);
+    }
+    
+    /**
+     *    Dispatches the form headers down the socket.
+     *    @param SimpleSocket $socket        Socket to write to.
+     *    @access public
+     */
+    function writeHeadersTo(&$socket) {
+        $socket->write("Content-Length: " . (integer)strlen($this->encode()) . "\r\n");
+        $socket->write("Content-Type: multipart/form-data, boundary=" . $this->boundary . "\r\n");
+    }
+    
+    /**
+     *    Dispatches the form data down the socket.
+     *    @param SimpleSocket $socket        Socket to write to.
+     *    @access public
+     */
+    function writeTo(&$socket) {
+        $socket->write($this->encode());
+    }
+    
+    /**
+     *    Renders the query string as a URL encoded
+     *    request part.
+     *    @return string        Part of URL.
+     *    @access public
+     */
+    function encode() {
+        $stream = '';
+        foreach ($this->getAll() as $pair) {
+            $stream .= "--" . $this->boundary . "\r\n";
+            $stream .= $pair->asMime() . "\r\n";
+        }
+        $stream .= "--" . $this->boundary . "--\r\n";
+        return $stream;
+    }
+}
 ?>
-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
-YjPx2qrXQbdSRGEWYmIi7mjjJW==

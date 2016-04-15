@@ -1,127 +1,330 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for SimpleTest
+ *  @package    SimpleTest
+ *  @subpackage UnitTester
+ *  @version    $Id: shell_tester.php 1786 2008-04-26 17:32:20Z pp11 $
+ */
+
+/**#@+
+ *  include other SimpleTest class files
+ */
+require_once(dirname(__FILE__) . '/test_case.php');
+/**#@-*/
+
+/**
+ *    Wrapper for exec() functionality.
+ *    @package SimpleTest
+ *    @subpackage UnitTester
+ */
+class SimpleShell {
+    private $output;
+
+    /**
+     *    Executes the shell comand and stashes the output.
+     *    @access public
+     */
+    function __construct() {
+        $this->output = false;
+    }
+
+    /**
+     *    Actually runs the command. Does not trap the
+     *    error stream output as this need PHP 4.3+.
+     *    @param string $command    The actual command line
+     *                              to run.
+     *    @return integer           Exit code.
+     *    @access public
+     */
+    function execute($command) {
+        $this->output = false;
+        exec($command, $this->output, $ret);
+        return $ret;
+    }
+
+    /**
+     *    Accessor for the last output.
+     *    @return string        Output as text.
+     *    @access public
+     */
+    function getOutput() {
+        return implode("\n", $this->output);
+    }
+
+    /**
+     *    Accessor for the last output.
+     *    @return array         Output as array of lines.
+     *    @access public
+     */
+    function getOutputAsList() {
+        return $this->output;
+    }
+}
+
+/**
+ *    Test case for testing of command line scripts and
+ *    utilities. Usually scripts that are external to the
+ *    PHP code, but support it in some way.
+ *    @package SimpleTest
+ *    @subpackage UnitTester
+ */
+class ShellTestCase extends SimpleTestCase {
+    private $current_shell;
+    private $last_status;
+    private $last_command;
+
+    /**
+     *    Creates an empty test case. Should be subclassed
+     *    with test methods for a functional test case.
+     *    @param string $label     Name of test case. Will use
+     *                             the class name if none specified.
+     *    @access public
+     */
+    function __construct($label = false) {
+        parent::__construct($label);
+        $this->current_shell = $this->createShell();
+        $this->last_status = false;
+        $this->last_command = '';
+    }
+
+    /**
+     *    Executes a command and buffers the results.
+     *    @param string $command     Command to run.
+     *    @return boolean            True if zero exit code.
+     *    @access public
+     */
+    function execute($command) {
+        $shell = $this->getShell();
+        $this->last_status = $shell->execute($command);
+        $this->last_command = $command;
+        return ($this->last_status === 0);
+    }
+
+    /**
+     *    Dumps the output of the last command.
+     *    @access public
+     */
+    function dumpOutput() {
+        $this->dump($this->getOutput());
+    }
+
+    /**
+     *    Accessor for the last output.
+     *    @return string        Output as text.
+     *    @access public
+     */
+    function getOutput() {
+        $shell = $this->getShell();
+        return $shell->getOutput();
+    }
+
+    /**
+     *    Accessor for the last output.
+     *    @return array         Output as array of lines.
+     *    @access public
+     */
+    function getOutputAsList() {
+        $shell = $this->getShell();
+        return $shell->getOutputAsList();
+    }
+
+    /**
+     *    Called from within the test methods to register
+     *    passes and failures.
+     *    @param boolean $result    Pass on true.
+     *    @param string $message    Message to display describing
+     *                              the test state.
+     *    @return boolean           True on pass
+     *    @access public
+     */
+    function assertTrue($result, $message = false) {
+        return $this->assert(new TrueExpectation(), $result, $message);
+    }
+
+    /**
+     *    Will be true on false and vice versa. False
+     *    is the PHP definition of false, so that null,
+     *    empty strings, zero and an empty array all count
+     *    as false.
+     *    @param boolean $result    Pass on false.
+     *    @param string $message    Message to display.
+     *    @return boolean           True on pass
+     *    @access public
+     */
+    function assertFalse($result, $message = '%s') {
+        return $this->assert(new FalseExpectation(), $result, $message);
+    }
+    
+    /**
+     *    Will trigger a pass if the two parameters have
+     *    the same value only. Otherwise a fail. This
+     *    is for testing hand extracted text, etc.
+     *    @param mixed $first          Value to compare.
+     *    @param mixed $second         Value to compare.
+     *    @param string $message       Message to display.
+     *    @return boolean              True on pass
+     *    @access public
+     */
+    function assertEqual($first, $second, $message = "%s") {
+        return $this->assert(
+                new EqualExpectation($first),
+                $second,
+                $message);
+    }
+    
+    /**
+     *    Will trigger a pass if the two parameters have
+     *    a different value. Otherwise a fail. This
+     *    is for testing hand extracted text, etc.
+     *    @param mixed $first           Value to compare.
+     *    @param mixed $second          Value to compare.
+     *    @param string $message        Message to display.
+     *    @return boolean               True on pass
+     *    @access public
+     */
+    function assertNotEqual($first, $second, $message = "%s") {
+        return $this->assert(
+                new NotEqualExpectation($first),
+                $second,
+                $message);
+    }
+
+    /**
+     *    Tests the last status code from the shell.
+     *    @param integer $status   Expected status of last
+     *                             command.
+     *    @param string $message   Message to display.
+     *    @return boolean          True if pass.
+     *    @access public
+     */
+    function assertExitCode($status, $message = "%s") {
+        $message = sprintf($message, "Expected status code of [$status] from [" .
+                $this->last_command . "], but got [" .
+                $this->last_status . "]");
+        return $this->assertTrue($status === $this->last_status, $message);
+    }
+
+    /**
+     *    Attempt to exactly match the combined STDERR and
+     *    STDOUT output.
+     *    @param string $expected  Expected output.
+     *    @param string $message   Message to display.
+     *    @return boolean          True if pass.
+     *    @access public
+     */
+    function assertOutput($expected, $message = "%s") {
+        $shell = $this->getShell();
+        return $this->assert(
+                new EqualExpectation($expected),
+                $shell->getOutput(),
+                $message);
+    }
+
+    /**
+     *    Scans the output for a Perl regex. If found
+     *    anywhere it passes, else it fails.
+     *    @param string $pattern    Regex to search for.
+     *    @param string $message    Message to display.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertOutputPattern($pattern, $message = "%s") {
+        $shell = $this->getShell();
+        return $this->assert(
+                new PatternExpectation($pattern),
+                $shell->getOutput(),
+                $message);
+    }
+
+    /**
+     *    If a Perl regex is found anywhere in the current
+     *    output then a failure is generated, else a pass.
+     *    @param string $pattern    Regex to search for.
+     *    @param $message           Message to display.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertNoOutputPattern($pattern, $message = "%s") {
+        $shell = $this->getShell();
+        return $this->assert(
+                new NoPatternExpectation($pattern),
+                $shell->getOutput(),
+                $message);
+    }
+
+    /**
+     *    File existence check.
+     *    @param string $path      Full filename and path.
+     *    @param string $message   Message to display.
+     *    @return boolean          True if pass.
+     *    @access public
+     */
+    function assertFileExists($path, $message = "%s") {
+        $message = sprintf($message, "File [$path] should exist");
+        return $this->assertTrue(file_exists($path), $message);
+    }
+
+    /**
+     *    File non-existence check.
+     *    @param string $path      Full filename and path.
+     *    @param string $message   Message to display.
+     *    @return boolean          True if pass.
+     *    @access public
+     */
+    function assertFileNotExists($path, $message = "%s") {
+        $message = sprintf($message, "File [$path] should not exist");
+        return $this->assertFalse(file_exists($path), $message);
+    }
+
+    /**
+     *    Scans a file for a Perl regex. If found
+     *    anywhere it passes, else it fails.
+     *    @param string $pattern    Regex to search for.
+     *    @param string $path       Full filename and path.
+     *    @param string $message    Message to display.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertFilePattern($pattern, $path, $message = "%s") {
+        return $this->assert(
+                new PatternExpectation($pattern),
+                implode('', file($path)),
+                $message);
+    }
+
+    /**
+     *    If a Perl regex is found anywhere in the named
+     *    file then a failure is generated, else a pass.
+     *    @param string $pattern    Regex to search for.
+     *    @param string $path       Full filename and path.
+     *    @param string $message    Message to display.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertNoFilePattern($pattern, $path, $message = "%s") {
+        return $this->assert(
+                new NoPatternExpectation($pattern),
+                implode('', file($path)),
+                $message);
+    }
+
+    /**
+     *    Accessor for current shell. Used for testing the
+     *    the tester itself.
+     *    @return Shell        Current shell.
+     *    @access protected
+     */
+    protected function getShell() {
+        return $this->current_shell;
+    }
+
+    /**
+     *    Factory for the shell to run the command on.
+     *    @return Shell        New shell object.
+     *    @access protected
+     */
+    protected function createShell() {
+        return new SimpleShell();
+    }
+}
 ?>
-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
-W1JqxhCbc1a/V1kORMDzGpjMs0frkd6Ul7c1DTe=

@@ -1,58 +1,88 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+// $Id$
+/**
+ * PHP Serializer
+ *
+ * @category   HTML
+ * @package    AJAX
+ * @author     Arpad Ray <arpad@php.net>
+ * @copyright  2005 Arpad Ray
+ * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
+ * @version    Release: 0.5.2
+ * @link       http://pear.php.net/package/HTML_AJAX
+ */
+class HTML_AJAX_Serializer_PHP 
+{    
+    function serialize($input) 
+    {
+        return serialize($input);
+    }
+
+    /**
+     * Unserializes the given string
+     *
+     * Triggers an error if a class is found which is not
+     * in the provided array of allowed class names.
+     *
+     * @param   string  $input
+     *  the serialized string to process
+     * @param   array   $allowedClasses
+     *  an array of class names to check objects against
+     *  before instantion
+     * @return  mixed
+     *  the unserialized variable on success, or false on
+     *  failure. If this method fails it will also trigger
+     *  a warning.
+     */
+    function unserialize($input, $allowedClasses) 
+    {
+        if (version_compare(PHP_VERSION, '4.3.10', '<')
+             || (substr(PHP_VERSION, 0, 1) == '5' && version_compare(PHP_VERSION, '5.0.3', '<'))) {
+            trigger_error('Unsafe version of PHP for native unserialization');
+            return false;
+        }
+        $classes = $this->_getSerializedClassNames($input);
+        if ($classes === false) {
+            trigger_error('Invalidly serialized string');
+            return false;
+        }
+        $diff = array_diff($classes, $allowedClasses);
+        if (!empty($diff)) {
+            trigger_error('Class(es) not allowed to be serialized');
+            return false;
+        }
+        return unserialize($input);
+    }
+    
+    /**
+     * Extract class names from serialized string
+     *
+     * Adapted from code by Harry Fuecks
+     *
+     * @param   string  $string
+     *  the serialized string to process
+     * @return  mixed
+     *  an array of class names found, or false if the input
+     *  is invalidly formed
+     */
+    function _getSerializedClassNames($string) {
+        // Strip any string representations (which might contain object syntax)
+        while (($pos = strpos($string, 's:')) !== false) {
+            $pos2 = strpos($string, ':', $pos + 2);
+            if ($pos2 === false) {
+                // invalidly serialized string
+                return false;    
+            }
+            $end = $pos + 2 + substr($string, $pos + 2, $pos2) + 1;
+            $string = substr($string, 0, $pos) . substr($string, $end);
+        }
+        
+        // Pull out the class names
+        preg_match_all('/O:[0-9]+:"(.*)"/U', $string, $matches);
+        
+        // Make sure names are unique (same object serialized twice)
+        return array_unique($matches[1]);
+    }
+}
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 ?>
-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
-/z3W4da=

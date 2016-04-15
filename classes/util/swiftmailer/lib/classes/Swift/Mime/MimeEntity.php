@@ -1,56 +1,117 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-WTgZkxWmsW==
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * A MIME entity, such as an attachment.
+ *
+ * @package    Swift
+ * @subpackage Mime
+ * @author     Chris Corbyn
+ */
+interface Swift_Mime_MimeEntity extends Swift_Mime_CharsetObserver, Swift_Mime_EncodingObserver
+{
+    /** Main message document; there can only be one of these */
+    const LEVEL_TOP = 16;
+
+    /** An entity which nests with the same precedence as an attachment */
+    const LEVEL_MIXED = 256;
+
+    /** An entity which nests with the same precedence as a mime part */
+    const LEVEL_ALTERNATIVE = 4096;
+
+    /** An entity which nests with the same precedence as embedded content */
+    const LEVEL_RELATED = 65536;
+
+    /**
+     * Get the level at which this entity shall be nested in final document.
+     *
+     * The lower the value, the more outermost the entity will be nested.
+     * @see LEVEL_TOP, LEVEL_MIXED, LEVEL_RELATED, LEVEL_ALTERNATIVE
+     *
+     * @return int
+     */
+    public function getNestingLevel();
+
+    /**
+     * Get the qualified content-type of this mime entity.
+     * @return string
+     */
+    public function getContentType();
+
+    /**
+     * Returns a unique ID for this entity.
+     *
+     * For most entities this will likely be the Content-ID, though it has
+     * no explicit semantic meaning and can be considered an identifier for
+     * programming logic purposes.
+     *
+     * If a Content-ID header is present, this value SHOULD match the value of
+     * the header.
+     *
+     * @return string
+     */
+    public function getId();
+
+    /**
+     * Get all children nested inside this entity.
+     *
+     * These are not just the immediate children, but all children.
+     *
+     * @return Swift_Mime_MimeEntity[]
+     */
+    public function getChildren();
+
+    /**
+     * Set all children nested inside this entity.
+     *
+     * This includes grandchildren.
+     *
+     * @param Swift_Mime_MimeEntity[] $children
+     */
+    public function setChildren(array $children);
+
+    /**
+     * Get the collection of Headers in this Mime entity.
+     *
+     * @return Swift_Mime_Header[]
+     */
+    public function getHeaders();
+
+    /**
+     * Get the body content of this entity as a string.
+     *
+     * Returns NULL if no body has been set.
+     *
+     * @return string|null
+     */
+    public function getBody();
+
+    /**
+     * Set the body content of this entity as a string.
+     *
+     * @param string $body
+     * @param string $contentType optional
+     */
+    public function setBody($body, $contentType = null);
+
+    /**
+     * Get this entire entity in its string form.
+     *
+     * @return string
+     */
+    public function toString();
+
+    /**
+     * Get this entire entity as a ByteStream.
+     *
+     * @param Swift_InputByteStream $is to write to
+     */
+    public function toByteStream(Swift_InputByteStream $is);
+}

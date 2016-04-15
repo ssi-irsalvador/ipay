@@ -1,50 +1,46 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-JGThOhbe0qgs
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Creates filters for replacing needles in a string buffer.
+ *
+ * @package Swift
+ * @author  Chris Corbyn
+ */
+class Swift_StreamFilters_StringReplacementFilterFactory implements Swift_ReplacementFilterFactory
+{
+    /** Lazy-loaded filters */
+    private $_filters = array();
+
+    /**
+     * Create a new StreamFilter to replace $search with $replace in a string.
+     *
+     * @param string $search
+     * @param string $replace
+     *
+     * @return Swift_StreamFilter
+     */
+    public function createFilter($search, $replace)
+    {
+        if (!isset($this->_filters[$search][$replace])) {
+            if (!isset($this->_filters[$search])) {
+                $this->_filters[$search] = array();
+            }
+
+            if (!isset($this->_filters[$search][$replace])) {
+                $this->_filters[$search][$replace] = array();
+            }
+
+            $this->_filters[$search][$replace] = new Swift_StreamFilters_StringReplacementFilter($search, $replace);
+        }
+
+        return $this->_filters[$search][$replace];
+    }
+}

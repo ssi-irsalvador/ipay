@@ -1,103 +1,218 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-FmQkxtd6TA1DlgyJLqq=
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * A MIME part, in a multipart message.
+ *
+ * @package    Swift
+ * @subpackage Mime
+ * @author     Chris Corbyn
+ */
+class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
+{
+    /** The format parameter last specified by the user */
+    protected $_userFormat;
+
+    /** The charset last specified by the user */
+    protected $_userCharset;
+
+    /** The delsp parameter last specified by the user */
+    protected $_userDelSp;
+
+    /** The nesting level of this MimePart */
+    private $_nestingLevel = self::LEVEL_ALTERNATIVE;
+
+    /**
+     * Create a new MimePart with $headers, $encoder and $cache.
+     *
+     * @param Swift_Mime_HeaderSet      $headers
+     * @param Swift_Mime_ContentEncoder $encoder
+     * @param Swift_KeyCache            $cache
+     * @param Swift_Mime_Grammar        $grammar
+     * @param string                    $charset
+     */
+    public function __construct(Swift_Mime_HeaderSet $headers, Swift_Mime_ContentEncoder $encoder, Swift_KeyCache $cache, Swift_Mime_Grammar $grammar, $charset = null)
+    {
+        parent::__construct($headers, $encoder, $cache, $grammar);
+        $this->setContentType('text/plain');
+        if (!is_null($charset)) {
+            $this->setCharset($charset);
+        }
+    }
+
+    /**
+     * Set the body of this entity, either as a string, or as an instance of
+     * {@link Swift_OutputByteStream}.
+     *
+     * @param mixed  $body
+     * @param string $contentType optional
+     * @param string $charset     optional
+     *
+     * @return Swift_Mime_MimePart
+     */
+    public function setBody($body, $contentType = null, $charset = null)
+    {
+        if (isset($charset)) {
+            $this->setCharset($charset);
+        }
+        $body = $this->_convertString($body);
+
+        parent::setBody($body, $contentType);
+
+        return $this;
+    }
+
+    /**
+     * Get the character set of this entity.
+     *
+     * @return string
+     */
+    public function getCharset()
+    {
+        return $this->_getHeaderParameter('Content-Type', 'charset');
+    }
+
+    /**
+     * Set the character set of this entity.
+     *
+     * @param string $charset
+     *
+     * @return Swift_Mime_MimePart
+     */
+    public function setCharset($charset)
+    {
+        $this->_setHeaderParameter('Content-Type', 'charset', $charset);
+        if ($charset !== $this->_userCharset) {
+            $this->_clearCache();
+        }
+        $this->_userCharset = $charset;
+        parent::charsetChanged($charset);
+
+        return $this;
+    }
+
+    /**
+     * Get the format of this entity (i.e. flowed or fixed).
+     *
+     * @return string
+     */
+    public function getFormat()
+    {
+        return $this->_getHeaderParameter('Content-Type', 'format');
+    }
+
+    /**
+     * Set the format of this entity (flowed or fixed).
+     *
+     * @param string $format
+     *
+     * @return Swift_Mime_MimePart
+     */
+    public function setFormat($format)
+    {
+        $this->_setHeaderParameter('Content-Type', 'format', $format);
+        $this->_userFormat = $format;
+
+        return $this;
+    }
+
+    /**
+     * Test if delsp is being used for this entity.
+     *
+     * @return boolean
+     */
+    public function getDelSp()
+    {
+        return ($this->_getHeaderParameter('Content-Type', 'delsp') == 'yes')
+            ? true
+            : false;
+    }
+
+    /**
+     * Turn delsp on or off for this entity.
+     *
+     * @param boolean $delsp
+     *
+     * @return Swift_Mime_MimePart
+     */
+    public function setDelSp($delsp = true)
+    {
+        $this->_setHeaderParameter('Content-Type', 'delsp', $delsp ? 'yes' : null);
+        $this->_userDelSp = $delsp;
+
+        return $this;
+    }
+
+    /**
+     * Get the nesting level of this entity.
+     *
+     * @see LEVEL_TOP, LEVEL_ALTERNATIVE, LEVEL_MIXED, LEVEL_RELATED
+     *
+     * @return int
+     */
+    public function getNestingLevel()
+    {
+        return $this->_nestingLevel;
+    }
+
+    /**
+     * Receive notification that the charset has changed on this document, or a
+     * parent document.
+     *
+     * @param string $charset
+     */
+    public function charsetChanged($charset)
+    {
+        $this->setCharset($charset);
+    }
+
+    // -- Protected methods
+
+    /** Fix the content-type and encoding of this entity */
+    protected function _fixHeaders()
+    {
+        parent::_fixHeaders();
+        if (count($this->getChildren())) {
+            $this->_setHeaderParameter('Content-Type', 'charset', null);
+            $this->_setHeaderParameter('Content-Type', 'format', null);
+            $this->_setHeaderParameter('Content-Type', 'delsp', null);
+        } else {
+            $this->setCharset($this->_userCharset);
+            $this->setFormat($this->_userFormat);
+            $this->setDelSp($this->_userDelSp);
+        }
+    }
+
+    /** Set the nesting level of this entity */
+    protected function _setNestingLevel($level)
+    {
+        $this->_nestingLevel = $level;
+    }
+
+    /** Encode charset when charset is not utf-8 */
+    protected function _convertString($string)
+    {
+        $charset = strtolower($this->getCharset());
+        if (!in_array($charset, array('utf-8', 'iso-8859-1', ''))) {
+            // mb_convert_encoding must be the first one to check, since iconv cannot convert some words.
+            if (function_exists('mb_convert_encoding')) {
+                $string = mb_convert_encoding($string, $charset, 'utf-8');
+            } elseif (function_exists('iconv')) {
+                $string = iconv($charset, 'utf-8//TRANSLIT//IGNORE', $string);
+            } else {
+                throw new Swift_SwiftException('No suitable convert encoding function (use UTF-8 as your charset or install the mbstring or iconv extension).');
+            }
+
+            return $string;
+        }
+
+        return $string;
+    }
+}

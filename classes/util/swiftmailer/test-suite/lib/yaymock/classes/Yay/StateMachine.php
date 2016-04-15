@@ -1,58 +1,113 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ */
+ 
+//require 'Yay/State.php';
+//require 'Yay/SimpleState.php';
+//require 'Yay/StatePredicate.php';
+//require 'Yay/SimpleStatePredicate.php';
+
+/**
+ * A basic state machine.
+ * @author Chris Corbyn <chris@w3style.co.uk>
+ * @package Yay
+ */
+class Yay_StateMachine implements Yay_States
+{
+  
+  /**
+   * The name of this state machine.
+   * @var string
+   * @access private
+   */
+  private $_name;
+  
+  /**
+   * The current state.
+   * @var string
+   * @access private
+   */
+  private $_state;
+  
+  /**
+   * Create a new State machine with $name.
+   * @param string $name
+   */
+  public function __construct($name)
+  {
+    $this->_name = $name;
+  }
+  
+  /**
+   * Set the initial state of this state machine.
+   * @param string $stateName
+   * @return Yay_States
+   */
+  public function startsAs($stateName)
+  {
+    $this->become($stateName);
+    return $this;
+  }
+  
+  /**
+   * Get the state which puts the state machine into the named state.
+   * @param string $stateName
+   * @return Yay_State
+   */
+  public function is($stateName)
+  {
+    return new Yay_SimpleState($this, $stateName);
+  }
+  
+  /**
+   * Get the predicate which indicates the state machine is NOT in the named state.
+   * @param string $stateName
+   * @return Yay_StatePredicate
+   */
+  public function isNot($stateName)
+  {
+    return new Yay_SimpleStatePredicate($this, $stateName, false);
+  }
+  
+  /**
+   * Become the named state.
+   * @param string $stateName
+   */
+  public function become($stateName)
+  {
+    $this->_state = $stateName;
+  }
+  
+  /**
+   * Get the name of the current state.
+   * @return string
+   */
+  public function getCurrentState()
+  {
+    return $this->_state;
+  }
+  
+  /**
+   * Write a description of this self describing object to Description.
+   * @param Yay_Description $description
+   */
+  public function describeTo(Yay_Description $description)
+  {
+    $description->appendText(sprintf(' %s', $this->_name));
+  }
+  
+}

@@ -1,139 +1,299 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-rtCrKYV8zwbKpzLxX9A1rDs+rYXMeh/9VzG=
+<?php
+/**
+ * DOMPDF - PHP5 HTML to PDF renderer
+ *
+ * File: $RCSfile: font_metrics.cls.php,v $
+ * Created on: 2004-06-02
+ *
+ * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library in the file LICENSE.LGPL; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * Alternatively, you may distribute this software under the terms of the
+ * PHP License, version 3.0 or later.  A copy of this license should have
+ * been distributed with this file in the file LICENSE.PHP .  If this is not
+ * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
+ *
+ * The latest version of DOMPDF might be available at:
+ * http://www.dompdf.com/
+ *
+ * @link http://www.dompdf.com/
+ * @copyright 2004 Benj Carson
+ * @author Benj Carson <benjcarson@digitaljunkies.ca>
+ * @contributor Helmut Tischer <htischer@weihenstephan.org>
+ * @package dompdf
+ *
+ * Changes
+ * @contributor Helmut Tischer <htischer@weihenstephan.org>
+ * @version 0.5.1.htischer.20090507
+ * - On missing font on explicite font selection don't change subtype and don't return default font.
+ * - On requesting default font and missing subtype, check similar subtypes, then any subtype, then normal. The last must exist.
+ * - Add comments
+ */
+
+/* $Id: font_metrics.cls.php 355 2011-01-27 07:44:54Z fabien.menager $ */
+
+require_once(DOMPDF_LIB_DIR . "/class.pdf.php");
+
+/**
+ * Name of the font cache file
+ *
+ * This file must be writable by the webserver process only to update it
+ * with save_font_families() after adding the .afm file references of a new font family
+ * with Font_Metrics::save_font_families().
+ * This is typically done only from command line with load_font.php on converting
+ * ttf fonts to afm with an external tool referenced in the define _TTF2AFM
+ *
+ * Declared here because PHP5 prevents constants from being declared with expressions
+ */
+if (!defined("__DOMPDF_FONT_CACHE_FILE")) {
+  if (file_exists(DOMPDF_FONT_DIR . "dompdf_font_family_cache")) {
+  	define('__DOMPDF_FONT_CACHE_FILE', DOMPDF_FONT_DIR . "dompdf_font_family_cache");
+  } else {
+  	define('__DOMPDF_FONT_CACHE_FILE', DOMPDF_FONT_DIR . "dompdf_font_family_cache.dist.php");
+  }
+}
+
+/**
+ * The font metrics class
+ *
+ * This class provides information about fonts and text.  It can resolve
+ * font names into actual installed font files, as well as determine the
+ * size of text in a particular font and size.
+ *
+ * @static
+ * @package dompdf
+ */
+class Font_Metrics {
+
+  /**
+   * @see __DOMPDF_FONT_CACHE_FILE
+   */
+  const CACHE_FILE = __DOMPDF_FONT_CACHE_FILE;
+  
+  /**
+   * Underlying {@link Canvas} object to perform text size calculations
+   *
+   * @var Canvas
+   */
+  static protected $_pdf = null;
+
+  /**
+   * Array of font family names to font files
+   *
+   * Usually cached by the {@link load_font.php} script
+   *
+   * @var array
+   */
+  static protected $_font_lookup = array();
+  
+  
+  /**
+   * Class initialization
+   *
+   */
+  static function init() {
+    if (!self::$_pdf) {
+      self::load_font_families();
+      self::$_pdf = Canvas_Factory::get_instance();
+    }
+  }
+
+  /**
+   * Calculates text size, in points
+   *
+   * @param string $text the text to be sized
+   * @param string $font the desired font
+   * @param float  $size the desired font size
+   * @param float  $spacing word spacing, if any
+   * @return float
+   */
+  static function get_text_width($text, $font, $size, $word_spacing = 0, $char_spacing = 0) {
+    return self::$_pdf->get_text_width($text, $font, $size, $word_spacing, $char_spacing);
+  }
+
+  /**
+   * Calculates font height
+   *
+   * @param string $font
+   * @param float $size
+   * @return float
+   */
+  static function get_font_height($font, $size) {
+    return self::$_pdf->get_font_height($font, $size);
+  }
+
+  /**
+   * Resolves a font family & subtype into an actual font file
+   *
+   * Subtype can be one of 'normal', 'bold', 'italic' or 'bold_italic'.  If
+   * the particular font family has no suitable font file, the default font
+   * ({@link DOMPDF_DEFAULT_FONT}) is used.  The font file returned
+   * is the absolute pathname to the font file on the system.
+   *
+   * @param string $family
+   * @param string $subtype
+   * @return string
+   */
+  static function get_font($family, $subtype = "normal") {
+
+    /* Allow calling for various fonts in search path. Therefore not immediately
+     * return replacement on non match.
+     * Only when called with NULL try replacement.
+     * When this is also missing there is really trouble.
+     * If only the subtype fails, nevertheless return failure.
+     * Only on checking the fallback font, check various subtypes on same font.
+     */
+
+    if ( $family ) {
+      $family = str_replace( array("'", '"'), "", mb_strtolower($family));
+      $subtype = mb_strtolower($subtype);
+
+      if ( isset(self::$_font_lookup[$family][$subtype]) ) {
+        return self::$_font_lookup[$family][$subtype];
+      }
+      return null;
+    }
+
+    $family = DOMPDF_DEFAULT_FONT;
+
+    if ( isset(self::$_font_lookup[$family][$subtype]) ) {
+      return self::$_font_lookup[$family][$subtype];
+    }
+
+    foreach ( self::$_font_lookup[$family] as $sub => $font ) {
+      if (strpos($subtype, $sub) !== false) {
+        return $font;
+      }
+    }
+
+    if ($subtype !== "normal") {
+      foreach ( self::$_font_lookup[$family] as $sub => $font ) {
+        if ($sub !== "normal") {
+          return $font;
+        }
+      }
+    }
+
+    $subtype = "normal";
+
+    if ( isset(self::$_font_lookup[$family][$subtype]) ) {
+      return self::$_font_lookup[$family][$subtype];
+    }
+    return null;
+  }
+
+  /**
+   * Saves the stored font family cache
+   *
+   * The name and location of the cache file are determined by {@link
+   * Font_Metrics::CACHE_FILE}.  This file should be writable by the
+   * webserver process.
+   *
+   * @see Font_Metrics::load_font_families()
+   */
+  static function save_font_families() {
+    // replace the path to the DOMPDF font directory with "DOMPDF_FONT_DIR" (allows for more portability)
+    $cache_data = var_export(self::$_font_lookup, true);
+    $cache_data = str_replace('\''.DOMPDF_FONT_DIR , 'DOMPDF_FONT_DIR . \'' , $cache_data);
+    $cache_data = "<"."?php return $cache_data ?".">";
+    file_put_contents(self::CACHE_FILE, $cache_data);
+  }
+
+  /**
+   * Loads the stored font family cache
+   *
+   * @see save_font_families()
+   */
+  static function load_font_families() {
+    if ( !is_readable(self::CACHE_FILE) )
+      return;
+
+    self::$_font_lookup = require_once(self::CACHE_FILE);
+    
+    // If the font family cache is still in the old format
+    if ( self::$_font_lookup === 1 ) {
+      $cache_data = file_get_contents(self::CACHE_FILE);
+      file_put_contents(self::CACHE_FILE, "<"."?php return $cache_data ?".">");
+      self::$_font_lookup = require_once(self::CACHE_FILE);
+    }
+  }
+  
+  static function get_system_fonts() {
+    $files = glob("/usr/share/fonts/truetype/*.ttf") +
+             glob("/usr/share/fonts/truetype/*/*.ttf") +
+             glob("/usr/share/fonts/truetype/*/*/*.ttf") +
+             glob("C:\\Windows\\fonts\\*.ttf") + 
+             glob("C:\\WinNT\\fonts\\*.ttf") + 
+             glob("/mnt/c_drive/WINDOWS/Fonts/");
+    
+    new TTF_Info;
+    
+    $names = array();
+    
+    foreach($files as $file) {
+      $info = getFontInfo($file);
+      $info["path"] = $file;
+      $type = $info[2];
+      
+      if (preg_match("/regular|normal|medium|book/i", $type)) {
+        $type = "normal";
+      }
+      elseif (preg_match("/bold/i", $type)) {
+        if (preg_match("/italic|oblique/i", $type)) {
+          $type = "bold_italic";
+        }
+        else {
+          $type = "bold";
+        }
+      }
+      elseif (preg_match("/italic|oblique/i", $type)) {
+        $type = "italic";
+      }
+      
+      $names[mb_strtolower($info[1])][$type] = $file;
+    }
+    
+    $keys = array_keys($names);
+    
+    /*$matches = array_intersect(array("times", "times new roman"), $keys);
+    $names["serif"] = $names[reset($matches)];
+          
+    $matches = array_intersect(array("helvetica", "arial", "verdana"), $keys);
+    $names["sans-serif"] = $names[reset($matches)];   
+    
+    $matches = array_intersect(array("courier", "courier new"), $keys);
+    $names["monospace"] = $names[reset($matches)];
+    $names["fixed"] = $names[reset($matches)];*/
+    
+    return $names;
+  }
+
+  /**
+   * Returns the current font lookup table
+   *
+   * @return array
+   */
+  static function get_font_families() {
+    return self::$_font_lookup;
+  }
+
+  static function set_font_family($fontname, $entry) {
+    self::$_font_lookup[mb_strtolower($fontname)] = $entry;
+  }
+}
+
+Font_Metrics::init();

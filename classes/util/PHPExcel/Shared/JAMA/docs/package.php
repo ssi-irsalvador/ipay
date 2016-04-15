@@ -1,87 +1,37 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+include_once "includes/header.php";
+include_once "includes/navbar.php";
 ?>
-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
-4htx
+<p>
+Source Listing:
+</p>
+<ul>
+  <?php
+  chdir("../");
+  $files = glob("*.php");
+  $files = array_merge($files, glob("util/*.php"));
+  foreach ($files as $fileName) {
+    ?>
+  	<li><a href="package.php?view=<?php echo sha1($fileName);?>"><?php echo $fileName;?></a>&nbsp;-&nbsp;<?php echo date ("F d Y - g:i a", filemtime($fileName));?></li>
+    <?php
+  }
+  ?>
+</ul>
+<?php
+if( isset($_REQUEST['view']) ) {
+	$hash = $_REQUEST['view'];
+	$n = array_search($hash, array_map(sha1, $files));
+	$fileName = $files[$n];
+  ?>
+  <hr />  
+	Viewing: <?php echo $fileName;?>	
+	<hr />
+	<?php
+	highlight_file($fileName);
+	?>
+	<hr />
+<?php
+}
+include_once "includes/footer.php";	
+?>
+

@@ -1,158 +1,319 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Writer_Excel2007
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Writer_Excel2007_StringTable
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Writer_Excel2007
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_WriterPart
+{
+	/**
+	 * Create worksheet stringtable
+	 *
+	 * @param 	PHPExcel_Worksheet 	$pSheet				Worksheet
+	 * @param 	string[] 				$pExistingTable 	Existing table to eventually merge with
+	 * @return 	string[] 				String table for worksheet
+	 * @throws 	PHPExcel_Writer_Exception
+	 */
+	public function createStringTable($pSheet = null, $pExistingTable = null)
+	{
+		if ($pSheet !== NULL) {
+			// Create string lookup table
+			$aStringTable = array();
+			$cellCollection = null;
+			$aFlippedStringTable = null;	// For faster lookup
+
+			// Is an existing table given?
+			if (($pExistingTable !== NULL) && is_array($pExistingTable)) {
+				$aStringTable = $pExistingTable;
+			}
+
+			// Fill index array
+			$aFlippedStringTable = $this->flipStringTable($aStringTable);
+
+			// Loop through cells
+			foreach ($pSheet->getCellCollection() as $cellID) {
+				$cell = $pSheet->getCell($cellID);
+				$cellValue = $cell->getValue();
+				if (!is_object($cellValue) &&
+					($cellValue !== NULL) &&
+					$cellValue !== '' &&
+					!isset($aFlippedStringTable[$cellValue]) &&
+					($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING2 || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_NULL)) {
+						$aStringTable[] = $cellValue;
+						$aFlippedStringTable[$cellValue] = true;
+				} elseif ($cellValue instanceof PHPExcel_RichText &&
+						  ($cellValue !== NULL) &&
+						  !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
+								$aStringTable[] = $cellValue;
+								$aFlippedStringTable[$cellValue->getHashCode()] = true;
+	        	}
+	        }
+
+	        // Return
+	        return $aStringTable;
+		} else {
+			throw new PHPExcel_Writer_Exception("Invalid PHPExcel_Worksheet object passed.");
+		}
+	}
+
+	/**
+	 * Write string table to XML format
+	 *
+	 * @param 	string[] 	$pStringTable
+	 * @return 	string 		XML Output
+	 * @throws 	PHPExcel_Writer_Exception
+	 */
+	public function writeStringTable($pStringTable = null)
+	{
+		if ($pStringTable !== NULL) {
+			// Create XML writer
+			$objWriter = null;
+			if ($this->getParentWriter()->getUseDiskCaching()) {
+				$objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+			} else {
+				$objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+			}
+
+			// XML header
+			$objWriter->startDocument('1.0','UTF-8','yes');
+
+			// String table
+			$objWriter->startElement('sst');
+			$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
+			$objWriter->writeAttribute('uniqueCount', count($pStringTable));
+
+				// Loop through string table
+				foreach ($pStringTable as $textElement) {
+					$objWriter->startElement('si');
+
+						if (! $textElement instanceof PHPExcel_RichText) {
+							$textToWrite = PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $textElement );
+							$objWriter->startElement('t');
+							if ($textToWrite !== trim($textToWrite)) {
+								$objWriter->writeAttribute('xml:space', 'preserve');
+							}
+							$objWriter->writeRawData($textToWrite);
+							$objWriter->endElement();
+						} else if ($textElement instanceof PHPExcel_RichText) {
+							$this->writeRichText($objWriter, $textElement);
+						}
+
+                    $objWriter->endElement();
+				}
+
+			$objWriter->endElement();
+
+			// Return
+			return $objWriter->getData();
+		} else {
+			throw new PHPExcel_Writer_Exception("Invalid string table array passed.");
+		}
+	}
+
+	/**
+	 * Write Rich Text
+	 *
+	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
+	 * @param 	PHPExcel_RichText			$pRichText		Rich text
+	 * @param 	string						$prefix			Optional Namespace prefix
+	 * @throws 	PHPExcel_Writer_Exception
+	 */
+	public function writeRichText(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_RichText $pRichText = null, $prefix=NULL)
+	{
+		if ($prefix !== NULL)
+			$prefix .= ':';
+		// Loop through rich text elements
+		$elements = $pRichText->getRichTextElements();
+		foreach ($elements as $element) {
+			// r
+			$objWriter->startElement($prefix.'r');
+
+				// rPr
+				if ($element instanceof PHPExcel_RichText_Run) {
+					// rPr
+					$objWriter->startElement($prefix.'rPr');
+
+						// rFont
+						$objWriter->startElement($prefix.'rFont');
+						$objWriter->writeAttribute('val', $element->getFont()->getName());
+						$objWriter->endElement();
+
+						// Bold
+						$objWriter->startElement($prefix.'b');
+						$objWriter->writeAttribute('val', ($element->getFont()->getBold() ? 'true' : 'false'));
+						$objWriter->endElement();
+
+						// Italic
+						$objWriter->startElement($prefix.'i');
+						$objWriter->writeAttribute('val', ($element->getFont()->getItalic() ? 'true' : 'false'));
+						$objWriter->endElement();
+
+						// Superscript / subscript
+						if ($element->getFont()->getSuperScript() || $element->getFont()->getSubScript()) {
+							$objWriter->startElement($prefix.'vertAlign');
+							if ($element->getFont()->getSuperScript()) {
+								$objWriter->writeAttribute('val', 'superscript');
+							} else if ($element->getFont()->getSubScript()) {
+								$objWriter->writeAttribute('val', 'subscript');
+							}
+							$objWriter->endElement();
+						}
+
+						// Strikethrough
+						$objWriter->startElement($prefix.'strike');
+						$objWriter->writeAttribute('val', ($element->getFont()->getStrikethrough() ? 'true' : 'false'));
+						$objWriter->endElement();
+
+						// Color
+						$objWriter->startElement($prefix.'color');
+						$objWriter->writeAttribute('rgb', $element->getFont()->getColor()->getARGB());
+						$objWriter->endElement();
+
+						// Size
+						$objWriter->startElement($prefix.'sz');
+						$objWriter->writeAttribute('val', $element->getFont()->getSize());
+						$objWriter->endElement();
+
+						// Underline
+						$objWriter->startElement($prefix.'u');
+						$objWriter->writeAttribute('val', $element->getFont()->getUnderline());
+						$objWriter->endElement();
+
+					$objWriter->endElement();
+				}
+
+				// t
+				$objWriter->startElement($prefix.'t');
+				$objWriter->writeAttribute('xml:space', 'preserve');
+				$objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $element->getText() ));
+				$objWriter->endElement();
+
+			$objWriter->endElement();
+		}
+	}
+
+	/**
+	 * Write Rich Text
+	 *
+	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
+	 * @param 	string|PHPExcel_RichText	$pRichText		text string or Rich text
+	 * @param 	string						$prefix			Optional Namespace prefix
+	 * @throws 	PHPExcel_Writer_Exception
+	 */
+	public function writeRichTextForCharts(PHPExcel_Shared_XMLWriter $objWriter = null, $pRichText = null, $prefix=NULL)
+	{
+		if (!$pRichText instanceof PHPExcel_RichText) {
+			$textRun = $pRichText;
+			$pRichText = new PHPExcel_RichText();
+			$pRichText->createTextRun($textRun);
+		}
+
+		if ($prefix !== NULL)
+			$prefix .= ':';
+		// Loop through rich text elements
+		$elements = $pRichText->getRichTextElements();
+		foreach ($elements as $element) {
+			// r
+			$objWriter->startElement($prefix.'r');
+
+				// rPr
+				$objWriter->startElement($prefix.'rPr');
+
+					// Bold
+					$objWriter->writeAttribute('b', ($element->getFont()->getBold() ? 1 : 0));
+					// Italic
+					$objWriter->writeAttribute('i', ($element->getFont()->getItalic() ? 1 : 0));
+					// Underline
+					$underlineType = $element->getFont()->getUnderline();
+					switch($underlineType) {
+						case 'single' :
+							$underlineType = 'sng';
+							break;
+						case 'double' :
+							$underlineType = 'dbl';
+							break;
+					}
+					$objWriter->writeAttribute('u', $underlineType);
+					// Strikethrough
+					$objWriter->writeAttribute('strike', ($element->getFont()->getStrikethrough() ? 'sngStrike' : 'noStrike'));
+
+					// rFont
+					$objWriter->startElement($prefix.'latin');
+						$objWriter->writeAttribute('typeface', $element->getFont()->getName());
+					$objWriter->endElement();
+
+					// Superscript / subscript
+//					if ($element->getFont()->getSuperScript() || $element->getFont()->getSubScript()) {
+//						$objWriter->startElement($prefix.'vertAlign');
+//						if ($element->getFont()->getSuperScript()) {
+//							$objWriter->writeAttribute('val', 'superscript');
+//						} else if ($element->getFont()->getSubScript()) {
+//							$objWriter->writeAttribute('val', 'subscript');
+//						}
+//						$objWriter->endElement();
+//					}
+//
+				$objWriter->endElement();
+
+				// t
+				$objWriter->startElement($prefix.'t');
+//					$objWriter->writeAttribute('xml:space', 'preserve');	//	Excel2010 accepts, Excel2007 complains
+					$objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $element->getText() ));
+				$objWriter->endElement();
+
+			$objWriter->endElement();
+		}
+	}
+
+	/**
+	 * Flip string table (for index searching)
+	 *
+	 * @param 	array	$stringTable	Stringtable
+	 * @return 	array
+	 */
+	public function flipStringTable($stringTable = array()) {
+		// Return value
+		$returnValue = array();
+
+		// Loop through stringtable and add flipped items to $returnValue
+		foreach ($stringTable as $key => $value) {
+			if (! $value instanceof PHPExcel_RichText) {
+				$returnValue[$value] = $key;
+			} else if ($value instanceof PHPExcel_RichText) {
+				$returnValue[$value->getHashCode()] = $key;
+			}
+		}
+
+		// Return
+		return $returnValue;
+	}
+}

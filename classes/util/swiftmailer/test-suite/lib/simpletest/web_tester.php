@@ -1,508 +1,1495 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  Base include file for SimpleTest.
+ *  @package    SimpleTest
+ *  @subpackage WebTester
+ *  @version    $Id: web_tester.php 1808 2008-09-11 19:18:02Z pp11 $
+ */
+
+/**#@+
+ *  include other SimpleTest class files
+ */
+require_once(dirname(__FILE__) . '/test_case.php');
+require_once(dirname(__FILE__) . '/browser.php');
+require_once(dirname(__FILE__) . '/page.php');
+require_once(dirname(__FILE__) . '/expectation.php');
+/**#@-*/
+
+/**
+ *    Test for an HTML widget value match.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class FieldExpectation extends SimpleExpectation {
+    private $value;
+    
+    /**
+     *    Sets the field value to compare against.
+     *    @param mixed $value     Test value to match. Can be an
+     *                            expectation for say pattern matching.
+     *    @param string $message  Optiona message override. Can use %s as
+     *                            a placeholder for the original message.
+     *    @access public
+     */
+    function __construct($value, $message = '%s') {
+        parent::__construct($message);
+        if (is_array($value)) {
+            sort($value);
+        }
+        $this->value = $value;
+    }
+    
+    /**
+     *    Tests the expectation. True if it matches
+     *    a string value or an array value in any order.
+     *    @param mixed $compare        Comparison value. False for
+     *                                 an unset field.
+     *    @return boolean              True if correct.
+     *    @access public
+     */
+    function test($compare) {
+        if ($this->value === false) {
+            return ($compare === false);
+        }
+        if ($this->isSingle($this->value)) {
+            return $this->testSingle($compare);
+        }
+        if (is_array($this->value)) {
+            return $this->testMultiple($compare);
+        }
+        return false;
+    }
+    
+    /**
+     *    Tests for valid field comparisons with a single option.
+     *    @param mixed $value       Value to type check.
+     *    @return boolean           True if integer, string or float.
+     *    @access private
+     */
+    protected function isSingle($value) {
+        return is_string($value) || is_integer($value) || is_float($value);
+    }
+    
+    /**
+     *    String comparison for simple field with a single option.
+     *    @param mixed $compare    String to test against.
+     *    @returns boolean         True if matching.
+     *    @access private
+     */
+    protected function testSingle($compare) {
+        if (is_array($compare) && count($compare) == 1) {
+            $compare = $compare[0];
+        }
+        if (! $this->isSingle($compare)) {
+            return false;
+        }
+        return ($this->value == $compare);
+    }
+    
+    /**
+     *    List comparison for multivalue field.
+     *    @param mixed $compare    List in any order to test against.
+     *    @returns boolean         True if matching.
+     *    @access private
+     */
+    protected function testMultiple($compare) {
+        if (is_string($compare)) {
+            $compare = array($compare);
+        }
+        if (! is_array($compare)) {
+            return false;
+        }
+        sort($compare);
+        return ($this->value === $compare);
+    }
+    
+    /**
+     *    Returns a human readable test message.
+     *    @param mixed $compare      Comparison value.
+     *    @return string             Description of success
+     *                               or failure.
+     *    @access public
+     */
+    function testMessage($compare) {
+        $dumper = $this->getDumper();
+        if (is_array($compare)) {
+            sort($compare);
+        }
+        if ($this->test($compare)) {
+            return "Field expectation [" . $dumper->describeValue($this->value) . "]";
+        } else {
+            return "Field expectation [" . $dumper->describeValue($this->value) .
+                    "] fails with [" .
+                    $dumper->describeValue($compare) . "] " .
+                    $dumper->describeDifference($this->value, $compare);
+        }
+    }
+}
+
+/**
+ *    Test for a specific HTTP header within a header block.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class HttpHeaderExpectation extends SimpleExpectation {
+    private $expected_header;
+    private $expected_value;
+    
+    /**
+     *    Sets the field and value to compare against.
+     *    @param string $header   Case insenstive trimmed header name.
+     *    @param mixed $value     Optional value to compare. If not
+     *                            given then any value will match. If
+     *                            an expectation object then that will
+     *                            be used instead.
+     *    @param string $message  Optiona message override. Can use %s as
+     *                            a placeholder for the original message.
+     */
+    function __construct($header, $value = false, $message = '%s') {
+        parent::__construct($message);
+        $this->expected_header = $this->normaliseHeader($header);
+        $this->expected_value = $value;
+    }
+    
+    /**
+     *    Accessor for aggregated object.
+     *    @return mixed        Expectation set in constructor.
+     *    @access protected
+     */
+    protected function getExpectation() {
+        return $this->expected_value;
+    }
+    
+    /**
+     *    Removes whitespace at ends and case variations.
+     *    @param string $header    Name of header.
+     *    @param string            Trimmed and lowecased header
+     *                             name.
+     *    @access private
+     */
+    protected function normaliseHeader($header) {
+        return strtolower(trim($header));
+    }
+    
+    /**
+     *    Tests the expectation. True if it matches
+     *    a string value or an array value in any order.
+     *    @param mixed $compare   Raw header block to search.
+     *    @return boolean         True if header present.
+     *    @access public
+     */
+    function test($compare) {
+        return is_string($this->findHeader($compare));
+    }
+    
+    /**
+     *    Searches the incoming result. Will extract the matching
+     *    line as text.
+     *    @param mixed $compare   Raw header block to search.
+     *    @return string          Matching header line.
+     *    @access protected
+     */
+    protected function findHeader($compare) {
+        $lines = split("\r\n", $compare);
+        foreach ($lines as $line) {
+            if ($this->testHeaderLine($line)) {
+                return $line;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     *    Compares a single header line against the expectation.
+     *    @param string $line      A single line to compare.
+     *    @return boolean          True if matched.
+     *    @access private
+     */
+    protected function testHeaderLine($line) {
+        if (count($parsed = split(':', $line, 2)) < 2) {
+            return false;
+        }
+        list($header, $value) = $parsed;
+        if ($this->normaliseHeader($header) != $this->expected_header) {
+            return false;
+        }
+        return $this->testHeaderValue($value, $this->expected_value);
+    }
+    
+    /**
+     *    Tests the value part of the header.
+     *    @param string $value        Value to test.
+     *    @param mixed $expected      Value to test against.
+     *    @return boolean             True if matched.
+     *    @access protected
+     */
+    protected function testHeaderValue($value, $expected) {
+        if ($expected === false) {
+            return true;
+        }
+        if (SimpleExpectation::isExpectation($expected)) {
+            return $expected->test(trim($value));
+        }
+        return (trim($value) == trim($expected));
+    }
+    
+    /**
+     *    Returns a human readable test message.
+     *    @param mixed $compare      Raw header block to search.
+     *    @return string             Description of success
+     *                               or failure.
+     *    @access public
+     */
+    function testMessage($compare) {
+        if (SimpleExpectation::isExpectation($this->expected_value)) {
+            $message = $this->expected_value->overlayMessage($compare, $this->getDumper());
+        } else {
+            $message = $this->expected_header .
+                    ($this->expected_value ? ': ' . $this->expected_value : '');
+        }
+        if (is_string($line = $this->findHeader($compare))) {
+            return "Searching for header [$message] found [$line]";
+        } else {
+            return "Failed to find header [$message]";
+        }
+    }
+}
+    
+/**
+ *    Test for a specific HTTP header within a header block that
+ *    should not be found.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class NoHttpHeaderExpectation extends HttpHeaderExpectation {
+    private $expected_header;
+    private $expected_value;
+    
+    /**
+     *    Sets the field and value to compare against.
+     *    @param string $unwanted   Case insenstive trimmed header name.
+     *    @param string $message    Optiona message override. Can use %s as
+     *                              a placeholder for the original message.
+     */
+    function __construct($unwanted, $message = '%s') {
+        parent::__construct($unwanted, false, $message);
+    }
+    
+    /**
+     *    Tests that the unwanted header is not found.
+     *    @param mixed $compare   Raw header block to search.
+     *    @return boolean         True if header present.
+     *    @access public
+     */
+    function test($compare) {
+        return ($this->findHeader($compare) === false);
+    }
+    
+    /**
+     *    Returns a human readable test message.
+     *    @param mixed $compare      Raw header block to search.
+     *    @return string             Description of success
+     *                               or failure.
+     *    @access public
+     */
+    function testMessage($compare) {
+        $expectation = $this->getExpectation();
+        if (is_string($line = $this->findHeader($compare))) {
+            return "Found unwanted header [$expectation] with [$line]";
+        } else {
+            return "Did not find unwanted header [$expectation]";
+        }
+    }
+}
+
+/**
+ *    Test for a text substring.
+ *    @package SimpleTest
+ *    @subpackage UnitTester
+ */
+class TextExpectation extends SimpleExpectation {
+    private $substring;
+    
+    /**
+     *    Sets the value to compare against.
+     *    @param string $substring  Text to search for.
+     *    @param string $message    Customised message on failure.
+     *    @access public
+     */
+    function __construct($substring, $message = '%s') {
+        parent::__construct($message);
+        $this->substring = $substring;
+    }
+    
+    /**
+     *    Accessor for the substring.
+     *    @return string       Text to match.
+     *    @access protected
+     */
+    protected function getSubstring() {
+        return $this->substring;
+    }
+    
+    /**
+     *    Tests the expectation. True if the text contains the
+     *    substring.
+     *    @param string $compare        Comparison value.
+     *    @return boolean               True if correct.
+     *    @access public
+     */
+    function test($compare) {
+        return (strpos($compare, $this->substring) !== false);
+    }
+    
+    /**
+     *    Returns a human readable test message.
+     *    @param mixed $compare      Comparison value.
+     *    @return string             Description of success
+     *                               or failure.
+     *    @access public
+     */
+    function testMessage($compare) {
+        if ($this->test($compare)) {
+            return $this->describeTextMatch($this->getSubstring(), $compare);
+        } else {
+            $dumper = $this->getDumper();
+            return "Text [" . $this->getSubstring() .
+                    "] not detected in [" .
+                    $dumper->describeValue($compare) . "]";
+        }
+    }
+    
+    /**
+     *    Describes a pattern match including the string
+     *    found and it's position.
+     *    @param string $substring      Text to search for.
+     *    @param string $subject        Subject to search.
+     *    @access protected
+     */
+    protected function describeTextMatch($substring, $subject) {
+        $position = strpos($subject, $substring);
+        $dumper = $this->getDumper();
+        return "Text [$substring] detected at character [$position] in [" .
+                $dumper->describeValue($subject) . "] in region [" .
+                $dumper->clipString($subject, 100, $position) . "]";
+    }
+}
+
+/**
+ *    Fail if a substring is detected within the
+ *    comparison text.
+ *    @package SimpleTest
+ *    @subpackage UnitTester
+ */
+class NoTextExpectation extends TextExpectation {
+    
+    /**
+     *    Sets the reject pattern
+     *    @param string $substring  Text to search for.
+     *    @param string $message    Customised message on failure.
+     *    @access public
+     */
+    function __construct($substring, $message = '%s') {
+        parent::__construct($substring, $message);
+    }
+    
+    /**
+     *    Tests the expectation. False if the substring appears
+     *    in the text.
+     *    @param string $compare        Comparison value.
+     *    @return boolean               True if correct.
+     *    @access public
+     */
+    function test($compare) {
+        return ! parent::test($compare);
+    }
+    
+    /**
+     *    Returns a human readable test message.
+     *    @param string $compare      Comparison value.
+     *    @return string              Description of success
+     *                                or failure.
+     *    @access public
+     */
+    function testMessage($compare) {
+        if ($this->test($compare)) {
+            $dumper = $this->getDumper();
+            return "Text [" . $this->getSubstring() .
+                    "] not detected in [" .
+                    $dumper->describeValue($compare) . "]";
+        } else {
+            return $this->describeTextMatch($this->getSubstring(), $compare);
+        }
+    }
+}
+
+/**
+ *    Test case for testing of web pages. Allows
+ *    fetching of pages, parsing of HTML and
+ *    submitting forms.
+ *    @package SimpleTest
+ *    @subpackage WebTester
+ */
+class WebTestCase extends SimpleTestCase {
+    private $browser;
+    private $ignore_errors = false;
+    
+    /**
+     *    Creates an empty test case. Should be subclassed
+     *    with test methods for a functional test case.
+     *    @param string $label     Name of test case. Will use
+     *                             the class name if none specified.
+     *    @access public
+     */
+    function __construct($label = false) {
+        parent::__construct($label);
+    }
+    
+    /**
+     *    Announces the start of the test.
+     *    @param string $method    Test method just started.
+     *    @access public
+     */
+    function before($method) {
+        parent::before($method);
+        $this->setBrowser($this->createBrowser());
+    }
+
+    /**
+     *    Announces the end of the test. Includes private clean up.
+     *    @param string $method    Test method just finished.
+     *    @access public
+     */
+    function after($method) {
+        $this->unsetBrowser();
+        parent::after($method);
+    }
+    
+    /**
+     *    Gets a current browser reference for setting
+     *    special expectations or for detailed
+     *    examination of page fetches.
+     *    @return SimpleBrowser     Current test browser object.
+     *    @access public
+     */
+    function getBrowser() {
+        return $this->browser;
+    }
+    
+    /**
+     *    Gets a current browser reference for setting
+     *    special expectations or for detailed
+     *    examination of page fetches.
+     *    @param SimpleBrowser $browser    New test browser object.
+     *    @access public
+     */
+    function setBrowser($browser) {
+        return $this->browser = $browser;
+    }
+        
+    /**
+     *    Clears the current browser reference to help the
+     *    PHP garbage collector.
+     *    @access public
+     */
+    function unsetBrowser() {
+        unset($this->browser);
+    }
+    
+    /**
+     *    Creates a new default web browser object.
+     *    Will be cleared at the end of the test method.
+     *    @return TestBrowser           New browser.
+     *    @access public
+     */
+    function createBrowser() {
+        return new SimpleBrowser();
+    }
+    
+    /**
+     *    Gets the last response error.
+     *    @return string    Last low level HTTP error.
+     *    @access public
+     */
+    function getTransportError() {
+        return $this->browser->getTransportError();
+    }
+        
+    /**
+     *    Accessor for the currently selected URL.
+     *    @return string        Current location or false if
+     *                          no page yet fetched.
+     *    @access public
+     */
+    function getUrl() {
+        return $this->browser->getUrl();
+    }
+    
+    /**
+     *    Dumps the current request for debugging.
+     *    @access public
+     */
+    function showRequest() {
+        $this->dump($this->browser->getRequest());
+    }
+    
+    /**
+     *    Dumps the current HTTP headers for debugging.
+     *    @access public
+     */
+    function showHeaders() {
+        $this->dump($this->browser->getHeaders());
+    }
+    
+    /**
+     *    Dumps the current HTML source for debugging.
+     *    @access public
+     */
+    function showSource() {
+        $this->dump($this->browser->getContent());
+    }
+    
+    /**
+     *    Dumps the visible text only for debugging.
+     *    @access public
+     */
+    function showText() {
+        $this->dump(wordwrap($this->browser->getContentAsText(), 80));
+    }
+    
+    /**
+     *    Simulates the closing and reopening of the browser.
+     *    Temporary cookies will be discarded and timed
+     *    cookies will be expired if later than the
+     *    specified time.
+     *    @param string/integer $date Time when session restarted.
+     *                                If ommitted then all persistent
+     *                                cookies are kept. Time is either
+     *                                Cookie format string or timestamp.
+     *    @access public
+     */
+    function restart($date = false) {
+        if ($date === false) {
+            $date = time();
+        }
+        $this->browser->restart($date);
+    }
+    
+    /**
+     *    Moves cookie expiry times back into the past.
+     *    Useful for testing timeouts and expiries.
+     *    @param integer $interval    Amount to age in seconds.
+     *    @access public
+     */
+    function ageCookies($interval) {
+        $this->browser->ageCookies($interval);
+    }
+    
+    /**
+     *    Disables frames support. Frames will not be fetched
+     *    and the frameset page will be used instead.
+     *    @access public
+     */
+    function ignoreFrames() {
+        $this->browser->ignoreFrames();
+    }
+    
+    /**
+     *    Switches off cookie sending and recieving.
+     *    @access public
+     */
+    function ignoreCookies() {
+        $this->browser->ignoreCookies();
+    }
+    
+    /**
+     *    Skips errors for the next request only. You might
+     *    want to confirm that a page is unreachable for
+     *    example.
+     *    @access public
+     */
+    function ignoreErrors() {
+        $this->ignore_errors = true;
+    }
+    
+    /**
+     *    Issues a fail if there is a transport error anywhere
+     *    in the current frameset. Only one such error is
+     *    reported.
+     *    @param string/boolean $result   HTML or failure.
+     *    @return string/boolean $result  Passes through result.
+     *    @access private
+     */
+    protected function failOnError($result) {
+        if (! $this->ignore_errors) {
+            if ($error = $this->browser->getTransportError()) {
+                $this->fail($error);
+            }
+        }
+        $this->ignore_errors = false;
+        return $result;
+    }
+
+    /**
+     *    Adds a header to every fetch.
+     *    @param string $header       Header line to add to every
+     *                                request until cleared.
+     *    @access public
+     */
+    function addHeader($header) {
+        $this->browser->addHeader($header);
+    }
+    
+    /**
+     *    Sets the maximum number of redirects before
+     *    the web page is loaded regardless.
+     *    @param integer $max        Maximum hops.
+     *    @access public
+     */
+    function setMaximumRedirects($max) {
+        if (! $this->browser) {
+            trigger_error(
+                    'Can only set maximum redirects in a test method, setUp() or tearDown()');
+        }
+        $this->browser->setMaximumRedirects($max);
+    }
+    
+    /**
+     *    Sets the socket timeout for opening a connection and
+     *    receiving at least one byte of information.
+     *    @param integer $timeout      Maximum time in seconds.
+     *    @access public
+     */
+    function setConnectionTimeout($timeout) {
+        $this->browser->setConnectionTimeout($timeout);
+    }
+    
+    /**
+     *    Sets proxy to use on all requests for when
+     *    testing from behind a firewall. Set URL
+     *    to false to disable.
+     *    @param string $proxy        Proxy URL.
+     *    @param string $username     Proxy username for authentication.
+     *    @param string $password     Proxy password for authentication.
+     *    @access public
+     */
+    function useProxy($proxy, $username = false, $password = false) {
+        $this->browser->useProxy($proxy, $username, $password);
+    }
+    
+    /**
+     *    Fetches a page into the page buffer. If
+     *    there is no base for the URL then the
+     *    current base URL is used. After the fetch
+     *    the base URL reflects the new location.
+     *    @param string $url          URL to fetch.
+     *    @param hash $parameters     Optional additional GET data.
+     *    @return boolean/string      Raw page on success.
+     *    @access public
+     */
+    function get($url, $parameters = false) {
+        return $this->failOnError($this->browser->get($url, $parameters));
+    }
+    
+    /**
+     *    Fetches a page by POST into the page buffer.
+     *    If there is no base for the URL then the
+     *    current base URL is used. After the fetch
+     *    the base URL reflects the new location.
+     *    @param string $url          URL to fetch.
+     *    @param hash $parameters     Optional additional GET data.
+     *    @return boolean/string      Raw page on success.
+     *    @access public
+     */
+    function post($url, $parameters = false) {
+        return $this->failOnError($this->browser->post($url, $parameters));
+    }
+    
+    /**
+     *    Does a HTTP HEAD fetch, fetching only the page
+     *    headers. The current base URL is unchanged by this.
+     *    @param string $url          URL to fetch.
+     *    @param hash $parameters     Optional additional GET data.
+     *    @return boolean             True on success.
+     *    @access public
+     */
+    function head($url, $parameters = false) {
+        return $this->failOnError($this->browser->head($url, $parameters));
+    }
+    
+    /**
+     *    Equivalent to hitting the retry button on the
+     *    browser. Will attempt to repeat the page fetch.
+     *    @return boolean     True if fetch succeeded.
+     *    @access public
+     */
+    function retry() {
+        return $this->failOnError($this->browser->retry());
+    }
+    
+    /**
+     *    Equivalent to hitting the back button on the
+     *    browser.
+     *    @return boolean     True if history entry and
+     *                        fetch succeeded.
+     *    @access public
+     */
+    function back() {
+        return $this->failOnError($this->browser->back());
+    }
+    
+    /**
+     *    Equivalent to hitting the forward button on the
+     *    browser.
+     *    @return boolean     True if history entry and
+     *                        fetch succeeded.
+     *    @access public
+     */
+    function forward() {
+        return $this->failOnError($this->browser->forward());
+    }
+    
+    /**
+     *    Retries a request after setting the authentication
+     *    for the current realm.
+     *    @param string $username    Username for realm.
+     *    @param string $password    Password for realm.
+     *    @return boolean/string     HTML on successful fetch. Note
+     *                               that authentication may still have
+     *                               failed.
+     *    @access public
+     */
+    function authenticate($username, $password) {
+        return $this->failOnError(
+                $this->browser->authenticate($username, $password));
+    }
+    
+    /**
+     *    Gets the cookie value for the current browser context.
+     *    @param string $name          Name of cookie.
+     *    @return string               Value of cookie or false if unset.
+     *    @access public
+     */
+    function getCookie($name) {
+        return $this->browser->getCurrentCookieValue($name);
+    }
+    
+    /**
+     *    Sets a cookie in the current browser.
+     *    @param string $name          Name of cookie.
+     *    @param string $value         Cookie value.
+     *    @param string $host          Host upon which the cookie is valid.
+     *    @param string $path          Cookie path if not host wide.
+     *    @param string $expiry        Expiry date.
+     *    @access public
+     */
+    function setCookie($name, $value, $host = false, $path = '/', $expiry = false) {
+        $this->browser->setCookie($name, $value, $host, $path, $expiry);
+    }
+    
+    /**
+     *    Accessor for current frame focus. Will be
+     *    false if no frame has focus.
+     *    @return integer/string/boolean    Label if any, otherwise
+     *                                      the position in the frameset
+     *                                      or false if none.
+     *    @access public
+     */
+    function getFrameFocus() {
+        return $this->browser->getFrameFocus();
+    }
+    
+    /**
+     *    Sets the focus by index. The integer index starts from 1.
+     *    @param integer $choice    Chosen frame.
+     *    @return boolean           True if frame exists.
+     *    @access public
+     */
+    function setFrameFocusByIndex($choice) {
+        return $this->browser->setFrameFocusByIndex($choice);
+    }
+    
+    /**
+     *    Sets the focus by name.
+     *    @param string $name    Chosen frame.
+     *    @return boolean        True if frame exists.
+     *    @access public
+     */
+    function setFrameFocus($name) {
+        return $this->browser->setFrameFocus($name);
+    }
+    
+    /**
+     *    Clears the frame focus. All frames will be searched
+     *    for content.
+     *    @access public
+     */
+    function clearFrameFocus() {
+        return $this->browser->clearFrameFocus();
+    }
+    
+    /**
+     *    Clicks a visible text item. Will first try buttons,
+     *    then links and then images.
+     *    @param string $label        Visible text or alt text.
+     *    @return string/boolean      Raw page or false.
+     *    @access public
+     */
+    function click($label) {
+        return $this->failOnError($this->browser->click($label));
+    }
+    
+    /**
+     *    Checks for a click target.
+     *    @param string $label        Visible text or alt text.
+     *    @return boolean             True if click target.
+     *    @access public
+     */    
+    function assertClickable($label, $message = '%s') {
+        return $this->assertTrue(
+                $this->browser->isClickable($label),
+                sprintf($message, "Click target [$label] should exist"));
+    }
+    
+    /**
+     *    Clicks the submit button by label. The owning
+     *    form will be submitted by this.
+     *    @param string $label    Button label. An unlabeled
+     *                            button can be triggered by 'Submit'.
+     *    @param hash $additional Additional form values.
+     *    @return boolean/string  Page on success, else false.
+     *    @access public
+     */
+    function clickSubmit($label = 'Submit', $additional = false) {
+        return $this->failOnError(
+                $this->browser->clickSubmit($label, $additional));
+    }
+    
+    /**
+     *    Clicks the submit button by name attribute. The owning
+     *    form will be submitted by this.
+     *    @param string $name     Name attribute of button.
+     *    @param hash $additional Additional form values.
+     *    @return boolean/string  Page on success.
+     *    @access public
+     */
+    function clickSubmitByName($name, $additional = false) {
+        return $this->failOnError(
+                $this->browser->clickSubmitByName($name, $additional));
+    }
+    
+    /**
+     *    Clicks the submit button by ID attribute. The owning
+     *    form will be submitted by this.
+     *    @param string $id       ID attribute of button.
+     *    @param hash $additional Additional form values.
+     *    @return boolean/string  Page on success.
+     *    @access public
+     */
+    function clickSubmitById($id, $additional = false) {
+        return $this->failOnError(
+                $this->browser->clickSubmitById($id, $additional));
+    }
+    
+    /**
+     *    Checks for a valid button label.
+     *    @param string $label        Visible text.
+     *    @return boolean             True if click target.
+     *    @access public
+     */    
+    function assertSubmit($label, $message = '%s') {
+        return $this->assertTrue(
+                $this->browser->isSubmit($label),
+                sprintf($message, "Submit button [$label] should exist"));
+    }
+    
+    /**
+     *    Clicks the submit image by some kind of label. Usually
+     *    the alt tag or the nearest equivalent. The owning
+     *    form will be submitted by this. Clicking outside of
+     *    the boundary of the coordinates will result in
+     *    a failure.
+     *    @param string $label    Alt attribute of button.
+     *    @param integer $x       X-coordinate of imaginary click.
+     *    @param integer $y       Y-coordinate of imaginary click.
+     *    @param hash $additional Additional form values.
+     *    @return boolean/string  Page on success.
+     *    @access public
+     */
+    function clickImage($label, $x = 1, $y = 1, $additional = false) {
+        return $this->failOnError(
+                $this->browser->clickImage($label, $x, $y, $additional));
+    }
+    
+    /**
+     *    Clicks the submit image by the name. Usually
+     *    the alt tag or the nearest equivalent. The owning
+     *    form will be submitted by this. Clicking outside of
+     *    the boundary of the coordinates will result in
+     *    a failure.
+     *    @param string $name     Name attribute of button.
+     *    @param integer $x       X-coordinate of imaginary click.
+     *    @param integer $y       Y-coordinate of imaginary click.
+     *    @param hash $additional Additional form values.
+     *    @return boolean/string  Page on success.
+     *    @access public
+     */
+    function clickImageByName($name, $x = 1, $y = 1, $additional = false) {
+        return $this->failOnError(
+                $this->browser->clickImageByName($name, $x, $y, $additional));
+    }
+    
+    /**
+     *    Clicks the submit image by ID attribute. The owning
+     *    form will be submitted by this. Clicking outside of
+     *    the boundary of the coordinates will result in
+     *    a failure.
+     *    @param integer/string $id   ID attribute of button.
+     *    @param integer $x           X-coordinate of imaginary click.
+     *    @param integer $y           Y-coordinate of imaginary click.
+     *    @param hash $additional     Additional form values.
+     *    @return boolean/string      Page on success.
+     *    @access public
+     */
+    function clickImageById($id, $x = 1, $y = 1, $additional = false) {
+        return $this->failOnError(
+                $this->browser->clickImageById($id, $x, $y, $additional));
+    }
+    
+    /**
+     *    Checks for a valid image with atht alt text or title.
+     *    @param string $label        Visible text.
+     *    @return boolean             True if click target.
+     *    @access public
+     */    
+    function assertImage($label, $message = '%s') {
+        return $this->assertTrue(
+                $this->browser->isImage($label),
+                sprintf($message, "Image with text [$label] should exist"));
+    }
+    
+    /**
+     *    Submits a form by the ID.
+     *    @param string $id       Form ID. No button information
+     *                            is submitted this way.
+     *    @return boolean/string  Page on success.
+     *    @access public
+     */
+    function submitFormById($id) {
+        return $this->failOnError($this->browser->submitFormById($id));
+    }
+    
+    /**
+     *    Follows a link by name. Will click the first link
+     *    found with this link text by default, or a later
+     *    one if an index is given. Match is case insensitive
+     *    with normalised space.
+     *    @param string $label     Text between the anchor tags.
+     *    @param integer $index    Link position counting from zero.
+     *    @return boolean/string   Page on success.
+     *    @access public
+     */
+    function clickLink($label, $index = 0) {
+        return $this->failOnError($this->browser->clickLink($label, $index));
+    }
+    
+    /**
+     *    Follows a link by id attribute.
+     *    @param string $id        ID attribute value.
+     *    @return boolean/string   Page on success.
+     *    @access public
+     */
+    function clickLinkById($id) {
+        return $this->failOnError($this->browser->clickLinkById($id));
+    }
+    
+    /**
+     *    Tests for the presence of a link label. Match is
+     *    case insensitive with normalised space.
+     *    @param string $label     Text between the anchor tags.
+     *    @param mixed $expected   Expected URL or expectation object.
+     *    @param string $message   Message to display. Default
+     *                             can be embedded with %s.
+     *    @return boolean          True if link present.
+     *    @access public
+     */
+    function assertLink($label, $expected = true, $message = '%s') {
+        $url = $this->browser->getLink($label);
+        if ($expected === true || ($expected !== true && $url === false)) {
+            return $this->assertTrue($url !== false, sprintf($message, "Link [$label] should exist"));
+        }
+        if (! SimpleExpectation::isExpectation($expected)) {
+            $expected = new IdenticalExpectation($expected);
+        }
+        return $this->assert($expected, $url->asString(), sprintf($message, "Link [$label] should match"));
+    }
+
+    /**
+     *    Tests for the non-presence of a link label. Match is
+     *    case insensitive with normalised space.
+     *    @param string/integer $label    Text between the anchor tags
+     *                                    or ID attribute.
+     *    @param string $message          Message to display. Default
+     *                                    can be embedded with %s.
+     *    @return boolean                 True if link missing.
+     *    @access public
+     */
+    function assertNoLink($label, $message = '%s') {
+        return $this->assertTrue(
+                $this->browser->getLink($label) === false,
+                sprintf($message, "Link [$label] should not exist"));
+    }
+    
+    /**
+     *    Tests for the presence of a link id attribute.
+     *    @param string $id        Id attribute value.
+     *    @param mixed $expected   Expected URL or expectation object.
+     *    @param string $message   Message to display. Default
+     *                             can be embedded with %s.
+     *    @return boolean          True if link present.
+     *    @access public
+     */
+    function assertLinkById($id, $expected = true, $message = '%s') {
+        $url = $this->browser->getLinkById($id);
+        if ($expected === true) {
+            return $this->assertTrue($url !== false, sprintf($message, "Link ID [$id] should exist"));
+        }
+        if (! SimpleExpectation::isExpectation($expected)) {
+            $expected = new IdenticalExpectation($expected);
+        }
+        return $this->assert($expected, $url->asString(), sprintf($message, "Link ID [$id] should match"));
+    }
+
+    /**
+     *    Tests for the non-presence of a link label. Match is
+     *    case insensitive with normalised space.
+     *    @param string $id        Id attribute value.
+     *    @param string $message   Message to display. Default
+     *                             can be embedded with %s.
+     *    @return boolean          True if link missing.
+     *    @access public
+     */
+    function assertNoLinkById($id, $message = '%s') {
+        return $this->assertTrue(
+                $this->browser->getLinkById($id) === false,
+                sprintf($message, "Link ID [$id] should not exist"));
+    }
+    
+    /**
+     *    Sets all form fields with that label, or name if there
+     *    is no label attached.
+     *    @param string $name    Name of field in forms.
+     *    @param string $value   New value of field.
+     *    @return boolean        True if field exists, otherwise false.
+     *    @access public
+     */
+    function setField($label, $value, $position=false) {
+        return $this->browser->setField($label, $value, $position);
+    }
+    
+    /**
+     *    Sets all form fields with that name.
+     *    @param string $name    Name of field in forms.
+     *    @param string $value   New value of field.
+     *    @return boolean        True if field exists, otherwise false.
+     *    @access public
+     */
+    function setFieldByName($name, $value, $position=false) {
+        return $this->browser->setFieldByName($name, $value, $position);
+    }
+        
+    /**
+     *    Sets all form fields with that id.
+     *    @param string/integer $id   Id of field in forms.
+     *    @param string $value        New value of field.
+     *    @return boolean             True if field exists, otherwise false.
+     *    @access public
+     */
+    function setFieldById($id, $value) {
+        return $this->browser->setFieldById($id, $value);
+    }
+    
+    /**
+     *    Confirms that the form element is currently set
+     *    to the expected value. A missing form will always
+     *    fail. If no value is given then only the existence
+     *    of the field is checked.
+     *    @param string $name       Name of field in forms.
+     *    @param mixed $expected    Expected string/array value or
+     *                              false for unset fields.
+     *    @param string $message    Message to display. Default
+     *                              can be embedded with %s.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertField($label, $expected = true, $message = '%s') {
+        $value = $this->browser->getField($label);
+        return $this->assertFieldValue($label, $value, $expected, $message);
+    }
+    
+    /**
+     *    Confirms that the form element is currently set
+     *    to the expected value. A missing form element will always
+     *    fail. If no value is given then only the existence
+     *    of the field is checked.
+     *    @param string $name       Name of field in forms.
+     *    @param mixed $expected    Expected string/array value or
+     *                              false for unset fields.
+     *    @param string $message    Message to display. Default
+     *                              can be embedded with %s.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertFieldByName($name, $expected = true, $message = '%s') {
+        $value = $this->browser->getFieldByName($name);
+        return $this->assertFieldValue($name, $value, $expected, $message);
+    }
+        
+    /**
+     *    Confirms that the form element is currently set
+     *    to the expected value. A missing form will always
+     *    fail. If no ID is given then only the existence
+     *    of the field is checked.
+     *    @param string/integer $id  Name of field in forms.
+     *    @param mixed $expected     Expected string/array value or
+     *                               false for unset fields.
+     *    @param string $message     Message to display. Default
+     *                               can be embedded with %s.
+     *    @return boolean            True if pass.
+     *    @access public
+     */
+    function assertFieldById($id, $expected = true, $message = '%s') {
+        $value = $this->browser->getFieldById($id);
+        return $this->assertFieldValue($id, $value, $expected, $message);
+    }
+    
+    /**
+     *    Tests the field value against the expectation.
+     *    @param string $identifier      Name, ID or label.
+     *    @param mixed $value            Current field value.
+     *    @param mixed $expected         Expected value to match.
+     *    @param string $message         Failure message.
+     *    @return boolean                True if pass
+     *    @access protected
+     */
+    protected function assertFieldValue($identifier, $value, $expected, $message) {
+        if ($expected === true) {
+            return $this->assertTrue(
+                    isset($value),
+                    sprintf($message, "Field [$identifier] should exist"));
+        }
+        if (! SimpleExpectation::isExpectation($expected)) {
+            $identifier = str_replace('%', '%%', $identifier);
+            $expected = new FieldExpectation(
+                    $expected,
+                    "Field [$identifier] should match with [%s]");
+        }
+        return $this->assert($expected, $value, $message);
+    }
+    
+    /**
+     *    Checks the response code against a list
+     *    of possible values.
+     *    @param array $responses    Possible responses for a pass.
+     *    @param string $message     Message to display. Default
+     *                               can be embedded with %s.
+     *    @return boolean            True if pass.
+     *    @access public
+     */
+    function assertResponse($responses, $message = '%s') {
+        $responses = (is_array($responses) ? $responses : array($responses));
+        $code = $this->browser->getResponseCode();
+        $message = sprintf($message, "Expecting response in [" .
+                implode(", ", $responses) . "] got [$code]");
+        return $this->assertTrue(in_array($code, $responses), $message);
+    }
+    
+    /**
+     *    Checks the mime type against a list
+     *    of possible values.
+     *    @param array $types      Possible mime types for a pass.
+     *    @param string $message   Message to display.
+     *    @return boolean          True if pass.
+     *    @access public
+     */
+    function assertMime($types, $message = '%s') {
+        $types = (is_array($types) ? $types : array($types));
+        $type = $this->browser->getMimeType();
+        $message = sprintf($message, "Expecting mime type in [" .
+                implode(", ", $types) . "] got [$type]");
+        return $this->assertTrue(in_array($type, $types), $message);
+    }
+    
+    /**
+     *    Attempt to match the authentication type within
+     *    the security realm we are currently matching.
+     *    @param string $authentication   Usually basic.
+     *    @param string $message          Message to display.
+     *    @return boolean                 True if pass.
+     *    @access public
+     */
+    function assertAuthentication($authentication = false, $message = '%s') {
+        if (! $authentication) {
+            $message = sprintf($message, "Expected any authentication type, got [" .
+                    $this->browser->getAuthentication() . "]");
+            return $this->assertTrue(
+                    $this->browser->getAuthentication(),
+                    $message);
+        } else {
+            $message = sprintf($message, "Expected authentication [$authentication] got [" .
+                    $this->browser->getAuthentication() . "]");
+            return $this->assertTrue(
+                    strtolower($this->browser->getAuthentication()) == strtolower($authentication),
+                    $message);
+        }
+    }
+    
+    /**
+     *    Checks that no authentication is necessary to view
+     *    the desired page.
+     *    @param string $message     Message to display.
+     *    @return boolean            True if pass.
+     *    @access public
+     */
+    function assertNoAuthentication($message = '%s') {
+        $message = sprintf($message, "Expected no authentication type, got [" .
+                $this->browser->getAuthentication() . "]");
+        return $this->assertFalse($this->browser->getAuthentication(), $message);
+    }
+    
+    /**
+     *    Attempts to match the current security realm.
+     *    @param string $realm     Name of security realm.
+     *    @param string $message   Message to display.
+     *    @return boolean          True if pass.
+     *    @access public
+     */
+    function assertRealm($realm, $message = '%s') {
+        if (! SimpleExpectation::isExpectation($realm)) {
+            $realm = new EqualExpectation($realm);
+        }
+        return $this->assert(
+                $realm,
+                $this->browser->getRealm(),
+                "Expected realm -> $message");
+    }
+    
+    /**
+     *    Checks each header line for the required value. If no
+     *    value is given then only an existence check is made.
+     *    @param string $header    Case insensitive header name.
+     *    @param mixed $value      Case sensitive trimmed string to
+     *                             match against. An expectation object
+     *                             can be used for pattern matching.
+     *    @return boolean          True if pass.
+     *    @access public
+     */
+    function assertHeader($header, $value = false, $message = '%s') {
+        return $this->assert(
+                new HttpHeaderExpectation($header, $value),
+                $this->browser->getHeaders(),
+                $message);
+    }
+
+    /**
+     *    Confirms that the header type has not been received.
+     *    Only the landing page is checked. If you want to check
+     *    redirect pages, then you should limit redirects so
+     *    as to capture the page you want.
+     *    @param string $header    Case insensitive header name.
+     *    @return boolean          True if pass.
+     *    @access public
+     */
+    function assertNoHeader($header, $message = '%s') {
+        return $this->assert(
+                new NoHttpHeaderExpectation($header),
+                $this->browser->getHeaders(),
+                $message);
+    }
+    
+    /**
+     *    Tests the text between the title tags.
+     *    @param string/SimpleExpectation $title    Expected title.
+     *    @param string $message                    Message to display.
+     *    @return boolean                           True if pass.
+     *    @access public
+     */
+    function assertTitle($title = false, $message = '%s') {
+        if (! SimpleExpectation::isExpectation($title)) {
+            $title = new EqualExpectation($title);
+        }
+        return $this->assert($title, $this->browser->getTitle(), $message);
+    }
+    
+    /**
+     *    Will trigger a pass if the text is found in the plain
+     *    text form of the page.
+     *    @param string $text       Text to look for.
+     *    @param string $message    Message to display.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertText($text, $message = '%s') {
+        return $this->assert(
+                new TextExpectation($text),
+                $this->browser->getContentAsText(),
+                $message);
+    }
+    
+    /**
+     *    Will trigger a pass if the text is not found in the plain
+     *    text form of the page.
+     *    @param string $text       Text to look for.
+     *    @param string $message    Message to display.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertNoText($text, $message = '%s') {
+        return $this->assert(
+                new NoTextExpectation($text),
+                $this->browser->getContentAsText(),
+                $message);
+    }
+    
+    /**
+     *    Will trigger a pass if the Perl regex pattern
+     *    is found in the raw content.
+     *    @param string $pattern    Perl regex to look for including
+     *                              the regex delimiters.
+     *    @param string $message    Message to display.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertPattern($pattern, $message = '%s') {
+        return $this->assert(
+                new PatternExpectation($pattern),
+                $this->browser->getContent(),
+                $message);
+    }
+    
+    /**
+     *    Will trigger a pass if the perl regex pattern
+     *    is not present in raw content.
+     *    @param string $pattern    Perl regex to look for including
+     *                              the regex delimiters.
+     *    @param string $message    Message to display.
+     *    @return boolean           True if pass.
+     *    @access public
+     */
+    function assertNoPattern($pattern, $message = '%s') {
+        return $this->assert(
+                new NoPatternExpectation($pattern),
+                $this->browser->getContent(),
+                $message);
+    }
+    
+    /**
+     *    Checks that a cookie is set for the current page
+     *    and optionally checks the value.
+     *    @param string $name        Name of cookie to test.
+     *    @param string $expected    Expected value as a string or
+     *                               false if any value will do.
+     *    @param string $message     Message to display.
+     *    @return boolean            True if pass.
+     *    @access public
+     */
+    function assertCookie($name, $expected = false, $message = '%s') {
+        $value = $this->getCookie($name);
+        if (! $expected) {
+            return $this->assertTrue(
+                    $value,
+                    sprintf($message, "Expecting cookie [$name]"));
+        }
+        if (! SimpleExpectation::isExpectation($expected)) {
+            $expected = new EqualExpectation($expected);
+        }
+        return $this->assert($expected, $value, "Expecting cookie [$name] -> $message");
+    }
+    
+    /**
+     *    Checks that no cookie is present or that it has
+     *    been successfully cleared.
+     *    @param string $name        Name of cookie to test.
+     *    @param string $message     Message to display.
+     *    @return boolean            True if pass.
+     *    @access public
+     */
+    function assertNoCookie($name, $message = '%s') {
+        return $this->assertTrue(
+                $this->getCookie($name) === null or $this->getCookie($name) === false,
+                sprintf($message, "Not expecting cookie [$name]"));
+    }
+
+    /**
+     *    Called from within the test methods to register
+     *    passes and failures.
+     *    @param boolean $result    Pass on true.
+     *    @param string $message    Message to display describing
+     *                              the test state.
+     *    @return boolean           True on pass
+     *    @access public
+     */
+    function assertTrue($result, $message = false) {
+        return $this->assert(new TrueExpectation(), $result, $message);
+    }
+
+    /**
+     *    Will be true on false and vice versa. False
+     *    is the PHP definition of false, so that null,
+     *    empty strings, zero and an empty array all count
+     *    as false.
+     *    @param boolean $result    Pass on false.
+     *    @param string $message    Message to display.
+     *    @return boolean           True on pass
+     *    @access public
+     */
+    function assertFalse($result, $message = '%s') {
+        return $this->assert(new FalseExpectation(), $result, $message);
+    }
+    
+    /**
+     *    Will trigger a pass if the two parameters have
+     *    the same value only. Otherwise a fail. This
+     *    is for testing hand extracted text, etc.
+     *    @param mixed $first          Value to compare.
+     *    @param mixed $second         Value to compare.
+     *    @param string $message       Message to display.
+     *    @return boolean              True on pass
+     *    @access public
+     */
+    function assertEqual($first, $second, $message = '%s') {
+        return $this->assert(
+                new EqualExpectation($first),
+                $second,
+                $message);
+    }
+    
+    /**
+     *    Will trigger a pass if the two parameters have
+     *    a different value. Otherwise a fail. This
+     *    is for testing hand extracted text, etc.
+     *    @param mixed $first           Value to compare.
+     *    @param mixed $second          Value to compare.
+     *    @param string $message        Message to display.
+     *    @return boolean               True on pass
+     *    @access public
+     */
+    function assertNotEqual($first, $second, $message = '%s') {
+        return $this->assert(
+                new NotEqualExpectation($first),
+                $second,
+                $message);
+    }
+
+    /**
+     *    Uses a stack trace to find the line of an assertion.
+     *    @return string           Line number of first assert*
+     *                             method embedded in format string.
+     *    @access public
+     */
+    function getAssertionLine() {
+        $trace = new SimpleStackTrace(array('assert', 'click', 'pass', 'fail'));
+        return $trace->traceMethod();
+    }
+}
 ?>
-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
-lL4/wBL9f4NOPJiQEO+mSAvnrGH7/R+Hkup7

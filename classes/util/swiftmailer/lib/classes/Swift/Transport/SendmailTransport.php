@@ -1,90 +1,163 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-9awxl7Nv40==
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * SendmailTransport for sending mail through a Sendmail/Postfix (etc..) binary.
+ *
+ * Supported modes are -bs and -t, with any additional flags desired.
+ * It is advised to use -bs mode since error reporting with -t mode is not
+ * possible.
+ *
+ * @package    Swift
+ * @subpackage Transport
+ * @author     Chris Corbyn
+ */
+class Swift_Transport_SendmailTransport extends Swift_Transport_AbstractSmtpTransport
+{
+    /**
+     * Connection buffer parameters.
+     *
+     * @var array
+     */
+    private $_params = array(
+        'timeout' => 30,
+        'blocking' => 1,
+        'command' => '/usr/sbin/sendmail -bs',
+        'type' => Swift_Transport_IoBuffer::TYPE_PROCESS
+        );
+
+    /**
+     * Create a new SendmailTransport with $buf for I/O.
+     *
+     * @param Swift_Transport_IoBuffer     $buf
+     * @param Swift_Events_EventDispatcher $dispatcher
+     */
+    public function __construct(Swift_Transport_IoBuffer $buf, Swift_Events_EventDispatcher $dispatcher)
+    {
+        parent::__construct($buf, $dispatcher);
+    }
+
+    /**
+     * Start the standalone SMTP session if running in -bs mode.
+     */
+    public function start()
+    {
+        if (false !== strpos($this->getCommand(), ' -bs')) {
+            parent::start();
+        }
+    }
+
+    /**
+     * Set the command to invoke.
+     *
+     * If using -t mode you are strongly advised to include -oi or -i in the flags.
+     * For example: /usr/sbin/sendmail -oi -t
+     * Swift will append a -f<sender> flag if one is not present.
+     *
+     * The recommended mode is "-bs" since it is interactive and failure notifications
+     * are hence possible.
+     *
+     * @param string $command
+     *
+     * @return Swift_Transport_SendmailTransport
+     */
+    public function setCommand($command)
+    {
+        $this->_params['command'] = $command;
+
+        return $this;
+    }
+
+    /**
+     * Get the sendmail command which will be invoked.
+     *
+     * @return string
+     */
+    public function getCommand()
+    {
+        return $this->_params['command'];
+    }
+
+    /**
+     * Send the given Message.
+     *
+     * Recipient/sender data will be retrieved from the Message API.
+     *
+     * The return value is the number of recipients who were accepted for delivery.
+     * NOTE: If using 'sendmail -t' you will not be aware of any failures until
+     * they bounce (i.e. send() will always return 100% success).
+     *
+     * @param Swift_Mime_Message $message
+     * @param string[]           $failedRecipients An array of failures by-reference
+     *
+     * @return int
+     */
+    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
+    {
+        $failedRecipients = (array) $failedRecipients;
+        $command = $this->getCommand();
+        $buffer = $this->getBuffer();
+
+        if (false !== strpos($command, ' -t')) {
+            if ($evt = $this->_eventDispatcher->createSendEvent($this, $message)) {
+                $this->_eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
+                if ($evt->bubbleCancelled()) {
+                    return 0;
+                }
+            }
+
+            if (false === strpos($command, ' -f')) {
+                $command .= ' -f' . $this->_getReversePath($message);
+            }
+
+            $buffer->initialize(array_merge($this->_params, array('command' => $command)));
+
+            if (false === strpos($command, ' -i') && false === strpos($command, ' -oi')) {
+                $buffer->setWriteTranslations(array("\r\n" => "\n", "\n." => "\n.."));
+            } else {
+                $buffer->setWriteTranslations(array("\r\n"=>"\n"));
+            }
+
+            $count = count((array) $message->getTo())
+                + count((array) $message->getCc())
+                + count((array) $message->getBcc())
+                ;
+            $message->toByteStream($buffer);
+            $buffer->flushBuffers();
+            $buffer->setWriteTranslations(array());
+            $buffer->terminate();
+
+            if ($evt) {
+                $evt->setResult(Swift_Events_SendEvent::RESULT_SUCCESS);
+                $evt->setFailedRecipients($failedRecipients);
+                $this->_eventDispatcher->dispatchEvent($evt, 'sendPerformed');
+            }
+
+            $message->generateId();
+        } elseif (false !== strpos($command, ' -bs')) {
+            $count = parent::send($message, $failedRecipients);
+        } else {
+            $this->_throwException(new Swift_TransportException(
+                'Unsupported sendmail command flags [' . $command . ']. ' .
+                'Must be one of "-bs" or "-t" but can include additional flags.'
+                ));
+        }
+
+        return $count;
+    }
+
+    // -- Protected methods
+
+    /** Get the params to initialize the buffer */
+    protected function _getBufferParams()
+    {
+        return $this->_params;
+    }
+}

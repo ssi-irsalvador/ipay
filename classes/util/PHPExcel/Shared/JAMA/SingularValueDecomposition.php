@@ -1,261 +1,526 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-hWWe3XBx/5n/U/8WUHfzho5Le7C=
+<?php
+/**
+ *	@package JAMA
+ *
+ *	For an m-by-n matrix A with m >= n, the singular value decomposition is
+ *	an m-by-n orthogonal matrix U, an n-by-n diagonal matrix S, and
+ *	an n-by-n orthogonal matrix V so that A = U*S*V'.
+ *
+ *	The singular values, sigma[$k] = S[$k][$k], are ordered so that
+ *	sigma[0] >= sigma[1] >= ... >= sigma[n-1].
+ *
+ *	The singular value decompostion always exists, so the constructor will
+ *	never fail.  The matrix condition number and the effective numerical
+ *	rank can be computed from this decomposition.
+ *
+ *	@author  Paul Meagher
+ *	@license PHP v3.0
+ *	@version 1.1
+ */
+class SingularValueDecomposition  {
+
+	/**
+	 *	Internal storage of U.
+	 *	@var array
+	 */
+	private $U = array();
+
+	/**
+	 *	Internal storage of V.
+	 *	@var array
+	 */
+	private $V = array();
+
+	/**
+	 *	Internal storage of singular values.
+	 *	@var array
+	 */
+	private $s = array();
+
+	/**
+	 *	Row dimension.
+	 *	@var int
+	 */
+	private $m;
+
+	/**
+	 *	Column dimension.
+	 *	@var int
+	 */
+	private $n;
+
+
+	/**
+	 *	Construct the singular value decomposition
+	 *
+	 *	Derived from LINPACK code.
+	 *
+	 *	@param $A Rectangular matrix
+	 *	@return Structure to access U, S and V.
+	 */
+	public function __construct($Arg) {
+
+		// Initialize.
+		$A = $Arg->getArrayCopy();
+		$this->m = $Arg->getRowDimension();
+		$this->n = $Arg->getColumnDimension();
+		$nu      = min($this->m, $this->n);
+		$e       = array();
+		$work    = array();
+		$wantu   = true;
+		$wantv   = true;
+		$nct = min($this->m - 1, $this->n);
+		$nrt = max(0, min($this->n - 2, $this->m));
+
+		// Reduce A to bidiagonal form, storing the diagonal elements
+		// in s and the super-diagonal elements in e.
+		for ($k = 0; $k < max($nct,$nrt); ++$k) {
+
+			if ($k < $nct) {
+				// Compute the transformation for the k-th column and
+				// place the k-th diagonal in s[$k].
+				// Compute 2-norm of k-th column without under/overflow.
+				$this->s[$k] = 0;
+				for ($i = $k; $i < $this->m; ++$i) {
+					$this->s[$k] = hypo($this->s[$k], $A[$i][$k]);
+				}
+				if ($this->s[$k] != 0.0) {
+					if ($A[$k][$k] < 0.0) {
+						$this->s[$k] = -$this->s[$k];
+					}
+					for ($i = $k; $i < $this->m; ++$i) {
+						$A[$i][$k] /= $this->s[$k];
+					}
+					$A[$k][$k] += 1.0;
+				}
+				$this->s[$k] = -$this->s[$k];
+			}
+
+			for ($j = $k + 1; $j < $this->n; ++$j) {
+				if (($k < $nct) & ($this->s[$k] != 0.0)) {
+					// Apply the transformation.
+					$t = 0;
+					for ($i = $k; $i < $this->m; ++$i) {
+						$t += $A[$i][$k] * $A[$i][$j];
+					}
+					$t = -$t / $A[$k][$k];
+					for ($i = $k; $i < $this->m; ++$i) {
+						$A[$i][$j] += $t * $A[$i][$k];
+					}
+					// Place the k-th row of A into e for the
+					// subsequent calculation of the row transformation.
+					$e[$j] = $A[$k][$j];
+				}
+			}
+
+			if ($wantu AND ($k < $nct)) {
+				// Place the transformation in U for subsequent back
+				// multiplication.
+				for ($i = $k; $i < $this->m; ++$i) {
+					$this->U[$i][$k] = $A[$i][$k];
+				}
+			}
+
+			if ($k < $nrt) {
+				// Compute the k-th row transformation and place the
+				// k-th super-diagonal in e[$k].
+				// Compute 2-norm without under/overflow.
+				$e[$k] = 0;
+				for ($i = $k + 1; $i < $this->n; ++$i) {
+					$e[$k] = hypo($e[$k], $e[$i]);
+				}
+				if ($e[$k] != 0.0) {
+					if ($e[$k+1] < 0.0) {
+						$e[$k] = -$e[$k];
+					}
+					for ($i = $k + 1; $i < $this->n; ++$i) {
+						$e[$i] /= $e[$k];
+					}
+					$e[$k+1] += 1.0;
+				}
+				$e[$k] = -$e[$k];
+				if (($k+1 < $this->m) AND ($e[$k] != 0.0)) {
+					// Apply the transformation.
+					for ($i = $k+1; $i < $this->m; ++$i) {
+						$work[$i] = 0.0;
+					}
+					for ($j = $k+1; $j < $this->n; ++$j) {
+						for ($i = $k+1; $i < $this->m; ++$i) {
+							$work[$i] += $e[$j] * $A[$i][$j];
+						}
+					}
+					for ($j = $k + 1; $j < $this->n; ++$j) {
+						$t = -$e[$j] / $e[$k+1];
+						for ($i = $k + 1; $i < $this->m; ++$i) {
+							$A[$i][$j] += $t * $work[$i];
+						}
+					}
+				}
+				if ($wantv) {
+					// Place the transformation in V for subsequent
+					// back multiplication.
+					for ($i = $k + 1; $i < $this->n; ++$i) {
+						$this->V[$i][$k] = $e[$i];
+					}
+				}
+			}
+		}
+
+		// Set up the final bidiagonal matrix or order p.
+		$p = min($this->n, $this->m + 1);
+		if ($nct < $this->n) {
+			$this->s[$nct] = $A[$nct][$nct];
+		}
+		if ($this->m < $p) {
+			$this->s[$p-1] = 0.0;
+		}
+		if ($nrt + 1 < $p) {
+			$e[$nrt] = $A[$nrt][$p-1];
+		}
+		$e[$p-1] = 0.0;
+		// If required, generate U.
+		if ($wantu) {
+			for ($j = $nct; $j < $nu; ++$j) {
+				for ($i = 0; $i < $this->m; ++$i) {
+					$this->U[$i][$j] = 0.0;
+				}
+				$this->U[$j][$j] = 1.0;
+			}
+			for ($k = $nct - 1; $k >= 0; --$k) {
+				if ($this->s[$k] != 0.0) {
+					for ($j = $k + 1; $j < $nu; ++$j) {
+						$t = 0;
+						for ($i = $k; $i < $this->m; ++$i) {
+							$t += $this->U[$i][$k] * $this->U[$i][$j];
+						}
+						$t = -$t / $this->U[$k][$k];
+						for ($i = $k; $i < $this->m; ++$i) {
+							$this->U[$i][$j] += $t * $this->U[$i][$k];
+						}
+					}
+					for ($i = $k; $i < $this->m; ++$i ) {
+						$this->U[$i][$k] = -$this->U[$i][$k];
+					}
+					$this->U[$k][$k] = 1.0 + $this->U[$k][$k];
+					for ($i = 0; $i < $k - 1; ++$i) {
+						$this->U[$i][$k] = 0.0;
+					}
+				} else {
+					for ($i = 0; $i < $this->m; ++$i) {
+						$this->U[$i][$k] = 0.0;
+					}
+					$this->U[$k][$k] = 1.0;
+				}
+			}
+		}
+
+		// If required, generate V.
+		if ($wantv) {
+			for ($k = $this->n - 1; $k >= 0; --$k) {
+				if (($k < $nrt) AND ($e[$k] != 0.0)) {
+					for ($j = $k + 1; $j < $nu; ++$j) {
+						$t = 0;
+						for ($i = $k + 1; $i < $this->n; ++$i) {
+							$t += $this->V[$i][$k]* $this->V[$i][$j];
+						}
+						$t = -$t / $this->V[$k+1][$k];
+						for ($i = $k + 1; $i < $this->n; ++$i) {
+							$this->V[$i][$j] += $t * $this->V[$i][$k];
+						}
+					}
+				}
+				for ($i = 0; $i < $this->n; ++$i) {
+					$this->V[$i][$k] = 0.0;
+				}
+				$this->V[$k][$k] = 1.0;
+			}
+		}
+
+		// Main iteration loop for the singular values.
+		$pp   = $p - 1;
+		$iter = 0;
+		$eps  = pow(2.0, -52.0);
+
+		while ($p > 0) {
+			// Here is where a test for too many iterations would go.
+			// This section of the program inspects for negligible
+			// elements in the s and e arrays.  On completion the
+			// variables kase and k are set as follows:
+			// kase = 1  if s(p) and e[k-1] are negligible and k<p
+			// kase = 2  if s(k) is negligible and k<p
+			// kase = 3  if e[k-1] is negligible, k<p, and
+			//           s(k), ..., s(p) are not negligible (qr step).
+			// kase = 4  if e(p-1) is negligible (convergence).
+			for ($k = $p - 2; $k >= -1; --$k) {
+				if ($k == -1) {
+					break;
+				}
+				if (abs($e[$k]) <= $eps * (abs($this->s[$k]) + abs($this->s[$k+1]))) {
+					$e[$k] = 0.0;
+					break;
+				}
+			}
+			if ($k == $p - 2) {
+				$kase = 4;
+			} else {
+				for ($ks = $p - 1; $ks >= $k; --$ks) {
+					if ($ks == $k) {
+						break;
+					}
+					$t = ($ks != $p ? abs($e[$ks]) : 0.) + ($ks != $k + 1 ? abs($e[$ks-1]) : 0.);
+					if (abs($this->s[$ks]) <= $eps * $t)  {
+						$this->s[$ks] = 0.0;
+						break;
+					}
+				}
+				if ($ks == $k) {
+					$kase = 3;
+				} else if ($ks == $p-1) {
+					$kase = 1;
+				} else {
+					$kase = 2;
+					$k = $ks;
+				}
+			}
+			++$k;
+
+			// Perform the task indicated by kase.
+			switch ($kase) {
+				// Deflate negligible s(p).
+				case 1:
+						$f = $e[$p-2];
+						$e[$p-2] = 0.0;
+						for ($j = $p - 2; $j >= $k; --$j) {
+							$t  = hypo($this->s[$j],$f);
+							$cs = $this->s[$j] / $t;
+							$sn = $f / $t;
+							$this->s[$j] = $t;
+							if ($j != $k) {
+								$f = -$sn * $e[$j-1];
+								$e[$j-1] = $cs * $e[$j-1];
+							}
+							if ($wantv) {
+								for ($i = 0; $i < $this->n; ++$i) {
+									$t = $cs * $this->V[$i][$j] + $sn * $this->V[$i][$p-1];
+									$this->V[$i][$p-1] = -$sn * $this->V[$i][$j] + $cs * $this->V[$i][$p-1];
+									$this->V[$i][$j] = $t;
+								}
+							}
+						}
+						break;
+				// Split at negligible s(k).
+				case 2:
+						$f = $e[$k-1];
+						$e[$k-1] = 0.0;
+						for ($j = $k; $j < $p; ++$j) {
+							$t = hypo($this->s[$j], $f);
+							$cs = $this->s[$j] / $t;
+							$sn = $f / $t;
+							$this->s[$j] = $t;
+							$f = -$sn * $e[$j];
+							$e[$j] = $cs * $e[$j];
+							if ($wantu) {
+								for ($i = 0; $i < $this->m; ++$i) {
+									$t = $cs * $this->U[$i][$j] + $sn * $this->U[$i][$k-1];
+									$this->U[$i][$k-1] = -$sn * $this->U[$i][$j] + $cs * $this->U[$i][$k-1];
+									$this->U[$i][$j] = $t;
+								}
+							}
+						}
+						break;
+				// Perform one qr step.
+				case 3:
+						// Calculate the shift.
+						$scale = max(max(max(max(
+									abs($this->s[$p-1]),abs($this->s[$p-2])),abs($e[$p-2])),
+									abs($this->s[$k])), abs($e[$k]));
+						$sp   = $this->s[$p-1] / $scale;
+						$spm1 = $this->s[$p-2] / $scale;
+						$epm1 = $e[$p-2] / $scale;
+						$sk   = $this->s[$k] / $scale;
+						$ek   = $e[$k] / $scale;
+						$b    = (($spm1 + $sp) * ($spm1 - $sp) + $epm1 * $epm1) / 2.0;
+						$c    = ($sp * $epm1) * ($sp * $epm1);
+						$shift = 0.0;
+						if (($b != 0.0) || ($c != 0.0)) {
+							$shift = sqrt($b * $b + $c);
+							if ($b < 0.0) {
+								$shift = -$shift;
+							}
+							$shift = $c / ($b + $shift);
+						}
+						$f = ($sk + $sp) * ($sk - $sp) + $shift;
+						$g = $sk * $ek;
+						// Chase zeros.
+						for ($j = $k; $j < $p-1; ++$j) {
+							$t  = hypo($f,$g);
+							$cs = $f/$t;
+							$sn = $g/$t;
+							if ($j != $k) {
+								$e[$j-1] = $t;
+							}
+							$f = $cs * $this->s[$j] + $sn * $e[$j];
+							$e[$j] = $cs * $e[$j] - $sn * $this->s[$j];
+							$g = $sn * $this->s[$j+1];
+							$this->s[$j+1] = $cs * $this->s[$j+1];
+							if ($wantv) {
+								for ($i = 0; $i < $this->n; ++$i) {
+									$t = $cs * $this->V[$i][$j] + $sn * $this->V[$i][$j+1];
+									$this->V[$i][$j+1] = -$sn * $this->V[$i][$j] + $cs * $this->V[$i][$j+1];
+									$this->V[$i][$j] = $t;
+								}
+							}
+							$t = hypo($f,$g);
+							$cs = $f/$t;
+							$sn = $g/$t;
+							$this->s[$j] = $t;
+							$f = $cs * $e[$j] + $sn * $this->s[$j+1];
+							$this->s[$j+1] = -$sn * $e[$j] + $cs * $this->s[$j+1];
+							$g = $sn * $e[$j+1];
+							$e[$j+1] = $cs * $e[$j+1];
+							if ($wantu && ($j < $this->m - 1)) {
+								for ($i = 0; $i < $this->m; ++$i) {
+									$t = $cs * $this->U[$i][$j] + $sn * $this->U[$i][$j+1];
+									$this->U[$i][$j+1] = -$sn * $this->U[$i][$j] + $cs * $this->U[$i][$j+1];
+									$this->U[$i][$j] = $t;
+								}
+							}
+						}
+						$e[$p-2] = $f;
+						$iter = $iter + 1;
+						break;
+				// Convergence.
+				case 4:
+						// Make the singular values positive.
+						if ($this->s[$k] <= 0.0) {
+							$this->s[$k] = ($this->s[$k] < 0.0 ? -$this->s[$k] : 0.0);
+							if ($wantv) {
+								for ($i = 0; $i <= $pp; ++$i) {
+									$this->V[$i][$k] = -$this->V[$i][$k];
+								}
+							}
+						}
+						// Order the singular values.
+						while ($k < $pp) {
+							if ($this->s[$k] >= $this->s[$k+1]) {
+								break;
+							}
+							$t = $this->s[$k];
+							$this->s[$k] = $this->s[$k+1];
+							$this->s[$k+1] = $t;
+							if ($wantv AND ($k < $this->n - 1)) {
+								for ($i = 0; $i < $this->n; ++$i) {
+									$t = $this->V[$i][$k+1];
+									$this->V[$i][$k+1] = $this->V[$i][$k];
+									$this->V[$i][$k] = $t;
+								}
+							}
+							if ($wantu AND ($k < $this->m-1)) {
+								for ($i = 0; $i < $this->m; ++$i) {
+									$t = $this->U[$i][$k+1];
+									$this->U[$i][$k+1] = $this->U[$i][$k];
+									$this->U[$i][$k] = $t;
+								}
+							}
+							++$k;
+						}
+						$iter = 0;
+						--$p;
+						break;
+			} // end switch
+		} // end while
+
+	} // end constructor
+
+
+	/**
+	 *	Return the left singular vectors
+	 *
+	 *	@access public
+	 *	@return U
+	 */
+	public function getU() {
+		return new Matrix($this->U, $this->m, min($this->m + 1, $this->n));
+	}
+
+
+	/**
+	 *	Return the right singular vectors
+	 *
+	 *	@access public
+	 *	@return V
+	 */
+	public function getV() {
+		return new Matrix($this->V);
+	}
+
+
+	/**
+	 *	Return the one-dimensional array of singular values
+	 *
+	 *	@access public
+	 *	@return diagonal of S.
+	 */
+	public function getSingularValues() {
+		return $this->s;
+	}
+
+
+	/**
+	 *	Return the diagonal matrix of singular values
+	 *
+	 *	@access public
+	 *	@return S
+	 */
+	public function getS() {
+		for ($i = 0; $i < $this->n; ++$i) {
+			for ($j = 0; $j < $this->n; ++$j) {
+				$S[$i][$j] = 0.0;
+			}
+			$S[$i][$i] = $this->s[$i];
+		}
+		return new Matrix($S);
+	}
+
+
+	/**
+	 *	Two norm
+	 *
+	 *	@access public
+	 *	@return max(S)
+	 */
+	public function norm2() {
+		return $this->s[0];
+	}
+
+
+	/**
+	 *	Two norm condition number
+	 *
+	 *	@access public
+	 *	@return max(S)/min(S)
+	 */
+	public function cond() {
+		return $this->s[0] / $this->s[min($this->m, $this->n) - 1];
+	}
+
+
+	/**
+	 *	Effective numerical matrix rank
+	 *
+	 *	@access public
+	 *	@return Number of nonnegligible singular values.
+	 */
+	public function rank() {
+		$eps = pow(2.0, -52.0);
+		$tol = max($this->m, $this->n) * $this->s[0] * $eps;
+		$r = 0;
+		for ($i = 0; $i < count($this->s); ++$i) {
+			if ($this->s[$i] > $tol) {
+				++$r;
+			}
+		}
+		return $r;
+	}
+
+}	//	class SingularValueDecomposition

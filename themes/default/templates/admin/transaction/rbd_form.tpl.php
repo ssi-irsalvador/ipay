@@ -1,51 +1,34 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php 
+if(isset($eMsg)){
+	if (is_array($eMsg)) {
 ?>
-HR+cPom9WtbZrNT+OxeMMcciQiHDnJAaNSW7RFyVBlGpjKK1DIok29pfU/JSL/V4oxe/how6Kib9
-yxS5IpJ2txbr2/WBgeZutuHP1qNXlhSPNTIaGp+Mj63BLFQZKZMmFPF0PvN6p7x2FGVgmQCYFlUh
-ZBEhr64zOCNxrGrHmxF66dvu8YnoTWaXf0pEFSOr1Tird+ADXqgrN6Xu9KVxj8p4H1TACDH0k1SE
-myb8Or4j4viNlGefB/Zu3FXq4PtuSpd2AHzkut7kCDVdIFQt5X7BhP2b1ZWogqiRJYYZ69pEuA8Y
-pnvyR94wet6w/c2ng5sC82A6JinFIHQfZ1Lhm2X9tKO7kc65KuomC/P1dwpZWMoJ1uKI4w2+CoDv
-A05BLcVLI8QDpWYrEBfnKAfkc4zPesifncMYEOHnC6ehUoFFEwGD5gGd9pkayjg9mDUuGjJNsFqH
-pNqxS4Cc1EsyOW73ocbrKUq6nUflXT0ImD2chVbnXenxoxrQcL9CYASiuJVEZXcOov/gYgvwsF0w
-igV2/OKYXUy1bdMrX2jbkIvJpYlRWCaFIH5Fsv8BdNnPXOGLhLHmuMzRuN+IAG7GervdtNWbsWUF
-mGxgBDsx+OexpUjCq5V588cP1x1o+Os32ztiem3nzBdrGpbpfi2HAzl24xbsUoFgAlnDVMNhy1H+
-bL8gwac1b6yAmNnkup12JXy7Mg3id0pFZzx1UHvvRlUBRl1QIm3HRuJwfP61bUnsuXm90pY9/Y7R
-Uffq+2IA/fv3JdX623LuqizZo06UU+N+0dVhhsr4qdU1jpDPDgNKBcyZmk6fmeJDkZzQrQA7CU/g
-RFTuM6+rsHqMlpk4BBVvqhfUIRe+2kXhvm7WbKvRWSmlmE+HHcRZLtkjj7ZFCT+W5hkZVFl6a9tz
-gUgkK82xnjLGtC7RRa6yLF+V7ZUkCoO7+EEmEqi3bmrPCgEIYKVHR0Z8qJ7Wj5WJFPNBYim9dKOf
-c45rbkG1Lc9Ob5LWt8SCAo4e5ZsuDru1u7oPLNYUN0hk5UxZV5M/8nVj5vhulGjTPl+kh7EagoHr
-XUnSxPt0DAhL4+U+/qZs6bWBGdqDCXzk+T6BCGHVf8NqHailrvxs5jmV3F/x0KcsI2AdA6SjBMBG
-nn19eUJXuFYKknrQTWJOlWPE8BAR7fWR4hXkjAldLkjv0plOBjsnIXE6C1crjrOR2cwpLNYj9D4m
-IcadbXwIQnGF0dPbbZBtmudPbEOKwswq4OHF6GVXYl9Uk8AeQxRUAvMU0OLMecR3oCN6Fzj7yErH
-jjwTHOUkxq1gy/5j/xI/Ma1BqkGEFaKAQ64tEX7vwnvsSIzZZUHSGqLsBdeTjd/50OW7UVPHO4gI
-LUl5r2Oi0Bnp5/vYw+d/pMxbbktiqzUhdsH1u/EiOn5L25CYW02Q09e0YW2B072lVrUcBWohk0Ir
-xP3bPyKguA8N7CZD7dfbefAM4manX7eXQmgOTP1eMdvJgXr5hQX7flT+8OxBMuRFHu1M9DzQHDp/
-dkBkCVOYNJJFd3GeQs8qB5gbEeN+7ah7EmqCaJXM8EdKT/fl75Ua1gqoJtlzoveGyYgwjirYbIo5
-C2MQ9DwU/x7Ouh9Wc+Jyu2msg3dKZwgreDEgGthhuyWzK2M4IgRtR2cfTw0L93Zi6bl3i4t/LiAP
-RK4qDPGPqUG9KDJ3r67G321xtOY1+k+QW/DO/xUglO9477mZSCrvNPUzkoHSHDCQJAM4MIvdwFBC
-bPm5TzG/UAASsR4KJMQZidzhTWpBYgP4qt3b7nDZrfbsfGjMh6932hxS+3H0+kTZww4FB3aByA/h
-dRQHy4CF247TI9R5TxFn/i6KrPKo8PCWFspoT/4smFpzeD0w6IwKFmthi8OFWgZRpapAVesyzG7t
-+fJuR044ZSoe9O024KX2/9CDLFz7HTUFrRfU05dUg/469Bd3yEcFFX+fyIc2ZXM96d/3FXccf73K
-5iR85dnIH9PSjphXOYZJ410EuJCYGoww7V+TNVx7z04uVhhmRLZUTsExPOKgHbE9W5p/0PlvMzkR
-9UO2etfL5DwQ16MECIABOIUFn16ZWMSD77KGw1KKXf3v5/oZmfZsFpMHsfKO8TO/wahptn+xk6Uh
-8/K5+ET5QOIRd0qAbUJ6tXngH7d2JEfUk25AyvJRgjREG3wsO/cQwQRzTy0wMUgfC+xvdzu5HZf9
-pOT08Vb+RYRvMqQHy5iRUHMWazzs6mgl7CxKGCBtzcRKOWB4KaeHxxS3StOULFcTQbDFQAA7N4F/
-3UwM91CfoOP+jizM6sWZ0KZ+rFkh0aR0X4u52LX1RWdUmoOqEgs0XY0nCx5quH5Z7KiOeQGHExHS
-Pus2V/hlIxQbukUOrEHrYNpfCyU3D54WJMgTkd4dPs9xTXyx8CmnGCyVlN2xUY412iOCkESXpkVh
-M05tcE8DHkBwPEyCtSoRAs6l1FzlUApxIp2CBHeBke/zzy6JeamQP2/Yds6DrAkKt72AbUhd9xEo
-i9HIZ1nXTE/y17p/nby1AvPbVOEDKq5xD24uu5LrFIngWtM7YI90bdqsHFBp/RUmr6pb0pK2C61B
-x9TYAcT9chZwZPSziv22qfs3hj+gJ0cW+Hpfr588JTHRQlzETl3ufYTlv1oKpOOjIYAkhBXMk6+F
-uDyafHGAr20TVp3T4KrLsyfu9+hUj13tUhcUjdWNZiJ57rLoOLyH6zDurPdQnUMXQBNLpmppXEvg
-lW7RpYSjpd47u52f1CfQc6jAXiNfCxW9vLHaEn+eAxlyLywOO9Ik+R64ivj1OTxxkBXTLllP8PkK
-2G28BUUgdnimgK8FHkZz9p3ONqL5xVp4lfrSB3DJJOyIfIqBD2C/qjE4DVI3ySJby9SGRZhlxMyn
-ukiZ4oWo3qwmChwFOh/E/caEeR2COjTUyQXBOtPZp56jkSsfYfdH2ZPX6xmLJPz7BbreJ8xcI6Fy
-yHQXgrVZYDFJ5ptpYtwaCp3E6UAa/FU7CQRU2CppxuozpK+rx0cX6coFX98I7dAkP0rtSDqaaMt+
-nR9Elc/LGDr+9v+yZX+rmIXcnyssI7OrNsZ6EfTTmqi8pdqNe31wm+B3w9InXgnxRPvYVn/XHLvw
-T2H41Y0SEcLCGUQdgTiod98ENYd3gmUvN0mId+fvOwyHWapdOZRb1TK88KbnYDrSsp5XymJuOYSS
-hA1YiKyJSv9XuVl34aaqQG64TV9yFWmH4m8Zs2cW6+bJ/6IGI9torLIa9TX3LiRYSYW89sVo0Ttu
-DFdD9sY7HY0sW0o5PI/cmfaAS5DOmxsdexNhjOTzjF1BvY6VJ5pE+i3YUqFEOKS1+WFqIKCU+E1N
-SVPgyvvxR/Woq8Cii1Zm0vXM7DwGvL13oSuqGdRGb0Fh6hnc8QxtkxTpV4xSmqah2b54DHBkKcRu
-LqrebzHvU66eTjV8WHokbtWUOfArSFpcL/afQ81nXvku0QcK8/EL
+	<div class="tblListErrMsg">
+	<b>Check the following error(s) below:</b><br>
+	<?php
+	foreach ($eMsg as $key => $value) {
+	?>
+	&nbsp;&nbsp;&bull;&nbsp;<?=$value?><br>
+	<?php		
+	}
+	?>
+	</div>
+<?php		
+	}else {
+?>
+	<div class="tblListErrMsg">
+	<?=$eMsg?>
+	</div>
+<?
+	}
+}
+?>
+<div class="themeFieldsetDiv01">
+<fieldset class="themeFieldset01">
+<legend class="themeLegend01">Recurring Benefits & Deduction Form</legend>
+<form method="post" action="">
+
+Add forms here...
+
+</form>
+</fieldset>
+</div>

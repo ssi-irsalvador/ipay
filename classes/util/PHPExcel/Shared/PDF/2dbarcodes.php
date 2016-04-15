@@ -1,91 +1,177 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-mYg97seHx2szTN8Mlm==
+<?php
+//============================================================+
+// File name   : 2dbarcodes.php
+// Version     : 1.0.007
+// Begin       : 2009-04-07
+// Last Update : 2010-08-08
+// Author      : Nicola Asuni - Tecnick.com S.r.l - Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
+// License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
+// -------------------------------------------------------------------
+// Copyright (C) 2009-2010  Nicola Asuni - Tecnick.com S.r.l.
+//
+// This file is part of TCPDF software library.
+//
+// TCPDF is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+//
+// TCPDF is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with TCPDF.  If not, see <http://www.gnu.org/licenses/>.
+//
+// See LICENSE.TXT file for more information.
+// -------------------------------------------------------------------
+//
+// Description : PHP class to creates array representations for
+//               2D barcodes to be used with TCPDF.
+//
+//============================================================+
+
+/**
+ * PHP class to creates array representations for 2D barcodes to be used with TCPDF.
+ * @package com.tecnick.tcpdf
+ * @abstract Functions for generating string representation of 2D barcodes.
+ * @author Nicola Asuni
+ * @copyright 2009-2009 Nicola Asuni - Tecnick.com S.r.l (www.tecnick.com) Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
+ * @link http://www.tcpdf.org
+ * @license http://www.gnu.org/copyleft/lesser.html LGPL
+ * @version 1.0.007
+ */
+
+	/**
+	* PHP class to creates array representations for 2D barcodes to be used with TCPDF (http://www.tcpdf.org).<br>
+	* @name TCPDFBarcode
+	* @package com.tecnick.tcpdf
+	* @version 1.0.007
+	* @author Nicola Asuni
+	* @link http://www.tcpdf.org
+	* @license http://www.gnu.org/copyleft/lesser.html LGPL
+	*/
+class TCPDF2DBarcode {
+
+	/**
+	 * @var array representation of barcode.
+	 * @access protected
+	 */
+	protected $barcode_array = false;
+
+	/**
+	 * This is the class constructor.
+	 * Return an array representations for 2D barcodes:<ul>
+	 * <li>$arrcode['code'] code to be printed on text label</li>
+	 * <li>$arrcode['num_rows'] required number of rows</li>
+	 * <li>$arrcode['num_cols'] required number of columns</li>
+	 * <li>$arrcode['bcode'][$r][$c] value of the cell is $r row and $c column (0 = transparent, 1 = black)</li></ul>
+	 * @param string $code code to print
+ 	 * @param string $type type of barcode: <ul><li>RAW: raw mode - comma-separad list of array rows</li><li>RAW2: raw mode - array rows are surrounded by square parenthesis.</li><li>QRCODE : QR-CODE Low error correction</li><li>QRCODE,L : QR-CODE Low error correction</li><li>QRCODE,M : QR-CODE Medium error correction</li><li>QRCODE,Q : QR-CODE Better error correction</li><li>QRCODE,H : QR-CODE Best error correction</li><li>PDF417 : PDF417 (ISO/IEC 15438:2006)</li><li>PDF417,a,e,t,s,f,o0,o1,o2,o3,o4,o5,o6 : PDF417 with parameters: a = aspect ratio (width/height); e = error correction level (0-8); t = total number of macro segments; s = macro segment index (0-99998); f = file ID; o0 = File Name (text); o1 = Segment Count (numeric); o2 = Time Stamp (numeric); o3 = Sender (text); o4 = Addressee (text); o5 = File Size (numeric); o6 = Checksum (numeric). NOTES: Parameters t, s and f are required for a Macro Control Block, all other parametrs are optional. To use a comma character ',' on text options, replace it with the character 255: "\xff".</li></ul>
+	 */
+	public function __construct($code, $type) {
+		$this->setBarcode($code, $type);
+	}
+
+	/**
+	 * Return an array representations of barcode.
+ 	 * @return array
+	 */
+	public function getBarcodeArray() {
+		return $this->barcode_array;
+	}
+
+	/**
+	 * Set the barcode.
+	 * @param string $code code to print
+ 	 * @param string $type type of barcode: <ul><li>RAW: raw mode - comma-separad list of array rows</li><li>RAW2: raw mode - array rows are surrounded by square parenthesis.</li><li>QRCODE : QR-CODE Low error correction</li><li>QRCODE,L : QR-CODE Low error correction</li><li>QRCODE,M : QR-CODE Medium error correction</li><li>QRCODE,Q : QR-CODE Better error correction</li><li>QRCODE,H : QR-CODE Best error correction</li><li>PDF417 : PDF417 (ISO/IEC 15438:2006)</li><li>PDF417,a,e,t,s,f,o0,o1,o2,o3,o4,o5,o6 : PDF417 with parameters: a = aspect ratio (width/height); e = error correction level (0-8); t = total number of macro segments; s = macro segment index (0-99998); f = file ID; o0 = File Name (text); o1 = Segment Count (numeric); o2 = Time Stamp (numeric); o3 = Sender (text); o4 = Addressee (text); o5 = File Size (numeric); o6 = Checksum (numeric). NOTES: Parameters t, s and f are required for a Macro Control Block, all other parametrs are optional. To use a comma character ',' on text options, replace it with the character 255: "\xff".</li></ul>
+ 	 * @return array
+	 */
+	public function setBarcode($code, $type) {
+		$mode = explode(',', $type);
+		$qrtype = strtoupper($mode[0]);
+		switch ($qrtype) {
+			case 'QRCODE': { // QR-CODE
+				require_once(dirname(__FILE__).'/qrcode.php');
+				if (!isset($mode[1]) OR (!in_array($mode[1],array('L','M','Q','H')))) {
+					$mode[1] = 'L'; // Ddefault: Low error correction
+				}
+				$qrcode = new QRcode($code, strtoupper($mode[1]));
+				$this->barcode_array = $qrcode->getBarcodeArray();
+				break;
+			}
+			case 'PDF417': { // PDF417 (ISO/IEC 15438:2006)
+				require_once(dirname(__FILE__).'/pdf417.php');
+				if (!isset($mode[1]) OR ($mode[1] === '')) {
+					$aspectratio = 2; // default aspect ratio (width / height)
+				} else {
+					$aspectratio = floatval($mode[1]);
+				}
+				if (!isset($mode[2]) OR ($mode[2] === '')) {
+					$ecl = -1; // default error correction level (auto)
+				} else {
+					$ecl = intval($mode[2]);
+				}
+				// set macro block
+				$macro = array();
+				if (isset($mode[3]) AND ($mode[3] !== '') AND isset($mode[4]) AND ($mode[4] !== '') AND isset($mode[5]) AND ($mode[5] !== '')) {
+					$macro['segment_total'] = intval($mode[3]);
+					$macro['segment_index'] = intval($mode[4]);
+					$macro['file_id'] = strtr($mode[5], "\xff", ',');
+					for ($i = 0; $i < 7; ++$i) {
+						$o = $i + 6;
+						if (isset($mode[$o]) AND ($mode[$o] !== '')) {
+							// add option
+							$macro['option_'.$i] = strtr($mode[$o], "\xff", ',');
+						}
+					}
+				}
+				$qrcode = new PDF417($code, $ecl, $aspectratio, $macro);
+				$this->barcode_array = $qrcode->getBarcodeArray();
+				break;
+			}
+			case 'RAW':
+			case 'RAW2': { // RAW MODE
+				// remove spaces
+				$code = preg_replace('/[\s]*/si', '', $code);
+				if (strlen($code) < 3) {
+					break;
+				}
+				if ($qrtype == 'RAW') {
+					// comma-separated rows
+					$rows = explode(',', $code);
+				} else { // RAW2
+					// rows enclosed in square parentheses
+					$code = substr($code, 1, -1);
+					$rows = explode('][', $code);
+				}
+				$this->barcode_array['num_rows'] = count($rows);
+				$this->barcode_array['num_cols'] = strlen($rows[0]);
+				$this->barcode_array['bcode'] = array();
+				foreach ($rows as $r) {
+					$this->barcode_array['bcode'][] = str_split($r, 1);
+				}
+				break;
+			}
+			case 'TEST': { // TEST MODE
+				$this->barcode_array['num_rows'] = 5;
+				$this->barcode_array['num_cols'] = 15;
+				$this->barcode_array['bcode'] = array(
+					array(1,1,1,0,1,1,1,0,1,1,1,0,1,1,1),
+					array(0,1,0,0,1,0,0,0,1,0,0,0,0,1,0),
+					array(0,1,0,0,1,1,0,0,1,1,1,0,0,1,0),
+					array(0,1,0,0,1,0,0,0,0,0,1,0,0,1,0),
+					array(0,1,0,0,1,1,1,0,1,1,1,0,0,1,0));
+				break;
+			}
+			default: {
+				$this->barcode_array = false;
+			}
+		}
+	}
+} // end of class
+
+//============================================================+
+// END OF FILE
+//============================================================+

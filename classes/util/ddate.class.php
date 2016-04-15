@@ -1,539 +1,1638 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+
+/**
+ * @package Core
+ */
+
+class dDate {
+	static protected $time_zone = 'GMT';
+	static protected $date_format = APPCONFIG_FORMAT_DATE;
+	static protected $time_format = APPCONFIG_FORMAT_TIME;
+	static protected $time_unit_format = 12; //Minutes
+
+	static protected $month_arr = array(
+										'jan' => 1,
+										'january' => 1,
+										'feb' => 2,
+										'february' => 2,
+										'mar' => 3,
+										'march' => 3,
+										'apr' => 4,
+										'april' => 4,
+										'may' => 5,
+										'jun' => 6,
+										'june' => 6,
+										'jul' => 7,
+										'july' => 7,
+										'aug' => 8,
+										'august' => 8,
+										'sep' => 9,
+										'september' => 9,
+										'oct' => 10,
+										'october' => 10,
+										'nov' => 11,
+										'november' => 11,
+										'dec' => 12,
+										'december' => 12
+										);
+
+	static $day_of_week_arr = NULL;
+
+	static $month_of_year_arr = NULL;
+
+	private function __construct() {
+		this::setTimeZone();
+	}
+
+	private function _get_month_short_names() {
+		// i18n: This private method is not called anywhere in the class.
+		//       It's purpose is simply to ensure that the short (3 letter)
+		//       month forms are included in gettext() calls so that they
+		//       will be properly extracted for translation.
+		return array (
+				1 => 'Jan',
+				2 => 'Feb',
+				3 => 'Mar',
+				4 => 'Apr',
+				5 => 'May',
+				6 => 'Jun',
+				7 => 'Jul',
+				8 => 'Aug',
+				9 => 'Sep',
+				10 =>'Oct',
+				11 =>'Nov',
+				12 =>'Dec',
+				);
+	}
+
+	public static function getTimeZone() {
+		return self::$time_zone;
+	}
+	public static function setTimeZone($time_zone = NULL) {
+		$time_zone = Misc::trimSortPrefix( trim($time_zone) );
+
+		//Default to system local timezone if no timezone is specified.
+		if ( $time_zone == '' ) {
+			//$time_zone = 'GMT';
+			$time_zone = date('e');
+		}
+
+		if ( $time_zone == self::$time_zone ) {
+//			Debug::text('TimeZone already set to: '. $time_zone, __FILE__, __LINE__, __METHOD__, 10);
+			return TRUE;
+		}
+
+		if ( $time_zone != '' ) {
+//			Debug::text('Setting TimeZone: '. $time_zone, __FILE__, __LINE__, __METHOD__, 10);
+
+			self::$time_zone = $time_zone;
+
+			putenv('TZ='.$time_zone);
+
+			global $db;
+			if ( isset($db) AND is_object($db) AND $db->dataProvider == 'mysql' ) {
+				if ( @$db->Execute('SET SESSION time_zone=\''. $time_zone .'\'') == FALSE ) {
+					return FALSE;
+				}
+			}
+
+			return TRUE;
+		} else {
+			//PHP doesn't have a unsetenv(), so this will cause the system to default to UTC.
+			//If we don't do this then looping over users and setting timezones, if a user
+			//doesn't have a timezone set, it will cause them to use the previous users timezone.
+			//This way they at least use UTC and hopefully the issue will stand out more.
+			putenv('TZ=');
+		}
+
+		return FALSE;
+	}
+
+	public static function setDateFormat($date_format) {
+		$date_format = trim($date_format);
+
+//		Debug::text('Setting Default ddDate Format: '. $date_format, __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( !empty($date_format) ) {
+			self::$date_format = $date_format;
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	public static function setTimeFormat($time_format) {
+		$time_format = trim($time_format);
+
+//		Debug::text('Setting Default Time Format: '. $time_format, __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( !empty($time_format) ) {
+			self::$time_format = $time_format;
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	public static function setTimeUnitFormat($time_unit_format) {
+		$time_unit_format = trim($time_unit_format);
+
+//		Debug::text('Setting Default Time Unit Format: '. $time_unit_format, __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( !empty($time_unit_format) ) {
+			self::$time_unit_format = $time_unit_format;
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	public static function getTimeZoneOffset() {
+		return date('Z');
+	}
+
+	function convertSecondsToHMS( $seconds, $include_seconds = FALSE ) {
+		if ( $seconds < 0 ) {
+			$negative_number = TRUE;
+		}
+
+		$seconds = abs($seconds);
+
+		// there are 3600 seconds in an hour, so if we
+		// divide total seconds by 3600 and throw away
+		// the remainder, we've got the number of hours
+		$hours = intval(intval($seconds) / 3600);
+
+		// add to $hms, with a leading 0 if asked for
+		$retval[] = str_pad($hours, 2, "0", STR_PAD_LEFT);
+
+		// dividing the total seconds by 60 will give us
+		// the number of minutes, but we're interested in
+		// minutes past the hour: to get that, we need to
+		// divide by 60 again and keep the remainder
+		$minutes = intval(($seconds / 60) % 60);
+
+		// then add to $hms (with a leading 0 if needed)
+		$retval[] = str_pad($minutes, 2, "0", STR_PAD_LEFT);
+
+		if ( $include_seconds == TRUE ) {
+			// seconds are simple - just divide the total
+			// seconds by 60 and keep the remainder
+			$secs = intval($seconds % 60);
+
+			// add to $hms, again with a leading 0 if needed
+			$retval[] = str_pad($secs, 2, "0", STR_PAD_LEFT);
+		}
+
+		if ( isset( $negative_number ) ) {
+			$negative = '-';
+		} else {
+			$negative = '';
+		}
+
+		return $negative.implode(':', $retval );
+	}
+
+	public static function parseTimeUnit($time_unit) {
+		/*
+			10 	=> 'hh:mm (2:15)',
+			12 	=> 'hh:mm:ss (2:15:59)',
+			20 	=> 'Hours (2.25)',
+			22 	=> 'Hours (2.241)',
+			30 	=> 'Minutes (135)'
+		*/
+		//Get rid of any spaces or commas.
+		//ie: 1,100 :10 should still parse correctly
+		$time_unit = str_replace( array(',',' '), '', $time_unit);
+//		Debug::text('Time Unit Format: '. self::$time_unit_format, __FILE__, __LINE__, __METHOD__, 10);
+
+		//Convert string to seconds.
+		switch (self::$time_unit_format) {
+			case 10: //hh:mm
+			case 12: //hh:mm:ss
+				$time_units = explode(':',$time_unit);
+
+				if (!isset($time_units[0]) ) {
+					$time_units[0] = 0;
+				}
+				if (!isset($time_units[1]) ) {
+					$time_units[1] = 0;
+				}
+				if (!isset($time_units[2]) ) {
+					$time_units[2] = 0;
+				}
+
+				if ( $time_units[0] < 0 OR $time_units[1] < 0 OR $time_units[2] < 0) {
+					$negative_number = TRUE;
+				}
+
+				$seconds = ( abs( (int)$time_units[0] ) * 3600) + ( abs( (int)$time_units[1] ) * 60) + abs( (int)$time_units[2] );
+
+				if ( isset($negative_number) ) {
+					$seconds = $seconds * -1;
+				}
+
+				break;
+			case 20: //hours
+			case 22: //hours [Precise]
+				$seconds = $time_unit * 3600;
+				break;
+			case 30: //minutes
+				$seconds = $time_unit * 60;
+				break;
+		}
+
+		if ( isset($seconds) ) {
+			return $seconds;
+		}
+
+		return FALSE;
+	}
+
+	public static function getTimeUnit($seconds, $time_unit_format = NULL ) {
+		if ( $time_unit_format == '' ) {
+			$time_unit_format = self::$time_unit_format;
+		}
+
+		//var_dump($seconds);
+		if ( empty($seconds) ) {
+			//echo "Empty Seconds<br>\n";
+			switch ($time_unit_format) {
+				case 10: //hh:mm
+					$retval = '00:00';
+					break;
+				case 12: //hh:mm:ss
+					$retval = '00:00:00';
+					break;
+				case 20: //hours
+					$retval = '0.00';
+					break;
+				case 22: //hours
+					$retval = '0.000';
+					break;
+				case 20: //minus
+					$retval = 0;
+					break;
+			}
+
+		} else {
+
+			switch ($time_unit_format) {
+				case 10: //hh:mm
+					$retval = self::convertSecondsToHMS( $seconds );
+					/*
+					//Debug::text('Seconds: '. $seconds, __FILE__, __LINE__, __METHOD__, 10);
+					if ( $seconds < 0 ) {
+						$negative_number = TRUE;
+					}
+					$seconds = abs($seconds);
+
+					$hours = number_format( floor($seconds / 3600), 0 );
+					$minutes = number_format( ($seconds % 3600) / 60, 0);
+
+					if ( $minutes == 60 ) {
+						$hours++;
+						$minutes = 0;
+					}
+
+					if ( isset( $negative_number ) ) {
+						$negative = '-';
+					} else {
+						$negative = '';
+					}
+					$minutes = abs($minutes);
+
+					//Debug::text('Hours: '. $hours, __FILE__, __LINE__, __METHOD__, 10);
+					//Debug::text('Minutes: '. $minutes, __FILE__, __LINE__, __METHOD__, 10);
+
+					$retval = $negative.str_pad($hours,2,0,STR_PAD_LEFT).':'.str_pad($minutes,2,0,STR_PAD_LEFT);
+					*/
+					break;
+				case 12: //hh:mm:ss
+					$retval = self::convertSecondsToHMS( $seconds, TRUE );
+					break;
+				case 20: //hours
+					$retval = number_format( $seconds / 3600, 2);
+					break;
+				case 22: //hours [Precise]
+					$retval = number_format( $seconds / 3600, 3);
+					break;
+				case 30: //minutes
+					$retval = number_format( $seconds / 60, 0);
+					break;
+			}
+
+		}
+
+		if ( isset($retval) ) {
+			//var_dump($retval);
+			return $retval;
+		}
+
+		return FALSE;
+	}
+
+	public static function parseDateTime($str) {
+		//List of all formats that require custom parsing.
+		$custom_parse_formats = array(
+									'd/m/Y',
+									'd/m/y',
+									'd-m-y',
+									'd-m-Y',
+									'm/d/y',
+									'm/d/Y',
+									'm-d-y',
+									'm-d-Y',
+									'Y-m-d',
+									'M-d-y',
+									'M-d-Y',
+									);
+		$str = trim($str);
+		$orig_str = $str;
+//		Debug::text('String: '. $str .' Date Format: '. self::$date_format, __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( !is_numeric($str) AND in_array( self::$date_format, $custom_parse_formats) ) {
+//			Debug::text('Custom Parse Format detected!', __FILE__, __LINE__, __METHOD__, 10);
+			//Match to: Year, Month, Day
+			$textual_month = FALSE;
+			switch (self::$date_format) {
+				case 'M-d-y':
+				case 'M-d-Y':
+//					Debug::text('Parsing format: M-d-y', __FILE__, __LINE__, __METHOD__, 10);
+					$date_pattern = '/([A-Za-z]{3})\-([0-9]{1,2})\-([0-9]{2,4})/';
+					$match_arr = array( 'year' => 3, 'month' => 1, 'day' => 2 );
+					$textual_month = TRUE;
+					break;
+				case 'm-d-y':
+				case 'm-d-Y':
+//					Debug::text('Parsing format: m-d-y', __FILE__, __LINE__, __METHOD__, 10);
+					$date_pattern = '/([0-9]{1,2})\-([0-9]{1,2})\-([0-9]{2,4})/';
+					$match_arr = array( 'year' => 3, 'month' => 1, 'day' => 2 );
+					break;
+				case 'm/d/y':
+				case 'm/d/Y':
+//					Debug::text('Parsing format: m/d/y', __FILE__, __LINE__, __METHOD__, 10);
+					$date_pattern = '/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/';
+					$match_arr = array( 'year' => 3, 'month' => 1, 'day' => 2 );
+					break;
+				case 'd/m/y':
+				case 'd/m/Y':
+//					Debug::text('Parsing format: d/m/y', __FILE__, __LINE__, __METHOD__, 10);
+					$date_pattern = '/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/';
+					$match_arr = array( 'year' => 3, 'month' => 2, 'day' => 1 );
+
+					break;
+				case 'd-m-y':
+				case 'd-m-Y':
+//					Debug::text('Parsing format: d-m-y', __FILE__, __LINE__, __METHOD__, 10);
+					$date_pattern = '/([0-9]{1,2})\-([0-9]{1,2})\-([0-9]{2,4})/';
+					$match_arr = array( 'year' => 3, 'month' => 2, 'day' => 1 );
+
+					break;
+				default:
+//					Debug::text('NO pattern match!', __FILE__, __LINE__, __METHOD__, 10);
+					break;
+			}
+
+			if ( isset($date_pattern) ) {
+				//Make regex less strict, and attempt to match time as well.
+				$date_result = preg_match( $date_pattern, $str, $date_matches );
+				//var_dump($date_matches);
+
+				if ( $date_result != 0 ) {
+//					Debug::text('Custom Date Match Success!', __FILE__, __LINE__, __METHOD__, 10);
+
+					$date_arr = array(
+										'year' => $date_matches[$match_arr['year']],
+										'month' => $date_matches[$match_arr['month']],
+										'day' => $date_matches[$match_arr['day']],
+									);
+
+					//Handle dates less then 1970
+					//If the two digit year is greater then current year plus 10 we assume its
+					//a 1990 year.
+					//Debug::text('Passed Year: '. $date_arr['year'] ." Current Year threshold: ". (date('y')+10), __FILE__, __LINE__, __METHOD__, 10);
+					if ( strlen($date_arr['year']) == 2 AND $date_arr['year'] > (date('y')+10) ) {
+						$date_arr['year'] = (int)'19'.$date_arr['year'];
+					}
+
+					//Debug::Arr($date_arr, 'Date Match Arr!', __FILE__, __LINE__, __METHOD__, 10);
+
+					//; preg_match('/[a-z]/', $date_arr['month']) != 0
+					if ( $textual_month == TRUE) {
+						$numeric_month = self::$month_arr[strtolower($date_arr['month'])];
+//						Debug::text('Numeric Month: '. $numeric_month, __FILE__, __LINE__, __METHOD__, 10);
+						$date_arr['month'] = $numeric_month;
+						unset($numeric_month);
+					}
+
+					$tmp_date = $date_arr['year'].'-'.$date_arr['month'].'-'.$date_arr['day'];
+//					Debug::text('Tmp Date: '. $tmp_date, __FILE__, __LINE__, __METHOD__, 10);
+
+					//Replace the date pattern with NULL leaving only time left to append to the end of the string.
+					$time_result = preg_replace( $date_pattern, '', $str );
+					$formatted_date = $tmp_date .' '. $time_result;
+				} else {
+//					Debug::text('Custom Date Match Failed... Falling back to strtotime', __FILE__, __LINE__, __METHOD__, 10);
+				}
+
+			}
+
+
+		}
+
+		if ( !isset($formatted_date) ) {
+//			Debug::text('NO Custom Parse Format detected!', __FILE__, __LINE__, __METHOD__, 10);
+			$formatted_date = $str;
+		}
+//		Debug::text('Parsing Date: '. $formatted_date , __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( is_numeric( $formatted_date ) ) {
+			$epoch = (int)$formatted_date;
+		} else {
+			$epoch = self::strtotime( $formatted_date );
+			//$epoch = strtotime($formatted_date);
+
+			//Parse failed.
+			if ( $epoch == $formatted_date ) {
+//				Debug::text('Parsing Date Failed! Returning FALSE! ', __FILE__, __LINE__, __METHOD__, 10);
+				$epoch = FALSE;
+			}
+
+//			Debug::text('Parsed Date: '. dDate::getDate('DATE+TIME', $epoch) , __FILE__, __LINE__, __METHOD__, 10);
+		}
+
+		return $epoch;
+	}
+
+	public static function getISODateStamp( $epoch ) {
+		$format = 'Ymd';
+
+		return date( $format, $epoch);
+	}
+
+    public static function getFormattedDateStamp( $epoch ) {
+		$format = 'dmy';
+
+		return date( $format, $epoch);
+	}
+	
+	public static function getFormattedDateStampMDY( $epoch ) {
+		$format = 'mdy';
+
+		return date( $format, $epoch);
+	}
+
+	public static function getFormattedDateStampMDYLong( $epoch ) {
+		$format = 'mdY';
+
+		return date( $format, $epoch);
+	}
+	
+	public static function getDBTimeStamp( $epoch, $include_time_zone = TRUE ) {
+		$format = 'Y-m-d H:i:s';
+		if ( $include_time_zone == TRUE ) {
+			$format .= ' T';
+		}
+
+		return date( $format, $epoch);
+	}
+
+	public static function getDate($format = NULL, $epoch = NULL, $nodst = FALSE) {
+		if ( !is_numeric($epoch) OR $epoch == 0 ) {
+//			Debug::text('Epoch is not numeric: '. $epoch, __FILE__, __LINE__, __METHOD__, 10);
+			return FALSE;
+		}
+
+		if ( empty($format) ) {
+//			Debug::text('Format is empty: '. $format, __FILE__, __LINE__, __METHOD__, 10);
+
+			$format = 'DATE';
+		}
+
+		//Debug::text('Format: '. $format, __FILE__, __LINE__, __METHOD__, 10);
+		//Debug::text('Format: '. $format .' Epoch: '. $epoch, __FILE__, __LINE__, __METHOD__, 10);
+		switch ( strtolower($format) ) {
+			case 'date':
+				$format = self::$date_format;
+				break;
+			case 'time':
+				$format = self::$time_format;
+				break;
+			case 'date+time':
+				$format = self::$date_format.' '.self::$time_format;
+				break;
+			case 'epoch':
+				$format = 'U';
+				break;
+
+		}
+
+		if ($epoch == '' OR $epoch == '-1') {
+			//$epoch = dDate::getTime();
+			//Don't return anything if EPOCH isn't set.
+			//return FALSE;
+			return NULL;
+		}
+
+		//debug_print_backtrace();
+		//Debug::text('Epoch: '. $epoch, __FILE__, __LINE__, __METHOD__, 10);
+		//This seems to support pre 1790 dates..
+		return date($format, $epoch);
+
+		//Support pre 1970 dates?
+		//return adodb_date($format, $epoch);
+	}
+
+	public static function getDayOfMonthArray() {
+		for($i=1; $i <= 31; $i++) {
+			$retarr[$i] = $i;
+		}
+
+		return $retarr;
+	}
+
+	public static function getMonthOfYearArray() {
+        if ( is_array(self::$month_of_year_arr) == FALSE ) {
+			self::$month_of_year_arr = array(
+												1 => ('January'),
+												2 => ('February'),
+												3 => ('March'),
+												4 => ('April'),
+												5 => ('May'),
+												6 => ('June'),
+												7 => ('July'),
+												8 => ('August'),
+												9 => ('September'),
+												10 => ('October'),
+												11 => ('November'),
+												12 => ('December')
+				);
+        }
+
+		return self::$month_of_year_arr;
+	}
+
+	public static function getDayOfWeekArray() {
+		if ( is_array(self::$day_of_week_arr) == FALSE ) {
+			self::$day_of_week_arr = array(
+											0 => ('Sunday'),
+											1 => ('Monday'),
+											2 => ('Tuesday'),
+											3 => ('Wednesday'),
+											4 => ('Thursday'),
+											5 => ('Friday'),
+											6 => ('Saturday')
+				);
+	        }
+		return self::$day_of_week_arr;
+	}
+
+	public static function getDayOfWeek($epoch, $start_week_day = 0) {
+		$dow = date('w', (int)$epoch);
+
+		if ( $start_week_day == 0 ) {
+			return $dow;
+		} else {
+			$retval = $dow-$start_week_day;
+			if ( $dow < $start_week_day ) {
+				$retval = $dow+(7-$start_week_day);
+			}
+			return $retval;
+		}
+	}
+
+	public static function getDayOfWeekByInt($int) {
+		self::getDayOfWeekArray();
+
+		if ( isset(self::$day_of_week_arr[$int]) ) {
+			return self::$day_of_week_arr[$int];
+		}
+
+		return FALSE;
+	}
+
+	public static function getDayOfWeekArrayByStartWeekDay( $start_week_day = 0 ) {
+		$arr = self::getDayOfWeekArray();
+		foreach( $arr as $dow => $name ) {
+			if ( $dow >= $start_week_day ) {
+				$retarr[$dow] = $name;
+			}
+		}
+
+		if ( $start_week_day > 0 ) {
+			foreach( $arr as $dow => $name ) {
+				if ( $dow < $start_week_day ) {
+					$retarr[$dow] = $name;
+				} else {
+					break;
+				}
+			}
+		}
+
+		return $retarr;
+
+	}
+
+	public static function doesRangeSpanDST( $start_epoch, $end_epoch ) {
+//		Debug::text('Start Epoch: '. dDate::getDate('DATE+TIME', $start_epoch) .'  End Epoch: '. dDate::getDate('DATE+TIME', $end_epoch), __FILE__, __LINE__, __METHOD__, 10);
+		$dst_epochs = self::getDSTEpoch($start_epoch);
+
+		if ( $dst_epochs !== FALSE ) {
+			if ($start_epoch <= $dst_epochs['start'] AND $end_epoch >= $dst_epochs['start']
+					OR $start_epoch <= $dst_epochs['end'] AND $end_epoch >= $dst_epochs['end'] ) {
+
+				return TRUE;
+			}
+		}
+
+		return FALSE;
+	}
+
+	public static function getDSTepoch($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		if ( strtolower( self::$time_zone ) == 'gmt' ) {
+			return FALSE;
+		}
+
+		/*
+
+			Daylight Saving Time begins for most of the United States at 2 a.m. on the first Sunday of April.
+            Time reverts to standard time at 2 a.m. on the last Sunday of October. In the U.S.,
+            each time zone switches at a different time.
+
+			In the European Union, Summer Time begins and ends at 1 am Universal Time (Greenwich Mean Time).
+            It starts the last Sunday in March, and ends the last Sunday in October.
+            In the EU, all time zones change at the same moment.
+
+		*/
+
+		$epoch = mktime(0,0,0,4,1,date('Y', $epoch));
+
+        //Lets try to make PHP do as much work as possible. So we know DST always happens between 1am and 2am on specific days.
+		$first_sunday_in_april = strtotime('This Sunday', $epoch ) + 3600;
+//		Debug::text('Epoch of first Sunday in April: '. $first_sunday_in_april .' - '. dDate::getDate('DATE+TIME', $first_sunday_in_april) , __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( date('I', $first_sunday_in_april) == 1) { //1am
+//			Debug::text('Found european DST boundary', __FILE__, __LINE__, __METHOD__, 10);
+			$dst_start = $first_sunday_in_april;
+		} elseif (date('I', ($first_sunday_in_april + 3600) ) == 1 ) { //2am
+//			Debug::text('Found US DST boundary', __FILE__, __LINE__, __METHOD__, 10);
+			$dst_start = $first_sunday_in_april + 3599;
+		} else {
+//			Debug::text('Failed to find DST boundary', __FILE__, __LINE__, __METHOD__, 10);
+			$dst_start = FALSE;
+		}
+//		Debug::text('DST Start '. $dst_start .' - '. dDate::getDate('DATE+TIME', $dst_start) , __FILE__, __LINE__, __METHOD__, 10);
+		unset($first_sunday_in_april);
+
+		$epoch = mktime(0,0,0,4,1,date('Y', $epoch));
+
+		//Find DST end
+		$epoch = mktime(0,0,0,11,1,date('Y', $epoch));
+
+		$last_sunday_in_oct = strtotime('Last Sunday', $epoch );
+//		Debug::text('Epoch of last Sunday in Oct: '. $last_sunday_in_oct .' - '. dDate::getDate('DATE+TIME', $last_sunday_in_oct) , __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( date('I', $last_sunday_in_oct) == 0) { //1am
+//			Debug::text('Found european DST boundary', __FILE__, __LINE__, __METHOD__, 10);
+			$dst_end = $last_sunday_in_oct;
+		} elseif (date('I', ($last_sunday_in_oct + 3600) ) == 0 ) { //2am
+//			Debug::text('Found US DST boundary', __FILE__, __LINE__, __METHOD__, 10);
+			$dst_end = $last_sunday_in_oct + 3599;
+		} else {
+//			Debug::text('Failed to find DST boundary', __FILE__, __LINE__, __METHOD__, 10);
+		}
+//		Debug::text('DST End '. $dst_end .' - '. dDate::getDate('DATE+TIME', $dst_end) , __FILE__, __LINE__, __METHOD__, 10);
+		unset($last_sunday_in_oct);
+
+		return array('start' => $dst_start, 'end' => $dst_end);
+	}
+
+	public static function getTime() {
+		return time();
+	}
+
+	public static function getDays($seconds) {
+		return bcdiv( $seconds, 86400);
+	}
+
+	public static function getHours($seconds) {
+		return bcdiv( bcdiv( $seconds, 60), 60);
+	}
+
+	public static function getSeconds($hours) {
+		return bcmul( $hours, 3600 );
+	}
+
+	public static function getDaysInMonth($epoch = NULL ) {
+		if ($epoch == NULL) {
+			$epoch = dDate::getTime();
+		}
+
+		return date('t', $epoch);
+	}
+
+	public static function snapTime($epoch, $snap_to_epoch, $snap_type) {
+//		Debug::text('Epoch: '. $epoch .' ('.dDate::getDate('DATE+TIME', $epoch).') Snap Epoch: '. $snap_to_epoch .' ('.dDate::getDate('DATE+TIME', $snap_to_epoch).') Snap Type: '. $snap_type, __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( empty($epoch) OR empty($snap_to_epoch) ) {
+			return $epoch;
+		}
+
+		switch (strtolower($snap_type)) {
+			case 'up':
+//				Debug::text('Snap UP: ', __FILE__, __LINE__, __METHOD__, 10);
+				if ( $epoch <= $snap_to_epoch ) {
+					$epoch = $snap_to_epoch;
+				}
+				break;
+			case 'down':
+//				Debug::text('Snap Down: ', __FILE__, __LINE__, __METHOD__, 10);
+				if ( $epoch >= $snap_to_epoch ) {
+					$epoch = $snap_to_epoch;
+				}
+				break;
+		}
+
+//		Debug::text('Snapped Epoch: '. $epoch .' ('.dDate::getDate('DATE+TIME', $epoch).')', __FILE__, __LINE__, __METHOD__, 10);
+		return $epoch;
+	}
+
+	public static function roundTime($epoch, $round_value, $round_type = 20, $grace_time = 0 ) {
+
+//		Debug::text('In Epoch: '. $epoch .' ('.dDate::getDate('DATE+TIME', $epoch).') Round Value: '. $round_value .' Round Type: '. $round_type, __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( empty($epoch) OR empty($round_value) OR empty($round_type) ) {
+			return $epoch;
+		}
+
+		switch ($round_type) {
+			case 10: //Down
+				if ( $grace_time > 0 ) {
+					$epoch += $grace_time;
+				}
+				$epoch = $epoch - ( $epoch % $round_value );
+				break;
+			case 20: //Average
+				$epoch = (int)( ($epoch + ($round_value / 2) ) / $round_value ) * $round_value;
+				break;
+			case 30: //Up
+				if ( $grace_time > 0 ) {
+					$epoch -= $grace_time;
+				}
+				$epoch = (int)( ($epoch + ($round_value - 1) ) / $round_value ) * $round_value;
+				break;
+		}
+
+		return $epoch;
+	}
+
+	public static function graceTime($current_epoch, $grace_time, $schedule_epoch) {
+		//Debug::text('Current Epoch: '. $current_epoch .' Grace Time: '. $grace_time .' Schedule Epoch: '. $schedule_epoch, __FILE__, __LINE__, __METHOD__, 10);
+		if ( $current_epoch <= ($schedule_epoch + $grace_time)
+				AND $current_epoch >= ($schedule_epoch - $grace_time) ) {
+            //Within grace period, return scheduled time.
+			return $schedule_epoch;
+		}
+
+		return $current_epoch;
+	}
+
+	function getTimeStampFromSmarty($prefix, $array) {
+//		Debug::text('Prefix: '. $prefix, __FILE__, __LINE__, __METHOD__, 10);
+		//Debug::Arr($array, 'getTimeStampFromSmarty Array:', __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( isset($array[$prefix.'Year']) ) {
+			$year = $array[$prefix.'Year'];
+		} else {
+			$year = strftime("%Y");
+		}
+		if ( isset($array[$prefix.'Month']) ) {
+			$month = $array[$prefix.'Month'];
+		} else {
+			//$month = strftime("%m");
+			$month = 1;
+		}
+		if ( isset($array[$prefix.'Day']) ) {
+			$day = $array[$prefix.'Day'];
+		} else {
+			//If day isn't specified it uses the current day, but then if its the 30th, and they
+			//select February, it goes to March!
+			//$day = strftime("%d");
+			$day = 1;
+		}
+		if ( isset($array[$prefix.'Hour']) ) {
+			$hour = $array[$prefix.'Hour'];
+		} else {
+			$hour = 0;
+		}
+		if ( isset($array[$prefix.'Minute']) ) {
+			$min = $array[$prefix.'Minute'];
+		} else {
+			$min = 0;
+		}
+		if ( isset($array[$prefix.'Second']) ) {
+			$sec = $array[$prefix.'Second'];
+		} else {
+			$sec = 0;
+		}
+
+//		Debug::text('Year: '. $year .' Month: '. $month .' Day: '. $day .' Hour: '. $hour .' Min: '. $min .' Sec: '. $sec, __FILE__, __LINE__, __METHOD__, 10);
+
+		return self::getTimeStamp($year,$month,$day,$hour,$min,$sec);
+	}
+
+	function getTimeStamp($year="",$month="",$day="", $hour=0, $min=0, $sec=0) {
+		if ( empty($year) ) {
+			$year = strftime("%Y");
+		}
+
+		if ( empty($month) ) {
+			$month = strftime("%m");
+		}
+
+		if ( empty($day) ) {
+			$day = strftime("%d");
+		}
+
+		if ( empty($hour) ) {
+			$hour = 0;
+		}
+
+		if ( empty($min) ) {
+			$min = 0;
+		}
+
+		if ( empty($sec) ) {
+			$sec = 0;
+		}
+
+		//Use adodb time library to support dates earlier then 1970.
+		//require_once( Environment::getBasePath() .'classes/adodb/adodb-time.inc.php');
+
+//		Debug::text('  - Year: '. $year .' Month: '. $month .' Day: '. $day .' Hour: '. $hour .' Min: '. $min .' Sec: '. $sec, __FILE__, __LINE__, __METHOD__, 10);
+
+		$epoch = adodb_mktime($hour,$min,$sec,$month,$day,$year);
+
+//		Debug::text('Epoch: '. $epoch .' Date: '. self::getDate($epoch), __FILE__, __LINE__, __METHOD__, 10);
+
+		return $epoch;
+	}
+
+	public static function getDayDifference($start_epoch, $end_epoch) {
+		//FIXME: Be more accurate, take leap years in to account etc...
+		$days = ($end_epoch - $start_epoch) / 86400;
+
+//		Debug::text('Days Difference: '. $days, __FILE__, __LINE__, __METHOD__, 10);
+
+		return $days;
+	}
+
+	public static function getWeekDifference($start_epoch, $end_epoch) {
+		//FIXME: Be more accurate, take leap years in to account etc...
+		$weeks = ($end_epoch - $start_epoch) / (86400 * 7);
+
+//		Debug::text('Week Difference: '. $weeks, __FILE__, __LINE__, __METHOD__, 10);
+
+		return $weeks;
+	}
+
+	public static function getMonthDifference($start_epoch, $end_epoch) {
+//		Debug::text('Start Epoch: '. dDate::getDate('DATE+TIME', $start_epoch) .' End Epoch: '. dDate::getDate('DATE+TIME', $end_epoch) , __FILE__, __LINE__, __METHOD__, 10);
+
+		$epoch_diff = $end_epoch - $start_epoch;
+//		Debug::text('Diff Epoch: '. $epoch_diff , __FILE__, __LINE__, __METHOD__, 10);
+		$x = floor( $epoch_diff / 60 / 60 / 24 / 7 / 4);
+
+		/*
+		$x=-1; //Start at -1 because it'll always match the first month?
+		for($i = $start_epoch; $i < $end_epoch; $i += ( date('t',$i) * 86400) ) {
+			//echo "I: $i ". dDate::getDate('DATE+TIME', $i) ." <br>\n";
+			Debug::text('I: '. $i.' '. dDate::getDate('DATE+TIME', $i), __FILE__, __LINE__, __METHOD__, 10);
+			$x++;
+		}
+		*/
+//		Debug::text('Month Difference: '. $x, __FILE__, __LINE__, __METHOD__, 10);
+
+		return $x;
+	}
+
+	public static function getYearDifference($start_epoch, $end_epoch) {
+		//FIXME: Be more accurate, take leap years in to account etc...
+		$years = ( ($end_epoch - $start_epoch) / 86400 ) / 365;
+
+//		Debug::text('Years Difference: '. $years, __FILE__, __LINE__, __METHOD__, 10);
+
+		return $years;
+	}
+
+	public static function getDateByMonthOffset($epoch, $month_offset) {
+		//return mktime(0,0,0,date('n', $epoch) + $month_offset,date('j',$epoch),date('Y',$epoch) );
+		return mktime(date('G', $epoch),date('i', $epoch),date('s', $epoch),date('n', $epoch) + $month_offset,date('j',$epoch),date('Y',$epoch) );
+	}
+
+	public static function getBeginMinuteEpoch($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch)) {
+			$epoch = self::getTime();
+		}
+
+		$retval=mktime(date('G',$epoch),date('i', $epoch),0,date('m',$epoch),date('d',$epoch),date('Y',$epoch));
+		//Debug::text('Begin Day Epoch: '. $retval .' - '. dDate::getDate('DATE+TIME', $retval) , __FILE__, __LINE__, __METHOD__, 10);
+		return $retval;
+	}
+
+	public static function getBeginDayEpoch($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch)) {
+			$epoch = self::getTime();
+		}
+
+		$retval=mktime(0,0,0,date('m',$epoch),date('d',$epoch),date('Y',$epoch));
+		//Debug::text('Begin Day Epoch: '. $retval .' - '. dDate::getDate('DATE+TIME', $retval) , __FILE__, __LINE__, __METHOD__, 10);
+		return $retval;
+	}
+
+	public static function getMiddleDayEpoch($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch) ) {
+			$epoch = self::getTime();
+		}
+
+		$retval=mktime(12,0,0,date('m',$epoch),date('d',$epoch),date('Y',$epoch));
+		//Debug::text('Middle (noon) Day Epoch: '. $retval .' - '. dDate::getDate('DATE+TIME', $retval) , __FILE__, __LINE__, __METHOD__, 10);
+		return $retval;
+	}
+
+	public static function getEndDayEpoch($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch)) {
+			$epoch = self::getTime();
+		}
+
+		$retval=mktime(0,0,0,date('m',$epoch),date('d',$epoch)+1,date('Y',$epoch))-1;
+		//Debug::text('Begin Day Epoch: '. $retval .' - '. dDate::getDate('DATE+TIME', $retval) , __FILE__, __LINE__, __METHOD__, 10);
+		return $retval;
+	}
+
+	public static function getBeginMonthEpoch($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch) ) {
+			$epoch = self::getTime();
+		}
+
+		$retval=mktime(0,0,0,date('m',$epoch),1,date('Y',$epoch));
+
+		return $retval;
+	}
+
+	public static function getEndMonthEpoch($epoch = NULL, $preserve_hours = FALSE) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch)) {
+			$epoch = self::getTime();
+		}
+
+		$retval=mktime(0,0,0,date('m',$epoch) + 1,1,date('Y',$epoch)) - 1;
+
+		return $retval;
+	}
+
+	public static function getBeginYearEpoch($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch) ) {
+			$epoch = self::getTime();
+		}
+
+		$retval=mktime(0,0,0,1,1,date('Y',$epoch));
+
+		return $retval;
+	}
+
+	public static function getEndYearEpoch($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch) ) {
+			$epoch = self::getTime();
+		}
+
+		//Debug::text('Attempting to Find End Of Year epoch for: '. dDate::getDate('DATE+TIME', $epoch), __FILE__, __LINE__, __METHOD__,10);
+
+		$retval=mktime(0,0,0,1,1,date('Y',$epoch) + 1) - 1;
+
+		return $retval;
+	}
+
+	public static function getYearQuarter( $epoch = NULL ) {
+		if ($epoch == NULL OR $epoch == '' OR !is_numeric($epoch) ) {
+			$epoch = self::getTime();
+		}
+
+		$quarter = ceil( date('n', $epoch ) / 3 );
+
+//		Debug::text('Date: '. dDate::getDate('DATE+TIME', $epoch ) .' is in quarter: '. $quarter, __FILE__, __LINE__, __METHOD__,10);
+		return $quarter;
+	}
+
+	public static function getDateOfNextDayOfWeek($anchor_epoch, $day_of_week_epoch) {
+		//Anchor Epoch is the anchor date to start searching from.
+		//Day of week epoch is the epoch we use to extract the day of the week from.
+//		Debug::text('-------- ', __FILE__, __LINE__, __METHOD__,10);
+//		Debug::text('Anchor Epoch: '. dDate::getDate('DATE+TIME', $anchor_epoch), __FILE__, __LINE__, __METHOD__,10);
+//		Debug::text('Day Of Week Epoch: '. dDate::getDate('DATE+TIME', $day_of_week_epoch), __FILE__, __LINE__, __METHOD__,10);
+
+		if ( $anchor_epoch == '' ) {
+			return FALSE;
+		}
+
+		if ( $day_of_week_epoch == '' ) {
+			return FALSE;
+		}
+
+		//Get day of week of the anchor
+		$anchor_dow = date('w', $anchor_epoch);
+		$dst_dow = date('w', $day_of_week_epoch);
+//		Debug::text('Anchor DOW: '. $anchor_dow .' Destination DOW: '. $dst_dow, __FILE__, __LINE__, __METHOD__,10);
+
+		$days_diff = ($anchor_dow - $dst_dow);
+//		Debug::text('Days Diff: '. $days_diff, __FILE__, __LINE__, __METHOD__,10);
+
+		if ( $days_diff > 0 ) {
+			//Add 7 days (1 week) then minus the days diff.
+			$anchor_epoch += 604800;
+		}
+
+		$retval = mktime( 	date('H', $day_of_week_epoch ),
+							date('i', $day_of_week_epoch ),
+							date('s', $day_of_week_epoch ),
+							date('m', $anchor_epoch ),
+							date('j', $anchor_epoch ) - $days_diff,
+							date('Y', $anchor_epoch )
+							);
+
+//		Debug::text('Retval: '. dDate::getDate('DATE+TIME', $retval), __FILE__, __LINE__, __METHOD__,10);
+		return $retval;
+
+	}
+
+	public static function getDateOfNextDayOfMonth($anchor_epoch, $day_of_month_epoch, $day_of_month = NULL ) {
+		//Anchor Epoch is the anchor date to start searching from.
+		//Day of month epoch is the epoch we use to extract the day of the month from.
+//		Debug::text('-------- ', __FILE__, __LINE__, __METHOD__,10);
+//		Debug::text('Anchor Epoch: '. dDate::getDate('DATE+TIME', $anchor_epoch) . ' Day Of Month Epoch: '. dDate::getDate('DATE+TIME', $day_of_month_epoch) .' Day Of Month: '. $day_of_month, __FILE__, __LINE__, __METHOD__,10);
+
+		if ( $anchor_epoch == '' ) {
+			return FALSE;
+		}
+
+		if ( $day_of_month_epoch == '' AND $day_of_month == '' ) {
+			return FALSE;
+		}
+
+		if ( $day_of_month_epoch == '' AND $day_of_month != '' AND $day_of_month <= 31 ) {
+			$tmp_days_in_month = dDate::getDaysInMonth( $anchor_epoch );
+			if ( $day_of_month > $tmp_days_in_month ) {
+				$day_of_month = $tmp_days_in_month;
+			}
+			unset($tmp_days_in_month);
+
+			$day_of_month_epoch = mktime( 	date('H', $anchor_epoch ),
+											date('i', $anchor_epoch ),
+											date('s', $anchor_epoch ),
+											date('m', $anchor_epoch ),
+											$day_of_month,
+											date('Y', $anchor_epoch )
+								);
+		}
+
+		//If the anchor date is AFTER the day of the month, we want to get the same day
+		//in the NEXT month.
+		$src_dom = date('j', $anchor_epoch);
+		$dst_dom = date('j', $day_of_month_epoch);
+		//Debug::text('Anchor DOM: '. $src_dom .' DST DOM: '. $dst_dom, __FILE__, __LINE__, __METHOD__,10);
+
+		if ( $src_dom > $dst_dom ) {
+			//Debug::text('Anchor DOM is greater then Dest DOM', __FILE__, __LINE__, __METHOD__,10);
+
+			//Get the epoch of the first day of the next month
+			$anchor_epoch = dDate::getEndMonthEpoch( $anchor_epoch )+1;
+
+			//Find out how many days are in this month
+			$days_in_month = dDate::getDaysInMonth( $anchor_epoch );
+
+			if ( $dst_dom > $days_in_month ) {
+				$dst_dom = $days_in_month;
+			}
+
+			$retval = $anchor_epoch + (($dst_dom-1)*86400);
+		} else {
+			//Debug::text('Anchor DOM is equal or LESS then Dest DOM', __FILE__, __LINE__, __METHOD__,10);
+
+			$retval = mktime( 	date('H', $anchor_epoch ),
+								date('i', $anchor_epoch ),
+								date('s', $anchor_epoch ),
+								date('m', $anchor_epoch ),
+								date('j', $day_of_month_epoch ),
+								date('Y', $anchor_epoch )
+								);
+		}
+
+		return $retval;
+	}
+
+	public static function getLastHireDateAnniversary($hire_date) {
+//		Debug::Text('Hire Date: '. $hire_date .' - '. dDate::getDate('DATE+TIME', $hire_date) , __FILE__, __LINE__, __METHOD__,10);
+
+		//Find last hire date anniversery.
+		$last_hire_date_anniversary = gmmktime(12,0,0, date('n',$hire_date), date('j',$hire_date), ( date('Y', dDate::getTime() ) ) );
+		//If its after todays date, minus a year from it.
+		if ( $last_hire_date_anniversary >= dDate::getTime() ) {
+			$last_hire_date_anniversary = mktime(0,0,0, date('n',$hire_date), date('j',$hire_date), ( date('Y', dDate::getTime() ) - 1) );
+		}
+//		Debug::Text('Last Hire Date Anniversary: '. $last_hire_date_anniversary .' - '. dDate::getDate('DATE+TIME', $last_hire_date_anniversary) , __FILE__, __LINE__, __METHOD__,10);
+
+		return $last_hire_date_anniversary;
+	}
+
+	public static function getBeginWeekEpoch($epoch = NULL, $start_day_of_week = 0 ) {
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		if (  !is_numeric( $start_day_of_week ) ) {
+			if ( strtolower($start_day_of_week) == 'mon' ) {
+				$start_day_of_week = 1;
+			} elseif ( strtolower($start_day_of_week) == 'sun' ) {
+				$start_day_of_week = 0;
+			}
+		}
+
+		//Get day of week
+		$day_of_week = date('w', $epoch);
+//		Debug::text('Current Day of week: '. $day_of_week, __FILE__, __LINE__, __METHOD__,10);
+
+		$offset = 0;
+		if ( $day_of_week < $start_day_of_week ) {
+			$offset = 7 + ($day_of_week - $start_day_of_week);
+		} else {
+			$offset = $day_of_week - $start_day_of_week;
+		}
+
+		$retval = mktime(0,0,0,date("m",$epoch),( date("j", $epoch) - $offset) ,date("Y",$epoch) );
+
+//		Debug::text(' Epoch: '. dDate::getDate('DATE+TIME', $epoch) .' Retval: '. dDate::getDate('DATE+TIME', $retval) .' Start Day of Week: '. $start_day_of_week .' Offset: '. $offset, __FILE__, __LINE__, __METHOD__,10);
+		return $retval;
+	}
+
+	public static function getEndWeekEpoch($epoch = NULL, $start_day_of_week = 0 ) {
+		if ( $epoch == NULL OR $epoch == '' ) {
+			$epoch = self::getTime();
+		}
+
+		$retval = self::getEndDayEpoch( self::getMiddleDayEpoch( self::getBeginWeekEpoch( self::getMiddleDayEpoch($epoch), $start_day_of_week ) ) + (86400*6) );
+
+		return $retval;
+	}
+
+	public static function getWeek( $epoch = NULL, $start_day_of_week = 1 ) {
+		//Default start_day_of_week to 1 (Monday) as that is what PHP defaults to.
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		$raw_week = (int)date('W', $epoch);
+		if ( $start_day_of_week == 1 ) {
+			//Start day of week is set to Monday, so it matches PHP.
+			$retval = $raw_week;
+		} else {
+			$epoch_dow = date('w', $epoch);
+
+			//Get day of week for Jan 1st of this year.
+			$jan_1st_dow = dDate::getDayOfWeek( mktime( 12,0,0, dDate::getMonth( $epoch ), 1, dDate::getYear( $epoch ) ) );
+
+			if ( $start_day_of_week == $epoch_dow ) {
+				$dow_diff = 1;
+			} else {
+				$dow_diff = $start_day_of_week*-1;
+			}
+
+			$retval = (int)date('W', mktime( 12,0,0, dDate::getMonth( $epoch ), dDate::getDayOfMonth( $epoch ) + $dow_diff, dDate::getYear( $epoch ) ) );
+
+		}
+
+		return $retval;
+	}
+
+	public static function getYear($epoch = NULL) {
+		if ($epoch == NULL) {
+			$epoch = dDate::getTime();
+		}
+
+		return date('Y', $epoch);
+	}
+
+	public static function getMonth( $epoch = NULL ) {
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		return date('n', $epoch);
+	}
+
+	public static function getDayOfMonth( $epoch = NULL ) {
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		return date('j', $epoch);
+	}
+
+	public static function getHour( $epoch = NULL ) {
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		return date('G', $epoch);
+	}
+
+	public static function getMinute( $epoch = NULL ) {
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		return date('i', $epoch);
+	}
+
+	public static function getSecond( $epoch = NULL ) {
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		return date('s', $epoch);
+	}
+
+	public static function isWeekDay($epoch = NULL) {
+		if ($epoch == NULL OR empty($epoch)) {
+			$epoch = dDate::getTime();
+		}
+
+		$day_of_week = date('w', $epoch);
+		//Make sure day is not Sat. or Sun
+		if ($day_of_week != 0 AND $day_of_week != 6) {
+			//Definitely a business day of week, make sure its not a holiday now.
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	public static function getAnnualWeekDays($epoch = NULL) {
+		if ($epoch == NULL OR $epoch == '') {
+			$epoch = self::getTime();
+		}
+
+		//Get the year of the passed epoch
+		$year = date('Y', $epoch);
+
+		$end_date = mktime(0,0,0,1,0, $year + 1 );
+		$end_day_of_week = date("w",$end_date);
+		$second_end_day_of_week = date("w",$end_date - 86400);
+		//Debug::text('End Date: ('.$end_day_of_week.') '. $end_date .' - '. dDate::getDate('DATE+TIME', $end_date), __FILE__, __LINE__, __METHOD__, 10);
+		//Debug::text('2nd End Date: ('.$second_end_day_of_week.') '. ( $end_date - 86400 ) .' - '. dDate::getDate('DATE+TIME', ($end_date - 86400 ) ), __FILE__, __LINE__, __METHOD__, 10);
+
+		//Eriks method
+		//Always start with 260 days.
+		//If the last day of the year is a weekday, add 1
+		//If its a leap year, use the 2 last days. If any of them are weekdays, add them.
+		$start_days = 260;
+
+		//Debug::text('Leap Year: '. date('L', $end_date), __FILE__, __LINE__, __METHOD__, 10);
+
+		if ( date('L', $end_date) == 1 ) {
+			//Leap year
+			if ( $end_day_of_week != 0 AND $end_day_of_week != 6) {
+				$start_days++;
+			}
+			if ( $second_end_day_of_week != 0 AND $second_end_day_of_week != 6) {
+				$start_days++;
+			}
+
+		} else {
+			//Not leap year
+
+			if ( $end_day_of_week != 0 AND $end_day_of_week != 6) {
+				$start_days++;
+			}
+
+		}
+		//Debug::text('Days in Year: ('. $year .'): '. $start_days, __FILE__, __LINE__, __METHOD__, 10);
+
+
+		return $start_days;
+	}
+
+	//Loop from filter start date to end date. Creating an array entry for each day.
+	function getCalendarArray($start_date, $end_date, $start_day_of_week = 0, $force_weeks = TRUE) {
+		if ( $start_date == '' OR $end_date == '' ) {
+			return FALSE;
+		}
+
+		//Which day begins the week, Mon or Sun?
+		//0 = Sun 1 = Mon
+		/*
+		if ( strtolower($start_day_of_week) == 'mon' OR $start_day_of_week == 1) {
+			$start_day_of_week = 1;
+		} else {
+			$start_day_of_week = 0;
+		}
+		*/
+
+//		Debug::text(' Start Day Of Week: '. $start_day_of_week , __FILE__, __LINE__, __METHOD__,10);
+
+//		Debug::text(' Raw Start Date: '. dDate::getDate('DATE+TIME', $start_date) .' Raw End Date: '. dDate::getDate('DATE+TIME', $end_date) , __FILE__, __LINE__, __METHOD__,10);
+
+		if ( $force_weeks == TRUE ) {
+			$cal_start_date = dDate::getBeginWeekEpoch($start_date, $start_day_of_week);
+			//$cal_end_date = dDate::getEndWeekEpoch($end_date, $start_day_of_week);
+			$cal_end_date = dDate::getEndWeekEpoch($end_date, $start_day_of_week);
+		} else {
+			$cal_start_date = $start_date;
+			$cal_end_date = $end_date;
+		}
+
+//		Debug::text(' Cal Start Date: '. dDate::getDate('DATE+TIME', $cal_start_date) .' Cal End Date: '. dDate::getDate('DATE+TIME', $cal_end_date) , __FILE__, __LINE__, __METHOD__,10);
+
+		$prev_month=NULL;
+		//$prev_week=NULL;
+		$x=0;
+		//Gotta add more then 86400 because of day light savings time.
+		//Causes infinite loop without it.
+		//Don't add 7200 to Cal End Date because that could cause more then one
+		//week to be displayed.
+
+		//for($i=$cal_start_date; $i <= $cal_end_date; $i+=86400) {
+		//for($i=$cal_start_date; $i <= ($cal_end_date+7200); $i+=93600) {
+		for($i=$cal_start_date; $i <= ($cal_end_date); $i+=93600) {
+			if ( $x > 200 ) {
+				break;
+			}
+
+			$i = dDate::getBeginDayEpoch($i);
+
+			$current_month = date('n', $i);
+			//$current_week = date('W', $i);
+			$current_day_of_week = date('w', $i);
+
+			if ( $current_month != $prev_month AND $i >= $start_date ) {
+				$isNewMonth = TRUE;
+			} else {
+				$isNewMonth = FALSE;
+			}
+
+			//if ( $current_week != $prev_week ) {
+			if ( $current_day_of_week == $start_day_of_week ) {
+				$isNewWeek = TRUE;
+			} else {
+				$isNewWeek = FALSE;
+			}
+
+			//Display only blank boxes if the date is before the filter start date, or after.
+			if ( $i >= $start_date AND $i <= $end_date ) {
+				$day_of_week = ( date('D', $i) ); // i18n: these short day strings may not be in .po file.
+				$day_of_month = date('j', $i);
+				$month_name = ( date('F', $i) ); // i18n: these short month strings may not be defined in .po file.
+			} else {
+				//Always have the day of the week at least.
+				//$day_of_week = ( date('D', $i) ); // i18n: these short day strings may not be in .po file.
+				$day_of_week = NULL;
+				$day_of_month = NULL;
+				$month_name = NULL;
+			}
+
+			$retarr[] = array(
+							'epoch' => $i,
+							'date_stamp' => dDate::getISODateStamp( $i ),
+							'start_day_of_week' => $start_day_of_week,
+							'day_of_week' => $day_of_week,
+							'day_of_month' => $day_of_month,
+							'month_name' => $month_name,
+							'month_short_name' => substr($month_name,0,3),
+							'month' => $current_month,
+							'isNewMonth' => $isNewMonth,
+							'isNewWeek' => $isNewWeek
+							);
+
+			$prev_month = $current_month;
+			//$prev_week = $current_week;
+
+			//Debug::text('i: '. $i .' Date: '. dDate::getDate('DATE+TIME', $i), __FILE__, __LINE__, __METHOD__,10);
+			$x++;
+		}
+
+		return $retarr;
+	}
+
+	function inWindow( $epoch, $window_epoch, $window ) {
+//		Debug::text(' Epoch: '. dDate::getDate('DATE+TIME', $epoch ) .' Window Epoch: '. dDate::getDate('DATE+TIME', $window_epoch ) .' Window: '. $window , __FILE__, __LINE__, __METHOD__,10);
+
+		if ( $epoch >= ( $window_epoch - $window )
+				AND $epoch <= ( $window_epoch + $window ) ) {
+//			Debug::text(' Within Window', __FILE__, __LINE__, __METHOD__,10);
+			return TRUE;
+		}
+
+//		Debug::text(' NOT Within Window', __FILE__, __LINE__, __METHOD__,10);
+
+		return FALSE;
+	}
+
+	//Date pair1
+	function getTimeOverLapDifference($start_date1, $end_date1, $start_date2, $end_date2) {
+		//Find out if Date1 overlaps with Date2
+		if ( $start_date1 == '' OR $end_date1 == '' OR $start_date2 == '' OR $end_date2 == '') {
+			return FALSE;
+		}
+
+		//Debug::text(' Checking if Start Date: '. dDate::getDate('DATE+TIME', $start_date1 ) .' End Date: '. dDate::getDate('DATE+TIME', $end_date1 ) , __FILE__, __LINE__, __METHOD__,10);
+		//Debug::text('   Overlap Start Date: '. dDate::getDate('DATE+TIME', $start_date2 ) .' End Date: '. dDate::getDate('DATE+TIME', $end_date2 ) , __FILE__, __LINE__, __METHOD__,10);
+
+		/*
+ 			  |-----------------------| <-- Date Pair 1
+				1. |-------| <-- Date Pair2
+					2.   |-------------------------|
+		3. |-----------------------|
+		4. |------------------------------------------|
+
+		*/
+		if 	( ($start_date2 >= $start_date1 AND $end_date2 <= $end_date1) ) { //Case #1
+//			Debug::text(' Overlap on Case #1: ', __FILE__, __LINE__, __METHOD__,10);
+			$retval = $end_date2 - $start_date2;
+		} elseif ( ($start_date2 >= $start_date1 AND $start_date2 <= $end_date1) ) { //Case #2
+//			Debug::text(' Overlap on Case #2: ', __FILE__, __LINE__, __METHOD__,10);
+			$retval = $end_date1 - $start_date2;
+		} elseif ( ($end_date2 >= $start_date1 AND $end_date2 <= $end_date1) ) { //Case #3
+//			Debug::text(' Overlap on Case #3: ', __FILE__, __LINE__, __METHOD__,10);
+			$retval = $end_date2 - $start_date1;
+		} elseif ( ($start_date2 <= $start_date1 AND $end_date2 >= $end_date1) ) { //Case #4
+//			Debug::text(' Overlap on Case #4: ', __FILE__, __LINE__, __METHOD__,10);
+			$retval = $end_date1 - $start_date1;
+		}
+
+		if (  isset($retval) ) {
+//			Debug::text(' Overlap Time Difference: '. $retval, __FILE__, __LINE__, __METHOD__,10);
+			return $retval;
+		}
+
+		return FALSE;
+	}
+
+	function isTimeOverLap($start_date1, $end_date1, $start_date2, $end_date2) {
+		//Find out if Date1 overlaps with Date2
+		if ( $start_date1 == '' OR $end_date1 == '' OR $start_date2 == '' OR $end_date2 == '') {
+			return FALSE;
+		}
+
+		//Debug::text(' Checking if Start Date: '. dDate::getDate('DATE+TIME', $start_date1 ) .' End Date: '. dDate::getDate('DATE+TIME', $end_date1 ) , __FILE__, __LINE__, __METHOD__,10);
+		//Debug::text('   Overlap Start Date: '. dDate::getDate('DATE+TIME', $start_date2 ) .' End Date: '. dDate::getDate('DATE+TIME', $end_date2 ) , __FILE__, __LINE__, __METHOD__,10);
+
+		/*
+ 			  |-----------------------|
+				1. |-------|
+					2.   |-------------------------|
+		3. |-----------------------|
+		4. |------------------------------------------|
+
+		*/
+		if 	( ($start_date2 >= $start_date1 AND $end_date2 <= $end_date1) ) { //Case #1
+			//Debug::text(' Overlap on Case #1: ', __FILE__, __LINE__, __METHOD__,10);
+
+			return TRUE;
+		}
+
+		//Allow case where there are several shifts in a day, ie:
+		// 8:00AM to 1:00PM, 1:00PM to 5:00PM, where the end and start times match exactly.
+		//if 	( ($start_date2 >= $start_date1 AND $start_date2 <= $end_date1) ) { //Case #2
+		if 	( ($start_date2 >= $start_date1 AND $start_date2 < $end_date1) ) { //Case #2
+			//Debug::text(' Overlap on Case #2: ', __FILE__, __LINE__, __METHOD__,10);
+
+			return TRUE;
+		}
+
+		//Allow case where there are several shifts in a day, ie:
+		// 8:00AM to 1:00PM, 1:00PM to 5:00PM, where the end and start times match exactly.
+		//if 	( ($end_date2 >= $start_date1 AND $end_date2 <= $end_date1) ) { //Case #3
+		if 	( ($end_date2 > $start_date1 AND $end_date2 <= $end_date1) ) { //Case #3
+			//Debug::text(' Overlap on Case #3: ', __FILE__, __LINE__, __METHOD__,10);
+
+			return TRUE;
+		}
+
+		if 	( ($start_date2 <= $start_date1 AND $end_date2 >= $end_date1) ) { //Case #4
+			//Debug::text(' Overlap on Case #4: ', __FILE__, __LINE__, __METHOD__,10);
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	public static function getTimeLockedDate($time_epoch, $date_epoch) {
+		$epoch = mktime( 	date('H', $time_epoch ),
+							date('i', $time_epoch ),
+							date('s', $time_epoch ),
+							date('m', $date_epoch ),
+							date('j', $date_epoch ),
+							date('Y', $date_epoch )
+							);
+		return $epoch;
+
+	}
+
+
+	// Function to return "13 mins ago" text from a given time.
+	public static function getHumanTimeSince($epoch) {
+        if (time() >= $epoch) {
+
+                $epoch_since = time() - $epoch;
+				//Debug::text(' Epoch Since: '. $epoch_since, __FILE__, __LINE__, __METHOD__,10);
+                switch (true) {
+
+                        case ($epoch_since > 31536000):
+                                //Years
+                                $num = ( ( ( ( ($epoch_since / 60) / 60) / 24 ) / 30 )  / 12 );
+                                $suffix = ('yr');
+                                break;
+                        //case ($epoch_since > 2592000):
+                        case ($epoch_since > ((3600 * 24) * 60)):
+                                //Months the above number should be 2 months, so we don't get 0 months showing up.
+                                $num = ( ( ( ( ($epoch_since / 60) / 60) / 24 ) / 30 ) );
+                                $suffix = ('mth');
+                                break;
+                        case ($epoch_since > 604800):
+                                //Weeks
+                                $num = ( ( ( ($epoch_since / 60) / 60) / 24 ) / 7 ) ;
+                                $suffix = ('wk');
+                                break;
+                        case ($epoch_since > 86400):
+                                //Days
+                                $num = ( ( ($epoch_since / 60) / 60) / 24 );
+                                $suffix = ('day');
+                                break;
+                        case ($epoch_since > 3600):
+                                //Hours
+                                $num = ( ($epoch_since / 60) / 60);
+                                $suffix = ('hr');
+
+                                break;
+                        case ($epoch_since > 60):
+                                //Mins
+                                $num = ($epoch_since / 60);
+                                $suffix = ('min');
+                                break;
+                        default:
+                                //Secs
+                                $num = $epoch_since;
+                                $suffix = ('sec');
+
+                                break;
+
+                }
+
+				if ( $num > 1 ) {
+					$suffix .= ('s');
+				}
+
+				//Debug::text(' Num: '. $num .' Suffix: '. $suffix, __FILE__, __LINE__, __METHOD__,10);
+                return sprintf("%0.01f",$num)." ".$suffix;
+        } else {
+//			Debug::text(' Returning False', __FILE__, __LINE__, __METHOD__,10);
+            return FALSE;
+        }
+
+	}
+
+	//Runs strtotime over a string, but if it happens to be an epoch, strtotime
+	//returns -1, so in this case, just return the epoch again.
+	public static function strtotime($str) {
+		if ( is_numeric($str) ) {
+			return $str;
+		}
+
+		//Debug::text(' Original String: '. $str, __FILE__, __LINE__, __METHOD__,10);
+		$retval = strtotime($str);
+		//Debug::text(' After strotime String: '. $retval, __FILE__, __LINE__, __METHOD__,10);
+
+		if ( $retval == -1 OR $retval === FALSE ) {
+			return $str;
+		}
+
+		return $retval;
+	}
+
+	public static function isBindTimeStamp( $str ) {
+		if ( strpos( $str, '-') === FALSE ) {
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+}
+
 ?>
-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

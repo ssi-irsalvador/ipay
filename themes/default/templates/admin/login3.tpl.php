@@ -1,65 +1,55 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<div align="center"><br>
+  <table width="400" border="0" cellpadding="0" cellspacing="0" bgcolor="#E6F4FF" style="border:1px solid #82CDFF;">
+    <tr>
+      <td height="30" align="center"><strong class="themeErrorMsgStyle"><?=$errMsg?></strong></td>
+    </tr>
+    <tr>
+      <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+
+        <tr>
+          <td width="30%" rowspan="2" align="center" valign="middle"><img src="<?=$themeImagesPath?>admin/lock.gif" width="95" height="105" /></td>
+          <td width="70%" class="themeLoginFont">Login</td>
+        </tr>
+
+        <tr>
+          <td align="left"><table width="95%" border="0" cellpadding="0" cellspacing="2" bgcolor="#D2EEFF">
+					<form method="post" action="">
+            <tr>
+              <td width="5%">&nbsp;</td>
+              <td width="31%">&nbsp;</td>
+              <td width="64%">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td><strong>Username:</strong></td>
+              <td><input name="user_name" type="text" id="user_name" size="20" class="themeTextInput"></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td><strong>Password:</strong></td>
+              <td><input name="user_password" type="password" id="user_password" size="20" class="themeTextInput"></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><input type="submit" name="Submit" value="Login" class="themeSubmitInput"></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+						</form>
+          </table></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td height="30">&nbsp;</td>
+    </tr>
+  </table>
+</div>

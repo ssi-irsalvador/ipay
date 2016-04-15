@@ -1,186 +1,320 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/*
+V4.70 06 Jan 2006  (c) 2000-2006 John Lim (jlim@natsoft.com.my). All rights reserved.
+  Released under both BSD license and Lesser GPL library license. 
+  Whenever there is any discrepancy between the two licenses, 
+  the BSD license will take precedence.
+
+  Latest version is available at http://adodb.sourceforge.net
+  
+  Oracle data driver. Requires Oracle client. Works on Windows and Unix and Oracle 7.
+  
+  If you are using Oracle 8 or later, use the oci8 driver which is much better and more reliable.
+*/
+
+// security - hide paths
+if (!defined('ADODB_DIR')) die();
+
+class ADODB_oracle extends ADOConnection {
+	var $databaseType = "oracle";
+	var $replaceQuote = "''"; // string to use to replace quotes
+	var $concat_operator='||';
+	var $_curs;
+	var $_initdate = true; // init date to YYYY-MM-DD
+	var $metaTablesSQL = 'select table_name from cat';	
+	var $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
+	var $sysDate = "TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD'),'YYYY-MM-DD')";
+	var $sysTimeStamp = 'SYSDATE';
+	var $connectSID = true;
+	
+	function ADODB_oracle() 
+	{
+	}
+
+	// format and return date string in database date format
+	function DBDate($d)
+	{
+		if (is_string($d)) $d = ADORecordSet::UnixDate($d);
+		return 'TO_DATE('.adodb_date($this->fmtDate,$d).",'YYYY-MM-DD')";
+	}
+	
+	// format and return date string in database timestamp format
+	function DBTimeStamp($ts)
+	{
+
+		if (is_string($ts)) $d = ADORecordSet::UnixTimeStamp($ts);
+		return 'TO_DATE('.adodb_date($this->fmtTimeStamp,$ts).",'RRRR-MM-DD, HH:MI:SS AM')";
+	}
+
+	
+	function BeginTrans()
+	{	  
+		 $this->autoCommit = false;
+		 ora_commitoff($this->_connectionID);
+		 return true;
+	}
+
+	
+	function CommitTrans($ok=true) 
+	{ 
+		   if (!$ok) return $this->RollbackTrans();
+		   $ret = ora_commit($this->_connectionID);
+		   ora_commiton($this->_connectionID);
+		   return $ret;
+	}
+
+	
+	function RollbackTrans()
+	{
+		$ret = ora_rollback($this->_connectionID);
+		ora_commiton($this->_connectionID);
+		return $ret;
+	}
+
+
+	/* there seems to be a bug in the oracle extension -- always returns ORA-00000 - no error */
+	function ErrorMsg() 
+ 	{   
+        if ($this->_errorMsg !== false) return $this->_errorMsg;
+
+        if (is_resource($this->_curs)) $this->_errorMsg = @ora_error($this->_curs);
+ 		if (empty($this->_errorMsg)) $this->_errorMsg = @ora_error($this->_connectionID);
+		return $this->_errorMsg;
+	}
+
+ 
+	function ErrorNo() 
+	{
+		if ($this->_errorCode !== false) return $this->_errorCode;
+
+		if (is_resource($this->_curs)) $this->_errorCode = @ora_errorcode($this->_curs);
+		if (empty($this->_errorCode)) $this->_errorCode = @ora_errorcode($this->_connectionID);
+        return $this->_errorCode;
+	}
+
+	
+
+		// returns true or false
+		function _connect($argHostname, $argUsername, $argPassword, $argDatabasename, $mode=0)
+		{
+			if (!function_exists('ora_plogon')) return null;
+				
+            // <G. Giunta 2003/03/03/> Reset error messages before connecting
+            $this->_errorMsg = false;
+		    $this->_errorCode = false;
+        
+            // G. Giunta 2003/08/13 - This looks danegrously suspicious: why should we want to set
+            // the oracle home to the host name of remote DB?
+//			if ($argHostname) putenv("ORACLE_HOME=$argHostname");
+
+			if($argHostname) { // code copied from version submitted for oci8 by Jorma Tuomainen <jorma.tuomainen@ppoy.fi>
+				if (empty($argDatabasename)) $argDatabasename = $argHostname;
+				else {
+					if(strpos($argHostname,":")) {
+						$argHostinfo=explode(":",$argHostname);
+						$argHostname=$argHostinfo[0];
+						$argHostport=$argHostinfo[1];
+					} else {
+						$argHostport="1521";
+					}
+
+
+					if ($this->connectSID) {
+						$argDatabasename="(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=".$argHostname
+						.")(PORT=$argHostport))(CONNECT_DATA=(SID=$argDatabasename)))";
+					} else
+						$argDatabasename="(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=".$argHostname
+						.")(PORT=$argHostport))(CONNECT_DATA=(SERVICE_NAME=$argDatabasename)))";
+				}
+
+			}
+
+			if ($argDatabasename) $argUsername .= "@$argDatabasename";
+
+		//if ($argHostname) print "<p>Connect: 1st argument should be left blank for $this->databaseType</p>";
+			if ($mode = 1)
+				$this->_connectionID = ora_plogon($argUsername,$argPassword);
+			else
+				$this->_connectionID = ora_logon($argUsername,$argPassword);
+			if ($this->_connectionID === false) return false;
+			if ($this->autoCommit) ora_commiton($this->_connectionID);
+			if ($this->_initdate) {
+				$rs = $this->_query("ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD'");
+				if ($rs) ora_close($rs);
+			}
+
+			return true;
+		}
+
+
+		// returns true or false
+		function _pconnect($argHostname, $argUsername, $argPassword, $argDatabasename)
+		{
+			return $this->_connect($argHostname, $argUsername, $argPassword, $argDatabasename, 1);
+		}
+
+
+		// returns query ID if successful, otherwise false
+		function _query($sql,$inputarr=false)
+		{
+            // <G. Giunta 2003/03/03/> Reset error messages before executing
+            $this->_errorMsg = false;
+		    $this->_errorCode = false;
+
+			$curs = ora_open($this->_connectionID);
+		 
+		 	if ($curs === false) return false;
+			$this->_curs = $curs;
+			if (!ora_parse($curs,$sql)) return false;
+			if (ora_exec($curs)) return $curs;
+            // <G. Giunta 2004/03/03> before we close the cursor, we have to store the error message
+            // that we can obtain ONLY from the cursor (and not from the connection)
+            $this->_errorCode = @ora_errorcode($curs);
+            $this->_errorMsg = @ora_error($curs);
+            // </G. Giunta 2004/03/03>            
+		 	@ora_close($curs);
+			return false;
+		}
+
+
+		// returns true or false
+		function _close()
+		{
+			return @ora_logoff($this->_connectionID);
+		}
+
+
+
+}
+
+
+/*--------------------------------------------------------------------------------------
+		 Class Name: Recordset
+--------------------------------------------------------------------------------------*/
+
+class ADORecordset_oracle extends ADORecordSet {
+
+	var $databaseType = "oracle";
+	var $bind = false;
+
+	function ADORecordset_oracle($queryID,$mode=false)
+	{
+		
+		if ($mode === false) { 
+			global $ADODB_FETCH_MODE;
+			$mode = $ADODB_FETCH_MODE;
+		}
+		$this->fetchMode = $mode;
+		
+		$this->_queryID = $queryID;
+	
+		$this->_inited = true;
+		$this->fields = array();
+		if ($queryID) {
+			$this->_currentRow = 0;
+			$this->EOF = !$this->_fetch();
+			@$this->_initrs();
+		} else {
+			$this->_numOfRows = 0;
+			$this->_numOfFields = 0;
+			$this->EOF = true;
+		}
+		
+		return $this->_queryID;
+	}
+
+
+
+	   /*		Returns: an object containing field information.
+			   Get column information in the Recordset object. fetchField() can be used in order to obtain information about
+			   fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
+			   fetchField() is retrieved.		*/
+
+	   function &FetchField($fieldOffset = -1)
+	   {
+			$fld = new ADOFieldObject;
+			$fld->name = ora_columnname($this->_queryID, $fieldOffset);
+			$fld->type = ora_columntype($this->_queryID, $fieldOffset);
+			$fld->max_length = ora_columnsize($this->_queryID, $fieldOffset);
+			return $fld;
+	   }
+
+	/* Use associative array to get fields array */
+	function Fields($colname)
+	{
+		if (!$this->bind) {
+			$this->bind = array();
+			for ($i=0; $i < $this->_numOfFields; $i++) {
+				$o = $this->FetchField($i);
+				$this->bind[strtoupper($o->name)] = $i;
+			}
+		}
+		
+		 return $this->fields[$this->bind[strtoupper($colname)]];
+	}
+	
+   function _initrs()
+   {
+		   $this->_numOfRows = -1;
+		   $this->_numOfFields = @ora_numcols($this->_queryID);
+   }
+
+
+   function _seek($row)
+   {
+		   return false;
+   }
+
+   function _fetch($ignore_fields=false) {
+// should remove call by reference, but ora_fetch_into requires it in 4.0.3pl1
+		if ($this->fetchMode & ADODB_FETCH_ASSOC)
+			return @ora_fetch_into($this->_queryID,&$this->fields,ORA_FETCHINTO_NULLS|ORA_FETCHINTO_ASSOC);
+   		else 
+			return @ora_fetch_into($this->_queryID,&$this->fields,ORA_FETCHINTO_NULLS);
+   }
+
+   /*		close() only needs to be called if you are worried about using too much memory while your script
+		   is running. All associated result memory for the specified result identifier will automatically be freed.		*/
+
+   function _close() 
+{
+		   return @ora_close($this->_queryID);
+   }
+
+	function MetaType($t,$len=-1)
+	{
+		if (is_object($t)) {
+			$fieldobj = $t;
+			$t = $fieldobj->type;
+			$len = $fieldobj->max_length;
+		}
+		
+		switch (strtoupper($t)) {
+		case 'VARCHAR':
+		case 'VARCHAR2':
+		case 'CHAR':
+		case 'VARBINARY':
+		case 'BINARY':
+				if ($len <= $this->blobSize) return 'C';
+		case 'LONG':
+		case 'LONG VARCHAR':
+		case 'CLOB':
+		return 'X';
+		case 'LONG RAW':
+		case 'LONG VARBINARY':
+		case 'BLOB':
+				return 'B';
+		
+		case 'DATE': return 'D';
+		
+		//case 'T': return 'T';
+		
+		case 'BIT': return 'L';
+		case 'INT': 
+		case 'SMALLINT':
+		case 'INTEGER': return 'I';
+		default: return 'N';
+		}
+	}
+}
 ?>
-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

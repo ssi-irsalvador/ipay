@@ -1,83 +1,67 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-oZ/5xMk5ZdTCSkXIgU6KK7y=
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Transport/SmtpAgent.php';
+require_once 'Swift/Transport/Esmtp/Auth/CramMd5Authenticator.php';
+require_once 'Swift/TransportException.php';
+
+class Swift_Transport_Esmtp_Auth_CramMd5AuthenticatorTest
+    extends Swift_Tests_SwiftUnitTestCase
+{
+    private $_agent;
+
+    public function setUp()
+    {
+        $this->_agent = $this->_mock('Swift_Transport_SmtpAgent');
+    }
+
+    public function testKeywordIsCramMd5()
+    {
+        /* -- RFC 2195, 2.
+        The authentication type associated with CRAM is "CRAM-MD5".
+        */
+
+        $cram = $this->_getAuthenticator();
+        $this->assertEqual('CRAM-MD5', $cram->getAuthKeyword());
+    }
+
+    public function testSuccessfulAuthentication()
+    {
+        $cram = $this->_getAuthenticator();
+        $this->_checking(Expectations::create()
+            -> one($this->_agent)->executeCommand("AUTH CRAM-MD5\r\n", array(334))
+                -> returns('334 ' . base64_encode('<foo@bar>') . "\r\n")
+            // The use of any() is controversial, but here to avoid crazy test logic
+            -> one($this->_agent)->executeCommand(any(), array(235))
+            );
+
+        $this->assertTrue($cram->authenticate($this->_agent, 'jack', 'pass'),
+            '%s: The buffer accepted all commands authentication should succeed'
+            );
+    }
+
+    public function testAuthenticationFailureSendRsetAndReturnFalse()
+    {
+        $cram = $this->_getAuthenticator();
+        $this->_checking(Expectations::create()
+            -> one($this->_agent)->executeCommand("AUTH CRAM-MD5\r\n", array(334))
+                -> returns('334 ' . base64_encode('<foo@bar>') . "\r\n")
+            // The use of any() is controversial, but here to avoid crazy test logic
+            -> one($this->_agent)->executeCommand(any(), array(235))
+       -> throws(new Swift_TransportException(""))
+
+            -> one($this->_agent)->executeCommand("RSET\r\n", array(250))
+            );
+
+        $this->assertFalse($cram->authenticate($this->_agent, 'jack', 'pass'),
+            '%s: Authentication fails, so RSET should be sent'
+            );
+    }
+
+    // -- Private helpers
+
+    private function _getAuthenticator()
+    {
+        return new Swift_Transport_Esmtp_Auth_CramMd5Authenticator();
+    }
+}

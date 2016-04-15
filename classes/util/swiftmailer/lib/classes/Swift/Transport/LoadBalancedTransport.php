@@ -1,82 +1,171 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Redundantly and rotationally uses several Transports when sending.
+ *
+ * @package    Swift
+ * @subpackage Transport
+ * @author     Chris Corbyn
+ */
+class Swift_Transport_LoadBalancedTransport implements Swift_Transport
+{
+    /**
+     * Transports which are deemed useless.
+     *
+     * @var Swift_Transport[]
+     */
+    private $_deadTransports = array();
+
+    /**
+     * The Transports which are used in rotation.
+     *
+     * @var Swift_Transport[]
+     */
+    protected $_transports = array();
+
+    /**
+     * Creates a new LoadBalancedTransport.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Set $transports to delegate to.
+     *
+     * @param Swift_Transport[] $transports
+     */
+    public function setTransports(array $transports)
+    {
+        $this->_transports = $transports;
+        $this->_deadTransports = array();
+    }
+
+    /**
+     * Get $transports to delegate to.
+     *
+     * @return Swift_Transport[]
+     */
+    public function getTransports()
+    {
+        return array_merge($this->_transports, $this->_deadTransports);
+    }
+
+    /**
+     * Test if this Transport mechanism has started.
+     *
+     * @return boolean
+     */
+    public function isStarted()
+    {
+        return count($this->_transports) > 0;
+    }
+
+    /**
+     * Start this Transport mechanism.
+     */
+    public function start()
+    {
+        $this->_transports = array_merge($this->_transports, $this->_deadTransports);
+    }
+
+    /**
+     * Stop this Transport mechanism.
+     */
+    public function stop()
+    {
+        foreach ($this->_transports as $transport) {
+            $transport->stop();
+        }
+    }
+
+    /**
+     * Send the given Message.
+     *
+     * Recipient/sender data will be retrieved from the Message API.
+     * The return value is the number of recipients who were accepted for delivery.
+     *
+     * @param Swift_Mime_Message $message
+     * @param string[]           $failedRecipients An array of failures by-reference
+     *
+     * @return int
+     */
+    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
+    {
+        $maxTransports = count($this->_transports);
+        $sent = 0;
+
+        for ($i = 0; $i < $maxTransports
+            && $transport = $this->_getNextTransport(); ++$i)
+        {
+            try {
+                if (!$transport->isStarted()) {
+                    $transport->start();
+                }
+                if ($sent = $transport->send($message, $failedRecipients)) {
+                    break;
+                }
+            } catch (Swift_TransportException $e) {
+                $this->_killCurrentTransport();
+            }
+        }
+
+        if (count($this->_transports) == 0) {
+            throw new Swift_TransportException(
+                'All Transports in LoadBalancedTransport failed, or no Transports available'
+                );
+        }
+
+        return $sent;
+    }
+
+    /**
+     * Register a plugin.
+     *
+     * @param Swift_Events_EventListener $plugin
+     */
+    public function registerPlugin(Swift_Events_EventListener $plugin)
+    {
+        foreach ($this->_transports as $transport) {
+            $transport->registerPlugin($plugin);
+        }
+    }
+
+    // -- Protected methods
+
+    /**
+     * Rotates the transport list around and returns the first instance.
+     *
+     * @return Swift_Transport
+     */
+    protected function _getNextTransport()
+    {
+        if ($next = array_shift($this->_transports)) {
+            $this->_transports[] = $next;
+        }
+
+        return $next;
+    }
+
+    /**
+     * Tag the currently used (top of stack) transport as dead/useless.
+     */
+    protected function _killCurrentTransport()
+    {
+        if ($transport = array_pop($this->_transports)) {
+            try {
+                $transport->stop();
+            } catch (Exception $e) {
+            }
+            $this->_deadTransports[] = $transport;
+        }
+    }
+}

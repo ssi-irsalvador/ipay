@@ -1,66 +1,49 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-CzB7jdCw3Vp+e0swtuq=
+<?php
+
+require_once 'Swift/Tests/SwiftUnitTestCase.php';
+require_once 'Swift/Events/TransportExceptionEvent.php';
+require_once 'Swift/Transport.php';
+require_once 'Swift/TransportException.php';
+
+class Swift_Events_TransportExceptionEventTest extends Swift_Tests_SwiftUnitTestCase
+{
+    public function testExceptionCanBeFetchViaGetter()
+    {
+        $ex = $this->_createException();
+        $transport = $this->_createTransport();
+        $evt = $this->_createEvent($transport, $ex);
+        $ref = $evt->getException();
+        $this->assertReference($ex, $ref,
+            '%s: Exception should be available via getException()'
+            );
+    }
+
+    public function testSourceIsTransport()
+    {
+        $ex = $this->_createException();
+        $transport = $this->_createTransport();
+        $evt = $this->_createEvent($transport, $ex);
+        $ref = $evt->getSource();
+        $this->assertReference($transport, $ref,
+            '%s: Transport should be available via getSource()'
+            );
+    }
+
+    // -- Creation Methods
+
+    private function _createEvent(Swift_Transport $transport,
+        Swift_TransportException $ex)
+    {
+        return new Swift_Events_TransportExceptionEvent($transport, $ex);
+    }
+
+    private function _createTransport()
+    {
+        return $this->_stub('Swift_Transport');
+    }
+
+    private function _createException()
+    {
+        return new Swift_TransportException('');
+    }
+}

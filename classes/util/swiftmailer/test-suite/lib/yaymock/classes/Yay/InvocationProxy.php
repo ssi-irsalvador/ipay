@@ -1,57 +1,90 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ */
+ 
+//require 'Yay/ExpectationProvider.php';
+//require 'Yay/InvocationRecorder.php';
+//require 'Yay/MockObject.php';
+//require 'Yay/SimpleInvocation.php';
+
+/**
+ * Proxies Invocations on a Mock object to the recorder.
+ * @author Chris Corbyn <chris@w3style.co.uk>
+ * @package Yay
+ */
+class Yay_InvocationProxy implements Yay_ExpectationProvider
+{
+  
+  /**
+   * The InvocationRecorder which is using this InvocationProxy.
+   * @var Yay_InvocationRecorder
+   * @access private
+   */
+  private $_recorder;
+  
+  /**
+   * The Mock object where Invocations are recorded from.
+   * @var Yay_MockObject
+   * @access private
+   */
+  private $_mock;
+  
+  /**
+   * Create a new InvocationProxy for $recorder and $mock.
+   * @param Yay_InvocationRecorder $recorder
+   * @param Yay_MockObject $mock
+   */
+  public function __construct(Yay_InvocationRecorder $recorder, Yay_MockObject $mock)
+  {
+    $this->_recorder = $recorder;
+    $this->_mock = $mock;
+  }
+  
+  /**
+   * Direct all invocations to the recorder.
+   * @param string $method
+   * @param array $args
+   * @return Yay_InvocationRecorder
+   */
+  public function __call($method, $args)
+  {
+    if (is_callable(array($this->_mock, $method)))
+    {
+      $invocation = new Yay_SimpleInvocation($this->_mock, $method, $args);
+      $this->_recorder->recordInvocation($invocation);
+      return $this->_recorder;
+    }
+    elseif (is_callable(array($this->_recorder, $method)))
+    {
+      return call_user_func_array(array($this->_recorder, $method), $args);
+    }
+    else
+    {
+      throw new BadMethodCallException('Mock method ' . $method . ' does not exist');
+    }
+  }
+  
+  /**
+   * Returns the Expectation list.
+   * @return array of Yay_Expectation
+   */
+  public function getExpectations()
+  {
+    return $this->__call(__FUNCTION__, array());
+  }
+  
+}

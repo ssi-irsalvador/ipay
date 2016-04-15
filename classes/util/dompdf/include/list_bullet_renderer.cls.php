@@ -1,113 +1,200 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+/**
+ * DOMPDF - PHP5 HTML to PDF renderer
+ *
+ * File: $RCSfile: list_bullet_renderer.cls.php,v $
+ * Created on: 2004-06-23
+ *
+ * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library in the file LICENSE.LGPL; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * Alternatively, you may distribute this software under the terms of the
+ * PHP License, version 3.0 or later.  A copy of this license should have
+ * been distributed with this file in the file LICENSE.PHP .  If this is not
+ * the case, you can obtain a copy at http://www.php.net/license/3_0.txt.
+ *
+ * The latest version of DOMPDF might be available at:
+ * http://www.dompdf.com/
+ *
+ * @link http://www.dompdf.com/
+ * @copyright 2004 Benj Carson
+ * @author Benj Carson <benjcarson@digitaljunkies.ca>
+ * @contributor Helmut Tischer <htischer@weihenstephan.org>
+ * @package dompdf
+
+ *
+ * Changes
+ * @contributor Helmut Tischer <htischer@weihenstephan.org>
+ * @version 20090622
+ * - bullet size proportional to font size, center position
+ */
+
+/* $Id: list_bullet_renderer.cls.php 354 2011-01-24 21:59:54Z fabien.menager $ */
+
+/**
+ * Renders list bullets
+ *
+ * @access private
+ * @package dompdf
+ */
+class List_Bullet_Renderer extends Abstract_Renderer {
+
+  //........................................................................
+  private function make_counter($n, $type, $pad = null){
+    $n = intval($n);
+    $text = "";
+    $uppercase = false;
+    
+    switch ($type) {
+      case "decimal-leading-zero":
+      case "decimal":
+      case "1":
+        if ($pad) 
+          $text = str_pad($n, $pad, "0", STR_PAD_LEFT);
+        else 
+          $text = $n;
+        break;
+      
+      case "upper-alpha":
+      case "upper-latin":
+      case "A":
+        $uppercase = true;
+      case "lower-alpha":
+      case "lower-latin":
+      case "a":
+        $text = chr( ($n % 26) + ord('a') - 1);
+        break;
+        
+      case "upper-roman":
+      case "I":
+        $uppercase = true;
+      case "lower-roman":
+      case "i":
+        $text = dec2roman($n);
+        break;
+      
+      case "lower-greek":
+        $text = unichr($n + 944);
+        break;
+    }
+    
+    if ($uppercase) 
+      $text = strtoupper($text);
+      
+    return $text.".";
+  }
+  
+  function render(Frame $frame) {
+
+    $style = $frame->get_style();
+    $font_size = $style->get_font_size();
+    $line_height = $style->length_in_pt($style->line_height, $frame->get_containing_block("w"));
+
+    $this->_set_opacity( $frame->get_opacity( $style->opacity ) );
+    
+    // Handle list-style-image
+    // If list style image is requested but missing, fall back to predefined types
+    if ( $style->list_style_image !== "none" &&
+         strcmp($img = $frame->get_image_url(), DOMPDF_LIB_DIR . "/res/broken_image.png") != 0) {
+
+      list($x,$y) = $frame->get_position();
+      
+      //For expected size and aspect, instead of box size, use image natural size scaled to DPI.
+      // Resample the bullet image to be consistent with 'auto' sized images
+      // See also Image_Frame_Reflower::get_min_max_width
+      // Tested php ver: value measured in px, suffix "px" not in value: rtrim unnecessary.
+      //$w = $frame->get_width();
+      //$h = $frame->get_height();
+      list($width, $height) = dompdf_getimagesize($img);
+      $w = (((float)rtrim($width, "px")) * 72) / DOMPDF_DPI;
+      $h = (((float)rtrim($height, "px")) * 72) / DOMPDF_DPI;
+      
+      $x -= $w;
+      $y -= ($line_height - $font_size)/2; //Reverse hinting of list_bullet_positioner
+
+      $this->_canvas->image( $img, $frame->get_image_ext(), $x, $y, $w, $h);
+
+    } else {
+
+      $bullet_style = $style->list_style_type;
+
+      $fill = false;
+
+      switch ($bullet_style) {
+
+      default:
+      case "disc":
+        $fill = true;
+
+      case "circle":
+        list($x,$y) = $frame->get_position();
+        $r = ($font_size*(List_Bullet_Frame_Decorator::BULLET_SIZE /*-List_Bullet_Frame_Decorator::BULLET_THICKNESS*/ ))/2;
+        $x -= $font_size*(List_Bullet_Frame_Decorator::BULLET_SIZE/2);
+        $y += ($font_size*(1-List_Bullet_Frame_Decorator::BULLET_DESCENT))/2;
+        $o = $font_size*List_Bullet_Frame_Decorator::BULLET_THICKNESS;
+        $this->_canvas->circle($x, $y, $r, $style->color, $o, null, $fill);
+        break;
+
+      case "square":
+        list($x, $y) = $frame->get_position();
+        $w = $font_size*List_Bullet_Frame_Decorator::BULLET_SIZE;
+        $x -= $w;
+        $y += ($font_size*(1-List_Bullet_Frame_Decorator::BULLET_DESCENT-List_Bullet_Frame_Decorator::BULLET_SIZE))/2;
+        $this->_canvas->filled_rectangle($x, $y, $w, $w, $style->color);
+        break;
+		
+      case "decimal-leading-zero":
+      case "decimal":
+      case "lower-alpha":
+      case "lower-latin":
+      case "lower-roman":
+      case "lower-greek":
+      case "upper-alpha":
+      case "upper-latin":
+      case "upper-roman":
+      case "1": // HTML 4.0 compatibility
+      case "a":
+      case "i":
+      case "A":
+      case "I":
+        list($x,$y) = $frame->get_position();
+        
+        $pad = null;
+        if ( $bullet_style === "decimal-leading-zero" ) {
+          $pad = strlen($frame->get_parent()->get_parent()->get_node()->getAttribute("dompdf-children-count"));
+        }
+        
+        $index = $frame->get_node()->getAttribute("dompdf-counter");
+        $text = $this->make_counter($index, $bullet_style, $pad);
+        $font_family = $style->font_family;
+        $spacing = 0; //$frame->get_text_spacing() + $style->word_spacing;
+        
+        if ( trim($text) == "" )
+          return;
+
+        $x -= Font_Metrics::get_text_width($text, $font_family, $font_size, $spacing);
+        
+        $this->_canvas->text($x, $y, $text,
+                             $font_family, $font_size,
+                             $style->color, $spacing);
+      
+      case "none":
+        break;
+      }
+    }
+  }
+}

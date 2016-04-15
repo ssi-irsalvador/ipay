@@ -1,59 +1,101 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+//require 'Yay/Expectations/AbstractExpectation.php';
+//require 'Yay/Invocation.php';
+
+/**
+ * An Expectation which wants at least a set number of matching Invocations.
+ * @author Chris Corbyn <chris@w3style.co.uk>
+ * @package Yay
+ */
+class Yay_Expectations_AtLeastExpectation
+  extends Yay_Expectations_AbstractExpectation
+{
+
+  /**
+   * The expected Invocation count.
+   * @var int
+   * @access private
+   */
+  private $_count = 0;
+
+  /**
+   * The number of matched Invocations.
+   * @var int
+   * @access private
+   */
+  private $_matched = 0;
+
+  /**
+   * Create a new AtLeastExpectation expecting at least $n Invocations.
+   * @param integer $n
+   */
+  public function __construct($n)
+  {
+    $this->_count = $n;
+  }
+
+  /**
+   * Test if all conditions of the Invocation are satisfied.
+   * @return boolean
+   */
+  public function isSatisfied()
+  {
+    return ($this->_matched >= $this->_count);
+  }
+
+  /**
+   * Increment the match counter by 1.
+   * @param Yay_Invocation $invocation
+   */
+  public function notifyMatchedInvocation(Yay_Invocation $invocation)
+  {
+    $this->_matched++;
+  }
+
+  /**
+   * Describe the boundaries of how many invocations can occur.
+   * @param Yay_Description $description
+   */
+  public function describeBounds(Yay_Description $description)
+  {
+    if ($this->_count > 0)
+    {
+      $description->appendText(sprintf('At least %d', $this->_count));
+    }
+    else
+    {
+      $description->appendText('Any number');
+    }
+  }
+
+  /**
+   * Describe the current status of this expectation.
+   * @param Yay_Description $description
+   */
+  public function describeSatisfaction(Yay_Description $description)
+  {
+    if ($this->_matched >= $this->_count)
+    {
+      $description->appendText(' already');
+    }
+    $description->appendText(sprintf(' occurred %d times', $this->_matched));
+  }
+
+}

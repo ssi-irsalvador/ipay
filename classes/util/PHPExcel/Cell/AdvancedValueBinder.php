@@ -1,138 +1,192 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-4PtdlZEKSeM9X7Cv03OxW3KIkN2dSJlmh3/xaKC=
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Cell
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
+
+/**
+ * PHPExcel_Cell_AdvancedValueBinder
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Cell
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
+{
+    /**
+     * Bind value to a cell
+     *
+     * @param  PHPExcel_Cell  $cell  Cell to bind value to
+     * @param  mixed $value          Value to bind in cell
+     * @return boolean
+     */
+    public function bindValue(PHPExcel_Cell $cell, $value = null)
+    {
+        // sanitize UTF-8 strings
+        if (is_string($value)) {
+            $value = PHPExcel_Shared_String::SanitizeUTF8($value);
+        }
+
+        // Find out data type
+        $dataType = parent::dataTypeForValue($value);
+
+        // Style logic - strings
+        if ($dataType === PHPExcel_Cell_DataType::TYPE_STRING && !$value instanceof PHPExcel_RichText) {
+            //    Test for booleans using locale-setting
+            if ($value == PHPExcel_Calculation::getTRUE()) {
+                $cell->setValueExplicit( TRUE, PHPExcel_Cell_DataType::TYPE_BOOL);
+                return true;
+            } elseif($value == PHPExcel_Calculation::getFALSE()) {
+                $cell->setValueExplicit( FALSE, PHPExcel_Cell_DataType::TYPE_BOOL);
+                return true;
+            }
+
+            // Check for number in scientific format
+            if (preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_NUMBER.'$/', $value)) {
+                $cell->setValueExplicit( (float) $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                return true;
+            }
+
+            // Check for fraction
+            if (preg_match('/^([+-]?)\s*([0-9]+)\s?\/\s*([0-9]+)$/', $value, $matches)) {
+                // Convert value to number
+                $value = $matches[2] / $matches[3];
+                if ($matches[1] == '-') $value = 0 - $value;
+                $cell->setValueExplicit( (float) $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                // Set style
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getNumberFormat()->setFormatCode( '??/??' );
+                return true;
+            } elseif (preg_match('/^([+-]?)([0-9]*) +([0-9]*)\s?\/\s*([0-9]*)$/', $value, $matches)) {
+                // Convert value to number
+                $value = $matches[2] + ($matches[3] / $matches[4]);
+                if ($matches[1] == '-') $value = 0 - $value;
+                $cell->setValueExplicit( (float) $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                // Set style
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getNumberFormat()->setFormatCode( '# ??/??' );
+                return true;
+            }
+
+            // Check for percentage
+            if (preg_match('/^\-?[0-9]*\.?[0-9]*\s?\%$/', $value)) {
+                // Convert value to number
+                $value = (float) str_replace('%', '', $value) / 100;
+                $cell->setValueExplicit( $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                // Set style
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getNumberFormat()->setFormatCode( PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00 );
+                return true;
+            }
+
+            // Check for currency
+            $currencyCode = PHPExcel_Shared_String::getCurrencyCode();
+            $decimalSeparator = PHPExcel_Shared_String::getDecimalSeparator();
+            $thousandsSeparator = PHPExcel_Shared_String::getThousandsSeparator();
+            if (preg_match('/^'.preg_quote($currencyCode).' *(\d{1,3}('.preg_quote($thousandsSeparator).'\d{3})*|(\d+))('.preg_quote($decimalSeparator).'\d{2})?$/', $value)) {
+                // Convert value to number
+                $value = (float) trim(str_replace(array($currencyCode, $thousandsSeparator, $decimalSeparator), array('', '', '.'), $value));
+                $cell->setValueExplicit( $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                // Set style
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getNumberFormat()->setFormatCode(
+                        str_replace('$', $currencyCode, PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE )
+                    );
+                return true;
+            } elseif (preg_match('/^\$ *(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/', $value)) {
+                // Convert value to number
+                $value = (float) trim(str_replace(array('$',','), '', $value));
+                $cell->setValueExplicit( $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                // Set style
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getNumberFormat()->setFormatCode( PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE );
+                return true;
+            }
+
+            // Check for time without seconds e.g. '9:45', '09:45'
+            if (preg_match('/^(\d|[0-1]\d|2[0-3]):[0-5]\d$/', $value)) {
+                // Convert value to number
+                list($h, $m) = explode(':', $value);
+                $days = $h / 24 + $m / 1440;
+                $cell->setValueExplicit($days, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                // Set style
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getNumberFormat()->setFormatCode( PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME3 );
+                return true;
+            }
+
+            // Check for time with seconds '9:45:59', '09:45:59'
+            if (preg_match('/^(\d|[0-1]\d|2[0-3]):[0-5]\d:[0-5]\d$/', $value)) {
+                // Convert value to number
+                list($h, $m, $s) = explode(':', $value);
+                $days = $h / 24 + $m / 1440 + $s / 86400;
+                // Convert value to number
+                $cell->setValueExplicit($days, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                // Set style
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getNumberFormat()->setFormatCode( PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME4 );
+                return true;
+            }
+
+            // Check for datetime, e.g. '2008-12-31', '2008-12-31 15:59', '2008-12-31 15:59:10'
+            if (($d = PHPExcel_Shared_Date::stringToExcel($value)) !== false) {
+                // Convert value to number
+                $cell->setValueExplicit($d, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                // Determine style. Either there is a time part or not. Look for ':'
+                if (strpos($value, ':') !== false) {
+                    $formatCode = 'yyyy-mm-dd h:mm';
+                } else {
+                    $formatCode = 'yyyy-mm-dd';
+                }
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getNumberFormat()->setFormatCode($formatCode);
+                return true;
+            }
+
+            // Check for newline character "\n"
+            if (strpos($value, "\n") !== FALSE) {
+                $value = PHPExcel_Shared_String::SanitizeUTF8($value);
+                $cell->setValueExplicit($value, PHPExcel_Cell_DataType::TYPE_STRING);
+                // Set style
+                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                    ->getAlignment()->setWrapText(TRUE);
+                return true;
+            }
+        }
+
+        // Not bound yet? Use parent...
+        return parent::bindValue($cell, $value);
+    }
+}

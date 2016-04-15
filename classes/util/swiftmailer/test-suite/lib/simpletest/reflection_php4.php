@@ -1,54 +1,136 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+/**
+ *  base include file for SimpleTest
+ *  @package    SimpleTest
+ *  @subpackage UnitTester
+ *  @version    $Id: reflection_php4.php 1672 2008-03-02 04:47:34Z edwardzyang $
+ */
+
+/**
+ *  Version specific reflection API.
+ *  @package SimpleTest
+ *  @subpackage UnitTester
+ *  @ignore duplicate with reflection_php5.php
+ */
+class SimpleReflection {
+    var $_interface;
+
+    /**
+     *    Stashes the class/interface.
+     *    @param string $interface    Class or interface
+     *                                to inspect.
+     */
+    function SimpleReflection($interface) {
+        $this->_interface = $interface;
+    }
+
+    /**
+     *    Checks that a class has been declared.
+     *    @return boolean        True if defined.
+     *    @access public
+     */
+    function classExists() {
+        return class_exists($this->_interface);
+    }
+
+    /**
+     *    Needed to kill the autoload feature in PHP5
+     *    for classes created dynamically.
+     *    @return boolean        True if defined.
+     *    @access public
+     */
+    function classExistsSansAutoload() {
+        return class_exists($this->_interface);
+    }
+
+    /**
+     *    Checks that a class or interface has been
+     *    declared.
+     *    @return boolean        True if defined.
+     *    @access public
+     */
+    function classOrInterfaceExists() {
+        return class_exists($this->_interface);
+    }
+
+    /**
+     *    Needed to kill the autoload feature in PHP5
+     *    for classes created dynamically.
+     *    @return boolean        True if defined.
+     *    @access public
+     */
+    function classOrInterfaceExistsSansAutoload() {
+        return class_exists($this->_interface);
+    }
+
+    /**
+     *    Gets the list of methods on a class or
+     *    interface.
+     *    @returns array          List of method names.
+     *    @access public
+     */
+    function getMethods() {
+        return get_class_methods($this->_interface);
+    }
+
+    /**
+     *    Gets the list of interfaces from a class. If the
+     *    class name is actually an interface then just that
+     *    interface is returned.
+     *    @returns array          List of interfaces.
+     *    @access public
+     */
+    function getInterfaces() {
+        return array();
+    }
+
+    /**
+     *    Finds the parent class name.
+     *    @returns string      Parent class name.
+     *    @access public
+     */
+    function getParent() {
+        return strtolower(get_parent_class($this->_interface));
+    }
+
+    /**
+     *    Determines if the class is abstract, which for PHP 4
+     *    will never be the case.
+     *    @returns boolean      True if abstract.
+     *    @access public
+     */
+    function isAbstract() {
+        return false;
+    }
+
+    /**
+     *    Determines if the the entity is an interface, which for PHP 4
+     *    will never be the case.
+     *    @returns boolean      True if interface.
+     *    @access public
+     */
+    function isInterface() {
+        return false;
+    }
+        
+    /**
+     *    Scans for final methods, but as it's PHP 4 there
+     *    aren't any.
+     *    @returns boolean   True if the class has a final method.
+     *    @access public
+     */
+    function hasFinal() {
+        return false;
+    }
+
+    /**
+     *    Gets the source code matching the declaration
+     *    of a method.
+     *    @param string $method       Method name.
+     *    @access public
+     */
+    function getSignature($method) {
+        return "function &$method()";
+    }
+}
 ?>
-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
-2wtA9wxDcvC7+uz//EYcTVJEj7npDwK=

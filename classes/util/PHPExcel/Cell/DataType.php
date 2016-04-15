@@ -1,50 +1,122 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-HBdfkoTW5ubLj0SXluf51OrelrK1e2e=
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Cell
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Cell_DataType
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Cell
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Cell_DataType
+{
+    /* Data types */
+    const TYPE_STRING2  = 'str';
+    const TYPE_STRING   = 's';
+    const TYPE_FORMULA  = 'f';
+    const TYPE_NUMERIC  = 'n';
+    const TYPE_BOOL     = 'b';
+    const TYPE_NULL     = 'null';
+    const TYPE_INLINE   = 'inlineStr';
+    const TYPE_ERROR    = 'e';
+
+    /**
+     * List of error codes
+     *
+     * @var array
+     */
+    private static $_errorCodes = array(
+        '#NULL!'  => 0,
+        '#DIV/0!' => 1,
+        '#VALUE!' => 2,
+        '#REF!'   => 3,
+        '#NAME?'  => 4,
+        '#NUM!'   => 5,
+        '#N/A'    => 6
+    );
+
+    /**
+     * Get list of error codes
+     *
+     * @return array
+     */
+    public static function getErrorCodes() {
+        return self::$_errorCodes;
+    }
+
+    /**
+     * DataType for value
+     *
+     * @deprecated  Replaced by PHPExcel_Cell_IValueBinder infrastructure, will be removed in version 1.8.0
+     * @param       mixed  $pValue
+     * @return      string
+     */
+    public static function dataTypeForValue($pValue = null) {
+        return PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($pValue);
+    }
+
+    /**
+     * Check a string that it satisfies Excel requirements
+     *
+     * @param  mixed  Value to sanitize to an Excel string
+     * @return mixed  Sanitized value
+     */
+    public static function checkString($pValue = null)
+    {
+        if ($pValue instanceof PHPExcel_RichText) {
+            // TODO: Sanitize Rich-Text string (max. character count is 32,767)
+            return $pValue;
+        }
+
+        // string must never be longer than 32,767 characters, truncate if necessary
+        $pValue = PHPExcel_Shared_String::Substring($pValue, 0, 32767);
+
+        // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
+        $pValue = str_replace(array("\r\n", "\r"), "\n", $pValue);
+
+        return $pValue;
+    }
+
+    /**
+     * Check a value that it is a valid error code
+     *
+     * @param  mixed   Value to sanitize to an Excel error code
+     * @return string  Sanitized value
+     */
+    public static function checkErrorCode($pValue = null)
+    {
+        $pValue = (string) $pValue;
+
+        if ( !array_key_exists($pValue, self::$_errorCodes) ) {
+            $pValue = '#NULL!';
+        }
+
+        return $pValue;
+    }
+
+}

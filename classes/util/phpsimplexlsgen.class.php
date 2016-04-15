@@ -1,119 +1,189 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+
+/**************************************************************** 
+* Script         : PHP Simple Excel File Generator - Base Class 
+* Project        : PHP SimpleXlsGen 
+* Author         : Erol Ozcan <eozcan@superonline.com> 
+* Version        : 0.2 
+* Copyright      : GNU LGPL 
+* URL            : http://psxlsgen.sourceforge.net 
+* Last modified  : 19 May 2001 
+* Description     : This class is used to generate very simple 
+*   MS Excel file (xls) via PHP. 
+*   The generated xls file can be obtained by web as a stream 
+*   file or can be written under $default_dir path. This package 
+*   is also included mysql, pgsql, oci8 database interaction to 
+*   generate xls files. 
+*   Limitations: 
+*    - Max character size of a text(label) cell is 255 
+*    ( due to MS Excel 5.0 Binary File Format definition ) 
+* 
+* Credits        : This class is based on Christian Novak's small 
+*                   Excel library functions. 
+******************************************************************/ 
+
+if( !defined( "PHP_SIMPLE_XLS_GEN" ) ) { 
+   define( "PHP_SIMPLE_XLS_GEN", 1 ); 
+
+   class  PhpSimpleXlsGen { 
+      var  $class_ver = "0.2";    // class version 
+      var  $xls_data   = "";      // where generated xls be stored 
+      var  $default_dir = "";     // default directory to be saved file 
+      var  $filename  = "xixls";       // save filename 
+      var  $fname    = "";        // filename with full path 
+      var  $crow     = 0;         // current row number 
+      var  $ccol     = 0;         // current column number 
+      var  $totalcol = 0;         // total number of columns 
+      var  $get_type = 0;         // 0=stream, 1=file 
+      var  $errno    = 0;         // 0=no error 
+      var  $error    = "";        // error string 
+      var  $dirsep   = "/";       // directory separator 
+      var  $header   = 0;         // 0=no header, 1=header line for xls table 
+
+     // Default constructor 
+     function  PhpSimpleXlsGen() 
+     { 
+       $os = getenv( "OS" ); 
+       $temp = getenv( "TEMP"); 
+       // check OS and set proper values for some vars. 
+       if ( stristr( $os, "Windows" ) ) { 
+          $this->default_dir = $temp; 
+          $this->dirsep = "\\"; 
+       } else { 
+         // assume that is Unix/Linux 
+         $this->default_dir = "/tmp"; 
+         $this->dirsep =  "/"; 
+       } 
+       // begin of the excel file header 
+       $this->xls_data = pack( "ssssss", 0x809, 0x08, 0x00,0x10, 0x0, 0x0 ); 
+       // check header text 
+       if ( $this->header ) { 
+         $this->Header(); 
+       } 
+     } 
+
+     function Header( $text="" ) { 
+        if ( $text == "" ) { 
+           $text = "This file was generated using PSXlsGen at ".date("r"); 
+        } 
+        if ( $this->totalcol < 1 ) { 
+          $this->totalcol = 1; 
+        } 
+        $this->InsertText( $text ); 
+        $this->crow += 2; 
+        $this->ccol = 0; 
+     } 
+
+     // end of the excel file 
+     function End() 
+     { 
+       $this->xls_data .= pack( "ss", 0x0A, 0x00 ); 
+       return; 
+     } 
+
+     // write a Number (double) into row, col 
+     function WriteNumber_pos( $row, $col, $value ) 
+     { 
+        $this->xls_data .= pack( "sssss", 0x0203, 14, $row, $col, 0x00 ); 
+        $this->xls_data .= pack( "d", $value ); 
+        return; 
+     } 
+
+     // write a label (text) into Row, Col 
+     function WriteText_pos( $row, $col, $value ) 
+     { 
+        $len = strlen( $value ); 
+        $this->xls_data .= pack( "s*", 0x0204, 8 + $len, $row, $col, 0x00, $len ); 
+        $this->xls_data .= $value; 
+        return; 
+     } 
+
+     // insert a number, increment row,col automatically 
+     function InsertNumber( $value ) 
+     { 
+        if ( $this->ccol == $this->totalcol ) { 
+           $this->ccol = 0; 
+           $this->crow++; 
+        } 
+        $this->WriteNumber_pos( $this->crow, $this->ccol, $value ); 
+        $this->ccol++; 
+        return; 
+     } 
+
+     // insert a number, increment row,col automatically 
+     function InsertText( $value ) 
+     { 
+        if ( $this->ccol == $this->totalcol ) { 
+           $this->ccol = 0; 
+           $this->crow++; 
+        } 
+        $this->WriteText_pos( $this->crow, $this->ccol, $value ); 
+        $this->ccol++; 
+        return; 
+     } 
+
+     // Change position of row,col 
+     function ChangePos( $newrow, $newcol ) 
+     { 
+        $this->crow = $newrow; 
+        $this->ccol = $newcol; 
+        return; 
+     } 
+
+     // new line 
+     function NewLine() 
+     { 
+        $this->ccol = 0; 
+        $this->crow++; 
+        return; 
+     } 
+
+
+     // send generated xls as stream file 
+     function SendFile() 
+     { 
+        $this->End(); 
+        header ( "Expires: Mon, 1 Apr 1974 05:00:00 GMT" ); 
+        header ( "Last-Modified: " . gmdate("D,d M Y H:i:s") . " GMT" ); 
+        header ( "Pragma: no-cache" ); 
+        header ( "Content-type: application/x-msexcel" ); 
+        header ( "Content-Disposition: attachment; filename=$this->filename.xls" ); 
+        header ( "Content-Description: PHP Generated XLS Data" ); 
+        print $this->xls_data; 
+     } 
+	 
+     // change the default saving directory 
+     function ChangeDefaultDir( $newdir ) 
+     { 
+       $this->default_dir = $newdir; 
+       return; 
+     } 
+
+     // Save generated xls file 
+     function SaveFile() 
+     { 
+        $this->End(); 
+        $this->fname = $this->default_dir."$this->dirsep".$this->filename; 
+        if ( !stristr( $this->fname, ".xls" ) ) { 
+          $this->fname .= ".xls"; 
+        } 
+        $fp = fopen( $this->fname, "wb" ); 
+        fwrite( $fp, $this->xls_data ); 
+        fclose( $fp ); 
+        return; 
+     } 
+
+     // Get generated xls as specified type 
+     function GetXls( $type = 0 ) { 
+         if ( !$type && !$this->get_type ) { 
+            $this->SendFile(); 
+         } else { 
+            $this->SaveFile(); 
+         } 
+     } 
+   } // end of the class PHP_SIMPLE_XLS_GEN 
+} 
+// end of ifdef PHP_SIMPLE_XLS_GEN 
+
+
 ?>
-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
-TWwweNp+vqkWO8rTVW==

@@ -1,72 +1,104 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<style>
+#header, #footer {
+    background-color:#e79500;
+    color:white;
+    text-align:center;
+	height: 50px;
+	padding: 5px
+}
+
+#section {
+    background-color:#f9d599;
+	padding: 10px
+}
+
+
+
+table {
+        border-collapse: separate;
+        border-spacing: 10px 5px;
+      }
+
+
+td {
+    border:  1px solid black <!--#1d93d1 -->;
+	padding: 5px;
+	margin: 5px;
+}
+
+
+#btnlogin 
+
+{
+    background: #f5b312;
+    border: 1px solid #c6c6c6;
+    background: #f5b312;
+    border-color: #E78282;
+    margin: 10px 0 0 0;
+    color: #fff;
+    right: 9px;
+    bottom: 9px;
+    font-size: 17px;
+    width: 103px;
+    height: 35px;
+    outline: none;
+    cursor: pointer;
+
+}
+
+#user_name, #user_password {
+    padding: 0 8px;
+    margin: 4px auto;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid silver;
+    border-radius: 1px;
+    color: #838383;
+    width: 280px;
+    box-sizing: border-box;
+    direction: ltr;
+    height: 30px;
+    font-size: 16px;
+    text-align: left;
+}
+
+
+#name:hover,#pass:hover {
+    border: 1px solid #b9b9b9;
+    border-top: 1px solid #a0a0a0;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+
+
+
+
+</style>
+
+<div id="header">
+</div>
+
+
+
+<div id="section" class='container' >
+<table>
+<td height="490px"><img src="<?=$themeImagesPath?>admin/ssi_logo_orange.jpg" alt="" align="right" style="width:auto; height:auto;"></td>
+<td>
+    <div id="userbox">
+    	<form method="post" action="">
+        <input name="user_name" id="user_name" placeholder="ID" style="opacity: 1; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;"><br><br>
+        <input name="user_password" id="user_password" type="password" placeholder="Password" style="opacity: 1; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;"><br>
+        <p id="name" style="display: none; opacity: 1;">ID:</p><br>
+        <p id="pass" style="display: none; opacity: 1;">Password:</p>
+        <input id="btnlogin" type="Submit" value="Login" name="Submit"/>
+        <input id="btnlogin" type="reset" value="Clear" name="Submit2" />
+		<!-- <a href=" ">Forgot Password</a> -->
+		</form>
+    </div>
+</td>
+
+</table>
+</div>
+
+<div id="footer">
+<p>Copyright Sagesoft Solution Inc. &copy; 2015</p>
+</div>

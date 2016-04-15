@@ -1,83 +1,96 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-i5wbIw4CaG==
+<?php
+
+require_once 'Swift/Mime/ContentEncoder/PlainContentEncoder.php';
+require_once 'Swift/ByteStream/ArrayByteStream.php';
+
+class Swift_Mime_ContentEncoder_PlainContentEncoderAcceptanceTest
+    extends UnitTestCase
+{
+    private $_samplesDir;
+    private $_encoder;
+
+    public function setUp()
+    {
+        $this->_samplesDir = realpath(dirname(__FILE__) . '/../../../../_samples/charsets');
+        $this->_encoder = new Swift_Mime_ContentEncoder_PlainContentEncoder('8bit');
+    }
+
+    public function testEncodingAndDecodingSamplesString()
+    {
+        $sampleFp = opendir($this->_samplesDir);
+        while (false !== $encodingDir = readdir($sampleFp)) {
+            if (substr($encodingDir, 0, 1) == '.') {
+                continue;
+            }
+
+            $sampleDir = $this->_samplesDir . '/' . $encodingDir;
+
+            if (is_dir($sampleDir)) {
+
+                $fileFp = opendir($sampleDir);
+                while (false !== $sampleFile = readdir($fileFp)) {
+                    if (substr($sampleFile, 0, 1) == '.') {
+                        continue;
+                    }
+
+                    $text = file_get_contents($sampleDir . '/' . $sampleFile);
+                    $encodedText = $this->_encoder->encodeString($text);
+
+                    $this->assertEqual(
+                        $encodedText, $text,
+                        '%s: Encoded string should be identical to original string for sample ' .
+                        $sampleDir . '/' . $sampleFile
+                        );
+                }
+                closedir($fileFp);
+            }
+
+        }
+        closedir($sampleFp);
+    }
+
+    public function testEncodingAndDecodingSamplesByteStream()
+    {
+        $sampleFp = opendir($this->_samplesDir);
+        while (false !== $encodingDir = readdir($sampleFp)) {
+            if (substr($encodingDir, 0, 1) == '.') {
+                continue;
+            }
+
+            $sampleDir = $this->_samplesDir . '/' . $encodingDir;
+
+            if (is_dir($sampleDir)) {
+
+                $fileFp = opendir($sampleDir);
+                while (false !== $sampleFile = readdir($fileFp)) {
+                    if (substr($sampleFile, 0, 1) == '.') {
+                        continue;
+                    }
+
+                    $text = file_get_contents($sampleDir . '/' . $sampleFile);
+
+                    $os = new Swift_ByteStream_ArrayByteStream();
+                    $os->write($text);
+
+                    $is = new Swift_ByteStream_ArrayByteStream();
+
+                    $this->_encoder->encodeByteStream($os, $is);
+
+                    $encoded = '';
+                    while (false !== $bytes = $is->read(8192)) {
+                        $encoded .= $bytes;
+                    }
+
+                    $this->assertEqual(
+                        $encoded, $text,
+                        '%s: Encoded string should be identical to original string for sample ' .
+                        $sampleDir . '/' . $sampleFile
+                        );
+                }
+                closedir($fileFp);
+            }
+
+        }
+        closedir($sampleFp);
+    }
+}

@@ -1,342 +1,564 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+//============================================================+
+// File name   : makefont.php
+// Begin       : 2004-12-31
+// Last Update : 2008-08-05
+// Version     : 1.2.001
+// License     : GNU LGPL (http://www.gnu.org/copyleft/lesser.html)
+// 	----------------------------------------------------------------------------
+// 	Copyright (C) 2008  Nicola Asuni - Tecnick.com S.r.l.
+// 	
+// 	This program is free software: you can redistribute it and/or modify
+// 	it under the terms of the GNU Lesser General Public License as published by
+// 	the Free Software Foundation, either version 2.1 of the License, or
+// 	(at your option) any later version.
+// 	
+// 	This program is distributed in the hope that it will be useful,
+// 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+// 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// 	GNU Lesser General Public License for more details.
+// 	
+// 	You should have received a copy of the GNU Lesser General Public License
+// 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// 	
+// 	See LICENSE.TXT file for more information.
+//  ----------------------------------------------------------------------------
+//
+// Description : Utility to generate font definition files fot TCPDF
+//
+// Author: Nicola Asuni, Olivier Plathey, Steven Wittens
+//
+// (c) Copyright:
+//               Nicola Asuni
+//               Tecnick.com S.r.l.
+//               Via della Pace, 11
+//               09044 Quartucciu (CA)
+//               ITALY
+//               www.tecnick.com
+//               info@tecnick.com
+//============================================================+
+
+/**
+ * Utility to generate font definition files fot TCPDF.
+ * @author Nicola Asuni, Olivier Plathey, Steven Wittens
+ * @copyright 2004-2008 Nicola Asuni - Tecnick.com S.r.l (www.tecnick.com) Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
+ * @package com.tecnick.tcpdf
+ * @link http://www.tcpdf.org
+ * @license http://www.gnu.org/copyleft/lesser.html LGPL
+*/
+
+/**
+ * 
+ * @param string $fontfile path to font file (TTF, OTF or PFB).
+ * @param string $fmfile font metrics file (UFM or AFM).
+ * @param boolean $embedded Set to false to not embed the font, true otherwise (default).
+ * @param string $enc Name of the encoding table to use. Omit this parameter for TrueType Unicode, OpenType Unicode and symbolic fonts like Symbol or ZapfDingBats.
+ * @param array $patch Optional modification of the encoding
+ */
+function MakeFont($fontfile, $fmfile, $embedded=true, $enc="cp1252", $patch=array()) {
+	//Generate a font definition file
+	set_magic_quotes_runtime(0);
+	ini_set('auto_detect_line_endings','1');
+	if (!file_exists($fontfile)) {
+		die('Error: file not found: '.$fontfile);
+	}
+	if (!file_exists($fmfile)) {
+		die('Error: file not found: '.$fmfile);
+	}
+	$cidtogidmap = '';
+	$map = array();
+	$diff='';
+	$ffext = strtolower(substr($fontfile,-3));
+	$fmext = strtolower(substr($fmfile,-3));
+	if ($fmext == 'afm') {
+		if (($ffext == 'ttf') OR ($ffext == 'otf')) {
+			$type = 'TrueType';
+		} elseif ($ffext == 'pfb') {
+			$type = 'Type1';
+		} else {
+			die('Error: unrecognized font file extension: '.$ext);
+		}
+		if ($enc) {
+			$map = ReadMap($enc);
+			foreach ($patch as $cc => $gn) {
+				$map[$cc] = $gn;
+			}
+		}
+		$fm = ReadAFM($fmfile, $map);
+		if ($enc) {
+			$diff = MakeFontEncoding($map);
+		}
+		$fd = MakeFontDescriptor($fm, empty($map));
+	} elseif ($fmext == 'ufm') {
+		$enc = "";
+		if (($ffext == 'ttf') OR ($ffext == 'otf')) {
+			$type = 'TrueTypeUnicode';
+		} else {
+			die('Error: not a TrueType font: '.$ffext);
+		}
+		$fm = ReadUFM($fmfile, $cidtogidmap);
+		$fd = MakeFontDescriptor($fm, false);
+	}
+	
+	//Start generation
+	$s = '<?php'."\n";
+	$s .= '$type=\''.$type."';\n";
+	$s .= '$name=\''.$fm['FontName']."';\n";
+	$s .= '$desc='.$fd.";\n";
+	if (!isset($fm['UnderlinePosition'])) {
+		$fm['UnderlinePosition'] = -100;
+	}
+	if (!isset($fm['UnderlineThickness'])) {
+		$fm['UnderlineThickness'] = 50;
+	}
+	$s .= '$up='.$fm['UnderlinePosition'].";\n";
+	$s .= '$ut='.$fm['UnderlineThickness'].";\n";
+	$w = MakeWidthArray($fm);
+	$s .= '$cw='.$w.";\n";
+	$s .= '$enc=\''.$enc."';\n";
+	$s .= '$diff=\''.$diff."';\n";
+	$basename = substr(basename($fmfile),0,-4);
+	if ($embedded) {
+		//Embedded font
+		if (($type == 'TrueType') OR ($type == 'TrueTypeUnicode')) {
+			CheckTTF($fontfile);
+		}
+		$f = fopen($fontfile,'rb');
+		if (!$f) {
+			die('Error: Unable to open '.$fontfile);
+		}
+		$file = fread($f,filesize($fontfile));
+		fclose($f);
+		if ($type == 'Type1') {
+			//Find first two sections and discard third one
+			$header = (ord($file{0}) == 128);
+			if ($header) {
+				//Strip first binary header
+				$file = substr($file, 6);
+			}
+			$pos = strpos($file, 'eexec');
+			if (!$pos) {
+				die('Error: font file does not seem to be valid Type1');
+			}
+			$size1 = $pos+6;
+			if ($header AND (ord($file{$size1}) == 128)) {
+				//Strip second binary header
+				$file = substr($file, 0, $size1).substr($file, $size1+6);
+			}
+			$pos = strpos($file, '00000000');
+			if (!$pos) {
+				die('Error: font file does not seem to be valid Type1');
+			}
+			$size2 = $pos - $size1;
+			$file = substr($file, 0, $size1+$size2);
+		}
+		if (function_exists('gzcompress')) {
+			$cmp = $basename.'.z';
+			SaveToFile($cmp, gzcompress($file), 'b');
+			$s .= '$file=\''.$cmp."';\n";
+			print "Font file compressed (".$cmp.")\n";
+			if (!empty($cidtogidmap)) {
+				$cmp = $basename.'.ctg.z';
+				SaveToFile($cmp, gzcompress($cidtogidmap), 'b');
+				print "CIDToGIDMap created and compressed (".$cmp.")\n";
+				$s .= '$ctg=\''.$cmp."';\n";
+			}
+		} else {
+			$s .= '$file=\''.basename($fontfile)."';\n";
+			print "Notice: font file could not be compressed (zlib extension not available)\n";
+			if (!empty($cidtogidmap)) {
+				$cmp = $basename.'.ctg';
+				$f = fopen($cmp, 'wb');
+				fwrite($f, $cidtogidmap);
+				fclose($f);
+				print "CIDToGIDMap created (".$cmp.")\n";
+				$s .= '$ctg=\''.$cmp."';\n";
+			}
+		}
+		if($type == 'Type1') {
+			$s .= '$size1='.$size1.";\n";
+			$s .= '$size2='.$size2.";\n";
+		} else {
+			$s.='$originalsize='.filesize($fontfile).";\n";
+		}
+	} else {
+		//Not embedded font
+		$s .= '$file='."'';\n";
+	}
+	$s .= "?>";
+	SaveToFile($basename.'.php',$s);
+	print "Font definition file generated (".$basename.".php)\n";
+}
+
+/**
+ * Read the specified encoding map.
+ * @param string $enc map name (see /enc/ folder for valid names).
+ */
+function ReadMap($enc) {
+	//Read a map file
+	$file = dirname(__FILE__).'/enc/'.strtolower($enc).'.map';
+	$a = file($file);
+	if (empty($a)) {
+		die('Error: encoding not found: '.$enc);
+	}
+	$cc2gn = array();
+	foreach ($a as $l) {
+		if ($l{0} == '!') {
+			$e = preg_split('/[ \\t]+/',rtrim($l));
+			$cc = hexdec(substr($e[0],1));
+			$gn = $e[2];
+			$cc2gn[$cc] = $gn;
+		}
+	}
+	for($i=0; $i <= 255; $i++) {
+		if(!isset($cc2gn[$i])) {
+			$cc2gn[$i] = '.notdef';
+		}
+	}
+	return $cc2gn;
+}
+
+/**
+ * Read UFM file
+ */
+function ReadUFM($file, &$cidtogidmap) {
+	//Prepare empty CIDToGIDMap
+	$cidtogidmap = str_pad('', 256*256*2, "\x00");
+	//Read a font metric file
+	$a = file($file);
+	if (empty($a)) {
+		die('File not found');
+	}
+	$widths = array();
+	$fm = array();
+	foreach($a as $l) {
+		$e = explode(' ',chop($l));
+		if(count($e) < 2) {
+			continue;
+		}
+		$code = $e[0];
+		$param = $e[1];
+		if($code == 'U') {
+			// U 827 ; WX 0 ; N squaresubnosp ; G 675 ;
+			//Character metrics
+			$cc = (int)$e[1];
+			if ($cc != -1) {
+			$gn = $e[7];
+			$w = $e[4];
+			$glyph = $e[10];
+			$widths[$cc] = $w;
+			if($cc == ord('X')) {
+				$fm['CapXHeight'] = $e[13];
+			}
+			// Set GID
+			if ($cc >= 0 && $cc < 0xFFFF && $glyph) {
+				$cidtogidmap{$cc*2} = chr($glyph >> 8);
+				$cidtogidmap{$cc*2 + 1} = chr($glyph & 0xFF);
+			}
+			}
+			if(($gn == '.notdef') AND (!isset($fm['MissingWidth']))) {
+				$fm['MissingWidth'] = $w;
+			}
+		} elseif($code=='FontName') {
+			$fm['FontName']=$param;
+		} elseif($code=='Weight') {
+			$fm['Weight']=$param;
+		} elseif($code=='ItalicAngle') {
+			$fm['ItalicAngle']=(double)$param;
+		} elseif($code=='Ascender') {
+			$fm['Ascender']=(int)$param;
+		} elseif($code=='Descender') {
+			$fm['Descender']=(int)$param;
+		} elseif($code=='UnderlineThickness') {
+			$fm['UnderlineThickness']=(int)$param;
+		} elseif($code=='UnderlinePosition') {
+			$fm['UnderlinePosition']=(int)$param;
+		} elseif($code=='IsFixedPitch') {
+			$fm['IsFixedPitch']=($param=='true');
+		} elseif($code=='FontBBox') {
+			$fm['FontBBox']=array($e[1],$e[2],$e[3],$e[4]);
+		} elseif($code=='CapHeight') {
+			$fm['CapHeight']=(int)$param;
+		} elseif($code=='StdVW') {
+			$fm['StdVW']=(int)$param;
+		}
+	}
+	if(!isset($fm['MissingWidth'])) {
+		$fm['MissingWidth'] = 600;
+	}
+	if(!isset($fm['FontName'])) {
+		die('FontName not found');
+	}
+	$fm['Widths'] = $widths;
+	return $fm;
+}
+
+/**
+ * Read AFM file
+ */
+function ReadAFM($file,&$map) {
+	//Read a font metric file
+	$a = file($file);
+	if(empty($a)) {
+		die('File not found');
+	}
+	$widths = array();
+	$fm = array();
+	$fix = array('Edot'=>'Edotaccent','edot'=>'edotaccent','Idot'=>'Idotaccent','Zdot'=>'Zdotaccent','zdot'=>'zdotaccent',
+		'Odblacute'=>'Ohungarumlaut','odblacute'=>'ohungarumlaut','Udblacute'=>'Uhungarumlaut','udblacute'=>'uhungarumlaut',
+		'Gcedilla'=>'Gcommaaccent','gcedilla'=>'gcommaaccent','Kcedilla'=>'Kcommaaccent','kcedilla'=>'kcommaaccent',
+		'Lcedilla'=>'Lcommaaccent','lcedilla'=>'lcommaaccent','Ncedilla'=>'Ncommaaccent','ncedilla'=>'ncommaaccent',
+		'Rcedilla'=>'Rcommaaccent','rcedilla'=>'rcommaaccent','Scedilla'=>'Scommaaccent','scedilla'=>'scommaaccent',
+		'Tcedilla'=>'Tcommaaccent','tcedilla'=>'tcommaaccent','Dslash'=>'Dcroat','dslash'=>'dcroat','Dmacron'=>'Dcroat','dmacron'=>'dcroat',
+		'combininggraveaccent'=>'gravecomb','combininghookabove'=>'hookabovecomb','combiningtildeaccent'=>'tildecomb',
+		'combiningacuteaccent'=>'acutecomb','combiningdotbelow'=>'dotbelowcomb','dongsign'=>'dong');
+	foreach($a as $l) {
+		$e = explode(' ',rtrim($l));
+		if (count($e) < 2) {
+			continue;
+		}
+		$code = $e[0];
+		$param = $e[1];
+		if ($code == 'C') {
+			//Character metrics
+			$cc = (int)$e[1];
+			$w = $e[4];
+			$gn = $e[7];
+			if(substr($gn,-4) == '20AC') {
+				$gn = 'Euro';
+			}
+			if (isset($fix[$gn])) {
+				//Fix incorrect glyph name
+				foreach ($map as $c => $n) {
+					if ($n == $fix[$gn]) {
+						$map[$c] = $gn;
+					}
+				}
+			}
+			if (empty($map)) {
+				//Symbolic font: use built-in encoding
+				$widths[$cc] = $w;
+			} else {
+				$widths[$gn] = $w;
+				if($gn == 'X') {
+					$fm['CapXHeight'] = $e[13];
+				}
+			}
+			if($gn == '.notdef') {
+				$fm['MissingWidth'] = $w;
+			}
+		} elseif($code=='FontName') {
+			$fm['FontName']=$param;
+		} elseif($code=='Weight') {
+			$fm['Weight']=$param;
+		} elseif($code=='ItalicAngle') {
+			$fm['ItalicAngle']=(double)$param;
+		} elseif($code=='Ascender') {
+			$fm['Ascender']=(int)$param;
+		} elseif($code=='Descender') {
+			$fm['Descender']=(int)$param;
+		} elseif($code=='UnderlineThickness') {
+			$fm['UnderlineThickness']=(int)$param;
+		} elseif($code=='UnderlinePosition') {
+			$fm['UnderlinePosition']=(int)$param;
+		} elseif($code=='IsFixedPitch') {
+			$fm['IsFixedPitch']=($param=='true');
+		} elseif($code=='FontBBox') {
+			$fm['FontBBox']=array($e[1],$e[2],$e[3],$e[4]);
+		} elseif($code=='CapHeight') {
+			$fm['CapHeight']=(int)$param;
+		} elseif($code=='StdVW') {
+			$fm['StdVW']=(int)$param;
+		}
+	}
+	if (!isset($fm['FontName'])) {
+		die('FontName not found');
+	}
+	if (!empty($map)) {
+		if (!isset($widths['.notdef'])) {
+			$widths['.notdef'] = 600;
+		}
+		if (!isset($widths['Delta']) AND isset($widths['increment'])) {
+			$widths['Delta']=$widths['increment'];
+		}
+		//Order widths according to map
+		for ($i=0; $i <= 255; $i++) {
+			if (!isset($widths[$map[$i]])) {
+				print "Warning: character ".$map[$i]." is missing\n";
+				$widths[$i] = $widths['.notdef'];
+			} else {
+				$widths[$i] = $widths[$map[$i]];
+			}
+		}
+	}
+	$fm['Widths'] = $widths;
+	return $fm;
+}
+
+function MakeFontDescriptor($fm, $symbolic = false) {
+	//Ascent
+	$asc = (isset($fm['Ascender']) ? $fm['Ascender'] : 1000);
+	$fd = "array('Ascent'=>".$asc;
+	//Descent
+	$desc = (isset($fm['Descender']) ? $fm['Descender'] : -200);
+	$fd .= ",'Descent'=>".$desc;
+	//CapHeight
+	if (isset($fm['CapHeight'])) {
+		$ch=$fm['CapHeight'];
+	} elseif (isset($fm['CapXHeight'])) {
+		$ch=$fm['CapXHeight'];
+	} else {
+		$ch = $asc;
+	}
+	$fd .= ",'CapHeight'=>".$ch;
+	//Flags
+	$flags = 0;
+	if (isset($fm['IsFixedPitch']) AND $fm['IsFixedPitch']) {
+		$flags += 1<<0;
+	}
+	if ($symbolic) {
+		$flags += 1<<2;
+	} else {
+		$flags += 1<<5;
+	}
+	if (isset($fm['ItalicAngle']) AND ($fm['ItalicAngle'] != 0)) {
+		$flags += 1<<6;
+	}
+	$fd .= ",'Flags'=>".$flags;
+	//FontBBox
+	if (isset($fm['FontBBox'])) {
+		$fbb = $fm['FontBBox'];
+	} else {
+		$fbb = array(0, $des-100, 1000, $asc+100);
+	}
+	$fd .= ",'FontBBox'=>'[".$fbb[0].' '.$fbb[1].' '.$fbb[2].' '.$fbb[3]."]'";
+	//ItalicAngle
+	$ia = (isset($fm['ItalicAngle']) ? $fm['ItalicAngle'] : 0);
+	$fd .= ",'ItalicAngle'=>".$ia;
+	//StemV
+	if (isset($fm['StdVW'])) {
+		$stemv = $fm['StdVW'];
+	} elseif (isset($fm['Weight']) and eregi('(bold|black)',$fm['Weight'])) {
+		$stemv=120;
+	} else {
+		$stemv = 70;
+	}
+	$fd .= ",'StemV'=>".$stemv;
+	//MissingWidth
+	if(isset($fm['MissingWidth'])) {
+		$fd .= ",'MissingWidth'=>".$fm['MissingWidth'];
+	}
+	$fd .= ')';
+	return $fd;
+}
+
+function MakeWidthArray($fm) {
+	//Make character width array
+	$s = "array(";
+	$cw = $fm['Widths'];
+	$els = array();
+	$c = 0;
+	foreach ($cw as $i => $w) {
+		if (is_numeric($i)) {
+			$els[] = $i.'=>'.$w;
+		}
+	}
+	$s .= implode(',', $els);
+	$s .= ')';
+	return $s;
+}
+
+function MakeFontEncoding($map) {
+	//Build differences from reference encoding
+	$ref = ReadMap('cp1252');
+	$s = '';
+	$last = 0;
+	for ($i=32; $i <= 255; $i++) {
+		if ($map[$i] != $ref[$i]) {
+			if ($i != $last+1) {
+				$s .= $i.' ';
+			}
+			$last = $i;
+			$s .= '/'.$map[$i].' ';
+		}
+	}
+	return rtrim($s);
+}
+
+function SaveToFile($file, $s, $mode='t') {
+	$f = fopen($file, 'w'.$mode);
+	if(!$f) {
+		die('Can\'t write to file '.$file);
+	}
+	fwrite($f, $s, strlen($s));
+	fclose($f);
+}
+
+function ReadShort($f) {
+	$a = unpack('n1n',fread($f,2));
+	return $a['n'];
+}
+
+function ReadLong($f) {
+	$a = unpack('N1N',fread($f,4));
+	return $a['N'];
+}
+
+function CheckTTF($file) {
+	//Check if font license allows embedding
+	$f = fopen($file,'rb');
+	if(!$f) {
+		die('Error: unable to open '.$file);
+	}
+	//Extract number of tables
+	fseek($f, 4, SEEK_CUR);
+	$nb = ReadShort($f);
+	fseek($f, 6, SEEK_CUR);
+	//Seek OS/2 table
+	$found = false;
+	for ($i=0; $i < $nb; $i++) {
+		if (fread($f,4)=='OS/2') {
+			$found = true;
+			break;
+		}
+		fseek($f, 12, SEEK_CUR);
+	}
+	if(!$found) {
+		fclose($f);
+		return;
+	}
+	fseek($f, 4, SEEK_CUR);
+	$offset = ReadLong($f);
+	fseek($f, $offset, SEEK_SET);
+	//Extract fsType flags
+	fseek($f, 8, SEEK_CUR);
+	$fsType = ReadShort($f);
+	$rl = ($fsType & 0x02)!=0;
+	$pp = ($fsType & 0x04)!=0;
+	$e = ($fsType & 0x08)!=0;
+	fclose($f);
+	if($rl AND (!$pp) AND (!$e)) {
+		print "Warning: font license does not allow embedding\n";
+	}
+}
+
+$arg = $GLOBALS['argv'];
+if (count($arg) >= 3) {
+	ob_start();
+	array_shift($arg);
+	if (!isset($arg[2])) {
+		$arg[2] = true;
+	}
+	if (!isset($arg[3])) {
+		$arg[3] = 'cp1252';
+	}
+	if (!isset($arg[4])) {
+		$arg[4] = array();
+	}
+	MakeFont($arg[0], $arg[1], $arg[2], $arg[3], $arg[4]);
+	$t = ob_get_clean();
+	print preg_replace('!<BR( /)?>!i', "\n", $t);
+} else {
+	print "Usage: makefont.php <ttf/otf/pfb file> <afm/ufm file> <encoding> <patch>\n";
+}
 ?>
-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
-om==

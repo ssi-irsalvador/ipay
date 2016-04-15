@@ -1,67 +1,161 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-nVhF58Xhch0vvM/l
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2014 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Worksheet
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.8.0, 2014-03-02
+ */
+
+
+/**
+ * PHPExcel_Worksheet_CellIterator
+ *
+ * Used to iterate rows in a PHPExcel_Worksheet
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Worksheet
+ * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Worksheet_CellIterator implements Iterator
+{
+	/**
+	 * PHPExcel_Worksheet to iterate
+	 *
+	 * @var PHPExcel_Worksheet
+	 */
+	private $_subject;
+
+	/**
+	 * Row index
+	 *
+	 * @var int
+	 */
+	private $_rowIndex;
+
+	/**
+	 * Current iterator position
+	 *
+	 * @var int
+	 */
+	private $_position = 0;
+
+	/**
+	 * Loop only existing cells
+	 *
+	 * @var boolean
+	 */
+	private $_onlyExistingCells = true;
+
+	/**
+	 * Create a new cell iterator
+	 *
+	 * @param PHPExcel_Worksheet 		$subject
+	 * @param int						$rowIndex
+	 */
+	public function __construct(PHPExcel_Worksheet $subject = null, $rowIndex = 1) {
+		// Set subject and row index
+		$this->_subject 	= $subject;
+		$this->_rowIndex 	= $rowIndex;
+	}
+
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+		unset($this->_subject);
+	}
+
+	/**
+	 * Rewind iterator
+	 */
+    public function rewind() {
+        $this->_position = 0;
+    }
+
+    /**
+     * Current PHPExcel_Cell
+     *
+     * @return PHPExcel_Cell
+     */
+    public function current() {
+		return $this->_subject->getCellByColumnAndRow($this->_position, $this->_rowIndex);
+    }
+
+    /**
+     * Current key
+     *
+     * @return int
+     */
+    public function key() {
+        return $this->_position;
+    }
+
+    /**
+     * Next value
+     */
+    public function next() {
+        ++$this->_position;
+    }
+
+    /**
+     * Are there any more PHPExcel_Cell instances available?
+     *
+     * @return boolean
+     */
+    public function valid() {
+        // columnIndexFromString() returns an index based at one,
+        // treat it as a count when comparing it to the base zero
+        // position.
+        $columnCount = PHPExcel_Cell::columnIndexFromString($this->_subject->getHighestColumn());
+
+        if ($this->_onlyExistingCells) {
+            // If we aren't looking at an existing cell, either
+            // because the first column doesn't exist or next() has
+            // been called onto a nonexistent cell, then loop until we
+            // find one, or pass the last column.
+            while ($this->_position < $columnCount &&
+                   !$this->_subject->cellExistsByColumnAndRow($this->_position, $this->_rowIndex)) {
+                ++$this->_position;
+            }
+        }
+
+        return $this->_position < $columnCount;
+    }
+
+	/**
+	 * Get loop only existing cells
+	 *
+	 * @return boolean
+	 */
+    public function getIterateOnlyExistingCells() {
+    	return $this->_onlyExistingCells;
+    }
+
+	/**
+	 * Set the iterator to loop only existing cells
+	 *
+	 * @param	boolean		$value
+	 */
+    public function setIterateOnlyExistingCells($value = true) {
+    	$this->_onlyExistingCells = $value;
+    }
+}

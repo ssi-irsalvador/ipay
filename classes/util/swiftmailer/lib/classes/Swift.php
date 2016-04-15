@@ -1,50 +1,81 @@
-<?php //00540
-// Copyright 2016 Sagesoft Solutions Inc.
-// http://sagesoftinc.com/
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
+<?php
+
+/*
+ * This file is part of SwiftMailer.
+ * (c) 2004-2009 Chris Corbyn
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * General utility class in Swift Mailer, not to be instantiated.
+ *
+ * @package Swift
+ *
+ * @author Chris Corbyn
+ */
+abstract class Swift
+{
+    public static $initialized = false;
+    public static $inits = array();
+
+    /** Swift Mailer Version number generated during dist release process */
+    const VERSION = '5.0.0';
+
+    /**
+     * Registers an initializer callable that will be called the first time
+     * a SwiftMailer class is autoloaded.
+     *
+     * This enables you to tweak the default configuration in a lazy way.
+     *
+     * @param mixed $callable A valid PHP callable that will be called when autoloading the first Swift class
+     */
+    public static function init($callable)
+    {
+        self::$inits[] = $callable;
+    }
+
+    /**
+     * Internal autoloader for spl_autoload_register().
+     *
+     * @param string $class
+     */
+    public static function autoload($class)
+    {
+        //Don't interfere with other autoloaders
+        if (0 !== strpos($class, 'Swift_')) {
+            return;
+        }
+
+        $path = dirname(__FILE__).'/'.str_replace('_', '/', $class).'.php';
+
+        if (!file_exists($path)) {
+            return;
+        }
+
+        require $path;
+
+        if (self::$inits && !self::$initialized) {
+            self::$initialized = true;
+            foreach (self::$inits as $init) {
+                call_user_func($init);
+            }
+        }
+    }
+
+    /**
+     * Configure autoloading using Swift Mailer.
+     *
+     * This is designed to play nicely with other autoloaders.
+     *
+     * @param mixed $callable A valid PHP callable that will be called when autoloading the first Swift class
+     */
+    public static function registerAutoload($callable = null)
+    {
+        if (null !== $callable) {
+            self::$inits[] = $callable;
+        }
+        spl_autoload_register(array('Swift', 'autoload'));
+    }
+}
